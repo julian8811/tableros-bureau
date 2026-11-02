@@ -60,10 +60,35 @@
    "id": "prensa-medios",
    "estado": "ok",
    "n": 26
+  },
+  {
+   "archivo": "data/open/bureau_oferta.json",
+   "id": "bureau-oferta",
+   "estado": "ok",
+   "n": 12
+  },
+  {
+   "archivo": "data/open/bureau_seguridad.json",
+   "id": "bureau-seguridad",
+   "estado": "ok",
+   "n": 99
+  },
+  {
+   "archivo": "data/open/bureau_clima.json",
+   "id": "bureau-clima",
+   "estado": "ok",
+   "n": 1
+  },
+  {
+   "archivo": "data/open/bureau_conectividad.json",
+   "id": "bureau-conectividad",
+   "estado": "ok",
+   "n": 67
   }
  ],
  "errores": [
-  "gdelt: RuntimeError: GDELT respondió 429 Too Many Requests. No se inventan menciones."
+  "gdelt: RuntimeError: GDELT respondió 429 Too Many Requests. No se inventan menciones.",
+  "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found"
  ],
  "mercados": [
   "Colombia",
