@@ -324,51 +324,19 @@
   }
 
   function vozDigital() {
-    var wiki = (DATA.wikipedia && DATA.wikipedia.serie) || [];
-    var delAnio = wiki.filter(function (row) { return row.anio === state.anio; });
-    var base = delAnio.filter(function (row) { return row.destino === "Medellín" && trimestre(row.mes) === 1; })
-      .reduce(function (s, row) { return s + row.vistas; }, 0);
-    var porDestino = {};
-    delAnio.forEach(function (row) {
-      var t = trimestre(row.mes);
-      var key = row.destino + "-" + t;
-      porDestino[key] = (porDestino[key] || 0) + row.vistas;
-    });
-    var destinos = DESTINOS.slice();
-    delAnio.forEach(function (row) {
-      if (destinos.indexOf(row.destino) < 0) destinos.push(row.destino);
-    });
-    var barras = destinos.map(function (destino, i) {
-      var total = delAnio.filter(function (row) { return row.destino === destino; }).reduce(function (s, row) { return s + row.vistas; }, 0);
-      return { label: destino, value: total, color: Charts.palette[i % Charts.palette.length], text: num(total) };
-    }).filter(function (item) { return item.value; });
-    var indice = "";
-    if (base) {
-      var puntos = [1, 2, 3, 4].map(function (t) {
-        var vistas = porDestino["Medellín-" + t] || 0;
-        return { x: "T" + t, y: Math.round(vistas / base * 100) };
-      }).filter(function (p) { return p.y; });
-      indice = Charts.line(puntos, "#108181", { mark: 100 });
-    }
-    var gdelt = (DATA.gdelt && DATA.gdelt.serie) || [];
-    var gdAnio = gdelt.filter(function (row) { return row.anio === state.anio; });
-    var sov = "";
-    if (gdAnio.length) {
-      var menciones = {};
-      gdAnio.forEach(function (row) { menciones[row.destino] = (menciones[row.destino] || 0) + row.menciones; });
-      sov = Charts.donut(Object.keys(menciones).map(function (k, i) {
-        return { label: k, value: menciones[k], color: Charts.palette[i], text: num(menciones[k]) };
-      }));
-    } else {
-      sov = hueco("Share of voice de medios", "GDELT no entregó la línea de tiempo en esta descarga. La dona de arriba es la participación de vistas de Wikipedia.");
-    }
-    var ciudad = CIUDAD_DE_PAIS[state.pais];
-    var notaCiudad = "";
-    if (ciudad) {
-      var vistasCiudad = delAnio.filter(function (row) { return row.destino === ciudad; }).reduce(function (s, row) { return s + row.vistas; }, 0);
-      notaCiudad = vistasCiudad ? "<p class='hint'>Artículo asociado a " + esc(etiquetaPais(state.pais)) + ": " + esc(ciudad) + ", " + num(vistasCiudad) + " vistas en " + state.anio + ".</p>" : "";
-    }
-    return block("Interés digital", "Índice de Wikipedia de Medellín, base 100 en el primer trimestre de " + state.anio + ". GDELT, si falta, queda vacío.", (indice || "") + Charts.donut(barras) + notaCiudad + sov + pie("Wikipedia CC0 + GDELT · " + cobertura((DATA.wikipedia || {}).serie) + extraido("wikipedia")));
+    var data = DATA.bureauPrensa || {};
+    var serie = data.serie || [];
+    if (!serie.length) return hueco("Menciones en prensa", "Corra scripts/alimentar_bureau.py para traer las menciones del ETL.");
+    var puntos = serie.map(function (row) { return { x: row.semana, y: row.n }; });
+    var filas = (data.titulares || []).map(function (t) {
+      return "<tr><td>" + esc(t.fecha) + "</td><td>" + esc(t.titulo) + "</td><td>" + esc(t.medio) + "</td></tr>";
+    }).join("");
+    var ventana = (data.ventana_serie || []).join(" a ");
+    var sentTxt = (data.sentimiento_neto == null) ? "sin dato" : ((data.sentimiento_neto >= 0 ? "+" : "") + num(data.sentimiento_neto, 3));
+    return block("Menciones en prensa", "Google News RSS + Reddit, sin login. Sentimiento neto de los titulares: " + sentTxt + ".",
+      Charts.line(puntos, "#108181") +
+      "<h3>Últimos titulares</h3><table><tr><th>Fecha</th><th>Titular</th><th>Búsqueda</th></tr>" + filas + "</table>" +
+      pie("ETL Bureau · Google News RSS + Reddit · sem " + ventana + " · extraído " + (data.descarga || "")));
   }
 
   function tarifas() {
@@ -903,8 +871,7 @@
 
   Promise.all([
     cargar("conectividad.json"),
-    cargar("wikipedia.json"),
-    cargar("gdelt.json"),
+    cargar("bureau_prensa.json"),
     cargar("ema.json"),
     cargar("medata_tarifas.json"),
     cargar("icca.json"),
@@ -916,17 +883,16 @@
     cargar("informe_llm.json")
   ]).then(function (piezas) {
     DATA.conectividad = piezas[0];
-    DATA.wikipedia = piezas[1];
-    DATA.gdelt = piezas[2];
-    DATA.ema = piezas[3];
-    DATA.medata = piezas[4];
-    DATA.icca = piezas[5];
-    DATA.evi = piezas[6];
-    DATA.huella = piezas[7];
-    DATA.manifiesto = piezas[8];
-    DATA.bureauMarca = piezas[9];
-    DATA.bureauPaises = piezas[10];
-    DATA.informe = piezas[11];
+    DATA.bureauPrensa = piezas[1];
+    DATA.ema = piezas[2];
+    DATA.medata = piezas[3];
+    DATA.icca = piezas[4];
+    DATA.evi = piezas[5];
+    DATA.huella = piezas[6];
+    DATA.manifiesto = piezas[7];
+    DATA.bureauMarca = piezas[8];
+    DATA.bureauPaises = piezas[9];
+    DATA.informe = piezas[10];
     leerUrl();
     if (!DATA.conectividad || !DATA.ema || !DATA.icca) {
       document.getElementById("app").innerHTML = hueco("Faltan agregados", "Abra esta carpeta con un servidor local después de correr scripts/preparar_fuentes.py.");
