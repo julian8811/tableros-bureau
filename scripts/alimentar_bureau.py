@@ -5,6 +5,7 @@ propias (icca/evi/huella/informe) ni reescribe conectividad/ema/wikipedia.
 Si una fuente falla, el JSON anterior queda.
 """
 import json
+import re
 import traceback
 import urllib.request
 from pathlib import Path
@@ -16,6 +17,17 @@ OUT.mkdir(parents=True, exist_ok=True)
 BASE = "https://raw.githubusercontent.com/julian8811/bureau-inteligencia-turistica/main/etl-bureau/export/tableros_bureau"
 UA = {"User-Agent": "TablerosBureau/1.0"}
 ERRORES = []
+
+# Piezas que gestiona este script dentro de data/open. Se usan para limpiar
+# asientos viejos del manifiesto sin tocar las piezas propias del tablero.
+_PIEZAS_PROPIAS = ("bureau_marca_llm.json", "bureau_paises_2025_2026.json")
+_IDS_PROPIOS = ("marca-llm", "bureau-paises")
+
+
+def _es_pieza_propia(entrada):
+    pid = str(entrada.get("id", ""))
+    arch = Path(str(entrada.get("archivo", ""))).name
+    return pid in _IDS_PROPIOS or arch in _PIEZAS_PROPIAS
 
 
 def bajar(nombre):
@@ -50,10 +62,13 @@ def marca_llm():
         }
         for c in cats
     ]
+    ventana = str(src.get("ventana", ""))
     guardar("bureau_marca_llm.json", {
         "id": "marca-llm",
         "titulo": "Conversación digital clasificada por LLM",
-        "fuente": "ETL Bureau (alerts_rss + prensa_rss, Groq) " + str(src.get("ventana", "")),
+        "fuente": "ETL Bureau (alerts_rss + prensa_rss, Groq) " + ventana,
+        "ventana": ventana,
+        "ventana_anios": sorted({int(y) for y in re.findall(r"20\d{2}", ventana)}),
         "url": BASE + "/marca_llm_2025_2026.json",
         "licencia": "Agregados propios del ETL; titulares de sus medios originales.",
         "universo": "Titulares de la ventana corriente clasificados en MICE/vacacional/marca/seguridad/clima/infraestructura/otro.",
@@ -90,7 +105,7 @@ def manifiesto():
         previo = json.loads((OUT / "manifiesto.json").read_text(encoding="utf-8"))
     except Exception:
         previo = {"generado": "", "piezas": [], "errores": []}
-    piezas = [x for x in previo.get("piezas", []) if not str(x.get("archivo", "")).startswith("bureau_")]
+    piezas = [x for x in previo.get("piezas", []) if not _es_pieza_propia(x)]
     for nombre, pid, clave in (
         ("bureau_marca_llm.json", "marca-llm", "serie"),
         ("bureau_paises_2025_2026.json", "bureau-paises", "serie"),

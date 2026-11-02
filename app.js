@@ -297,10 +297,14 @@
     var data = DATA.bureauMarca || {};
     var serie = data.serie || [];
     if (!serie.length) return hueco("Marca por LLM", "Corra scripts/alimentar_bureau.py para traer la clasificación del ETL.");
-    var mVent = String(data.ventana || data.fuente || "").match(/20\d{2}/);
-    var ventanaAnio = mVent ? Number(mVent[0]) : null;
-    var ventanaTxt = data.ventana || (mVent ? mVent[0] + " (ver fuente)" : "ventana corriente");
-    if (ventanaAnio && ventanaAnio !== state.anio) return hueco("Marca por LLM", "La clasificación LLM cubre la ventana " + ventanaTxt + ". Cambie el filtro a " + ventanaAnio + " para verla.");
+    var ventanaTxt = data.ventana || "ventana corriente";
+    if (Array.isArray(data.ventana_anios) && data.ventana_anios.length) {
+      if (data.ventana_anios.indexOf(state.anio) < 0) return hueco("Marca por LLM", "La clasificación LLM cubre " + ventanaTxt + ". Cambie el filtro a " + data.ventana_anios.join(", ") + " para verla.");
+    } else {
+      var mVent = String(data.ventana || data.fuente || "").match(/20\d{2}/);
+      var ventanaAnio = mVent ? Number(mVent[0]) : null;
+      if (ventanaAnio && ventanaAnio !== state.anio) return hueco("Marca por LLM", "La clasificación LLM cubre la ventana " + (data.ventana || mVent[0] + " (ver fuente)") + ". Cambie el filtro a " + ventanaAnio + " para verla.");
+    }
     var total = serie.reduce(function (s, row) { return s + (row.n || 0); }, 0);
     var items = serie.map(function (row, i) {
       return { label: row.categoria, value: row.n, text: num(row.n) + " · " + num((row.share || 0) * 100, 1) + "%", color: Charts.palette[i % Charts.palette.length] };
