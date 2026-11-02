@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 """Trae los agregados del ETL Bureau (repo bureau-inteligencia-turistica)
 y los deja en data/open con el schema de este tablero. No toca las piezas
-propias (icca/evi/huella/informe) ni reescribe conectividad/ema/wikipedia.
-Si una fuente falla, el JSON anterior queda.
+propias (icca/evi/huella/informe) ni reescribe conectividad/ema/medata.
+Wikipedia y GDELT salieron del tablero: la señal digital ahora es prensa
+(bureau_prensa.json). Si una fuente falla, el JSON anterior queda.
 """
 import json
+import datetime as _dt
 import re
 import traceback
 import urllib.request
@@ -20,8 +22,9 @@ ERRORES = []
 
 # Piezas que gestiona este script dentro de data/open. Se usan para limpiar
 # asientos viejos del manifiesto sin tocar las piezas propias del tablero.
-_PIEZAS_PROPIAS = ("bureau_marca_llm.json", "bureau_paises_2025_2026.json")
-_IDS_PROPIOS = ("marca-llm", "bureau-paises")
+_PIEZAS_PROPIAS = ("bureau_marca_llm.json", "bureau_paises_2025_2026.json",
+                    "bureau_prensa.json")
+_IDS_PROPIOS = ("marca-llm", "bureau-paises", "prensa-medios")
 
 
 def _es_pieza_propia(entrada):
@@ -100,6 +103,31 @@ def paises():
     print("paises", len(serie), "filas")
 
 
+def prensa():
+    try:
+        src = bajar("prensa_medios.json")
+    except Exception as exc:
+        ERRORES.append("prensa: " + "".join(traceback.format_exception_only(type(exc), exc)).strip())
+        print("falla prensa, se conserva el anterior")
+        return
+    serie = src.get("serie", src if isinstance(src, list) else [])
+    guardar("bureau_prensa.json", {
+        "id": "prensa-medios",
+        "titulo": "Menciones en prensa (ETL Bureau)",
+        "fuente": "ETL Bureau, Google News RSS + Reddit",
+        "url": BASE + "/prensa_medios.json",
+        "licencia": "Agregados propios del ETL; titulares de sus medios originales.",
+        "universo": "Titulares recientes y conteo semanal de menciones. Reemplaza a Wikipedia/GDELT como señal digital.",
+        "descarga": src.get("generado", _dt.date.today().isoformat()),
+        "ventana_serie": src.get("ventana_serie", []),
+        "serie": serie,
+        "titulares": src.get("titulares", []),
+        "sentimiento_neto": src.get("sentimiento_neto"),
+        "n_total_menciones": src.get("n_total_menciones", len(serie)),
+    })
+    print("prensa", len(serie), "semanas")
+
+
 def manifiesto():
     try:
         previo = json.loads((OUT / "manifiesto.json").read_text(encoding="utf-8"))
@@ -109,6 +137,7 @@ def manifiesto():
     for nombre, pid, clave in (
         ("bureau_marca_llm.json", "marca-llm", "serie"),
         ("bureau_paises_2025_2026.json", "bureau-paises", "serie"),
+        ("bureau_prensa.json", "prensa-medios", "serie"),
     ):
         path = OUT / nombre
         if not path.exists():
@@ -130,4 +159,5 @@ def manifiesto():
 if __name__ == "__main__":
     marca_llm()
     paises()
+    prensa()
     manifiesto()

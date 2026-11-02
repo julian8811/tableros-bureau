@@ -54,6 +54,12 @@
    "id": "bureau-paises",
    "estado": "ok",
    "n": 788
+  },
+  {
+   "archivo": "data/open/bureau_prensa.json",
+   "id": "prensa-medios",
+   "estado": "ok",
+   "n": 26
   }
  ],
  "errores": [
