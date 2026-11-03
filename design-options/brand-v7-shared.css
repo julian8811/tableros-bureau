@@ -106,6 +106,16 @@ html,body{margin:0}
   line-height:1.1;
 }
 .kpi .meta{margin:0;font-size:11px;color:var(--text-2)}
+.kpi .value.v-sm{font-size:clamp(18px,2.8vw,22px)}
+
+.kpi-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
+}
+.kpi-grid.kpi-2{grid-template-columns:1fr 1fr}
+.kpi-grid.kpi-3{grid-template-columns:1fr 1fr 1fr}
+.kpi-grid.kpi-4,.pulso-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 
 .kpi-hero{
   padding:18px 20px;
@@ -138,11 +148,12 @@ html,body{margin:0}
 }
 .stage.sq{width:min(100%,1080px);aspect-ratio:1/1}
 .stage.story{width:min(100%,420px);aspect-ratio:9/16;max-height:92vh}
-.stage.email{width:min(100%,600px)}
-.stage.a4{
-  width:min(100%,794px);
-  aspect-ratio:210/297;
-  max-height:92vh;
+/* Email = documento 600px: crece con el contenido (no recortar). */
+.stage.email{
+  width:min(100%,600px);
+  height:auto;
+  overflow:visible;
+  border-radius:18px;
 }
 
 .stage-bg{
@@ -153,6 +164,9 @@ html,body{margin:0}
     radial-gradient(480px 280px at 70% 90%,rgba(16,129,129,.2),transparent 55%),
     linear-gradient(165deg,#0b1220 0%,#172139 55%,#122038 100%);
   pointer-events:none;
+}
+.stage.email .stage-bg{
+  position:absolute;top:0;left:0;right:0;bottom:0;min-height:100%;height:100%;
 }
 
 .stage-inner{
@@ -186,6 +200,10 @@ html,body{margin:0}
   overflow:hidden;
 }
 .rank .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:99px}
+.rank-bars li{grid-template-columns:28px 1fr auto;grid-template-rows:auto auto;align-items:center}
+.rank-bars .n{grid-row:1 / 3;align-self:center}
+.rank-bars .bar{grid-column:2 / -1}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:end}
 
 .cta{
   display:inline-flex;
@@ -233,26 +251,64 @@ html,body{margin:0}
 .h-story{font-size:clamp(22px,5vw,28px)!important;max-width:16ch}
 .foot-story{gap:10px}
 
-.stage.a4 .stage-inner,
-.stage-inner-a4{
-  padding:22px 24px 18px;
-  grid-template-rows:auto auto 1fr auto;
-  gap:12px;
+.stage.email .stage-inner,
+.stage-inner-email{
+  height:auto;
+  min-height:0;
+  padding:22px 22px 18px;
+  grid-template-rows:auto;
+  gap:14px;
 }
-.h-a4{font-size:clamp(18px,2.6vw,26px)!important;max-width:28ch}
-.kpi-grid.kpi-3{grid-template-columns:1fr 1fr 1fr}
-.secs{display:grid;grid-template-columns:1fr 1fr;gap:12px;min-height:0}
-.sec{
+.email-head{display:grid;gap:8px}
+.h-email{font-size:clamp(22px,4.5vw,28px)!important;max-width:16ch}
+.lead-email{font-size:13px;max-width:42ch}
+.email-hero .kpi-hero-sm{
+  padding:14px 16px;
+  border-color:rgba(0,174,172,.35);
+  background:linear-gradient(165deg,rgba(0,174,172,.12),rgba(255,255,255,.04));
+}
+.email-hero .kpi-hero-sm .value{font-size:clamp(26px,5vw,34px);color:#fff}
+.email-band{display:grid;gap:8px}
+.email-sec{margin:0;letter-spacing:.1em}
+.email-pulso{grid-template-columns:1fr 1fr;gap:8px}
+.kpi-compact{padding:10px 12px;gap:2px}
+.kpi-compact .value.v-sm{font-size:18px}
+.kpi-compact .meta{font-size:10px;line-height:1.3}
+.email-split{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:10px;
+  align-items:start;
+}
+.email-panel{
   padding:12px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.16);
-  background:rgba(255,255,255,.04);
-  display:grid;gap:8px;align-content:start;
+  display:grid;
+  gap:8px;
+  align-content:start;
+  border-radius:14px;
 }
-.sec h2{margin:0;font-size:13px;color:var(--gold);letter-spacing:.06em;text-transform:uppercase}
-.sec p{margin:0;font-size:12px;color:var(--text-2);line-height:1.4}
-.sec .fig{width:100%;height:auto}
-@media (max-width:700px){
-  .stage.a4{aspect-ratio:auto;max-height:none}
-  .secs{grid-template-columns:1fr}
+.email-note{margin:0;font-size:11px;color:var(--text-2);line-height:1.4}
+.rank-email{gap:6px}
+.rank-email li{padding:8px 10px;gap:8px}
+.rank-email .pais{font-size:12px}
+.rank-email .val{font-size:12px}
+.insight-email{font-size:12.5px;padding:12px 14px}
+.email-foot{
+  display:grid;
+  gap:10px;
+  border-top:1px solid rgba(255,255,255,.14);
+  padding-top:12px;
+}
+.email-foot .cta{width:100%;min-height:44px;font-size:13px}
+@media (max-width:560px){
+  .email-split{grid-template-columns:1fr}
+  .email-pulso,.kpi-grid.kpi-2{grid-template-columns:1fr 1fr}
+}
+@media print{
+  .stage.email{
+    width:100%!important;max-width:none!important;
+    height:auto!important;overflow:visible!important;
+    box-shadow:none!important;break-inside:auto;
+  }
+  .stage.email .stage-inner,.stage-inner-email{height:auto!important}
 }

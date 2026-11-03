@@ -382,12 +382,15 @@ window.Piezas = (function () {
     return chips.slice(0, 4);
   }
 
+  /** Boletín email 600px — única variante (datos vivos del dashboard). */
   function htmlBoletinA(d) {
     d = d || {};
     var top = d.top || [];
+    var mincitTop = d.mincitTop || [];
     var shareTxt = d.shareColombia != null
-      ? "Share Colombia " + fmtPct01(d.shareColombia)
+      ? "Share CO " + fmtPct01(d.shareColombia)
       : "MinCIT VNR";
+    if (d.shareAntioquia != null) shareTxt += " · Ant. " + fmtPct01(d.shareAntioquia);
     var maxTop = Math.max.apply(null, top.map(function (r) { return r.valor || 0; }).concat([1]));
     var rows = top.slice(0, 5).map(function (r, i) {
       var w = Math.max(8, Math.round((r.valor / maxTop) * 100));
@@ -398,92 +401,64 @@ window.Piezas = (function () {
     var t0 = top[0] || { pais: "—", valor: 0 };
     var chips = pulsoChips(d);
     var pulso = chips.length
-      ? '<p class="kicker" style="margin:0">Pulso del tablero</p><div class="kpi-grid kpi-' + Math.min(chips.length, 4) + ' pulso-grid">' +
-        chips.map(function (c) {
-          return '<div class="kpi glass"><p class="label">' + esc(c.label) + '</p><p class="value v-sm">' + esc(c.value) +
+      ? '<section class="email-band">' +
+        '<p class="kicker email-sec">Pulso del tablero</p>' +
+        '<div class="kpi-grid kpi-2 email-pulso">' +
+        chips.slice(0, 4).map(function (c) {
+          return '<div class="kpi glass kpi-compact"><p class="label">' + esc(c.label) + '</p><p class="value v-sm">' + esc(c.value) +
             '</p><p class="meta">' + esc(c.meta) + "</p></div>";
-        }).join("") + "</div>"
+        }).join("") + "</div></section>"
       : "";
-    var mincitHint = (d.mincitTop && d.mincitTop[0])
-      ? " En MinCIT Medellín lidera <b class='teal'>" + esc(nombreCorto(d.mincitTop[0].pais)) + "</b>."
+    var receptivo = mincitTop.length
+      ? '<section class="email-panel glass">' +
+        '<p class="kicker email-sec">Receptivo Medellín · MinCIT</p>' +
+        '<p class="email-note">Visitantes no residentes con destino ciudad. No sumar con Migración ni Aerocivil.</p>' +
+        barrasMiniSvg(mincitTop.slice(0, 4), "Top MinCIT MDE " + d.anio, STACK_COLORS) +
+        "</section>"
+      : "";
+    var mincitHint = (mincitTop[0])
+      ? " En MinCIT Medellín lidera <b class='teal'>" + esc(nombreCorto(mincitTop[0].pais)) + "</b>."
       : "";
     return (
-      '<article class="pieza-stage stage email" id="pieza-export" data-export="boletin-a">' +
-      '<div class="stage-bg" aria-hidden="true"></div><div class="stage-inner stage-inner-email">' +
-      '<header class="pieza-head"><div class="logos dark">' +
-      '<img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau">' +
-      '<img class="logo-colmayor" src="assets/logo_colmayor_blanco.png" alt="Colmayor">' +
-      '</div><div class="gold-bar"></div>' +
-      '<p class="kicker">Boletín de inteligencia · ' + esc(d.anio) +
-      (d.corte && String(d.corte) !== String(d.anio) ? " · corte " + esc(d.corte) : "") + "</p>" +
-      '<h1 class="h-title">Emisores, receptivo y pulso · Medellín / Colombia</h1>' +
-      '<p class="lead">Resumen para stakeholders. Datos vivos del tablero (Migración, MinCIT VNR, EMA, ICCA, EVI, Aerocivil). Universos etiquetados · sin CRM.</p></header>' +
-      '<div class="kpi-grid kpi-2">' +
-      '<div class="kpi glass"><p class="label">Entradas CO · ' + esc(codigoPais(t0.pais)) + '</p><p class="value v-sm">' + esc(cortoMillones(t0.valor)) + '</p><p class="meta">' + esc(nombreCorto(t0.pais)) + " · " + esc(pct(t0.valor, d.total)) + " · Migración</p></div>" +
-      '<div class="kpi glass"><p class="label">Medellín VNR</p><p class="value v-sm">' + esc(cortoMillones(d.medellin)) + '</p><p class="meta">' + esc(shareTxt) + "</p></div>" +
-      "</div>" +
-      pulso +
-      '<p class="kicker" style="margin:0">Top emisores Colombia (Migración)</p>' +
-      "<ol class='rank rank-bars'>" + rows + "</ol>" +
-      '<p class="insight">El top emisor nacional (<b class="gold">' + esc(nombreCorto(t0.pais)) +
-      "</b>) no sustituye el ranking MinCIT de destino Medellín." + mincitHint +
-      " No sumar Migración + MinCIT + Aerocivil.</p>" +
-      '<a class="cta" href="index.html?tab=mercados">Abrir tableros</a>' +
-      '<p class="fuente"><b>Fuentes:</b> ' + esc(d.fuenteMig) + " · " + esc(d.fuenteMincit) +
-      " · " + esc(d.fuenteEma) + " · " + esc(d.fuenteIcca) + " · " + esc(d.fuenteEvi) +
-      " · Bureau · Colmayor V7</p>" +
-      "</div></article>"
-    );
-  }
-
-  /** Boletín B · A4 vertical */
-  function htmlBoletinB(d) {
-    d = d || {};
-    var top = d.top || [];
-    var mincitTop = d.mincitTop || [];
-    var shareTxt = d.shareColombia != null ? fmtPct01(d.shareColombia) : "—";
-    var chips = pulsoChips(d);
-    var pulsoLis = chips.map(function (c) {
-      return "<li><span>" + esc(c.label) + "</span><strong>" + esc(c.value) + "</strong><em>" + esc(c.meta) + "</em></li>";
-    }).join("");
-    return (
-      '<article class="pieza-stage stage a4" id="pieza-export" data-export="boletin-b">' +
+      '<article class="pieza-stage stage email boletin-email" id="pieza-export" data-export="boletin-email">' +
       '<div class="stage-bg" aria-hidden="true"></div>' +
-      '<div class="stage-inner stage-inner-a4">' +
-      '<header class="pieza-head">' +
+      '<div class="stage-inner stage-inner-email">' +
+      '<header class="pieza-head email-head">' +
       '<div class="logos dark">' +
       '<img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau">' +
       '<img class="logo-colmayor" src="assets/logo_colmayor_blanco.png" alt="Colmayor">' +
       "</div>" +
       '<div class="gold-bar"></div>' +
-      '<p class="kicker">Boletín TEC-Bureau · hoja A4 · datos vivos</p>' +
-      '<h1 class="h-title h-a4">Receptivo, emisores y pulso · Medellín / Colombia ' + esc(d.anio) + "</h1>" +
-      '<p class="lead">Una página para comité. MinCIT VNR (ciudad), Migración (país) y señales EMA/ICCA/EVI/Aerocivil del dashboard.</p>' +
+      '<p class="kicker">Boletín de inteligencia · ' + esc(d.anio) +
+      (d.corte && String(d.corte) !== String(d.anio) ? " · corte " + esc(d.corte) : "") + "</p>" +
+      '<h1 class="h-title h-email">Emisores, receptivo y pulso</h1>' +
+      '<p class="lead lead-email">Medellín / Colombia · resumen para stakeholders con datos vivos del tablero. Universos etiquetados · sin CRM.</p>' +
       "</header>" +
-      '<div class="kpi-grid kpi-3">' +
-      '<div class="kpi glass"><p class="label">Medellín VNR</p><p class="value v-sm">' + esc(cortoMillones(d.medellin)) + '</p><p class="meta">MinCIT ' + esc(d.anio) + "</p></div>" +
-      '<div class="kpi glass"><p class="label">Share CO</p><p class="value v-sm">' + esc(shareTxt) + '</p><p class="meta">Medellín / país' +
-      (d.shareAntioquia != null ? " · Ant. " + esc(fmtPct01(d.shareAntioquia)) : "") + "</p></div>" +
-      '<div class="kpi glass"><p class="label">Top Migración</p><p class="value v-sm">' + esc(codigoPais(top[0] && top[0].pais)) + '</p><p class="meta">' + esc(cortoMillones(top[0] && top[0].valor)) + " entradas</p></div>" +
+      '<div class="kpi-grid kpi-2 email-hero">' +
+      '<div class="kpi glass kpi-hero-sm"><p class="label">Entradas CO · ' + esc(codigoPais(t0.pais)) + '</p>' +
+      '<p class="value">' + esc(cortoMillones(t0.valor)) + '</p>' +
+      '<p class="meta">' + esc(nombreCorto(t0.pais)) + " · " + esc(pct(t0.valor, d.total)) + " · Migración</p></div>" +
+      '<div class="kpi glass kpi-hero-sm"><p class="label">Medellín VNR</p>' +
+      '<p class="value">' + esc(cortoMillones(d.medellin)) + '</p>' +
+      '<p class="meta">' + esc(shareTxt) + "</p></div>" +
       "</div>" +
-      '<div class="secs secs-3">' +
-      '<section class="sec glass"><h2>1 · Receptivo Medellín</h2>' +
-      "<p>Visitantes no residentes con destino ciudad (MinCIT VNR). No sumar con Aerocivil ni Migración.</p>" +
-      barrasMiniSvg(mincitTop.length ? mincitTop : top, "Top MinCIT MDE " + d.anio, STACK_COLORS) +
+      pulso +
+      '<div class="email-split">' +
+      '<section class="email-panel glass">' +
+      '<p class="kicker email-sec">Top emisores · Migración</p>' +
+      "<ol class='rank rank-bars rank-email'>" + rows + "</ol>" +
       "</section>" +
-      '<section class="sec glass"><h2>2 · Emisores Colombia</h2>' +
-      "<p>Cruces de entrada (Migración). Origen nacional, no ciudad destino.</p>" +
-      barrasMiniSvg(top, "Top Migración CO " + d.anio, ["#E9901E", "#FBBB28", "#00AEAC"]) +
-      "</section>" +
-      '<section class="sec glass sec-pulso"><h2>3 · Pulso tablero</h2>' +
-      "<p>Señales de Mercados / Visitante del mismo corte.</p>" +
-      (pulsoLis ? "<ul class='pulso-list'>" + pulsoLis + "</ul>" : "<p>Sin series EMA/ICCA/EVI en el pack.</p>") +
-      "</section></div>" +
-      '<p class="insight" style="font-size:12px">No sumar receptivo MinCIT con emisores Migración ni con Aerocivil: son universos distintos (ciudad destino vs entradas nacionales vs pasajeros aéreos).</p>' +
-      '<footer class="foot">' +
-      '<p class="fuente"><b>Fuentes:</b> ' + esc(d.fuenteMincit) + " · " + esc(d.fuenteMig) +
-      " · " + esc(d.fuenteEma) + " · " + esc(d.fuenteIcca) + " · " + esc(d.fuenteEvi) + " · " + esc(d.fuenteCon) + "</p>" +
-      '<p class="fuente">Greater Medellín CVB · Colmayor Manual V7</p>' +
+      receptivo +
+      "</div>" +
+      '<p class="insight insight-email">El top emisor nacional (<b class="gold">' + esc(nombreCorto(t0.pais)) +
+      "</b>) no sustituye el ranking MinCIT de destino ciudad." + mincitHint +
+      " No sumar Migración + MinCIT + Aerocivil.</p>" +
+      '<footer class="email-foot">' +
+      '<a class="cta" href="index.html?tab=mercados">Abrir tableros</a>' +
+      '<p class="fuente"><b>Fuentes:</b> ' + esc(d.fuenteMig) + " · " + esc(d.fuenteMincit) +
+      " · " + esc(d.fuenteEma) + " · " + esc(d.fuenteIcca) + " · " + esc(d.fuenteEvi) +
+      (d.fuenteCon ? " · " + esc(d.fuenteCon) : "") +
+      " · Bureau · Colmayor V7</p>" +
       "</footer></div></article>"
     );
   }
@@ -543,13 +518,18 @@ window.Piezas = (function () {
   }
 
   function cssExportExtras(kind) {
+    var printPage =
+      kind === "boletin_a" || kind === "boletin"
+        ? "@page{size:auto;margin:10mm}"
+        : "@page{size:landscape;margin:8mm}";
     var common =
       "html,body{margin:0;background:#0e1422!important}" +
       ".no-print,.pieza-dl,.opts,.site,.mando,.footer-doc,.skip,#tip,.modal-back,.aviso,.check{display:none!important}" +
-      ".stage-wrap{padding:24px;display:grid;place-items:center;min-height:100vh;box-sizing:border-box}" +
+      ".stage-wrap{padding:16px;display:grid;justify-items:center;align-content:start;min-height:0;box-sizing:border-box}" +
       "@media print{" +
-      "  @page{size:landscape;margin:8mm}" +
+      "  " + printPage +
       "  html,body{background:#0e1422!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}" +
+      "  .stage-wrap{padding:0!important;min-height:0!important}" +
       "  .deck{padding:0!important;gap:0!important}" +
       "  .slide{break-after:page;page-break-after:always;box-shadow:none!important;width:100%!important;max-width:none!important}" +
       "}" ;
@@ -560,12 +540,21 @@ window.Piezas = (function () {
         ".export-informe .slide{width:min(100%,1280px)}" +
         ".export-informe .back{display:none!important}";
     }
+    /* Documentos email/A4: altura automática — no clip por aspect-ratio. */
     return common +
       "body{background:#0c1526!important;color:#eef3f3!important}" +
-      ".stage.sq{width:min(100%,1080px);aspect-ratio:1/1}" +
-      ".stage.story{width:min(100%,420px);aspect-ratio:9/16}" +
-      ".stage.email{width:min(100%,600px)}" +
-      ".stage.a4{width:min(100%,794px);aspect-ratio:210/297}";
+      ".stage.sq{width:min(100%,1080px);aspect-ratio:1/1;overflow:hidden}" +
+      ".stage.story{width:min(100%,420px);aspect-ratio:9/16;overflow:hidden}" +
+      ".stage.email{" +
+      "  width:min(100%,600px);height:auto!important;aspect-ratio:auto!important;" +
+      "  max-height:none!important;overflow:visible!important" +
+      "}" +
+      ".stage.email .stage-inner,.stage-inner-email{" +
+      "  height:auto!important;min-height:0!important;grid-template-rows:auto!important" +
+      "}" +
+      "@media print{" +
+      "  .stage.email{width:100%!important;max-width:none!important;box-shadow:none!important}" +
+      "}";
   }
 
   function tituloExport(kind, anio) {
@@ -573,9 +562,8 @@ window.Piezas = (function () {
       infografia_a: "Infografia_A_Hero_KPI",
       infografia_b: "Infografia_B_Ranking",
       infografia_c: "Infografia_C_Story",
-      boletin_a: "Boletin_A_Email",
-      boletin_b: "Boletin_B_A4",
-      boletin: "Boletin",
+      boletin_a: "Boletin_Email",
+      boletin: "Boletin_Email",
       informe: "Informe_TEC_Bureau"
     };
     return (map[kind] || kind || "Pieza_Bureau") + "_" + (anio || "corte");
@@ -591,13 +579,11 @@ window.Piezas = (function () {
         fetchText("design-options/informe-tec-deck.css"),
         fetchText("design-options/brand-v7-shared.css")
       ]
-      : [
-        fetchText("design-options/brand-v7-shared.css"),
-        fetchText("styles.css")
-      ];
+      : [fetchText("design-options/brand-v7-shared.css")];
     return Promise.all(fetches).then(function (cssArr) {
       var primary = absolutizarHtml(cssArr[0] || "");
       var secondary = absolutizarHtml(cssArr[1] || "");
+      /* Piezas: brand-v7 define layout (export no envuelve .pieza-live). */
       var css = kind === "informe"
         ? primary + "\n" + secondary + "\n" + cssExportExtras(kind)
         : primary + "\n" + cssExportExtras(kind);
@@ -680,7 +666,6 @@ window.Piezas = (function () {
     htmlInfografiaB: htmlInfografiaB,
     htmlInfografiaC: htmlInfografiaC,
     htmlBoletinA: htmlBoletinA,
-    htmlBoletinB: htmlBoletinB,
     botonesDescarga: botonesDescarga,
     descargarHtml: descargarHtml,
     descargarPdf: descargarPdf,

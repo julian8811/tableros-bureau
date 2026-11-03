@@ -3,65 +3,82 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Boletín A · Email 600px</title>
+<title>Boletín · Email 600px</title>
 <link rel="stylesheet" href="brand-v7-shared.css">
-<style>
-  .stage.email{min-height:auto;aspect-ratio:auto}
-  .stage.email .stage-inner{grid-template-rows:auto;gap:14px;padding:22px 20px}
-  .kpi-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .rank li{padding:8px 10px}
-  .rank .pais{font-size:12px}
-</style>
 </head>
 <body>
   <div class="stage-wrap">
-    <p class="stage-label">Boletín A · 600px email/web</p>
-    <div class="dl-bar" style="display:flex;gap:8px;justify-content:center;margin-bottom:8px">
+    <p class="stage-label">Boletín · 600px email/web · mock estático</p>
+    <div class="dl-bar" style="display:flex;gap:8px;justify-content:center;margin-bottom:8px;flex-wrap:wrap">
       <button type="button" id="btn-html" style="border:0;border-radius:999px;padding:8px 14px;background:#108181;color:#fff;font:700 12px Montserrat,Arial;cursor:pointer">Descargar HTML</button>
       <button type="button" id="btn-pdf" style="border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:8px 14px;background:rgba(14,22,38,.55);color:#fff;font:700 12px Montserrat,Arial;cursor:pointer">Descargar PDF</button>
-      <a href="../index.html?tab=informes&pieza=boletin&anio=2025" style="border-radius:999px;padding:8px 14px;background:rgba(0,174,172,.25);color:#fff;font:700 12px Montserrat,Arial;text-decoration:none">Ver en tablero</a>
+      <a href="../index.html?tab=informes&amp;pieza=boletin&amp;anio=2025" style="border-radius:999px;padding:8px 14px;background:rgba(0,174,172,.25);color:#fff;font:700 12px Montserrat,Arial;text-decoration:none">Ver en tablero</a>
     </div>
-    <article class="stage email" id="pieza-export" aria-label="Boletín email">
+    <article class="stage email boletin-email" id="pieza-export" aria-label="Boletín email">
       <div class="stage-bg" aria-hidden="true"></div>
-      <div class="stage-inner">
-        <header style="display:grid;gap:8px">
+      <div class="stage-inner stage-inner-email">
+        <header class="email-head">
           <div class="logos dark">
-            <img class="logo-bureau" src="../assets/logo_bureau.svg" alt="Bureau" style="height:32px">
-            <img class="logo-colmayor" src="../assets/logo_colmayor_blanco.png" alt="Colmayor" style="height:40px">
+            <img class="logo-bureau" src="../assets/logo_bureau.svg" alt="Bureau">
+            <img class="logo-colmayor" src="../assets/logo_colmayor_blanco.png" alt="Colmayor">
           </div>
           <div class="gold-bar"></div>
-          <p class="kicker">Boletín de inteligencia · Nov 2025</p>
-          <h1 class="h-title" style="font-size:22px">Emisores y receptivo Medellín · corte anual</h1>
-          <p class="lead" style="font-size:13px">Resumen para stakeholders del Bureau. Cifras del pack abierto (Migración + MinCIT VNR). Sin CRM.</p>
+          <p class="kicker">Boletín de inteligencia · 2025</p>
+          <h1 class="h-title h-email">Emisores, receptivo y pulso</h1>
+          <p class="lead lead-email">Medellín / Colombia · resumen para stakeholders con datos vivos del tablero. Universos etiquetados · sin CRM.</p>
         </header>
 
-        <div class="kpi-row">
-          <div class="kpi glass">
-            <p class="label">Entradas CO · USA</p>
-            <p class="value" style="font-size:26px">1,23 M</p>
-            <p class="meta">Migración 2025</p>
+        <div class="kpi-grid kpi-2 email-hero">
+          <div class="kpi glass kpi-hero-sm">
+            <p class="label">Entradas CO · US</p>
+            <p class="value">1,23 M</p>
+            <p class="meta">Estados Unidos · 30,3% · Migración</p>
           </div>
-          <div class="kpi glass">
+          <div class="kpi glass kpi-hero-sm">
             <p class="label">Medellín VNR</p>
-            <p class="value" style="font-size:26px">1,14 M</p>
-            <p class="meta">Share Colombia 24,5 %</p>
+            <p class="value">1,14 M</p>
+            <p class="meta">Share CO 24,4% · Ant. 93,4%</p>
           </div>
         </div>
 
-        <div>
-          <p class="kicker" style="margin-bottom:8px">Top emisores (Migración)</p>
-          <ol class="rank">
-            <li><span class="n">1</span><span class="pais">Estados Unidos</span><span class="val">1.232.329</span></li>
-            <li><span class="n">2</span><span class="pais">Venezuela</span><span class="val">658.669</span></li>
-            <li><span class="n">3</span><span class="pais">México</span><span class="val">414.249</span></li>
-          </ol>
+        <section class="email-band">
+          <p class="kicker email-sec">Pulso del tablero</p>
+          <div class="kpi-grid kpi-2 email-pulso">
+            <div class="kpi glass kpi-compact"><p class="label">EMA Antioquia</p><p class="value v-sm">160,6</p><p class="meta">2025-12 · reg. 152,3</p></div>
+            <div class="kpi glass kpi-compact"><p class="label">ICCA Medellín</p><p class="value v-sm">26</p><p class="meta">puesto 103 · 2025</p></div>
+            <div class="kpi glass kpi-compact"><p class="label">Gasto EVI</p><p class="value v-sm">USD 176,2</p><p class="meta">ola Ago 2023 – Jul 2024</p></div>
+            <div class="kpi glass kpi-compact"><p class="label">Pasajeros aéreos</p><p class="value v-sm">14,53 M</p><p class="meta">Aerocivil · 2025</p></div>
+          </div>
+        </section>
+
+        <div class="email-split">
+          <section class="email-panel glass">
+            <p class="kicker email-sec">Top emisores · Migración</p>
+            <ol class="rank rank-bars rank-email">
+              <li class="rank-bars"><span class="n">1</span><span class="pais">Estados Unidos</span><span class="val">1.232.329</span><span class="bar" aria-hidden="true"><i style="width:100%;background:#FBBB28"></i></span></li>
+              <li class="rank-bars"><span class="n">2</span><span class="pais">Venezuela</span><span class="val">658.669</span><span class="bar" aria-hidden="true"><i style="width:53%;background:#E9901E"></i></span></li>
+              <li class="rank-bars"><span class="n">3</span><span class="pais">México</span><span class="val">414.249</span><span class="bar" aria-hidden="true"><i style="width:34%;background:#00AEAC"></i></span></li>
+              <li class="rank-bars"><span class="n">4</span><span class="pais">Ecuador</span><span class="val">323.597</span><span class="bar" aria-hidden="true"><i style="width:26%;background:#108181"></i></span></li>
+              <li class="rank-bars"><span class="n">5</span><span class="pais">Perú</span><span class="val">250.098</span><span class="bar" aria-hidden="true"><i style="width:20%;background:#B4C42C"></i></span></li>
+            </ol>
+          </section>
+          <section class="email-panel glass">
+            <p class="kicker email-sec">Receptivo Medellín · MinCIT</p>
+            <p class="email-note">Visitantes no residentes con destino ciudad. No sumar con Migración ni Aerocivil.</p>
+            <svg class="stack-svg" viewBox="0 0 280 88" role="img" aria-label="Top MinCIT MDE">
+              <text x="0" y="12" fill="#9aa8b8" font-size="10">Top MinCIT MDE 2025</text>
+              <rect x="0" y="22" width="220" height="12" rx="4" fill="#FBBB28"/><text x="228" y="32" fill="#fff" font-size="10">US 378k</text>
+              <rect x="0" y="42" width="55" height="12" rx="4" fill="#E9901E"/><text x="63" y="52" fill="#fff" font-size="10">MX 94k</text>
+              <rect x="0" y="62" width="47" height="12" rx="4" fill="#00AEAC"/><text x="55" y="72" fill="#fff" font-size="10">CR 81k</text>
+            </svg>
+          </section>
         </div>
 
-        <p class="insight" style="font-size:13px">El top emisor nacional no sustituye el ranking MinCIT de destino Medellín (USA, México, Costa Rica…). Usar ambos universos con etiqueta clara.</p>
+        <p class="insight insight-email">El top emisor nacional (<b class="gold">Estados Unidos</b>) no sustituye el ranking MinCIT de destino ciudad. En MinCIT Medellín lidera <b class="teal">Estados Unidos</b>. No sumar Migración + MinCIT + Aerocivil.</p>
 
-        <footer style="display:grid;gap:8px;border-top:1px solid rgba(255,255,255,.14);padding-top:12px">
-          <a class="cta" href="../index.html">Abrir tableros</a>
-          <p class="fuente"><b>Fuentes:</b> migracion.top_paises[2025] · mincit_vnr.shares_anual · Bureau · Colmayor V7</p>
+        <footer class="email-foot">
+          <a class="cta" href="../index.html?tab=mercados">Abrir tableros</a>
+          <p class="fuente"><b>Fuentes:</b> migracion.top_paises[2025] · mincit_vnr · DANE EMA · ICCA · EVI · Aerocivil · Bureau · Colmayor V7</p>
         </footer>
       </div>
     </article>
@@ -69,19 +86,23 @@
   </div>
 <script>
 (function () {
+  function cssDoc(css) {
+    var el = document.getElementById("pieza-export");
+    return "<!DOCTYPE html><html lang=es><head><meta charset=utf-8><title>Boletin_Email.html</title><style>" + css +
+      "\nbody{margin:0;display:grid;place-items:center;min-height:100vh;padding:24px;background:#0e1422}</style></head><body>" +
+      el.outerHTML.replace(/src=\"\.\.\//g, "src=\"") + "</body></html>";
+  }
   document.getElementById("btn-html").onclick = function () {
     fetch("brand-v7-shared.css").then(function (r) { return r.text(); }).then(function (css) {
-      var el = document.getElementById("pieza-export");
-      var doc = "<!DOCTYPE html><html lang=es><head><meta charset=utf-8><title>boletin_a.html</title><style>" + css +
-        "\nbody{margin:0;display:grid;place-items:center;min-height:100vh;padding:24px}</style></head><body>" +
-        el.outerHTML.replace(/src=\"\.\.\//g, "src=\"") + "</body></html>";
       var a = document.createElement("a");
-      a.href = URL.createObjectURL(new Blob([doc], { type: "text/html" }));
-      a.download = "boletin_a_2025.html";
+      a.href = URL.createObjectURL(new Blob([cssDoc(css)], { type: "text/html" }));
+      a.download = "Boletin_Email_2025.html";
       a.click();
     });
   };
-  document.getElementById("btn-pdf").onclick = function () { window.print(); };
+  document.getElementById("btn-pdf").onclick = function () {
+    window.print();
+  };
 })();
 </script>
 </body>

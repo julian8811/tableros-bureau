@@ -19,8 +19,7 @@
     informeProvider: "cadena",
     informeModel: "",
     pieza: "infografia",
-    infografiaVar: "a",
-    boletinVar: "a"
+    infografiaVar: "a"
   };
 
   var PAIS_DE_MERCADO = { Colombia: "COLOMBIA", "Estados Unidos": "ESTADOS UNIDOS", "México": "MEXICO", Brasil: "BRASIL" };
@@ -140,7 +139,6 @@
     var piezas = ["infografia", "boletin", "informe"];
     if (piezas.indexOf(q.get("pieza")) >= 0) state.pieza = q.get("pieza");
     if (q.get("ivar") === "a" || q.get("ivar") === "b" || q.get("ivar") === "c") state.infografiaVar = q.get("ivar");
-    if (q.get("bvar") === "a" || q.get("bvar") === "b") state.boletinVar = q.get("bvar");
   }
 
   function escribirUrl() {
@@ -152,7 +150,6 @@
     if (state.tab === "informes") {
       q.set("pieza", state.pieza || "infografia");
       if (state.pieza === "infografia") q.set("ivar", state.infografiaVar || "a");
-      if (state.pieza === "boletin") q.set("bvar", state.boletinVar || "a");
     }
     var siguiente = "?" + q.toString();
     if (location.search !== siguiente) history.replaceState({ tab: state.tab, anio: state.anio, pais: state.pais }, "", siguiente);
@@ -1592,15 +1589,6 @@
       }).join("") + "</div>";
   }
 
-  function navBoletinVar() {
-    var vars = [["a", "A · Email"], ["b", "B · A4"]];
-    return '<div class="opts no-print" role="tablist" aria-label="Variante boletín">' +
-      '<span>Variante:</span> ' +
-      vars.map(function (it) {
-        var on = (state.boletinVar || "a") === it[0];
-        return '<button type="button" class="tab pieza-tab' + (on ? " active" : "") + '" data-bvar="' + it[0] + '" role="tab" aria-selected="' + on + '">' + it[1] + "</button>";
-      }).join("") + "</div>";
-  }
 
   function vistaInfografia() {
     if (!window.Piezas) return hueco("Piezas", "Falta piezas.js");
@@ -1630,16 +1618,12 @@
     if (!window.Piezas) return hueco("Piezas", "Falta piezas.js");
     var packer = Piezas.datosBoletin || Piezas.datosEmisores;
     var d = packer(DATA, state.anio);
-    var varId = state.boletinVar === "b" ? "b" : "a";
-    var titulo = varId === "b"
-      ? "<strong>Boletín B · A4</strong> con datos vivos del dashboard (MinCIT, Migración, EMA, ICCA, EVI, Aerocivil)."
-      : "<strong>Boletín A · email 600px</strong> con pack vivo del tablero (emisores + receptivo + pulso).";
-    var cuerpo = varId === "b" ? Piezas.htmlBoletinB(d) : Piezas.htmlBoletinA(d);
-    return navPiezas() + navBoletinVar() +
-      '<p class="aviso">' + titulo + " Año " + esc(state.anio) + ". HTML/PDF desde los botones.</p>" +
-      Piezas.botonesDescarga({ kind: "boletin_" + varId }) +
-      '<div class="pieza-live">' + cuerpo + "</div>" +
-      '<p class="aviso no-print"><a class="btn" href="design-options/boletin-index.html" target="_blank" rel="noopener">Mocks boletines</a></p>';
+    return navPiezas() +
+      '<p class="aviso"><strong>Boletín email</strong> · 600px con pack vivo (Migración, MinCIT VNR, EMA, ICCA, EVI, Aerocivil). Año ' +
+      esc(state.anio) + ". HTML/PDF desde los botones.</p>" +
+      Piezas.botonesDescarga({ kind: "boletin_a" }) +
+      '<div class="pieza-live">' + Piezas.htmlBoletinA(d) + "</div>" +
+      '<p class="aviso no-print"><a class="btn" href="design-options/boletin-a-email.html" target="_blank" rel="noopener">Mock email</a></p>';
   }
 
   function vistaInformeTec() {
@@ -1860,9 +1844,7 @@
             ? ["¿Quiénes son los 5 mercados que más tráfico generan a Colombia?", "Infografía B · Ranking con barras y universo Migración."]
             : ["¿Cómo comunicar el top de emisores en una pieza social?", "Infografía A · Hero KPI con datos vivos Migración + MinCIT."])
         : state.pieza === "boletin"
-          ? (state.boletinVar === "b"
-            ? ["¿Qué cabe en una hoja A4 para comité?", "Boletín B · receptivo MinCIT + emisores Migración."]
-            : ["¿Qué resumen cabe en un boletín para stakeholders?", "Boletín A · email con KPIs y ranking corto."])
+          ? ["¿Qué resumen cabe en un boletín para stakeholders?", "Boletín email · KPIs, pulso, emisores Migración y receptivo MinCIT."]
           : ["¿Qué dice el informe redactado por LLM sobre el corte?", "Narrativa verificada contra el warehouse, con fuente por hallazgo."]
     };
     var anos = [];
@@ -1944,14 +1926,6 @@
     if (ivarBtn && ivarBtn.getAttribute("data-ivar")) {
       state.infografiaVar = ivarBtn.getAttribute("data-ivar");
       state.pieza = "infografia";
-      state.ficha = null;
-      render();
-      return;
-    }
-    var bvarBtn = event.target.closest("[data-bvar]");
-    if (bvarBtn && bvarBtn.getAttribute("data-bvar")) {
-      state.boletinVar = bvarBtn.getAttribute("data-bvar");
-      state.pieza = "boletin";
       state.ficha = null;
       render();
       return;

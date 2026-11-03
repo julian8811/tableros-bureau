@@ -61,8 +61,7 @@ function waitPort(port, ms) {
     ["infografia_a", "?tab=informes&pieza=infografia&ivar=a&anio=2025", ".kpi-hero", 1],
     ["infografia_b", "?tab=informes&pieza=infografia&ivar=b&anio=2025", ".rank li", 5],
     ["infografia_c", "?tab=informes&pieza=infografia&ivar=c&anio=2025", ".insight", 1],
-    ["boletin_a", "?tab=informes&pieza=boletin&bvar=a&anio=2025", ".rank li", 5],
-    ["boletin_b", "?tab=informes&pieza=boletin&bvar=b&anio=2025", ".secs .sec", 2],
+    ["boletin_a", "?tab=informes&pieza=boletin&anio=2025", ".rank li", 5],
     ["informe", "?tab=informes&pieza=informe&anio=2025", "#pieza-export .slide, .tec-doc", 10]
   ];
   const out = [];

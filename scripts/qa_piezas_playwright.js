@@ -160,22 +160,13 @@ async function assertPage(page, label, url, checks) {
       ]
     },
     {
-      label: "tablero-boletin-a",
-      url: TABLERO + "/index.html?tab=informes&pieza=boletin&bvar=a&anio=2025",
+      label: "tablero-boletin-email",
+      url: TABLERO + "/index.html?tab=informes&pieza=boletin&anio=2025",
       checks: [
         { type: "exists", sel: "#pieza-export" },
+        { type: "exists", sel: ".stage.email" },
+        { type: "exists", sel: ".email-split" },
         { type: "exists", sel: ".rank li", min: 1 },
-        { type: "btn", text: "HTML" },
-        { type: "btn", text: "PDF" }
-      ]
-    },
-    {
-      label: "tablero-boletin-b",
-      url: TABLERO + "/index.html?tab=informes&pieza=boletin&bvar=b&anio=2025",
-      checks: [
-        { type: "exists", sel: "#pieza-export" },
-        { type: "exists", sel: ".stage.a4, .secs, .sec" },
-        { type: "text", sel: ".secs, .sec, #pieza-export", re: /Receptivo|Emisores|MinCIT/i },
         { type: "btn", text: "HTML" },
         { type: "btn", text: "PDF" }
       ]
@@ -224,16 +215,12 @@ async function assertPage(page, label, url, checks) {
       checks: [{ type: "exists", sel: "a[href*='boletin']", min: 1 }]
     },
     {
-      label: "mock-boletin-a",
+      label: "mock-boletin-email",
       url: MOCKS + "/boletin-a-email.html",
-      checks: [{ type: "exists", sel: "#pieza-export" }]
-    },
-    {
-      label: "mock-boletin-b",
-      url: MOCKS + "/boletin-b-a4.html",
       checks: [
         { type: "exists", sel: "#pieza-export" },
-        { type: "exists", sel: ".stage.a4, .secs" },
+        { type: "exists", sel: ".stage.email" },
+        { type: "exists", sel: ".email-split" },
         { type: "btn", text: "Descargar HTML" }
       ]
     }
