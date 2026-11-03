@@ -474,37 +474,52 @@ window.Piezas = (function () {
   }
 
   /**
-   * PDF real de la pieza: iframe aislado (no imprime el tablero ni el título
-   * "Tableros estadísticos…"). El diálogo de impresión usa el <title> TEC/pieza.
+   * PDF de la pieza/informe: ventana propia con <title> = nombre del archivo
+   * (evita "Tableros estadísticos… .pdf" del tablero padre).
    */
   function descargarPdf(kind, anio) {
     buildExportDoc(kind, anio).then(function (doc) {
-      var iframe = document.createElement("iframe");
-      iframe.setAttribute("title", "export-print");
-      iframe.style.cssText = "position:fixed;right:0;bottom:0;width:0;height:0;border:0;opacity:0;pointer-events:none";
-      document.body.appendChild(iframe);
-      var idoc = iframe.contentDocument || iframe.contentWindow.document;
-      idoc.open();
-      idoc.write(doc.html);
-      idoc.close();
-      function cleanup() {
-        try { iframe.remove(); } catch (e) {}
+      var prevTitle = document.title;
+      document.title = doc.baseName;
+      var blob = new Blob([doc.html], { type: "text/html;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var w = window.open(url, "_blank");
+      if (!w) {
+        document.title = prevTitle;
+        URL.revokeObjectURL(url);
+        window.alert("Permita ventanas emergentes para guardar el PDF, o use Descargar HTML y luego Imprimir.");
+        return;
       }
-      function doPrint() {
+      var restored = false;
+      function restore() {
+        if (restored) return;
+        restored = true;
+        document.title = prevTitle;
+        try { URL.revokeObjectURL(url); } catch (e) {}
+      }
+      var tries = 0;
+      function tryPrint() {
+        tries += 1;
         try {
-          iframe.contentWindow.focus();
-          iframe.contentWindow.print();
-        } catch (e) {
-          window.alert("No se pudo abrir la impresión. Pruebe Descargar HTML.");
-        }
-        /* Dar tiempo a guardar PDF; no quitar estilos del tablero */
-        setTimeout(cleanup, 120000);
-        if (iframe.contentWindow) {
-          iframe.contentWindow.onafterprint = cleanup;
+          if (w.document && w.document.readyState === "complete") {
+            w.document.title = doc.baseName;
+            w.focus();
+            w.print();
+            w.onafterprint = function () {
+              restore();
+              try { w.close(); } catch (e) {}
+            };
+            setTimeout(restore, 180000);
+            return;
+          }
+        } catch (e) { /* cross-blob race */ }
+        if (tries < 40) setTimeout(tryPrint, 150);
+        else {
+          restore();
+          window.alert("No se pudo abrir la impresión. Use Descargar HTML.");
         }
       }
-      /* Esperar imágenes/CSS del origen */
-      setTimeout(doPrint, 700);
+      setTimeout(tryPrint, 400);
     }).catch(function (err) {
       window.alert(err && err.message ? err.message : "No se pudo generar el PDF.");
     });

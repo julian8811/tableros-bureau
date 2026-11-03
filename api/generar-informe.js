@@ -25,11 +25,28 @@ const SECCIONES_TEC = [
   { id: "pronostico", titulo: "8. Pronóstico", packKeys: ["pronostico"] }
 ];
 
-/** Portada curada (Colombia / TEC) — sin stock por sección. */
+/** Portada + slots Wikimedia Commons (assets/colombia-photos). */
 const PORTADA_CURADA = {
-  url: "/assets/tec-photos/cover.png",
-  credito: "Banco TEC Colombia · Bureau + Colmayor",
-  fuente_banco: "local_curado"
+  url: "/assets/colombia-photos/cover.jpg",
+  credito: "Wikimedia Commons · Murallas de Cartagena",
+  fuente_banco: "colombia-photos"
+};
+
+const FOTO_SECCION = {
+  tendencias: "tendencias",
+  receptivo: "receptivo",
+  emisores: "emisores",
+  destinos: "destinos",
+  reuniones: "reuniones",
+  visitante: "visitante",
+  oferta: "oferta",
+  conectividad: "conectividad",
+  marca: "marca",
+  territorio: "territorio",
+  gestion: "gestion",
+  pronostico: "pronostico",
+  salidas: "emisores",
+  aereo: "conectividad"
 };
 
 function packTiene(pack, key) {
@@ -50,8 +67,30 @@ function seccionesEsperadas(pack) {
 }
 
 function resolverImagenes() {
-  var out = { portada: PORTADA_CURADA };
-  return out;
+  var secciones = {};
+  Object.keys(FOTO_SECCION).forEach(function (id) {
+    var slot = FOTO_SECCION[id];
+    secciones[id] = {
+      url: "/assets/colombia-photos/" + slot + ".jpg",
+      credito: "Wikimedia Commons · Colombia · " + slot,
+      fuente_banco: "colombia-photos",
+      slot: slot
+    };
+  });
+  return {
+    portada: PORTADA_CURADA,
+    toc: {
+      url: "/assets/colombia-photos/toc.jpg",
+      credito: "Wikimedia Commons · Cartagena",
+      fuente_banco: "colombia-photos"
+    },
+    resumen: {
+      url: "/assets/colombia-photos/resumen.jpg",
+      credito: "Wikimedia Commons · Medellín",
+      fuente_banco: "colombia-photos"
+    },
+    secciones: secciones
+  };
 }
 
 function validarInforme(doc, esperadas) {

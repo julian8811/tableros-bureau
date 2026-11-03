@@ -1317,15 +1317,80 @@
       "</div>";
   }
 
+  /** Slots locales Commons (misma diagramación del mock TEC). Sin Unsplash/Pexels. */
+  var FOTO_SLOT_INFORME = {
+    tendencias: "tendencias",
+    receptivo: "receptivo",
+    emisores: "emisores",
+    destinos: "destinos",
+    reuniones: "reuniones",
+    visitante: "visitante",
+    oferta: "oferta",
+    conectividad: "conectividad",
+    marca: "marca",
+    territorio: "territorio",
+    gestion: "gestion",
+    pronostico: "pronostico",
+    salidas: "emisores",
+    aereo: "conectividad"
+  };
+
+  function esFotoExterna(url) {
+    return /unsplash|pexels|images\.unsplash/i.test(String(url || ""));
+  }
+
+  function fotoSlotLocal(slot, credito) {
+    if (!slot) return null;
+    return {
+      url: "assets/colombia-photos/" + slot + ".jpg",
+      credito: credito || ("Wikimedia Commons · " + slot),
+      fuente_banco: "colombia-photos",
+      slot: slot
+    };
+  }
+
+  function fotoPortadaInforme(banco) {
+    var p = banco && banco.portada;
+    if (p && p.url && !esFotoExterna(p.url) && /colombia-photos|tec-photos/i.test(p.url)) {
+      /* Preferir cover Commons si el banco apunta a tec-photos genérico */
+      if (/tec-photos/i.test(p.url)) return fotoSlotLocal("cover", "Wikimedia Commons · Murallas de Cartagena");
+      return p;
+    }
+    return fotoSlotLocal("cover", "Wikimedia Commons · Murallas de Cartagena");
+  }
+
+  function fotoSeccionInforme(secId, banco) {
+    var fromBanco = banco && (
+      (banco.secciones && banco.secciones[secId]) ||
+      banco[secId]
+    );
+    if (fromBanco && fromBanco.url && !esFotoExterna(fromBanco.url) && /colombia-photos/i.test(fromBanco.url)) {
+      return fromBanco;
+    }
+    return fotoSlotLocal(FOTO_SLOT_INFORME[secId] || null);
+  }
+
+  function figuraFotoInforme(foto, alt) {
+    if (!foto || !foto.url) return "";
+    return (
+      '<figure class="tec-figure tec-photo">' +
+      '<img class="photo-img" src="' + esc(foto.url) + '" alt="' + esc(alt || "Turismo Colombia") + '" loading="eager" decoding="async">' +
+      (foto.credito ? '<figcaption class="photo-credit">Foto: ' + esc(foto.credito) + "</figcaption>" : "") +
+      "</figure>"
+    );
+  }
+
   function cuerpoSeccionInforme(sec, idx) {
     var nHall = (sec.bullets || []).length;
     var nIns = (sec.insights || []).length;
     var nAna = (sec.analisis || []).length;
     var lead = sec.lead ? "<p class='tec-lead'>" + esc(sec.lead) + "</p>" : "";
+    var banco = (DATA.informe && DATA.informe.banco_imagenes) || {};
+    var foto = fotoSeccionInforme(sec.id, banco);
     var mapaHtml = "";
     if ((sec.id === "emisores" || sec.id === "receptivo") && window.Mapas && Mapas.shell && filasMapaEmisores().length) {
       mapaHtml = Mapas.shell({
-        id: "mapa-informe-emisores",
+        id: "mapa-informe-emisores-" + esc(sec.id),
         height: 400,
         titulo: "Mapa mundi · densidad de emisores",
         pista: "Misma figura del dashboard · Migración + MinCIT + EVI."
@@ -1351,6 +1416,7 @@
       pastilla("informe-llm") + " " + nHall + " hallazgos" + (nIns ? " · " + nIns + " insights" : "") +
       "</div></header>" +
       insightTitulo +
+      (foto ? '<div class="tec-photo-wrap">' + figuraFotoInforme(foto, sec.titulo) + "</div>" : "") +
       (figura ? '<div class="tec-anchor"><p class="tec-fig-label">Figura ' + (idx + 1) + " · fuente dashboard</p>" + figura + "</div>" : "") +
       lead +
       cols +
@@ -1362,13 +1428,16 @@
   function portadaInforme(inf) {
     if (!inf) return "";
     var banco = inf.banco_imagenes || {};
-    var portada = banco.portada || { url: "assets/tec-photos/cover.png" };
+    var portada = fotoPortadaInforme(banco);
     var resumen = (inf.resumen_ejecutivo || []).map(function (t) {
       return "<li>" + esc(t) + "</li>";
     }).join("");
     var toc = (inf.secciones || []).map(function (s) {
       return '<li><a href="#sec-' + esc(s.id) + '">' + esc(s.titulo || s.id) + "</a></li>";
     }).join("");
+    var tocFoto = (banco.toc && banco.toc.url && !esFotoExterna(banco.toc.url))
+      ? banco.toc
+      : fotoSlotLocal("toc", "Wikimedia Commons · Cartagena");
     return '<section class="tec-portada">' +
       (portada && portada.url ? '<div class="tec-hero" style="background-image:url(\'' + esc(portada.url) + '\')"></div>' : "") +
       "<div class='tec-portada-top'>" + logosInforme("dark") +
@@ -1377,10 +1446,12 @@
       "<p class='tec-kicker'>Bureau Medellín · Colmayor · Manual V7</p>" +
       "<h2>" + esc(inf.titulo || "Informe de inteligencia turística") + "</h2>" +
       '<p class="tec-period">' + esc(inf.subtitulo || ("Corte " + (inf.corte || "—"))) + "</p>" +
+      (portada && portada.credito ? '<p class="photo-credit portada-credit">Foto portada: ' + esc(portada.credito) + "</p>" : "") +
       "</div><div class='tec-portada-bar'></div></section>" +
       (resumen ? "<section class='tec-resumen block'><h3>Resumen ejecutivo</h3><ul class='lista'>" + resumen + "</ul></section>" : "") +
       (toc ? "<section class='tec-toc block'><div class='tec-toc-head'>" + logosInforme("light") +
-        "</div><h3>Contenido</h3><ol>" + toc + "</ol></section>" : "");
+        "</div>" + (tocFoto ? figuraFotoInforme(tocFoto, "Contenido") : "") +
+        "<h3>Contenido</h3><ol>" + toc + "</ol></section>" : "");
   }
 
   function modosLlm() {

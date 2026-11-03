@@ -407,6 +407,20 @@ body[data-tablero="miembros"] .kpi .value{color:var(--teal-bright)}
   background:rgba(255,255,255,.04);
 }
 .tec-fig-label{margin:0 0 8px;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text-3)}
+.tec-photo-wrap{margin:0 0 14px}
+.tec-figure.tec-photo{
+  margin:0;border-radius:12px;overflow:hidden;border:1px solid var(--glass-border);
+  background:rgba(0,0,0,.25);
+}
+.tec-figure.tec-photo .photo-img{
+  display:block;width:100%;max-height:280px;object-fit:contain;background:#070d18;
+}
+.tec-toc .tec-figure.tec-photo{margin:0 0 12px}
+.tec-toc .tec-figure.tec-photo .photo-img{max-height:160px}
+.photo-credit,.portada-credit{
+  margin:6px 0 0;font-size:11px;color:var(--text-3);line-height:1.35;
+}
+.portada-credit{position:relative;z-index:1;color:rgba(238,243,243,.85)}
 .tec-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:4px}
 @media (max-width:800px){.tec-cols{grid-template-columns:1fr}}
 .tec-col h4{margin:0 0 8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold)}
