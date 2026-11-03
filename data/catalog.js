@@ -314,12 +314,12 @@ window.CATALOGO = [
   {
     id: "bureau-pronostico", tab: "mercados", nombre: "Pronóstico a 6 meses",
     pastilla: "Modelo", clase: "proxy",
-    fuenteTipo: "Derivada", fuente: "ETL Bureau: Aerocivil, EMA Antioquia y SIEDCO, models/pronosticar.py",
-    pedida: "Mensual", grano: "Mes", unidad: "Pasajeros, índice, % o casos",
-    formula: "Ensayo de los últimos 6 meses. Compite el mismo mes del año anterior, Holt-Winters y un gradiente con rezagos. Se publica el menor MAE; si otro queda a menos del 2 %, se queda el más simple.",
-    universo: "Llegadas de cinco mercados (corte 2026-06), ocupación y tarifa de Antioquia (2026-08), homicidios y hurtos de Medellín (2026-09).",
+    fuenteTipo: "Derivada", fuente: "ETL Bureau: Aerocivil, EMA, SIEDCO y TRM mensual, models/pronosticar.py",
+    pedida: "Mensual", grano: "Mes", unidad: "Pasajeros, índice, %, COP o casos",
+    formula: "Ensayo de los últimos 6 meses. Compite el mismo mes del año anterior, Holt-Winters, SARIMA, un gradiente con rezagos y LightGBM. Se publica el menor MAE; si otro queda a menos del 2 %, se queda el más simple.",
+    universo: "Llegadas de cinco mercados (corte 2026-06), TRM mensual (2026-10), ocupación nacional y de Antioquia, tarifa e ingresos reales (2026-08), homicidios y hurtos de Medellín (2026-09).",
     licencia: "Agregados propios del ETL sobre datos abiertos.",
-    noMide: "Causas, reservas, el CRM, ni un intervalo de confianza. La banda es el error del ensayo. No cubre operaciones, BTS, IPC, OWID, SISAIRE, TRM ni EVI."
+    noMide: "Causas, reservas, el CRM, ni un intervalo de confianza. La banda es el error del ensayo. No cubre operaciones, BTS, IPC, OWID, SISAIRE ni EVI. La TRM pronosticada es el promedio mensual, no la tasa del día."
   }
 ];
 

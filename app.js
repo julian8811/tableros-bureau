@@ -196,11 +196,13 @@
     if (!series.length) return hueco("Pronóstico", "El ETL todavía no publica pronosticos.json.");
     if (!series.some(function (item) { return item.id === state.pronostico; })) state.pronostico = series[0].id;
     var s = series.filter(function (item) { return item.id === state.pronostico; })[0];
-    var corto = { estacional: "Mes anterior", holt_winters: "Holt-Winters", gradiente: "Gradiente" };
+    var corto = { estacional: "Mes anterior", holt_winters: "Holt-Winters", sarima: "SARIMA", gradiente: "Gradiente", lightgbm: "LightGBM" };
     var etiquetas = {
       llegadas_colombia: "Colombia", llegadas_estados_unidos: "Estados Unidos", llegadas_mexico: "México",
       llegadas_brasil: "Brasil", llegadas_europa: "Europa", llegadas_cinco: "Cinco mercados",
-      ocupacion_antioquia: "Ocupación", tarifa_antioquia: "Tarifa", homicidios: "Homicidios", hurtos: "Hurtos"
+      trm_mensual: "TRM",
+      ocupacion_antioquia: "Antioquia", ocupacion_nacional: "Nacional", tarifa_antioquia: "Tarifa",
+      ingresos_reales: "Ingresos", homicidios: "Homicidios", hurtos: "Hurtos"
     };
     function etq(periodo) {
       var m = Number(String(periodo).slice(5, 7));
@@ -570,9 +572,9 @@
       s += '<line x1="' + L + '" y1="' + y + '" x2="' + (W - 12) + '" y2="' + y + '" stroke="#e4ecec" stroke-width="1"></line>';
       s += '<text x="' + (L - 6) + '" y="' + (y + 3) + '" font-size="10" fill="#6b7789" text-anchor="end">' + esc(owidEje(max * t)) + '</text>';
     });
-    var d = '';
-    for (i = 0; i < col.length; i++) d += (i ? 'L' : 'M') + sx(i).toFixed(1) + ' ' + sy(col[i].valor).toFixed(1) + ' ';
-    s += '<polyline fill="none" stroke="#108181" stroke-width="2.5" points="' + d + '"></polyline>';
+    var d = [];
+    for (i = 0; i < col.length; i++) d.push(sx(i).toFixed(1) + ',' + sy(col[i].valor).toFixed(1));
+    s += '<polyline fill="none" stroke="#108181" stroke-width="2.5" points="' + d.join(' ') + '"></polyline>';
     for (i = 0; i < col.length; i++) {
       if (i % 2 && i !== col.length - 1) continue;
       s += '<circle cx="' + sx(i) + '" cy="' + sy(col[i].valor) + '" r="4" fill="#00AEAC" tabindex="0" data-tip="' + esc(String(col[i].anio) + ': ' + num(col[i].valor)) + '"></circle>';
