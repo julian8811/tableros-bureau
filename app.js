@@ -6,6 +6,7 @@
     anio: 2025,
     pais: "Todos",
     vistaOwid: 'co',
+    pronostico: "",
     ficha: null,
     volverFicha: "",
     calc: { inspecciones: "", confirmadas: "", stockInicial: "", cuota: "", anos: "" }
@@ -123,6 +124,7 @@
     var anio = Number(q.get("anio"));
     if (anio) state.anio = anio;
     if (q.get("pais")) state.pais = q.get("pais");
+    if (q.get("serie")) state.pronostico = q.get("serie");
   }
 
   function escribirUrl() {
@@ -130,6 +132,7 @@
     q.set("tab", state.tab);
     q.set("anio", String(state.anio));
     q.set("pais", state.pais);
+    if (state.pronostico) q.set("serie", state.pronostico);
     var siguiente = "?" + q.toString();
     if (location.search !== siguiente) history.replaceState({ tab: state.tab, anio: state.anio, pais: state.pais }, "", siguiente);
   }
@@ -185,6 +188,56 @@
       if (row.mercado) cubo[row.pais].mercado = row.mercado;
     });
     return Object.keys(cubo).map(function (k) { return cubo[k]; }).sort(function (a, b) { return b.llegadas - a.llegadas; });
+  }
+
+  function bloquePronostico(tab) {
+    var data = DATA.bureauPronostico || {};
+    var series = (data.series || []).filter(function (item) { return item.tab === tab; });
+    if (!series.length) return hueco("Pronóstico", "El ETL todavía no publica pronosticos.json.");
+    if (!series.some(function (item) { return item.id === state.pronostico; })) state.pronostico = series[0].id;
+    var s = series.filter(function (item) { return item.id === state.pronostico; })[0];
+    var corto = { estacional: "Mes anterior", holt_winters: "Holt-Winters", gradiente: "Gradiente" };
+    var etiquetas = {
+      llegadas_colombia: "Colombia", llegadas_estados_unidos: "Estados Unidos", llegadas_mexico: "México",
+      llegadas_brasil: "Brasil", llegadas_europa: "Europa", llegadas_cinco: "Cinco mercados",
+      ocupacion_antioquia: "Ocupación", tarifa_antioquia: "Tarifa", homicidios: "Homicidios", hurtos: "Hurtos"
+    };
+    function etq(periodo) {
+      var m = Number(String(periodo).slice(5, 7));
+      return (MESES[m - 1] || periodo) + " " + String(periodo).slice(2, 4);
+    }
+    function fmt(valor) { return num(valor, s.decimales || 0); }
+    function digMae(valor) { return Math.abs(valor) >= 100 ? 1 : 2; }
+    var hist = (s.historico || []).slice(-18);
+    var fut = s.pronostico || [];
+    var ancla = hist.length ? [{ x: etq(hist[hist.length - 1].periodo), y: hist[hist.length - 1].valor }] : [];
+    var chart = Charts.multiLine([
+      { name: "Observado", color: "#195855", points: hist.map(function (p) { return { x: etq(p.periodo), y: p.valor }; }) },
+      { name: "Pronóstico", color: "#E9901E", points: ancla.concat(fut.map(function (p) { return { x: etq(p.periodo), y: p.valor }; })) }
+    ]);
+    var botones = series.map(function (item) {
+      return '<button type="button" class="tab' + (item.id === s.id ? " active" : "") + '" data-pronostico="' + esc(item.id) + '">' + esc(etiquetas[item.id] || item.nombre) + "</button>";
+    }).join("");
+    var filas = (s.comparacion || []).map(function (c) {
+      return "<tr><td>" + esc(c.etiqueta) + (c.modelo === s.modelo ? " · publicado" : "") + "</td><td class=\"num\">" + num(c.mae, digMae(c.mae)) + "</td><td class=\"num\">" + (c.mape == null ? "—" : num(c.mape, 1) + " %") + "</td></tr>";
+    }).join("");
+    var ultimo = fut[fut.length - 1];
+    var notas = (s.notas || []).map(function (n) { return "<li>" + esc(n) + "</li>"; }).join("");
+    var cierre = ultimo ? " a " + esc(ultimo.periodo) + ": " + fmt(ultimo.valor) + " (" + fmt(ultimo.bajo) + " a " + fmt(ultimo.alto) + ")" : "";
+    return '<p class="aviso">' + esc((data.resumen || {}).frase || "") + "</p>" +
+      '<div class="kpi-row">' +
+      kpi("bureau-pronostico", "Modelo publicado", esc(corto[s.modelo] || s.modelo), s.supera_estacional ? "mejora el mes anterior" : "se queda el mes anterior") +
+      kpi("bureau-pronostico", "MAE del ensayo", num(s.mae, digMae(s.mae)), "mes anterior " + num(s.mae_estacional, digMae(s.mae_estacional))) +
+      kpi("bureau-pronostico", "Corte observado", esc(s.corte), "6 meses hacia adelante") +
+      kpi("bureau-pronostico", "Banda del ensayo", "±" + fmt(s.banda), s.unidad) +
+      "</div>" +
+      block(s.nombre, "Últimos 18 meses observados y 6 de pronóstico. La línea punteada no es una meta.",
+        '<div class="tabs" role="tablist">' + botones + "</div>" + chart +
+        "<p class=\"hint\">" + esc(s.nombre) + cierre + ". MAE en " + esc(s.unidad) + " sobre los últimos 6 meses. El MAPE de conteos bajos, como los homicidios, se infla y no elige el modelo.</p>" +
+        "<table class=\"table\"><tr><th>Modelo</th><th>MAE</th><th>MAPE</th></tr>" + filas + "</table>" +
+        "<ul>" + notas + "</ul>" +
+        "<p class=\"hint\">" + esc(data.fuera || "") + "</p>" +
+        pie("ETL Bureau · ensayo de 6 meses sobre la serie observada, corte " + (s.corte || "") + extraido("bureauPronostico")));
   }
 
   function vistaMercados() {
@@ -247,6 +300,7 @@
       celda("span-12", bloqueConectividad()) +
       celda("span-12", bloqueOwid()) +
       celda("span-12", bloqueSit()));
+    html += grupo("Pronóstico", celda("span-12", bloquePronostico("mercados")));
     html += grupo("Simulación", celda("span-12", conversion()));
     return html;
   }
@@ -650,6 +704,7 @@
       celda("span-12", bloqueSeguridad()) +
       celda("span-12", bloqueClima()) +
       celda("span-12", bloqueCalendario()));
+    html += grupo("Pronóstico", celda("span-12", bloquePronostico("visitante")));
     return html;
   }
 
@@ -970,6 +1025,8 @@
     }
     var vista = event.target.closest('[data-vistaowid]');
     if (vista) { state.vistaOwid = vista.getAttribute('data-vistaowid'); render(); return; }
+    var pron = event.target.closest("[data-pronostico]");
+    if (pron) { state.pronostico = pron.getAttribute("data-pronostico"); render(); return; }
     if (event.target.closest("[data-action='imprimir']")) { window.print(); return; }
     if (event.target.closest("[data-action='cerrar']") || event.target.classList.contains("modal-back")) {
       state.volverFicha = state.ficha || "";
@@ -1110,7 +1167,8 @@
     cargar("bureau_conectividad.json"),
     cargar("bureau_calendario.json"),
     cargar("bureau_owid.json"),
-    cargar("bureau_sit.json")
+    cargar("bureau_sit.json"),
+    cargar("bureau_pronostico.json")
   ]).then(function (piezas) {
     DATA.conectividad = piezas[0];
     DATA.bureauPrensa = piezas[1];
@@ -1130,6 +1188,7 @@
     DATA.bureauCalendario = piezas[15];
     DATA.bureauOwid = piezas[16];
     DATA.bureauSit = piezas[17];
+    DATA.bureauPronostico = piezas[18];
     leerUrl();
     if (!DATA.conectividad || !DATA.ema || !DATA.icca) {
       document.getElementById("app").innerHTML = hueco("Faltan agregados", "Abra esta carpeta con un servidor local después de correr scripts/preparar_fuentes.py.");

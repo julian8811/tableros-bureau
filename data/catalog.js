@@ -309,6 +309,17 @@ window.CATALOGO = [
     universo: "USA, México, Panamá, Rep. Dominicana y Francia, corte 2025.",
     licencia: "Cifras citadas de informes SIT; agregados propios del ETL.",
     noMide: "Mercados no auditados por el SIT."
+  },
+
+  {
+    id: "bureau-pronostico", tab: "mercados", nombre: "Pronóstico a 6 meses",
+    pastilla: "Modelo", clase: "proxy",
+    fuenteTipo: "Derivada", fuente: "ETL Bureau: Aerocivil, EMA Antioquia y SIEDCO, models/pronosticar.py",
+    pedida: "Mensual", grano: "Mes", unidad: "Pasajeros, índice, % o casos",
+    formula: "Ensayo de los últimos 6 meses. Compite el mismo mes del año anterior, Holt-Winters y un gradiente con rezagos. Se publica el menor MAE; si otro queda a menos del 2 %, se queda el más simple.",
+    universo: "Llegadas de cinco mercados (corte 2026-06), ocupación y tarifa de Antioquia (2026-08), homicidios y hurtos de Medellín (2026-09).",
+    licencia: "Agregados propios del ETL sobre datos abiertos.",
+    noMide: "Causas, reservas, el CRM, ni un intervalo de confianza. La banda es el error del ensayo. No cubre operaciones, BTS, IPC, OWID, SISAIRE, TRM ni EVI."
   }
 ];
 

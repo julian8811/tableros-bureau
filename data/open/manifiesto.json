@@ -102,6 +102,12 @@
    "id": "bureau-sit",
    "estado": "ok",
    "n": 5
+  },
+  {
+   "archivo": "data/open/bureau_pronostico.json",
+   "id": "bureau-pronostico",
+   "estado": "ok",
+   "n": 10
   }
  ],
  "errores": [

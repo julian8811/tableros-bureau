@@ -26,11 +26,12 @@ _PIEZAS_PROPIAS = ("bureau_marca_llm.json", "bureau_paises_2025_2026.json",
                     "bureau_prensa.json", "bureau_oferta.json",
                     "bureau_seguridad.json", "bureau_clima.json",
                     "bureau_conectividad.json", "bureau_calendario.json",
-                    "bureau_owid.json", "bureau_sit.json")
+                    "bureau_owid.json", "bureau_sit.json",
+                    "bureau_pronostico.json")
 _IDS_PROPIOS = ("marca-llm", "bureau-paises", "prensa-medios",
                   "bureau-oferta", "bureau-seguridad", "bureau-clima",
                   "bureau-conectividad", "bureau-calendario",
-                  "bureau-owid", "bureau-sit")
+                  "bureau-owid", "bureau-sit", "bureau-pronostico")
 
 
 def _es_pieza_propia(entrada):
@@ -307,6 +308,17 @@ def sit():
     print("sit ok")
 
 
+def pronostico():
+    try:
+        src = bajar("pronosticos.json")
+    except Exception as exc:
+        ERRORES.append("pronostico: " + "".join(traceback.format_exception_only(type(exc), exc)).strip())
+        print("falla pronostico, se conserva el anterior")
+        return
+    guardar("bureau_pronostico.json", src)
+    print("pronostico ok", len(src.get("series") or []))
+
+
 def manifiesto():
     try:
         previo = json.loads((OUT / "manifiesto.json").read_text(encoding="utf-8"))
@@ -324,6 +336,7 @@ def manifiesto():
         ("bureau_calendario.json", "bureau-calendario", "serie"),
         ("bureau_owid.json", "bureau-owid", "serie"),
         ("bureau_sit.json", "bureau-sit", "serie"),
+        ("bureau_pronostico.json", "bureau-pronostico", "series"),
     ):
         path = OUT / nombre
         if not path.exists():
@@ -353,4 +366,5 @@ if __name__ == "__main__":
     calendario()
     owid()
     sit()
+    pronostico()
     manifiesto()
