@@ -301,6 +301,7 @@
       kpi("tarifas", "Antioquia vs regiones", ultimo ? num(ultimo.indice_100, 1) : "—", ultimo ? MESES[ultimo.mes - 1] + " " + state.anio : "sin corte") +
       kpi("icca", "Reuniones ICCA Medellín", "26", "puesto 103 · 2025") +
       "</div>";
+    html += grupo("Mapa mundi · emisores", celda("span-12", bloqueMapaEmisores()));
     html += grupo("Conectividad", 
       celda("span-12", block(titulo, pista, (movimiento || hueco("Sin mes", "Este año no tiene pasajeros de ese país en el agregado.")) + pie("Aerocivil gb6w-ynu4 · " + cobertura((DATA.conectividad || {}).serie) + extraido("conectividad")))) +
       celda("span-7", otrosOrigenes()) +
@@ -323,6 +324,62 @@
     html += grupo("Participación Aerocivil", celda("span-12", conversion()));
     html += grupo("Pronóstico", celda("span-12", bloquePronostico("mercados")));
     return html;
+  }
+
+  function filasMapaEmisores() {
+    var anio = String(state.anio);
+    var mincit = ((DATA.mincitVnr || {}).top_paises && (DATA.mincitVnr.top_paises[anio] || DATA.mincitVnr.top_paises[state.anio])) || [];
+    var mig = ((DATA.migracion || {}).top_paises && (DATA.migracion.top_paises[anio] || DATA.migracion.top_paises[state.anio])) || [];
+    var ola = ((DATA.evi || {}).olas && DATA.evi.olas[0]) || DATA.evi || {};
+    var eviRes = ola.residencia || ((DATA.evi || {}).residencia) || [];
+    if (!eviRes.length && DATA.evi && DATA.evi.ultima) eviRes = DATA.evi.ultima.residencia || [];
+    if (window.Mapas && Mapas.mergeEmisores) {
+      return Mapas.mergeEmisores([
+        { rows: mig.map(function (r) { return { pais: r.pais, visitantes: r.entradas || r.visitantes }; }), weight: 1 },
+        { rows: mincit.map(function (r) { return { pais: r.pais, visitantes: r.visitantes }; }), weight: 0.9 },
+        { rows: eviRes.map(function (r) { return { pais: r.nombre || r.pais, visitantes: r.peso || r.visitantes, participacion: r.participacion }; }), weight: 0.7 }
+      ]);
+    }
+    return mincit.concat(mig.map(function (r) {
+      return { pais: r.pais, visitantes: r.entradas || r.visitantes };
+    }));
+  }
+
+  function bloqueMapaEmisores() {
+    if (!window.Mapas || !Mapas.shell) {
+      return hueco("Mapa no cargado", "Falta mapas.js en el bundle.");
+    }
+    if (!filasMapaEmisores().length) {
+      return hueco("Sin emisores para el mapa", "Sin top_paises MinCIT/Migración ni EVI residencia en el corte " + state.anio + ".");
+    }
+    return Mapas.shell({
+      id: "mapa-dash-emisores",
+      height: 480,
+      titulo: "Mapa mundi · densidad de países emisores (" + state.anio + ")",
+      pista: "Unión Migración Colombia + MinCIT Medellín + EVI residencia. Glass Bureau/V7 · Natural Earth + Leaflet (sin API key)."
+    });
+  }
+
+  function montarMapas() {
+    if (!window.Mapas || !Mapas.mount) return;
+    var specs = [];
+    if (document.getElementById("mapa-dash-emisores")) {
+      specs.push({
+        id: "mapa-dash-emisores",
+        rows: filasMapaEmisores(),
+        titulo: "Emisores " + state.anio,
+        fuente: "migracion + mincit_vnr + evi · " + state.anio
+      });
+    }
+    if (document.getElementById("mapa-informe-emisores")) {
+      specs.push({
+        id: "mapa-informe-emisores",
+        rows: filasMapaEmisores(),
+        titulo: "Emisores internacionales",
+        fuente: "pack dashboard · " + state.anio
+      });
+    }
+    if (specs.length) Mapas.mountAll(specs);
   }
 
   function bloqueMincitVnr() {
@@ -1252,7 +1309,16 @@
     var nIns = (sec.insights || []).length;
     var nAna = (sec.analisis || []).length;
     var lead = sec.lead ? "<p class='tec-lead'>" + esc(sec.lead) + "</p>" : "";
-    var figura = tablaInforme(sec.tabla) + figuraInforme(sec.grafico);
+    var mapaHtml = "";
+    if ((sec.id === "emisores" || sec.id === "receptivo") && window.Mapas && Mapas.shell && filasMapaEmisores().length) {
+      mapaHtml = Mapas.shell({
+        id: "mapa-informe-emisores",
+        height: 400,
+        titulo: "Mapa mundi · densidad de emisores",
+        pista: "Misma figura del dashboard · Migración + MinCIT + EVI."
+      });
+    }
+    var figura = mapaHtml + tablaInforme(sec.tabla) + figuraInforme(sec.grafico);
     var insightTitulo = (sec.insights && sec.insights[0] && sec.insights[0].texto)
       ? '<p class="tec-insight-title">' + esc(sec.insights[0].texto) + "</p>"
       : "";
@@ -1649,6 +1715,7 @@
     var estado = document.getElementById("estado");
     if (estado) estado.textContent = nombresTab[state.tab] + ", " + state.anio + ", " + etiquetaPais(state.pais);
     escribirUrl();
+    montarMapas();
     if (state.ficha) {
       var cerrar = document.querySelector("[data-action='cerrar']");
       if (cerrar) cerrar.focus();

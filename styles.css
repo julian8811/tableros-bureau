@@ -473,6 +473,45 @@ body[data-tablero="miembros"] .kpi .value{color:var(--teal-bright)}
   a{color:#111;text-decoration:none}
 }
 
+/* Mapa mundi emisores · glass */
+.glass-panel,
+.mapa-emisores{
+  background:rgba(14,22,38,.42);
+  border:1px solid var(--glass-border);
+  border-radius:16px;
+  backdrop-filter:blur(var(--blur)) saturate(1.5);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(1.5);
+  box-shadow:0 12px 36px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.12);
+  padding:14px 16px 12px;
+  margin:12px 0 4px;
+}
+.mapa-emisores-head{
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:flex-start;margin-bottom:10px;
+}
+.mapa-emisores-head h3{margin:0;font-size:15px}
+.mapa-emisores-legend{
+  display:flex;flex-wrap:wrap;gap:6px 10px;max-width:420px;justify-content:flex-end;
+}
+.mapa-leg-row{
+  display:inline-flex;align-items:center;gap:6px;font-size:10px;color:var(--text-2);
+}
+.mapa-leg-row i{
+  display:inline-block;width:14px;height:10px;border-radius:2px;border:1px solid rgba(255,255,255,.2);
+}
+.mapa-emisores-canvas{
+  border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#070d18;
+}
+.mapa-emisores-status{margin:8px 0 0;font-size:11px;color:var(--text-3)}
+.mapa-emisores .leaflet-control-zoom a{
+  background:rgba(14,22,38,.55)!important;color:#fff!important;border-color:rgba(255,255,255,.25)!important;
+}
+.mapa-emisores .leaflet-popup-content-wrapper{
+  background:rgba(14,22,38,.82);color:#eef3f3;border:1px solid rgba(255,255,255,.28);
+  border-radius:12px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+}
+.mapa-emisores .leaflet-popup-tip{background:rgba(14,22,38,.82)}
+.tec-anchor .mapa-emisores{margin-top:0}
+
 @media(max-width:1100px){
   .g2,.g3,.kpi-row,.stocks{grid-template-columns:1fr 1fr}
   .span-8,.span-7,.span-6,.span-5,.span-4{grid-column:span 6}
