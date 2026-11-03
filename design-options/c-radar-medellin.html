@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C · Radar Medellín</title>
+<link rel="stylesheet" href="charts-shared.css">
+<style>
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Bold.woff2") format("woff2");font-weight:700;font-display:swap}
+  :root{--navy:#172139;--teal:#108181;--teal-b:#00AEAC;--gold:#FBBB28;--orange:#E9901E;--bg:#0b1220;--card:#141c2e;--stroke:#2a3750;--t:#eef3f3;--t2:#9db3b3}
+  *{box-sizing:border-box}body{margin:0;font-family:"Montserrat",sans-serif;background:radial-gradient(900px 420px at 85% -5%,#1a2a44 0%,var(--bg) 55%) fixed;color:var(--t)}
+  .site{border-bottom:1px solid var(--stroke)}
+  .inner{max-width:1200px;margin:0 auto;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .brand{display:flex;gap:14px;align-items:center}
+  .mark{width:46px;height:46px;border-radius:12px;border:1px solid rgba(251,187,40,.45);background:linear-gradient(160deg,#195855,#108181);display:grid;place-items:center;font-weight:800;color:var(--gold);font-size:12px}
+  h1{margin:0;font-size:18px} .sub{margin:3px 0 0;font-size:12px;color:var(--t2)}
+  .pill{border:1px solid var(--stroke);background:var(--card);border-radius:999px;padding:8px 12px;font-size:11px;font-weight:700;color:var(--gold)}
+  .wrap{max-width:1200px;margin:0 auto;padding:18px 24px 40px}
+  .tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+  .tab{padding:8px 14px;border-radius:10px;border:1px solid var(--stroke);font-size:12px;font-weight:700;color:var(--t2)}
+  .tab.on{background:rgba(233,144,30,.15);border-color:var(--orange);color:#fff}
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-bottom:14px}
+  .q{padding:18px;border-radius:16px;background:linear-gradient(135deg,rgba(16,129,129,.22),rgba(23,33,57,.9));border:1px solid var(--stroke)}
+  .q strong{display:block;font-size:20px;line-height:1.3;max-width:28ch}.q span{display:block;margin-top:8px;color:var(--t2);font-size:13px}
+  .kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .kpi{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:14px}
+  .kpi .l{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--t2);font-weight:700}
+  .kpi .v{font-size:26px;font-weight:700;margin-top:6px}.kpi .m{font-size:11px;color:var(--t2);margin-top:4px}
+  .g{display:grid;grid-template-columns:1.2fr .8fr;gap:12px}
+  .block{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:16px}
+  .block h3{margin:0 0 4px;font-size:14px;font-weight:700}.hint{margin:0 0 12px;color:var(--t2);font-size:12px}
+  .spark{height:220px;border-radius:12px;border:1px solid var(--stroke);background:radial-gradient(600px 180px at 70% 0%,rgba(0,174,172,.12),transparent);position:relative}
+  .fx-legend{color:var(--t2)}
+  .hbar .track{background:rgba(255,255,255,.06)}
+  .hbar .row{color:var(--t)}
+</style>
+</head>
+<body>
+<header class="site"><div class="inner">
+  <div class="brand"><div class="mark">RADAR</div><div><h1>Tableros Bureau · Medellín</h1><p class="sub">Gráficas con glow + lectura clara · sin prompt de terminal</p></div></div>
+  <div class="pill"><span class="live-dot"></span>Corte 2026-11</div>
+</div></header>
+<main class="wrap">
+  <div class="tabs"><span class="tab on">Mercados</span><span class="tab">Visitante</span><span class="tab">Captación</span><span class="tab">Miembros</span></div>
+  <div class="hero">
+    <div class="q"><strong>Radar de mercados para la temporada</strong><span>Serie con área luminosa, ejes etiquetados y callouts de valor.</span></div>
+    <div class="kpis">
+      <div class="kpi"><div class="l">Llegadas</div><div class="v">1,84 M</div><div class="m">Aerocivil</div></div>
+      <div class="kpi"><div class="l">Foco</div><div class="v">5</div><div class="m">Mercados</div></div>
+      <div class="kpi"><div class="l">Rutas</div><div class="v">18</div><div class="m">Proxy</div></div>
+      <div class="kpi"><div class="l">GDELT</div><div class="v">—</div><div class="m">Sin serie</div></div>
+    </div>
+  </div>
+  <div class="g">
+    <section class="block">
+      <h3>Tendencia internacional · neon area</h3>
+      <p class="hint">Eje Y en miles; tooltip visual fijo en el último mes.</p>
+      <div class="fx-chart spark radar-grid">
+        <div class="scanline"></div>
+        <svg viewBox="0 0 640 220">
+          <defs>
+            <linearGradient id="neon" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#00AEAC" stop-opacity=".45"/>
+              <stop offset="100%" stop-color="#00AEAC" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="glowC"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <g stroke="#2a3750" stroke-dasharray="2 5">
+            <line x1="50" y1="30" x2="620" y2="30"/><line x1="50" y1="80" x2="620" y2="80"/>
+            <line x1="50" y1="130" x2="620" y2="130"/><line x1="50" y1="180" x2="620" y2="180"/>
+          </g>
+          <g class="fx-axis" fill="#9db3b3">
+            <text x="42" y="34" text-anchor="end">200</text><text x="42" y="84" text-anchor="end">150</text>
+            <text x="42" y="134" text-anchor="end">100</text><text x="42" y="184" text-anchor="end">50</text>
+            <text x="50" y="208">Ene</text><text x="160" y="208">Abr</text><text x="270" y="208">Jul</text><text x="380" y="208">Oct</text><text x="520" y="208">Dic</text>
+          </g>
+          <polygon fill="url(#neon)" points="50,150 120,140 190,145 260,115 330,122 400,88 470,96 540,62 600,70 600,180 50,180"/>
+          <polyline fill="none" stroke="#00AEAC" stroke-width="3" filter="url(#glowC)" stroke-linecap="round"
+            points="50,150 120,140 190,145 260,115 330,122 400,88 470,96 540,62 600,70"/>
+          <circle cx="600" cy="70" r="7" fill="#FBBB28" stroke="#0b1220" stroke-width="2"/>
+          <g>
+            <rect x="508" y="28" width="100" height="34" rx="8" fill="#0b1220" stroke="#00AEAC"/>
+            <text x="558" y="42" text-anchor="middle" fill="#9db3b3" font-size="9" font-weight="700">DIC 2026</text>
+            <text x="558" y="56" text-anchor="middle" fill="#FBBB28" font-size="13" font-weight="700">186 mil</text>
+          </g>
+        </svg>
+      </div>
+      <div class="fx-legend">
+        <span><i style="background:#00AEAC;box-shadow:0 0 8px #00AEAC"></i>Serie observada</span>
+        <span><i style="background:#FBBB28"></i>Último dato</span>
+        <span>Eje en miles de pasajeros</span>
+      </div>
+    </section>
+    <section class="block">
+      <h3>Share · barras holográficas</h3>
+      <p class="hint">Porcentaje explícito + barra luminosa.</p>
+      <div class="hbar">
+        <div class="row"><span>EE.UU.</span><div class="track"><div class="fill fx-glow" style="width:92%;background:linear-gradient(90deg,#E9901E,#FBBB28)"></div></div><span>32%</span></div>
+        <div class="row"><span>México</span><div class="track"><div class="fill fx-glow" style="width:48%;background:linear-gradient(90deg,#108181,#00AEAC)"></div></div><span>14%</span></div>
+        <div class="row"><span>España</span><div class="track"><div class="fill" style="width:34%;background:linear-gradient(90deg,#195855,#00AEAC)"></div></div><span>9%</span></div>
+        <div class="row"><span>Perú</span><div class="track"><div class="fill" style="width:26%;background:linear-gradient(90deg,#B4C42C,#108181)"></div></div><span>7%</span></div>
+        <div class="row"><span>Ecuador</span><div class="track"><div class="fill" style="width:22%;background:linear-gradient(90deg,#FBBB28,#E9901E)"></div></div><span>6%</span></div>
+      </div>
+      <div style="margin-top:18px;padding:12px;border-radius:12px;border:1px dashed #6E5A8A;background:#1a1528">
+        <div style="font-size:11px;font-weight:700;color:#b9a8e8;margin-bottom:6px">Simulación · no entra al total oficial</div>
+        <div class="hbar">
+          <div class="row"><span style="color:#b9a8e8">Escenario +</span><div class="track"><div class="fill" style="width:40%;background:repeating-linear-gradient(32deg,#6E5A8A,#6E5A8A 2px,#241d3d 2px,#241d3d 5px)"></div></div><span style="color:#b9a8e8">+3%</span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+</body>
+</html>

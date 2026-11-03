@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opción B · Bureau rejilla</title>
+<link rel="stylesheet" href="informe-shared.css">
+<style>
+  :root{color-scheme:dark}
+  body{
+    background:
+      radial-gradient(900px 420px at 8% 0%,rgba(0,174,172,.22),transparent 55%),
+      radial-gradient(800px 400px at 100% 10%,rgba(233,144,30,.14),transparent 50%),
+      linear-gradient(165deg,#071018,#0a1424 45%,#122038);
+    color:var(--text);min-height:100vh;
+  }
+  .page{max-width:1100px;margin:0 auto;padding:20px 24px 64px}
+  .hero{
+    display:grid;grid-template-columns:1.4fr .8fr;gap:16px;margin-bottom:18px;
+  }
+  @media (max-width:900px){.hero,.sec-grid,.kpi-strip{grid-template-columns:1fr}}
+  .hero-main,.panel,.sec{
+    border:1px solid rgba(255,255,255,.28);border-radius:16px;
+    background:linear-gradient(165deg,rgba(255,255,255,.09),rgba(255,255,255,.02) 45%,rgba(14,22,38,.16));
+    backdrop-filter:blur(24px) saturate(1.4);
+  }
+  .hero-main{padding:28px 26px}
+  .hero-main .kicker{margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  .hero-main h1{margin:0 0 8px;font-size:28px;letter-spacing:-.02em}
+  .hero-main p{margin:0;color:var(--text-2);max-width:48ch}
+  .hero-side{
+    border-radius:16px;overflow:hidden;min-height:180px;border:1px solid rgba(255,255,255,.28);
+    background:
+      linear-gradient(180deg,rgba(8,14,28,.15),rgba(8,14,28,.72)),
+      url("https://images.unsplash.com/photo-1599423300746-b62533397364?w=900&q=80") center/cover;
+    display:flex;align-items:flex-end;padding:14px 16px;
+  }
+  .hero-side span{font-size:11px;color:rgba(255,255,255,.85)}
+  .kpi-strip{margin:0 0 18px}
+  .kpi-strip .k{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.22)}
+  .sec{padding:18px;margin:0 0 16px}
+  .sec-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(200px,0.7fr);gap:16px}
+  .sec h2{margin:0 0 6px;font-size:18px}
+  .lead{margin:0 0 12px;color:var(--text-2);font-size:13px}
+  .rail{
+    border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.2);
+    background:#152238;min-height:160px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+  }
+  .rail.has-img{
+    background:
+      linear-gradient(180deg,transparent,rgba(8,14,28,.85)),
+      url("https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=800&q=80") center/cover;
+  }
+  .rail .cap{padding:10px 12px;font-size:11px;color:var(--text-2)}
+  .rail.empty{align-items:center;justify-content:center;color:var(--muted);font-size:12px;padding:16px;text-align:center}
+  .panel{padding:14px}
+  .callout{background:rgba(251,187,40,.08);border-color:var(--gold)}
+  h3.lbl{margin:14px 0 8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+</style>
+</head>
+<body>
+  <nav class="back">
+    <span class="opt">Opción B</span>
+    <strong>Pantalla Bureau · rejilla</strong>
+    <a href="informe-index.html">← Volver al chooser</a>
+  </nav>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-main">
+        <p class="kicker">Bureau · Colmayor · Corte 2026-11-01</p>
+        <h1>Turismo e inteligencia de destino · Medellín</h1>
+        <p>Misma piel del tablero. Imagen lateral solo con match curado; el resto prioriza dato.</p>
+      </div>
+      <div class="hero-side" role="img" aria-label="Portada Medellín curada">
+        <span>Portada curada · Medellín</span>
+      </div>
+    </header>
+
+    <div class="kpi-strip">
+      <div class="k"><b>247k</b><span>Visitantes 3m</span></div>
+      <div class="k"><b>−7,0%</b><span>YoY</span></div>
+      <div class="k"><b>551k</b><span>Medellín YTD</span></div>
+      <div class="k"><b>180k</b><span>EE.UU. emisor</span></div>
+    </div>
+
+    <article class="sec">
+      <div class="sec-grid">
+        <div>
+          <h2>1. Tendencias de mercado</h2>
+          <p class="lead">Lead corto: contracción de volumen en ventana móvil con tarifa aún elevada.</p>
+          <h3 class="lbl">Hallazgos</h3>
+          <ul class="clean">
+            <li>247.331 visitantes abr–jun 2026 (−7,0% YoY).</li>
+            <li>Ocupación 67,1% · tarifa 442.227 COP.</li>
+          </ul>
+          <h3 class="lbl">Análisis</h3>
+          <ul class="clean">
+            <li>Desaceleración reciente frente al mismo periodo del año anterior.</li>
+          </ul>
+          <div class="callout"><strong>Insight.</strong> Monitorear si el precio sostiene ingreso ante menor flujo.</div>
+          <div class="panel" style="margin-top:14px">
+            <h3 class="lbl" style="margin-top:0">Figura 1 · Ocupación vs contexto</h3>
+            <div class="bars">
+              <div class="bar-row"><span>Ocupación</span><div class="track"><div class="fill" style="width:67%"></div></div><span class="val">67,1%</span></div>
+            </div>
+            <p class="fig-note">Figura 1 · occ_med_ult</p>
+          </div>
+        </div>
+        <aside class="rail empty">
+          Sin imagen curada para esta sección<br>(no se inventa stock)
+        </aside>
+      </div>
+    </article>
+
+    <article class="sec">
+      <div class="sec-grid">
+        <div>
+          <h2>5. Conectividad aérea</h2>
+          <p class="lead">Ejemplo de sección con rail fotográfico curado (aeropuerto), no Pexels aleatorio.</p>
+          <h3 class="lbl">Hallazgos</h3>
+          <ul class="clean">
+            <li>Conectividad como habilitador de emisores top (EE.UU. 33,1%).</li>
+          </ul>
+          <div class="panel" style="margin-top:12px">
+            <h3 class="lbl" style="margin-top:0">Figura 2 · Emisores YTD</h3>
+            <div class="bars">
+              <div class="bar-row"><span>EE.UU.</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">180k</span></div>
+              <div class="bar-row"><span>México</span><div class="track"><div class="fill" style="width:25%"></div></div><span class="val">46k</span></div>
+              <div class="bar-row"><span>C. Rica</span><div class="track"><div class="fill" style="width:22%"></div></div><span class="val">39k</span></div>
+            </div>
+            <p class="fig-note">Figura 2 · emisores_ytd_2026</p>
+          </div>
+        </div>
+        <aside class="rail has-img">
+          <div class="cap">Curada · conectividad / aeropuerto</div>
+        </aside>
+      </div>
+    </article>
+  </div>
+</body>
+</html>

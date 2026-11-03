@@ -242,14 +242,20 @@ def cortes_aerocivil():
     return {"aeropuertos": aeropuertos, "aerolineas": aerolineas, "carga": carga}
 
 
-def mincit_vnr():
-    """Visitantes extranjeros no residentes (MinCIT / Citur) con ciudad de destino Medellín."""
-    mes_abrev = {
+def mes_numero(texto):
+    t = fold(texto)
+    abrev = {
         "ENE": 1, "FEB": 2, "MAR": 3, "ABR": 4, "MAY": 5, "JUN": 6,
         "JUL": 7, "AGO": 8, "SEP": 9, "OCT": 10, "NOV": 11, "DIC": 12,
     }
-    anios = ["2022", "2023", "2024", "2025", "2026"]
-    where = "ciudad='Medellín' AND a_o in(" + ",".join(f"'{a}'" for a in anios) + ")"
+    if t in MESES_ES:
+        return MESES_ES[t]
+    if len(t) >= 3 and t[:3] in abrev:
+        return abrev[t[:3]]
+    return None
+
+
+def _vnr_serie(where, etiqueta, anios):
     mensuales = soda({
         "$select": "a_o,mes,sum(cant_extranjeros_no_residentes) as visitantes",
         "$where": where,
@@ -258,17 +264,16 @@ def mincit_vnr():
     }, dataset="7wm8-w5ad")
     serie = []
     for row in mensuales:
-        mes = mes_abrev.get(fold(row.get("mes") or "")[:3])
+        mes = mes_numero(row.get("mes"))
         if not mes:
             continue
         serie.append({
             "anio": int(row["a_o"]),
             "mes": mes,
             "visitantes": int(float(row.get("visitantes") or 0)),
-            "ciudad": "Medellín",
+            "ambito": etiqueta,
         })
     serie.sort(key=lambda r: (r["anio"], r["mes"]))
-
     anuales = soda({
         "$select": "a_o,sum(cant_extranjeros_no_residentes) as visitantes",
         "$where": where,
@@ -277,9 +282,55 @@ def mincit_vnr():
         "$limit": "20",
     }, dataset="7wm8-w5ad")
     anual = [{"anio": int(r["a_o"]), "visitantes": int(float(r.get("visitantes") or 0))} for r in anuales]
+    return serie, anual
+
+
+def mincit_vnr():
+    """Visitantes extranjeros no residentes (MinCIT / Citur): Medellín, Antioquia, Rionegro y shares."""
+    anios = ["2022", "2023", "2024", "2025", "2026"]
+    anios_sql = ",".join(f"'{a}'" for a in anios)
+    serie, anual = _vnr_serie(f"ciudad='Medellín' AND a_o in({anios_sql})", "Medellín", anios)
+    serie_ant, anual_ant = _vnr_serie(f"departamento='Antioquia' AND a_o in({anios_sql})", "Antioquia", anios)
+    serie_rio, anual_rio = _vnr_serie(f"ciudad='Rionegro' AND a_o in({anios_sql})", "Rionegro", anios)
+    serie_co, anual_co = _vnr_serie(f"a_o in({anios_sql})", "Colombia", anios)
+
+    def mapa_anual(filas):
+        return {row["anio"]: row["visitantes"] for row in filas}
+
+    def mapa_mes(filas):
+        return {(row["anio"], row["mes"]): row["visitantes"] for row in filas}
+
+    m_med, m_ant, m_co = mapa_anual(anual), mapa_anual(anual_ant), mapa_anual(anual_co)
+    mm_med, mm_ant, mm_co = mapa_mes(serie), mapa_mes(serie_ant), mapa_mes(serie_co)
+    shares_anual = []
+    for anio in [int(a) for a in anios]:
+        med = m_med.get(anio)
+        if med is None:
+            continue
+        shares_anual.append({
+            "anio": anio,
+            "medellin": med,
+            "antioquia": m_ant.get(anio),
+            "colombia": m_co.get(anio),
+            "share_antioquia": round(med / m_ant[anio], 4) if m_ant.get(anio) else None,
+            "share_colombia": round(med / m_co[anio], 4) if m_co.get(anio) else None,
+        })
+    shares_mes = []
+    for key, med in sorted(mm_med.items()):
+        anio, mes = key
+        shares_mes.append({
+            "anio": anio,
+            "mes": mes,
+            "medellin": med,
+            "antioquia": mm_ant.get(key),
+            "colombia": mm_co.get(key),
+            "share_antioquia": round(med / mm_ant[key], 4) if mm_ant.get(key) else None,
+            "share_colombia": round(med / mm_co[key], 4) if mm_co.get(key) else None,
+        })
 
     mercados_anio = {}
     top_paises = {}
+    paises_detalle = {}
     for anio in anios:
         filas = soda({
             "$select": "paisoeeresidencia,sum(cant_extranjeros_no_residentes) as visitantes",
@@ -291,12 +342,14 @@ def mincit_vnr():
         cubo = {m: 0 for m in MERCADOS if m != "Colombia"}
         otros = 0
         tops = []
+        detalle = []
         for row in filas:
             pais = row.get("paisoeeresidencia") or ""
             n = int(float(row.get("visitantes") or 0))
             if n <= 0:
                 continue
             tops.append({"pais": pais, "visitantes": n})
+            detalle.append({"pais": pais, "visitantes": n, "mercado": mercado_de(pais) or "Otros"})
             mercado = mercado_de(pais)
             if mercado and mercado != "Colombia" and mercado in cubo:
                 cubo[mercado] += n
@@ -306,10 +359,11 @@ def mincit_vnr():
             {"mercado": "Otros", "visitantes": otros}
         ]
         top_paises[anio] = tops[:12]
+        paises_detalle[anio] = detalle
 
     peers = soda({
         "$select": "ciudad,a_o,sum(cant_extranjeros_no_residentes) as visitantes",
-        "$where": "ciudad in('Medellín','Bogotá, D.C.','Cartagena') AND a_o in(" + ",".join(f"'{a}'" for a in anios) + ")",
+        "$where": f"ciudad in('Medellín','Bogotá, D.C.','Cartagena') AND a_o in({anios_sql})",
         "$group": "ciudad,a_o",
         "$order": "a_o,ciudad",
         "$limit": "50",
@@ -329,19 +383,153 @@ def mincit_vnr():
         "universo": (
             "Extranjeros no residentes con ciudad de destino Medellín según la VNR del MinCIT. "
             "No son pasajeros Aerocivil, ni entradas por puesto migratorio, ni colombianos residentes en el exterior, ni cruceros. "
-            "Rionegro (José María Córdova) es otra ciudad en la misma base y no se suma aquí."
+            "Rionegro y Antioquia se muestran aparte y no se suman a Medellín."
         ),
         "grano": "mensual y anual",
         "ciudad": "Medellín",
         "serie": serie,
         "anual": anual,
+        "antioquia": {"serie": serie_ant, "anual": anual_ant},
+        "rionegro": {"serie": serie_rio, "anual": anual_rio},
+        "colombia": {"serie": serie_co, "anual": anual_co},
+        "shares": {"anual": shares_anual, "mensual": shares_mes},
         "mercados": mercados_anio,
         "top_paises": top_paises,
+        "paises": paises_detalle,
         "comparables": comparables,
         "nota_migracion": (
             "El dataset local de ingreso por el aeropuerto José María Córdova en datos.gov.co respondió 403 al corte. "
             "Cuando haya acceso estable se podrá contrastar con esta serie MinCIT."
         ),
+    }
+
+
+def migracion_entradas():
+    """Entradas de extranjeros a Colombia (Migración Colombia, nacional)."""
+    anios = ["2022", "2023", "2024", "2025", "2026"]
+    anios_sql = ",".join(f"'{a}'" for a in anios)
+    mensuales = soda({
+        "$select": "a_o,mes,sum(total) as entradas",
+        "$where": f"a_o in({anios_sql})",
+        "$group": "a_o,mes",
+        "$limit": "500",
+    }, dataset="96sh-4v8d")
+    serie = []
+    for row in mensuales:
+        mes = mes_numero(row.get("mes"))
+        if not mes:
+            continue
+        serie.append({
+            "anio": int(row["a_o"]),
+            "mes": mes,
+            "entradas": int(float(row.get("entradas") or 0)),
+        })
+    serie.sort(key=lambda r: (r["anio"], r["mes"]))
+
+    anuales = soda({
+        "$select": "a_o,sum(total) as entradas",
+        "$where": f"a_o in({anios_sql})",
+        "$group": "a_o",
+        "$order": "a_o",
+        "$limit": "20",
+    }, dataset="96sh-4v8d")
+    anual = [{"anio": int(r["a_o"]), "entradas": int(float(r.get("entradas") or 0))} for r in anuales]
+
+    top_paises = {}
+    mercados_anio = {}
+    for anio in anios:
+        filas = soda({
+            "$select": "nacionalidad,sum(total) as entradas",
+            "$where": f"a_o='{anio}'",
+            "$group": "nacionalidad",
+            "$order": "entradas DESC",
+            "$limit": "300",
+        }, dataset="96sh-4v8d")
+        cubo = {m: 0 for m in MERCADOS if m != "Colombia"}
+        otros = 0
+        tops = []
+        for row in filas:
+            pais = row.get("nacionalidad") or ""
+            n = int(float(row.get("entradas") or 0))
+            if n <= 0:
+                continue
+            tops.append({"pais": pais, "entradas": n})
+            mercado = mercado_de(pais)
+            if not mercado and "ESTADOS UNIDOS" in fold(pais):
+                mercado = "Estados Unidos"
+            if mercado and mercado != "Colombia" and mercado in cubo:
+                cubo[mercado] += n
+            else:
+                otros += n
+        top_paises[anio] = tops[:12]
+        mercados_anio[anio] = [{"mercado": m, "entradas": cubo[m]} for m in cubo] + [
+            {"mercado": "Otros", "entradas": otros}
+        ]
+
+    return {
+        "id": "migracion-entradas",
+        "fuente": "Migración Colombia · Entradas de extranjeros a Colombia",
+        "url": "https://www.datos.gov.co/Estad-sticas-Nacionales/Entradas-de-extranjeros-a-Colombia/96sh-4v8d",
+        "licencia": "Datos abiertos del Estado colombiano (datos.gov.co).",
+        "descarga": HOY,
+        "universo": (
+            "Cruces de entrada de extranjeros a Colombia (conteo de movimientos, no personas distintas). "
+            "Serie nacional: no es destino Medellín ni la VNR MinCIT. "
+            "No incluye salidas ni el dataset del aeropuerto José María Córdova (403 al corte)."
+        ),
+        "grano": "mensual y anual",
+        "serie": serie,
+        "anual": anual,
+        "top_paises": top_paises,
+        "mercados": mercados_anio,
+    }
+
+
+def trm_banrep():
+    """TRM diaria Superfinanciera agregada a promedio mensual."""
+    anios = (2022, 2023, 2024, 2025, 2026)
+    filas = soda({
+        "$select": "vigenciadesde,valor",
+        "$where": "vigenciadesde >= '2022-01-01T00:00:00.000'",
+        "$order": "vigenciadesde",
+        "$limit": "50000",
+    }, dataset="32sa-8pi3")
+    cubo = defaultdict(list)
+    for row in filas:
+        fecha = str(row.get("vigenciadesde") or "")[:10]
+        if len(fecha) < 7:
+            continue
+        anio = int(fecha[0:4])
+        mes = int(fecha[5:7])
+        if anio not in anios:
+            continue
+        try:
+            valor = float(row.get("valor") or 0)
+        except ValueError:
+            continue
+        if valor <= 0:
+            continue
+        cubo[(anio, mes)].append(valor)
+    serie = []
+    for (anio, mes), vals in sorted(cubo.items()):
+        serie.append({
+            "anio": anio,
+            "mes": mes,
+            "trm": round(sum(vals) / len(vals), 2),
+            "n_dias": len(vals),
+        })
+    return {
+        "id": "trm-banrep",
+        "fuente": "Superintendencia Financiera · TRM oficial (datos.gov.co 32sa-8pi3)",
+        "url": "https://www.datos.gov.co/resource/32sa-8pi3.json",
+        "licencia": "Datos abiertos del Estado colombiano (datos.gov.co).",
+        "descarga": HOY,
+        "universo": (
+            "Promedio mensual de la TRM oficial (COP por USD). "
+            "Es contexto de gasto en dólares; no es el gasto del visitante ni una causa de llegadas."
+        ),
+        "grano": "mensual (promedio de días hábiles publicados)",
+        "serie": serie,
     }
 
 
@@ -1023,6 +1211,8 @@ def main():
     for nombre, fn in (
         ("conectividad.json", aerocivil),
         ("mincit_vnr.json", mincit_vnr),
+        ("migracion_entradas.json", migracion_entradas),
+        ("trm_banrep.json", trm_banrep),
         ("ema.json", ema),
         ("medata_tarifas.json", medata),
         ("icca.json", icca),
@@ -1079,7 +1269,7 @@ def main():
         "errores": errores,
         "mercados": MERCADOS,
         "destinos_comparables": DESTINOS,
-        "nota": "Agregados para el tablero. Sin filas de encuesta y sin XLSX crudos.",
+        "nota": "Agregados para el tablero. Sin Wikipedia. Sin CRM. Sin filas de encuesta ni XLSX crudos.",
     }
     write("manifiesto.json", manifiesto)
     print("manifiesto listo")

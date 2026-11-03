@@ -4,7 +4,7 @@
   "url": "https://www.datos.gov.co/Comercio-Industria-y-Turismo/Extranjeros-No-Residentes/7wm8-w5ad",
   "licencia": "Datos abiertos del Estado colombiano (datos.gov.co).",
   "descarga": "2026-11-03",
-  "universo": "Extranjeros no residentes con ciudad de destino Medellín según la VNR del MinCIT. No son pasajeros Aerocivil, ni entradas por puesto migratorio, ni colombianos residentes en el exterior, ni cruceros. Rionegro (José María Córdova) es otra ciudad en la misma base y no se suma aquí.",
+  "universo": "Extranjeros no residentes con ciudad de destino Medellín según la VNR del MinCIT. No son pasajeros Aerocivil, ni entradas por puesto migratorio, ni colombianos residentes en el exterior, ni cruceros. Rionegro y Antioquia se muestran aparte y no se suman a Medellín.",
   "grano": "mensual y anual",
   "ciudad": "Medellín",
   "serie": [
@@ -12,325 +12,325 @@
       "anio": 2022,
       "mes": 1,
       "visitantes": 34973,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2022,
       "mes": 2,
       "visitantes": 38018,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2022,
       "mes": 3,
       "visitantes": 45148,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2022,
       "mes": 4,
       "visitantes": 50970,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2022,
       "mes": 5,
       "visitantes": 47589,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2022,
       "mes": 6,
       "visitantes": 50045,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2022,
       "mes": 7,
       "visitantes": 63443,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2022,
       "mes": 8,
       "visitantes": 64956,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2022,
       "mes": 9,
       "visitantes": 56860,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2022,
       "mes": 10,
       "visitantes": 55738,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2022,
       "mes": 11,
       "visitantes": 64008,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2022,
       "mes": 12,
       "visitantes": 70288,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2023,
       "mes": 1,
       "visitantes": 64878,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2023,
       "mes": 2,
       "visitantes": 65093,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2023,
       "mes": 3,
       "visitantes": 61807,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2023,
       "mes": 4,
       "visitantes": 63622,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2023,
       "mes": 5,
       "visitantes": 62473,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2023,
       "mes": 6,
       "visitantes": 63307,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2023,
       "mes": 7,
       "visitantes": 82835,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2023,
       "mes": 8,
       "visitantes": 61979,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2023,
       "mes": 9,
       "visitantes": 52446,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2023,
       "mes": 10,
       "visitantes": 47587,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2023,
       "mes": 11,
       "visitantes": 81743,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2023,
       "mes": 12,
       "visitantes": 82365,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2024,
       "mes": 1,
       "visitantes": 81070,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2024,
       "mes": 2,
       "visitantes": 84179,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2024,
       "mes": 3,
       "visitantes": 81633,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2024,
       "mes": 4,
       "visitantes": 75877,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2024,
       "mes": 5,
       "visitantes": 85851,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2024,
       "mes": 6,
       "visitantes": 79998,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2024,
       "mes": 7,
       "visitantes": 103007,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2024,
       "mes": 8,
       "visitantes": 102456,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2024,
       "mes": 9,
       "visitantes": 80260,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2024,
       "mes": 10,
       "visitantes": 79132,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2024,
       "mes": 11,
       "visitantes": 91228,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2024,
       "mes": 12,
       "visitantes": 103780,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2025,
       "mes": 1,
       "visitantes": 98304,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2025,
       "mes": 2,
       "visitantes": 92872,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2025,
       "mes": 3,
       "visitantes": 88833,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2025,
       "mes": 4,
       "visitantes": 90137,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2025,
       "mes": 5,
       "visitantes": 87514,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2025,
       "mes": 6,
       "visitantes": 88383,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2025,
       "mes": 7,
       "visitantes": 114573,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2025,
       "mes": 8,
       "visitantes": 107447,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2025,
       "mes": 9,
       "visitantes": 83470,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2025,
       "mes": 10,
       "visitantes": 89062,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2025,
       "mes": 11,
       "visitantes": 96378,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2025,
       "mes": 12,
       "visitantes": 106705,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2026,
       "mes": 1,
       "visitantes": 108273,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2026,
       "mes": 2,
       "visitantes": 96048,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2026,
       "mes": 3,
       "visitantes": 99574,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2026,
       "mes": 4,
       "visitantes": 85002,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2026,
       "mes": 5,
       "visitantes": 83335,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     },
     {
       "anio": 2026,
       "mes": 6,
       "visitantes": 78994,
-      "ciudad": "Medellín"
+      "ambito": "Medellín"
     }
   ],
   "anual": [
@@ -355,6 +355,1588 @@
       "visitantes": 551226
     }
   ],
+  "antioquia": {
+    "serie": [
+      {
+        "anio": 2022,
+        "mes": 1,
+        "visitantes": 39211,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2022,
+        "mes": 2,
+        "visitantes": 41955,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2022,
+        "mes": 3,
+        "visitantes": 50005,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2022,
+        "mes": 4,
+        "visitantes": 55925,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2022,
+        "mes": 5,
+        "visitantes": 52374,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2022,
+        "mes": 6,
+        "visitantes": 56614,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2022,
+        "mes": 7,
+        "visitantes": 70185,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2022,
+        "mes": 8,
+        "visitantes": 71737,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2022,
+        "mes": 9,
+        "visitantes": 62075,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2022,
+        "mes": 10,
+        "visitantes": 60847,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2022,
+        "mes": 11,
+        "visitantes": 70174,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2022,
+        "mes": 12,
+        "visitantes": 79694,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2023,
+        "mes": 1,
+        "visitantes": 71375,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2023,
+        "mes": 2,
+        "visitantes": 71064,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2023,
+        "mes": 3,
+        "visitantes": 67941,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2023,
+        "mes": 4,
+        "visitantes": 69296,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2023,
+        "mes": 5,
+        "visitantes": 68604,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2023,
+        "mes": 6,
+        "visitantes": 70195,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2023,
+        "mes": 7,
+        "visitantes": 91501,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2023,
+        "mes": 8,
+        "visitantes": 82445,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2023,
+        "mes": 9,
+        "visitantes": 69377,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2023,
+        "mes": 10,
+        "visitantes": 64391,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2023,
+        "mes": 11,
+        "visitantes": 89136,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2023,
+        "mes": 12,
+        "visitantes": 90981,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2024,
+        "mes": 1,
+        "visitantes": 86720,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2024,
+        "mes": 2,
+        "visitantes": 90239,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2024,
+        "mes": 3,
+        "visitantes": 88084,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2024,
+        "mes": 4,
+        "visitantes": 81811,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2024,
+        "mes": 5,
+        "visitantes": 92445,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2024,
+        "mes": 6,
+        "visitantes": 87416,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2024,
+        "mes": 7,
+        "visitantes": 109636,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2024,
+        "mes": 8,
+        "visitantes": 108301,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2024,
+        "mes": 9,
+        "visitantes": 84218,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2024,
+        "mes": 10,
+        "visitantes": 84765,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2024,
+        "mes": 11,
+        "visitantes": 97756,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2024,
+        "mes": 12,
+        "visitantes": 114115,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2025,
+        "mes": 1,
+        "visitantes": 104762,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2025,
+        "mes": 2,
+        "visitantes": 98929,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2025,
+        "mes": 3,
+        "visitantes": 94973,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2025,
+        "mes": 4,
+        "visitantes": 96201,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2025,
+        "mes": 5,
+        "visitantes": 93705,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2025,
+        "mes": 6,
+        "visitantes": 95592,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2025,
+        "mes": 7,
+        "visitantes": 123320,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2025,
+        "mes": 8,
+        "visitantes": 114832,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2025,
+        "mes": 9,
+        "visitantes": 88795,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2025,
+        "mes": 10,
+        "visitantes": 94856,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2025,
+        "mes": 11,
+        "visitantes": 102726,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2025,
+        "mes": 12,
+        "visitantes": 116294,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2026,
+        "mes": 1,
+        "visitantes": 114318,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2026,
+        "mes": 2,
+        "visitantes": 101207,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2026,
+        "mes": 3,
+        "visitantes": 104981,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2026,
+        "mes": 4,
+        "visitantes": 89385,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2026,
+        "mes": 5,
+        "visitantes": 87697,
+        "ambito": "Antioquia"
+      },
+      {
+        "anio": 2026,
+        "mes": 6,
+        "visitantes": 84395,
+        "ambito": "Antioquia"
+      }
+    ],
+    "anual": [
+      {
+        "anio": 2022,
+        "visitantes": 710796
+      },
+      {
+        "anio": 2023,
+        "visitantes": 906306
+      },
+      {
+        "anio": 2024,
+        "visitantes": 1125506
+      },
+      {
+        "anio": 2025,
+        "visitantes": 1224985
+      },
+      {
+        "anio": 2026,
+        "visitantes": 581983
+      }
+    ]
+  },
+  "rionegro": {
+    "serie": [
+      {
+        "anio": 2022,
+        "mes": 1,
+        "visitantes": 937,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2022,
+        "mes": 2,
+        "visitantes": 899,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2022,
+        "mes": 3,
+        "visitantes": 1024,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2022,
+        "mes": 4,
+        "visitantes": 1049,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2022,
+        "mes": 5,
+        "visitantes": 1210,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2022,
+        "mes": 6,
+        "visitantes": 1366,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2022,
+        "mes": 7,
+        "visitantes": 1369,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2022,
+        "mes": 8,
+        "visitantes": 1457,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2022,
+        "mes": 9,
+        "visitantes": 1319,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2022,
+        "mes": 10,
+        "visitantes": 1087,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2022,
+        "mes": 11,
+        "visitantes": 1384,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2022,
+        "mes": 12,
+        "visitantes": 1707,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2023,
+        "mes": 1,
+        "visitantes": 1477,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2023,
+        "mes": 2,
+        "visitantes": 1465,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2023,
+        "mes": 3,
+        "visitantes": 1269,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2023,
+        "mes": 4,
+        "visitantes": 1051,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2023,
+        "mes": 5,
+        "visitantes": 1273,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2023,
+        "mes": 6,
+        "visitantes": 1154,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2023,
+        "mes": 7,
+        "visitantes": 1796,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2023,
+        "mes": 8,
+        "visitantes": 14442,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2023,
+        "mes": 9,
+        "visitantes": 12282,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2023,
+        "mes": 10,
+        "visitantes": 12125,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2023,
+        "mes": 11,
+        "visitantes": 2579,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2023,
+        "mes": 12,
+        "visitantes": 1282,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2024,
+        "mes": 1,
+        "visitantes": 827,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2024,
+        "mes": 2,
+        "visitantes": 1056,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2024,
+        "mes": 3,
+        "visitantes": 1115,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2024,
+        "mes": 4,
+        "visitantes": 1429,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2024,
+        "mes": 5,
+        "visitantes": 1438,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2024,
+        "mes": 6,
+        "visitantes": 1540,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2024,
+        "mes": 7,
+        "visitantes": 1581,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2024,
+        "mes": 8,
+        "visitantes": 1513,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2024,
+        "mes": 9,
+        "visitantes": 899,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2024,
+        "mes": 10,
+        "visitantes": 1350,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2024,
+        "mes": 11,
+        "visitantes": 1442,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2024,
+        "mes": 12,
+        "visitantes": 1948,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2025,
+        "mes": 1,
+        "visitantes": 1489,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2025,
+        "mes": 2,
+        "visitantes": 1388,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2025,
+        "mes": 3,
+        "visitantes": 1409,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2025,
+        "mes": 4,
+        "visitantes": 1188,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2025,
+        "mes": 5,
+        "visitantes": 1267,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2025,
+        "mes": 6,
+        "visitantes": 1193,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2025,
+        "mes": 7,
+        "visitantes": 1745,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2025,
+        "mes": 8,
+        "visitantes": 1446,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2025,
+        "mes": 9,
+        "visitantes": 1014,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2025,
+        "mes": 10,
+        "visitantes": 1070,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2025,
+        "mes": 11,
+        "visitantes": 1192,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2025,
+        "mes": 12,
+        "visitantes": 1540,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2026,
+        "mes": 1,
+        "visitantes": 1159,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2026,
+        "mes": 2,
+        "visitantes": 1150,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2026,
+        "mes": 3,
+        "visitantes": 1135,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2026,
+        "mes": 4,
+        "visitantes": 918,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2026,
+        "mes": 5,
+        "visitantes": 968,
+        "ambito": "Rionegro"
+      },
+      {
+        "anio": 2026,
+        "mes": 6,
+        "visitantes": 1003,
+        "ambito": "Rionegro"
+      }
+    ],
+    "anual": [
+      {
+        "anio": 2022,
+        "visitantes": 14808
+      },
+      {
+        "anio": 2023,
+        "visitantes": 52195
+      },
+      {
+        "anio": 2024,
+        "visitantes": 16138
+      },
+      {
+        "anio": 2025,
+        "visitantes": 15941
+      },
+      {
+        "anio": 2026,
+        "visitantes": 6333
+      }
+    ]
+  },
+  "colombia": {
+    "serie": [
+      {
+        "anio": 2022,
+        "mes": 1,
+        "visitantes": 197182,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2022,
+        "mes": 2,
+        "visitantes": 216232,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2022,
+        "mes": 3,
+        "visitantes": 247502,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2022,
+        "mes": 4,
+        "visitantes": 257074,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2022,
+        "mes": 5,
+        "visitantes": 243207,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2022,
+        "mes": 6,
+        "visitantes": 260572,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2022,
+        "mes": 7,
+        "visitantes": 319511,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2022,
+        "mes": 8,
+        "visitantes": 313916,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2022,
+        "mes": 9,
+        "visitantes": 281219,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2022,
+        "mes": 10,
+        "visitantes": 282367,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2022,
+        "mes": 11,
+        "visitantes": 311937,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2022,
+        "mes": 12,
+        "visitantes": 349212,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2023,
+        "mes": 1,
+        "visitantes": 318925,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2023,
+        "mes": 2,
+        "visitantes": 331331,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2023,
+        "mes": 3,
+        "visitantes": 341371,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2023,
+        "mes": 4,
+        "visitantes": 313085,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2023,
+        "mes": 5,
+        "visitantes": 298619,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2023,
+        "mes": 6,
+        "visitantes": 327624,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2023,
+        "mes": 7,
+        "visitantes": 400736,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2023,
+        "mes": 8,
+        "visitantes": 375321,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2023,
+        "mes": 9,
+        "visitantes": 312056,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2023,
+        "mes": 10,
+        "visitantes": 304980,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2023,
+        "mes": 11,
+        "visitantes": 358875,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2023,
+        "mes": 12,
+        "visitantes": 394716,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2024,
+        "mes": 1,
+        "visitantes": 356294,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2024,
+        "mes": 2,
+        "visitantes": 380954,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2024,
+        "mes": 3,
+        "visitantes": 378367,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2024,
+        "mes": 4,
+        "visitantes": 335417,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2024,
+        "mes": 5,
+        "visitantes": 335337,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2024,
+        "mes": 6,
+        "visitantes": 359923,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2024,
+        "mes": 7,
+        "visitantes": 416521,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2024,
+        "mes": 8,
+        "visitantes": 417748,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2024,
+        "mes": 9,
+        "visitantes": 338104,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2024,
+        "mes": 10,
+        "visitantes": 346177,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2024,
+        "mes": 11,
+        "visitantes": 388166,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2024,
+        "mes": 12,
+        "visitantes": 451522,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2025,
+        "mes": 1,
+        "visitantes": 398511,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2025,
+        "mes": 2,
+        "visitantes": 395445,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2025,
+        "mes": 3,
+        "visitantes": 397879,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2025,
+        "mes": 4,
+        "visitantes": 364830,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2025,
+        "mes": 5,
+        "visitantes": 348119,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2025,
+        "mes": 6,
+        "visitantes": 367588,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2025,
+        "mes": 7,
+        "visitantes": 444898,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2025,
+        "mes": 8,
+        "visitantes": 420001,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2025,
+        "mes": 9,
+        "visitantes": 329824,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2025,
+        "mes": 10,
+        "visitantes": 354982,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2025,
+        "mes": 11,
+        "visitantes": 394929,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2025,
+        "mes": 12,
+        "visitantes": 460572,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2026,
+        "mes": 1,
+        "visitantes": 408578,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2026,
+        "mes": 2,
+        "visitantes": 409614,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2026,
+        "mes": 3,
+        "visitantes": 419165,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2026,
+        "mes": 4,
+        "visitantes": 349622,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2026,
+        "mes": 5,
+        "visitantes": 327032,
+        "ambito": "Colombia"
+      },
+      {
+        "anio": 2026,
+        "mes": 6,
+        "visitantes": 309460,
+        "ambito": "Colombia"
+      }
+    ],
+    "anual": [
+      {
+        "anio": 2022,
+        "visitantes": 3279931
+      },
+      {
+        "anio": 2023,
+        "visitantes": 4077639
+      },
+      {
+        "anio": 2024,
+        "visitantes": 4504530
+      },
+      {
+        "anio": 2025,
+        "visitantes": 4677578
+      },
+      {
+        "anio": 2026,
+        "visitantes": 2223471
+      }
+    ]
+  },
+  "shares": {
+    "anual": [
+      {
+        "anio": 2022,
+        "medellin": 642036,
+        "antioquia": 710796,
+        "colombia": 3279931,
+        "share_antioquia": 0.9033,
+        "share_colombia": 0.1957
+      },
+      {
+        "anio": 2023,
+        "medellin": 790135,
+        "antioquia": 906306,
+        "colombia": 4077639,
+        "share_antioquia": 0.8718,
+        "share_colombia": 0.1938
+      },
+      {
+        "anio": 2024,
+        "medellin": 1048471,
+        "antioquia": 1125506,
+        "colombia": 4504530,
+        "share_antioquia": 0.9316,
+        "share_colombia": 0.2328
+      },
+      {
+        "anio": 2025,
+        "medellin": 1143678,
+        "antioquia": 1224985,
+        "colombia": 4677578,
+        "share_antioquia": 0.9336,
+        "share_colombia": 0.2445
+      },
+      {
+        "anio": 2026,
+        "medellin": 551226,
+        "antioquia": 581983,
+        "colombia": 2223471,
+        "share_antioquia": 0.9472,
+        "share_colombia": 0.2479
+      }
+    ],
+    "mensual": [
+      {
+        "anio": 2022,
+        "mes": 1,
+        "medellin": 34973,
+        "antioquia": 39211,
+        "colombia": 197182,
+        "share_antioquia": 0.8919,
+        "share_colombia": 0.1774
+      },
+      {
+        "anio": 2022,
+        "mes": 2,
+        "medellin": 38018,
+        "antioquia": 41955,
+        "colombia": 216232,
+        "share_antioquia": 0.9062,
+        "share_colombia": 0.1758
+      },
+      {
+        "anio": 2022,
+        "mes": 3,
+        "medellin": 45148,
+        "antioquia": 50005,
+        "colombia": 247502,
+        "share_antioquia": 0.9029,
+        "share_colombia": 0.1824
+      },
+      {
+        "anio": 2022,
+        "mes": 4,
+        "medellin": 50970,
+        "antioquia": 55925,
+        "colombia": 257074,
+        "share_antioquia": 0.9114,
+        "share_colombia": 0.1983
+      },
+      {
+        "anio": 2022,
+        "mes": 5,
+        "medellin": 47589,
+        "antioquia": 52374,
+        "colombia": 243207,
+        "share_antioquia": 0.9086,
+        "share_colombia": 0.1957
+      },
+      {
+        "anio": 2022,
+        "mes": 6,
+        "medellin": 50045,
+        "antioquia": 56614,
+        "colombia": 260572,
+        "share_antioquia": 0.884,
+        "share_colombia": 0.1921
+      },
+      {
+        "anio": 2022,
+        "mes": 7,
+        "medellin": 63443,
+        "antioquia": 70185,
+        "colombia": 319511,
+        "share_antioquia": 0.9039,
+        "share_colombia": 0.1986
+      },
+      {
+        "anio": 2022,
+        "mes": 8,
+        "medellin": 64956,
+        "antioquia": 71737,
+        "colombia": 313916,
+        "share_antioquia": 0.9055,
+        "share_colombia": 0.2069
+      },
+      {
+        "anio": 2022,
+        "mes": 9,
+        "medellin": 56860,
+        "antioquia": 62075,
+        "colombia": 281219,
+        "share_antioquia": 0.916,
+        "share_colombia": 0.2022
+      },
+      {
+        "anio": 2022,
+        "mes": 10,
+        "medellin": 55738,
+        "antioquia": 60847,
+        "colombia": 282367,
+        "share_antioquia": 0.916,
+        "share_colombia": 0.1974
+      },
+      {
+        "anio": 2022,
+        "mes": 11,
+        "medellin": 64008,
+        "antioquia": 70174,
+        "colombia": 311937,
+        "share_antioquia": 0.9121,
+        "share_colombia": 0.2052
+      },
+      {
+        "anio": 2022,
+        "mes": 12,
+        "medellin": 70288,
+        "antioquia": 79694,
+        "colombia": 349212,
+        "share_antioquia": 0.882,
+        "share_colombia": 0.2013
+      },
+      {
+        "anio": 2023,
+        "mes": 1,
+        "medellin": 64878,
+        "antioquia": 71375,
+        "colombia": 318925,
+        "share_antioquia": 0.909,
+        "share_colombia": 0.2034
+      },
+      {
+        "anio": 2023,
+        "mes": 2,
+        "medellin": 65093,
+        "antioquia": 71064,
+        "colombia": 331331,
+        "share_antioquia": 0.916,
+        "share_colombia": 0.1965
+      },
+      {
+        "anio": 2023,
+        "mes": 3,
+        "medellin": 61807,
+        "antioquia": 67941,
+        "colombia": 341371,
+        "share_antioquia": 0.9097,
+        "share_colombia": 0.1811
+      },
+      {
+        "anio": 2023,
+        "mes": 4,
+        "medellin": 63622,
+        "antioquia": 69296,
+        "colombia": 313085,
+        "share_antioquia": 0.9181,
+        "share_colombia": 0.2032
+      },
+      {
+        "anio": 2023,
+        "mes": 5,
+        "medellin": 62473,
+        "antioquia": 68604,
+        "colombia": 298619,
+        "share_antioquia": 0.9106,
+        "share_colombia": 0.2092
+      },
+      {
+        "anio": 2023,
+        "mes": 6,
+        "medellin": 63307,
+        "antioquia": 70195,
+        "colombia": 327624,
+        "share_antioquia": 0.9019,
+        "share_colombia": 0.1932
+      },
+      {
+        "anio": 2023,
+        "mes": 7,
+        "medellin": 82835,
+        "antioquia": 91501,
+        "colombia": 400736,
+        "share_antioquia": 0.9053,
+        "share_colombia": 0.2067
+      },
+      {
+        "anio": 2023,
+        "mes": 8,
+        "medellin": 61979,
+        "antioquia": 82445,
+        "colombia": 375321,
+        "share_antioquia": 0.7518,
+        "share_colombia": 0.1651
+      },
+      {
+        "anio": 2023,
+        "mes": 9,
+        "medellin": 52446,
+        "antioquia": 69377,
+        "colombia": 312056,
+        "share_antioquia": 0.756,
+        "share_colombia": 0.1681
+      },
+      {
+        "anio": 2023,
+        "mes": 10,
+        "medellin": 47587,
+        "antioquia": 64391,
+        "colombia": 304980,
+        "share_antioquia": 0.739,
+        "share_colombia": 0.156
+      },
+      {
+        "anio": 2023,
+        "mes": 11,
+        "medellin": 81743,
+        "antioquia": 89136,
+        "colombia": 358875,
+        "share_antioquia": 0.9171,
+        "share_colombia": 0.2278
+      },
+      {
+        "anio": 2023,
+        "mes": 12,
+        "medellin": 82365,
+        "antioquia": 90981,
+        "colombia": 394716,
+        "share_antioquia": 0.9053,
+        "share_colombia": 0.2087
+      },
+      {
+        "anio": 2024,
+        "mes": 1,
+        "medellin": 81070,
+        "antioquia": 86720,
+        "colombia": 356294,
+        "share_antioquia": 0.9348,
+        "share_colombia": 0.2275
+      },
+      {
+        "anio": 2024,
+        "mes": 2,
+        "medellin": 84179,
+        "antioquia": 90239,
+        "colombia": 380954,
+        "share_antioquia": 0.9328,
+        "share_colombia": 0.221
+      },
+      {
+        "anio": 2024,
+        "mes": 3,
+        "medellin": 81633,
+        "antioquia": 88084,
+        "colombia": 378367,
+        "share_antioquia": 0.9268,
+        "share_colombia": 0.2158
+      },
+      {
+        "anio": 2024,
+        "mes": 4,
+        "medellin": 75877,
+        "antioquia": 81811,
+        "colombia": 335417,
+        "share_antioquia": 0.9275,
+        "share_colombia": 0.2262
+      },
+      {
+        "anio": 2024,
+        "mes": 5,
+        "medellin": 85851,
+        "antioquia": 92445,
+        "colombia": 335337,
+        "share_antioquia": 0.9287,
+        "share_colombia": 0.256
+      },
+      {
+        "anio": 2024,
+        "mes": 6,
+        "medellin": 79998,
+        "antioquia": 87416,
+        "colombia": 359923,
+        "share_antioquia": 0.9151,
+        "share_colombia": 0.2223
+      },
+      {
+        "anio": 2024,
+        "mes": 7,
+        "medellin": 103007,
+        "antioquia": 109636,
+        "colombia": 416521,
+        "share_antioquia": 0.9395,
+        "share_colombia": 0.2473
+      },
+      {
+        "anio": 2024,
+        "mes": 8,
+        "medellin": 102456,
+        "antioquia": 108301,
+        "colombia": 417748,
+        "share_antioquia": 0.946,
+        "share_colombia": 0.2453
+      },
+      {
+        "anio": 2024,
+        "mes": 9,
+        "medellin": 80260,
+        "antioquia": 84218,
+        "colombia": 338104,
+        "share_antioquia": 0.953,
+        "share_colombia": 0.2374
+      },
+      {
+        "anio": 2024,
+        "mes": 10,
+        "medellin": 79132,
+        "antioquia": 84765,
+        "colombia": 346177,
+        "share_antioquia": 0.9335,
+        "share_colombia": 0.2286
+      },
+      {
+        "anio": 2024,
+        "mes": 11,
+        "medellin": 91228,
+        "antioquia": 97756,
+        "colombia": 388166,
+        "share_antioquia": 0.9332,
+        "share_colombia": 0.235
+      },
+      {
+        "anio": 2024,
+        "mes": 12,
+        "medellin": 103780,
+        "antioquia": 114115,
+        "colombia": 451522,
+        "share_antioquia": 0.9094,
+        "share_colombia": 0.2298
+      },
+      {
+        "anio": 2025,
+        "mes": 1,
+        "medellin": 98304,
+        "antioquia": 104762,
+        "colombia": 398511,
+        "share_antioquia": 0.9384,
+        "share_colombia": 0.2467
+      },
+      {
+        "anio": 2025,
+        "mes": 2,
+        "medellin": 92872,
+        "antioquia": 98929,
+        "colombia": 395445,
+        "share_antioquia": 0.9388,
+        "share_colombia": 0.2349
+      },
+      {
+        "anio": 2025,
+        "mes": 3,
+        "medellin": 88833,
+        "antioquia": 94973,
+        "colombia": 397879,
+        "share_antioquia": 0.9354,
+        "share_colombia": 0.2233
+      },
+      {
+        "anio": 2025,
+        "mes": 4,
+        "medellin": 90137,
+        "antioquia": 96201,
+        "colombia": 364830,
+        "share_antioquia": 0.937,
+        "share_colombia": 0.2471
+      },
+      {
+        "anio": 2025,
+        "mes": 5,
+        "medellin": 87514,
+        "antioquia": 93705,
+        "colombia": 348119,
+        "share_antioquia": 0.9339,
+        "share_colombia": 0.2514
+      },
+      {
+        "anio": 2025,
+        "mes": 6,
+        "medellin": 88383,
+        "antioquia": 95592,
+        "colombia": 367588,
+        "share_antioquia": 0.9246,
+        "share_colombia": 0.2404
+      },
+      {
+        "anio": 2025,
+        "mes": 7,
+        "medellin": 114573,
+        "antioquia": 123320,
+        "colombia": 444898,
+        "share_antioquia": 0.9291,
+        "share_colombia": 0.2575
+      },
+      {
+        "anio": 2025,
+        "mes": 8,
+        "medellin": 107447,
+        "antioquia": 114832,
+        "colombia": 420001,
+        "share_antioquia": 0.9357,
+        "share_colombia": 0.2558
+      },
+      {
+        "anio": 2025,
+        "mes": 9,
+        "medellin": 83470,
+        "antioquia": 88795,
+        "colombia": 329824,
+        "share_antioquia": 0.94,
+        "share_colombia": 0.2531
+      },
+      {
+        "anio": 2025,
+        "mes": 10,
+        "medellin": 89062,
+        "antioquia": 94856,
+        "colombia": 354982,
+        "share_antioquia": 0.9389,
+        "share_colombia": 0.2509
+      },
+      {
+        "anio": 2025,
+        "mes": 11,
+        "medellin": 96378,
+        "antioquia": 102726,
+        "colombia": 394929,
+        "share_antioquia": 0.9382,
+        "share_colombia": 0.244
+      },
+      {
+        "anio": 2025,
+        "mes": 12,
+        "medellin": 106705,
+        "antioquia": 116294,
+        "colombia": 460572,
+        "share_antioquia": 0.9175,
+        "share_colombia": 0.2317
+      },
+      {
+        "anio": 2026,
+        "mes": 1,
+        "medellin": 108273,
+        "antioquia": 114318,
+        "colombia": 408578,
+        "share_antioquia": 0.9471,
+        "share_colombia": 0.265
+      },
+      {
+        "anio": 2026,
+        "mes": 2,
+        "medellin": 96048,
+        "antioquia": 101207,
+        "colombia": 409614,
+        "share_antioquia": 0.949,
+        "share_colombia": 0.2345
+      },
+      {
+        "anio": 2026,
+        "mes": 3,
+        "medellin": 99574,
+        "antioquia": 104981,
+        "colombia": 419165,
+        "share_antioquia": 0.9485,
+        "share_colombia": 0.2376
+      },
+      {
+        "anio": 2026,
+        "mes": 4,
+        "medellin": 85002,
+        "antioquia": 89385,
+        "colombia": 349622,
+        "share_antioquia": 0.951,
+        "share_colombia": 0.2431
+      },
+      {
+        "anio": 2026,
+        "mes": 5,
+        "medellin": 83335,
+        "antioquia": 87697,
+        "colombia": 327032,
+        "share_antioquia": 0.9503,
+        "share_colombia": 0.2548
+      },
+      {
+        "anio": 2026,
+        "mes": 6,
+        "medellin": 78994,
+        "antioquia": 84395,
+        "colombia": 309460,
+        "share_antioquia": 0.936,
+        "share_colombia": 0.2553
+      }
+    ]
+  },
   "mercados": {
     "2022": [
       {
@@ -716,6 +2298,4913 @@
       {
         "pais": "Chile",
         "visitantes": 10676
+      }
+    ]
+  },
+  "paises": {
+    "2022": [
+      {
+        "pais": "Estados Unidos",
+        "visitantes": 242636,
+        "mercado": "Estados Unidos"
+      },
+      {
+        "pais": "México",
+        "visitantes": 53502,
+        "mercado": "México"
+      },
+      {
+        "pais": "Panamá",
+        "visitantes": 50097,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Perú",
+        "visitantes": 32940,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Dominicana",
+        "visitantes": 30801,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ecuador",
+        "visitantes": 27637,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Venezuela",
+        "visitantes": 24818,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Costa Rica",
+        "visitantes": 22049,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "España",
+        "visitantes": 14878,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Países Bajos",
+        "visitantes": 14671,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Canadá",
+        "visitantes": 13263,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Chile",
+        "visitantes": 12046,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Brasil",
+        "visitantes": 8762,
+        "mercado": "Brasil"
+      },
+      {
+        "pais": "Puerto Rico",
+        "visitantes": 8675,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Reino Unido",
+        "visitantes": 7971,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Argentina",
+        "visitantes": 7912,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Alemania",
+        "visitantes": 7840,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Francia",
+        "visitantes": 7794,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Israel",
+        "visitantes": 6597,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guatemala",
+        "visitantes": 4599,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Italia",
+        "visitantes": 4417,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Honduras",
+        "visitantes": 2896,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "El Salvador",
+        "visitantes": 2658,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Suiza",
+        "visitantes": 2518,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Australia",
+        "visitantes": 2258,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Aruba",
+        "visitantes": 1747,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Curazao",
+        "visitantes": 1545,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bélgica",
+        "visitantes": 1457,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "India",
+        "visitantes": 1443,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Uruguay",
+        "visitantes": 1433,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bolivia",
+        "visitantes": 1336,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Portugal",
+        "visitantes": 1161,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Irlanda",
+        "visitantes": 1137,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "China",
+        "visitantes": 1090,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Polonia",
+        "visitantes": 879,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Paraguay",
+        "visitantes": 824,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Suecia",
+        "visitantes": 821,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Austria",
+        "visitantes": 751,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Rusia",
+        "visitantes": 742,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Dinamarca",
+        "visitantes": 614,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Cuba",
+        "visitantes": 585,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Turquía",
+        "visitantes": 559,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Corea del Sur",
+        "visitantes": 494,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nicaragua",
+        "visitantes": 491,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Noruega",
+        "visitantes": 471,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Jamaica",
+        "visitantes": 461,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ucrania",
+        "visitantes": 444,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Rumania",
+        "visitantes": 443,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Japón",
+        "visitantes": 380,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Trinidad y Tobago",
+        "visitantes": 341,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nueva Zelanda",
+        "visitantes": 327,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Checa",
+        "visitantes": 306,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Finlandia",
+        "visitantes": 303,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Grecia",
+        "visitantes": 297,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Antillas Neerlandesas",
+        "visitantes": 259,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Hungría",
+        "visitantes": 244,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Filipinas",
+        "visitantes": 224,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bulgaria",
+        "visitantes": 202,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bahamas",
+        "visitantes": 186,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Croacia",
+        "visitantes": 184,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Surinam",
+        "visitantes": 174,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Eslovaquia",
+        "visitantes": 173,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Taiwán",
+        "visitantes": 162,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Lituania",
+        "visitantes": 158,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Serbia",
+        "visitantes": 158,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Marruecos",
+        "visitantes": 135,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bonaire-San Esustaquio y Saba",
+        "visitantes": 131,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Georgia",
+        "visitantes": 128,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Estonia",
+        "visitantes": 108,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Singapur",
+        "visitantes": 94,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Hong Kong",
+        "visitantes": 92,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Emiratos Árabes Unidos",
+        "visitantes": 88,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Barbados",
+        "visitantes": 82,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sudáfrica",
+        "visitantes": 79,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islandia",
+        "visitantes": 77,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Belice",
+        "visitantes": 70,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Albania",
+        "visitantes": 68,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Eslovenia",
+        "visitantes": 68,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Arabia Saudita",
+        "visitantes": 67,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guyana",
+        "visitantes": 63,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Luxemburgo",
+        "visitantes": 63,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Letonia",
+        "visitantes": 63,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Haití",
+        "visitantes": 62,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Malta",
+        "visitantes": 59,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Indonesia",
+        "visitantes": 52,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Pakistán",
+        "visitantes": 50,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Egipto",
+        "visitantes": 50,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Kazajistán",
+        "visitantes": 47,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Chipre",
+        "visitantes": 43,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bermudas",
+        "visitantes": 42,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Azerbaiyán",
+        "visitantes": 42,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Organismos internacionales",
+        "visitantes": 37,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nigeria",
+        "visitantes": 35,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Tailandia",
+        "visitantes": 35,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Líbano",
+        "visitantes": 34,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Cristóbal y Nieves",
+        "visitantes": 33,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Kenia",
+        "visitantes": 31,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Irán",
+        "visitantes": 30,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Malasia",
+        "visitantes": 27,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bielorrusia",
+        "visitantes": 25,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Kuwait",
+        "visitantes": 24,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bangladesh",
+        "visitantes": 24,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Montenegro",
+        "visitantes": 21,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bahréin",
+        "visitantes": 20,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Martin",
+        "visitantes": 19,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Antigua y Barbuda",
+        "visitantes": 19,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Dominica",
+        "visitantes": 18,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Santa Lucia",
+        "visitantes": 17,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Vietnam",
+        "visitantes": 17,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Qatar",
+        "visitantes": 17,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República de Macedonia",
+        "visitantes": 16,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ghana",
+        "visitantes": 16,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Granada",
+        "visitantes": 16,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bosnia",
+        "visitantes": 15,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Moldavia",
+        "visitantes": 15,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Islas Caimán",
+        "visitantes": 15,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Costa de Marfil",
+        "visitantes": 14,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Martín",
+        "visitantes": 14,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Liechtenstein",
+        "visitantes": 12,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Cabo Verde",
+        "visitantes": 11,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Vicente y las Granadinas",
+        "visitantes": 10,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Omán",
+        "visitantes": 9,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Jordania",
+        "visitantes": 9,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Andorra",
+        "visitantes": 8,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Siria",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Túnez",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Armenia",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Uganda",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Camerún",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Benín",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Madagascar",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Burkina Faso",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sierra Leona",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Zimbabue",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Etiopía",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Senegal",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mongolia",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sri Lanka",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nepal",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Brunéi",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Argelia",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Vírgenes Británicas",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Bartolomé",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Myanmar",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Fiyi",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Botsuana",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mauricio",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Togo",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guayana Francesa",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Tanzania",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sin Especificar",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Chad",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Palestina",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sáhara Occidental",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Angola",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Libia",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ruanda",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Centroafricana",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mónaco",
+        "visitantes": 2,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Uzbekistán",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guinea-Bisáu",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Yemen",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Iraq",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sudán",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Eritrea",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ciudad del Vaticano",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Papua Nueva Guinea",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guadalupe",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Afganistán",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Democratica del Congo",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Liberia",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Reunión",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Terr. Britanico del Oceano Indico",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Turkmenistán",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Congo",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Vanuatu",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mozambique",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Marshall",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Kirguistán",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Gabón",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Somalia",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Polinesia Francesa",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República de Kosovo",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Isla Norfolk",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Suazilandia",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Malawi",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Corea del Norte",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Níger",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Tayikistán",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Comoras",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nauru",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Martinica",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Micronesia",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Feroe",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Jersey",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Gibraltar",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guernsey",
+        "visitantes": 1,
+        "mercado": "Otros"
+      }
+    ],
+    "2023": [
+      {
+        "pais": "Estados Unidos",
+        "visitantes": 268638,
+        "mercado": "Estados Unidos"
+      },
+      {
+        "pais": "Panamá",
+        "visitantes": 67340,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "México",
+        "visitantes": 62424,
+        "mercado": "México"
+      },
+      {
+        "pais": "Ecuador",
+        "visitantes": 51838,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Dominicana",
+        "visitantes": 44499,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Costa Rica",
+        "visitantes": 44318,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Perú",
+        "visitantes": 26564,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Venezuela",
+        "visitantes": 24595,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Países Bajos",
+        "visitantes": 18955,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "España",
+        "visitantes": 18166,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Canadá",
+        "visitantes": 17080,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Puerto Rico",
+        "visitantes": 16019,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Chile",
+        "visitantes": 11652,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Reino Unido",
+        "visitantes": 9829,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Brasil",
+        "visitantes": 9685,
+        "mercado": "Brasil"
+      },
+      {
+        "pais": "Francia",
+        "visitantes": 9267,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Alemania",
+        "visitantes": 9115,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Argentina",
+        "visitantes": 8186,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guatemala",
+        "visitantes": 6570,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Israel",
+        "visitantes": 6496,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Italia",
+        "visitantes": 5221,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Aruba",
+        "visitantes": 4992,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Honduras",
+        "visitantes": 4430,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "El Salvador",
+        "visitantes": 3968,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Curazao",
+        "visitantes": 3512,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Suiza",
+        "visitantes": 3378,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Australia",
+        "visitantes": 2864,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "China",
+        "visitantes": 1922,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Uruguay",
+        "visitantes": 1796,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "India",
+        "visitantes": 1765,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bélgica",
+        "visitantes": 1584,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bolivia",
+        "visitantes": 1492,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Irlanda",
+        "visitantes": 1364,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Portugal",
+        "visitantes": 1327,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Suecia",
+        "visitantes": 1071,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Austria",
+        "visitantes": 925,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Polonia",
+        "visitantes": 915,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Rusia",
+        "visitantes": 847,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Jamaica",
+        "visitantes": 799,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nicaragua",
+        "visitantes": 787,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Dinamarca",
+        "visitantes": 747,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Paraguay",
+        "visitantes": 723,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Japón",
+        "visitantes": 667,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Cuba",
+        "visitantes": 631,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Corea del Sur",
+        "visitantes": 628,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Turquía",
+        "visitantes": 578,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Noruega",
+        "visitantes": 528,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Nueva Zelanda",
+        "visitantes": 505,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Rumania",
+        "visitantes": 493,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Trinidad y Tobago",
+        "visitantes": 425,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Surinam",
+        "visitantes": 354,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Grecia",
+        "visitantes": 335,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "República Checa",
+        "visitantes": 334,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Finlandia",
+        "visitantes": 319,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Ucrania",
+        "visitantes": 315,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bonaire-San Esustaquio y Saba",
+        "visitantes": 307,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Antillas Neerlandesas",
+        "visitantes": 294,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Hungría",
+        "visitantes": 276,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bahamas",
+        "visitantes": 270,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Georgia",
+        "visitantes": 261,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Filipinas",
+        "visitantes": 259,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bulgaria",
+        "visitantes": 248,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Marruecos",
+        "visitantes": 217,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Barbados",
+        "visitantes": 212,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Croacia",
+        "visitantes": 209,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Lituania",
+        "visitantes": 206,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Eslovaquia",
+        "visitantes": 199,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Taiwán",
+        "visitantes": 165,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Serbia",
+        "visitantes": 158,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Singapur",
+        "visitantes": 142,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Estonia",
+        "visitantes": 139,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Belice",
+        "visitantes": 132,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Hong Kong",
+        "visitantes": 114,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Emiratos Árabes Unidos",
+        "visitantes": 114,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guyana",
+        "visitantes": 106,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sudáfrica",
+        "visitantes": 104,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Indonesia",
+        "visitantes": 96,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islandia",
+        "visitantes": 95,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Luxemburgo",
+        "visitantes": 92,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Eslovenia",
+        "visitantes": 87,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Haití",
+        "visitantes": 84,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Letonia",
+        "visitantes": 78,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Kazajistán",
+        "visitantes": 76,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Malta",
+        "visitantes": 75,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Albania",
+        "visitantes": 66,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bermudas",
+        "visitantes": 61,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Arabia Saudita",
+        "visitantes": 57,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Azerbaiyán",
+        "visitantes": 56,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bielorrusia",
+        "visitantes": 51,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Cristóbal y Nieves",
+        "visitantes": 48,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Qatar",
+        "visitantes": 47,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Malasia",
+        "visitantes": 46,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Pakistán",
+        "visitantes": 46,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Líbano",
+        "visitantes": 43,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Tailandia",
+        "visitantes": 43,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Caimán",
+        "visitantes": 41,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Chipre",
+        "visitantes": 41,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Vietnam",
+        "visitantes": 41,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Organismos internacionales",
+        "visitantes": 39,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Egipto",
+        "visitantes": 39,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Martin",
+        "visitantes": 38,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Montenegro",
+        "visitantes": 38,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Nigeria",
+        "visitantes": 36,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Irán",
+        "visitantes": 35,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República de Macedonia",
+        "visitantes": 33,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Kenia",
+        "visitantes": 32,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Martín",
+        "visitantes": 28,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Armenia",
+        "visitantes": 24,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Dominica",
+        "visitantes": 24,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Antigua y Barbuda",
+        "visitantes": 23,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bosnia",
+        "visitantes": 23,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Kuwait",
+        "visitantes": 22,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Santa Lucia",
+        "visitantes": 20,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Costa de Marfil",
+        "visitantes": 19,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Andorra",
+        "visitantes": 15,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Islas Turcas y Caicos",
+        "visitantes": 15,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Vicente y las Granadinas",
+        "visitantes": 15,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Granada",
+        "visitantes": 14,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Omán",
+        "visitantes": 14,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nepal",
+        "visitantes": 13,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Túnez",
+        "visitantes": 13,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Liechtenstein",
+        "visitantes": 12,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Camerún",
+        "visitantes": 11,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ghana",
+        "visitantes": 11,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Argelia",
+        "visitantes": 10,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Moldavia",
+        "visitantes": 10,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Siria",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Etiopía",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Vírgenes Británicas",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Democratica del Congo",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Uzbekistán",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Anguila",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Jordania",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mauricio",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Centroafricana",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Madagascar",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guadalupe",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Zimbabue",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Turkmenistán",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Iraq",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Afganistán",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bahréin",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Senegal",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Martinica",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Angola",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sudán",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ciudad del Vaticano",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Botsuana",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mongolia",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Benín",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Tanzania",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sri Lanka",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Fiyi",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mozambique",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Liberia",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guayana Francesa",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bangladesh",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ruanda",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Palestina",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sierra Leona",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Papua Nueva Guinea",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sin Especificar",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Yemen",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Reunión",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sáhara Occidental",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Vanuatu",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Gambia",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Gibraltar",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Cabo Verde",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Polinesia Francesa",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Samoa",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Myanmar",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Comoras",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Malí",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Camboya",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Antártida",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Uganda",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Níger",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Chad",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Eritrea",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Palaos",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nueva Caledonia",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República de Kosovo",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Somalia",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Congo",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Marino",
+        "visitantes": 1,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Lesoto",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bután",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Burkina Faso",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Tayikistán",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mayotte",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Ultramarinas Menores de Estados Unidos",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Cook",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Zambia",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Isla Aland",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guinea",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Corea del Norte",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Togo",
+        "visitantes": 1,
+        "mercado": "Otros"
+      }
+    ],
+    "2024": [
+      {
+        "pais": "Estados Unidos",
+        "visitantes": 351358,
+        "mercado": "Estados Unidos"
+      },
+      {
+        "pais": "México",
+        "visitantes": 86864,
+        "mercado": "México"
+      },
+      {
+        "pais": "Costa Rica",
+        "visitantes": 84546,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Panamá",
+        "visitantes": 68782,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Dominicana",
+        "visitantes": 61981,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ecuador",
+        "visitantes": 60154,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Perú",
+        "visitantes": 37699,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Venezuela",
+        "visitantes": 33659,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Puerto Rico",
+        "visitantes": 26064,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "España",
+        "visitantes": 24910,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Canadá",
+        "visitantes": 21590,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Chile",
+        "visitantes": 20492,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Países Bajos",
+        "visitantes": 19543,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Argentina",
+        "visitantes": 12765,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guatemala",
+        "visitantes": 12002,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Reino Unido",
+        "visitantes": 11291,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Francia",
+        "visitantes": 10999,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Brasil",
+        "visitantes": 10823,
+        "mercado": "Brasil"
+      },
+      {
+        "pais": "Alemania",
+        "visitantes": 10521,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Honduras",
+        "visitantes": 9468,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Italia",
+        "visitantes": 6740,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "El Salvador",
+        "visitantes": 6635,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Aruba",
+        "visitantes": 6116,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Suiza",
+        "visitantes": 3996,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Curazao",
+        "visitantes": 3744,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Australia",
+        "visitantes": 3682,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "China",
+        "visitantes": 2890,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Israel",
+        "visitantes": 2685,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Uruguay",
+        "visitantes": 2440,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "India",
+        "visitantes": 2054,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bélgica",
+        "visitantes": 2025,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Jamaica",
+        "visitantes": 1923,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Portugal",
+        "visitantes": 1718,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bolivia",
+        "visitantes": 1716,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Irlanda",
+        "visitantes": 1639,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Nicaragua",
+        "visitantes": 1432,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Polonia",
+        "visitantes": 1235,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Austria",
+        "visitantes": 1139,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Paraguay",
+        "visitantes": 1134,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Suecia",
+        "visitantes": 1126,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Rusia",
+        "visitantes": 960,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Dinamarca",
+        "visitantes": 870,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Turquía",
+        "visitantes": 869,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Japón",
+        "visitantes": 838,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Corea del Sur",
+        "visitantes": 753,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Trinidad y Tobago",
+        "visitantes": 692,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nueva Zelanda",
+        "visitantes": 649,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Noruega",
+        "visitantes": 639,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Cuba",
+        "visitantes": 583,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Rumania",
+        "visitantes": 533,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Surinam",
+        "visitantes": 530,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Checa",
+        "visitantes": 466,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bahamas",
+        "visitantes": 453,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bonaire-San Esustaquio y Saba",
+        "visitantes": 434,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Grecia",
+        "visitantes": 428,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Antillas Neerlandesas",
+        "visitantes": 338,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ucrania",
+        "visitantes": 338,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Finlandia",
+        "visitantes": 313,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bulgaria",
+        "visitantes": 289,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Hungría",
+        "visitantes": 288,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Filipinas",
+        "visitantes": 273,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Marruecos",
+        "visitantes": 251,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Eslovaquia",
+        "visitantes": 237,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Lituania",
+        "visitantes": 231,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Barbados",
+        "visitantes": 217,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Croacia",
+        "visitantes": 206,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Serbia",
+        "visitantes": 191,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Belice",
+        "visitantes": 178,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Emiratos Árabes Unidos",
+        "visitantes": 158,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Singapur",
+        "visitantes": 154,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Estonia",
+        "visitantes": 147,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Hong Kong",
+        "visitantes": 145,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guyana",
+        "visitantes": 136,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Eslovenia",
+        "visitantes": 124,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Taiwán",
+        "visitantes": 123,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Haití",
+        "visitantes": 110,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Luxemburgo",
+        "visitantes": 104,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Islas Caimán",
+        "visitantes": 98,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Albania",
+        "visitantes": 97,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Sudáfrica",
+        "visitantes": 94,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islandia",
+        "visitantes": 91,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Tailandia",
+        "visitantes": 91,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Malta",
+        "visitantes": 86,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Letonia",
+        "visitantes": 84,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Kazajistán",
+        "visitantes": 82,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Indonesia",
+        "visitantes": 73,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Organismos internacionales",
+        "visitantes": 70,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Pakistán",
+        "visitantes": 68,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Cristóbal y Nieves",
+        "visitantes": 63,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Kenia",
+        "visitantes": 62,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Georgia",
+        "visitantes": 61,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Martin",
+        "visitantes": 60,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Malasia",
+        "visitantes": 60,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Azerbaiyán",
+        "visitantes": 60,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Chipre",
+        "visitantes": 57,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Arabia Saudita",
+        "visitantes": 56,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Omán",
+        "visitantes": 51,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Montenegro",
+        "visitantes": 51,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Egipto",
+        "visitantes": 51,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Dominica",
+        "visitantes": 45,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República de Macedonia",
+        "visitantes": 44,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bermudas",
+        "visitantes": 42,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nigeria",
+        "visitantes": 40,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Vietnam",
+        "visitantes": 39,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Líbano",
+        "visitantes": 39,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Granada",
+        "visitantes": 38,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Kuwait",
+        "visitantes": 35,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bosnia",
+        "visitantes": 32,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Irán",
+        "visitantes": 31,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Martín",
+        "visitantes": 30,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Antigua y Barbuda",
+        "visitantes": 29,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Fiyi",
+        "visitantes": 28,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Andorra",
+        "visitantes": 27,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Santa Lucia",
+        "visitantes": 26,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bielorrusia",
+        "visitantes": 23,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Qatar",
+        "visitantes": 23,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Moldavia",
+        "visitantes": 22,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Camerún",
+        "visitantes": 19,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Liechtenstein",
+        "visitantes": 18,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Argelia",
+        "visitantes": 18,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Turcas y Caicos",
+        "visitantes": 18,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República de Kosovo",
+        "visitantes": 18,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ghana",
+        "visitantes": 17,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Afganistán",
+        "visitantes": 16,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bahréin",
+        "visitantes": 14,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Costa de Marfil",
+        "visitantes": 14,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Etiopía",
+        "visitantes": 14,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guadalupe",
+        "visitantes": 13,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Jordania",
+        "visitantes": 13,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Túnez",
+        "visitantes": 12,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Vicente y las Granadinas",
+        "visitantes": 10,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Vírgenes Británicas",
+        "visitantes": 10,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sri Lanka",
+        "visitantes": 10,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Siria",
+        "visitantes": 10,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bangladesh",
+        "visitantes": 9,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mozambique",
+        "visitantes": 9,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Armenia",
+        "visitantes": 9,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Isla Aland",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Uganda",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Martinica",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Anguila",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ciudad del Vaticano",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ruanda",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Senegal",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nepal",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Zimbabue",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Centroafricana",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Tanzania",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sudán",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Tonga",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Ultramarinas Menores de Estados Unidos",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Cabo Verde",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Angola",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guayana Francesa",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guinea Ecuatorial",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mauricio",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Marshall",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Democratica del Congo",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Brunéi",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Chad",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Benín",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Lesoto",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Togo",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Papua Nueva Guinea",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Botsuana",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mongolia",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Myanmar",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bután",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mónaco",
+        "visitantes": 3,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Samoa Americana",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Burkina Faso",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Camboya",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Palestina",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Bartolomé",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Namibia",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Yemen",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guam",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Liberia",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Comoras",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Gabón",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Vanuatu",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Maldivas",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Polinesia Francesa",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guinea",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Malí",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Zambia",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Corea del Norte",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Kirguistán",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Timor Oriental",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Burundi",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Vírgenes Estadounidenses",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Malawi",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Madagascar",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Micronesia",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Samoa",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Antártida",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Iraq",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Níger",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Seychelles",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Libia",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Uzbekistán",
+        "visitantes": 1,
+        "mercado": "Otros"
+      }
+    ],
+    "2025": [
+      {
+        "pais": "Estados Unidos",
+        "visitantes": 378326,
+        "mercado": "Estados Unidos"
+      },
+      {
+        "pais": "México",
+        "visitantes": 94288,
+        "mercado": "México"
+      },
+      {
+        "pais": "Costa Rica",
+        "visitantes": 81319,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Panamá",
+        "visitantes": 70848,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ecuador",
+        "visitantes": 60782,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Dominicana",
+        "visitantes": 59678,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Perú",
+        "visitantes": 46641,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Puerto Rico",
+        "visitantes": 45990,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Venezuela",
+        "visitantes": 32373,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "España",
+        "visitantes": 26818,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Canadá",
+        "visitantes": 22116,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Países Bajos",
+        "visitantes": 20561,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "El Salvador",
+        "visitantes": 17843,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Chile",
+        "visitantes": 17827,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guatemala",
+        "visitantes": 16700,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Argentina",
+        "visitantes": 15021,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Brasil",
+        "visitantes": 14149,
+        "mercado": "Brasil"
+      },
+      {
+        "pais": "Francia",
+        "visitantes": 12213,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Reino Unido",
+        "visitantes": 12052,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Honduras",
+        "visitantes": 11938,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Alemania",
+        "visitantes": 11132,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Italia",
+        "visitantes": 7854,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Aruba",
+        "visitantes": 6386,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Israel",
+        "visitantes": 5161,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Suiza",
+        "visitantes": 4306,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Australia",
+        "visitantes": 4101,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Curazao",
+        "visitantes": 4065,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "China",
+        "visitantes": 3117,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Uruguay",
+        "visitantes": 2552,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Jamaica",
+        "visitantes": 2410,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "India",
+        "visitantes": 2235,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Portugal",
+        "visitantes": 2163,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bélgica",
+        "visitantes": 2059,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bolivia",
+        "visitantes": 1671,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Irlanda",
+        "visitantes": 1653,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Polonia",
+        "visitantes": 1457,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Nicaragua",
+        "visitantes": 1442,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Suecia",
+        "visitantes": 1162,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Austria",
+        "visitantes": 1072,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Japón",
+        "visitantes": 1053,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Paraguay",
+        "visitantes": 1052,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Dinamarca",
+        "visitantes": 976,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Surinam",
+        "visitantes": 921,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Rusia",
+        "visitantes": 903,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Trinidad y Tobago",
+        "visitantes": 864,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Corea del Sur",
+        "visitantes": 854,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Turquía",
+        "visitantes": 766,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Rumania",
+        "visitantes": 700,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Noruega",
+        "visitantes": 699,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Nueva Zelanda",
+        "visitantes": 681,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Cuba",
+        "visitantes": 628,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bahamas",
+        "visitantes": 543,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Grecia",
+        "visitantes": 481,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "República Checa",
+        "visitantes": 419,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bulgaria",
+        "visitantes": 407,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Ucrania",
+        "visitantes": 404,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Finlandia",
+        "visitantes": 373,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Hungría",
+        "visitantes": 349,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bonaire-San Esustaquio y Saba",
+        "visitantes": 329,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Barbados",
+        "visitantes": 324,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Filipinas",
+        "visitantes": 315,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Antillas Neerlandesas",
+        "visitantes": 301,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Belice",
+        "visitantes": 297,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Marruecos",
+        "visitantes": 283,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Croacia",
+        "visitantes": 273,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Lituania",
+        "visitantes": 267,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Eslovaquia",
+        "visitantes": 247,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Guyana",
+        "visitantes": 240,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Serbia",
+        "visitantes": 237,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Emiratos Árabes Unidos",
+        "visitantes": 195,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Singapur",
+        "visitantes": 179,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Taiwán",
+        "visitantes": 171,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Hong Kong",
+        "visitantes": 168,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Estonia",
+        "visitantes": 151,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Islandia",
+        "visitantes": 141,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Eslovenia",
+        "visitantes": 138,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Sudáfrica",
+        "visitantes": 116,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Caimán",
+        "visitantes": 111,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Haití",
+        "visitantes": 109,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Albania",
+        "visitantes": 105,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Letonia",
+        "visitantes": 100,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Arabia Saudita",
+        "visitantes": 93,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Malta",
+        "visitantes": 86,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Luxemburgo",
+        "visitantes": 82,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Chipre",
+        "visitantes": 82,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "San Cristóbal y Nieves",
+        "visitantes": 78,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bermudas",
+        "visitantes": 76,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Tailandia",
+        "visitantes": 74,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Indonesia",
+        "visitantes": 71,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Pakistán",
+        "visitantes": 69,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Martin",
+        "visitantes": 68,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Egipto",
+        "visitantes": 59,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Dominica",
+        "visitantes": 58,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Granada",
+        "visitantes": 54,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Malasia",
+        "visitantes": 51,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Georgia",
+        "visitantes": 49,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República de Macedonia",
+        "visitantes": 49,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Kazajistán",
+        "visitantes": 47,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bosnia",
+        "visitantes": 47,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Omán",
+        "visitantes": 44,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Martín",
+        "visitantes": 44,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nigeria",
+        "visitantes": 43,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Líbano",
+        "visitantes": 43,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Qatar",
+        "visitantes": 42,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Azerbaiyán",
+        "visitantes": 41,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Organismos internacionales",
+        "visitantes": 41,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Antigua y Barbuda",
+        "visitantes": 40,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Liechtenstein",
+        "visitantes": 40,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Andorra",
+        "visitantes": 39,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Vietnam",
+        "visitantes": 39,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Montenegro",
+        "visitantes": 33,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Kuwait",
+        "visitantes": 31,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Kenia",
+        "visitantes": 31,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Irán",
+        "visitantes": 31,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Santa Lucia",
+        "visitantes": 27,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Turcas y Caicos",
+        "visitantes": 26,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Túnez",
+        "visitantes": 26,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bangladesh",
+        "visitantes": 24,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Jordania",
+        "visitantes": 23,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Moldavia",
+        "visitantes": 22,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bielorrusia",
+        "visitantes": 17,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Vírgenes Británicas",
+        "visitantes": 15,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Costa de Marfil",
+        "visitantes": 15,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Anguila",
+        "visitantes": 15,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Argelia",
+        "visitantes": 14,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Vicente y las Granadinas",
+        "visitantes": 14,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Uganda",
+        "visitantes": 13,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ghana",
+        "visitantes": 12,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Martinica",
+        "visitantes": 11,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Armenia",
+        "visitantes": 10,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Camerún",
+        "visitantes": 10,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Afganistán",
+        "visitantes": 9,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Zimbabue",
+        "visitantes": 9,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bahréin",
+        "visitantes": 9,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Democratica del Congo",
+        "visitantes": 9,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mauricio",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Tanzania",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Centroafricana",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Angola",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Zambia",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República de Kosovo",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Bartolomé",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sri Lanka",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Vírgenes Estadounidenses",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Togo",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guadalupe",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Palestina",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mónaco",
+        "visitantes": 5,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Siria",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guayana Francesa",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ruanda",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Burkina Faso",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Polinesia Francesa",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nepal",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Isla Aland",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bután",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Etiopía",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Myanmar",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Gibraltar",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Senegal",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Ultramarinas Menores de Estados Unidos",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Fiyi",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Botsuana",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Madagascar",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Iraq",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sáhara Occidental",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Uzbekistán",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Liberia",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Cabo Verde",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mongolia",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Tayikistán",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Níger",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sudán",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Reunión",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Burundi",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Kirguistán",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Chad",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mauritania",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Vanuatu",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nueva Caledonia",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Benín",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Marshall",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Palaos",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Suazilandia",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Congo",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Micronesia",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guam",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Papua Nueva Guinea",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Malvinas",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Turkmenistán",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Gabón",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Corea del Norte",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Namibia",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Comoras",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Samoa Americana",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Camboya",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Heard y Mcdonald",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Laos",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Marino",
+        "visitantes": 1,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Libia",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ciudad del Vaticano",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Malí",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sudan del Sur",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Eritrea",
+        "visitantes": 1,
+        "mercado": "Otros"
+      }
+    ],
+    "2026": [
+      {
+        "pais": "Estados Unidos",
+        "visitantes": 180138,
+        "mercado": "Estados Unidos"
+      },
+      {
+        "pais": "México",
+        "visitantes": 45910,
+        "mercado": "México"
+      },
+      {
+        "pais": "Costa Rica",
+        "visitantes": 39224,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ecuador",
+        "visitantes": 30130,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Panamá",
+        "visitantes": 29502,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Dominicana",
+        "visitantes": 27108,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Perú",
+        "visitantes": 23980,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Puerto Rico",
+        "visitantes": 23851,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Venezuela",
+        "visitantes": 16908,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "España",
+        "visitantes": 12383,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Canadá",
+        "visitantes": 12212,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Chile",
+        "visitantes": 10676,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Países Bajos",
+        "visitantes": 9449,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Argentina",
+        "visitantes": 7909,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Brasil",
+        "visitantes": 7749,
+        "mercado": "Brasil"
+      },
+      {
+        "pais": "Guatemala",
+        "visitantes": 7707,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "El Salvador",
+        "visitantes": 6909,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Reino Unido",
+        "visitantes": 6689,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Francia",
+        "visitantes": 6390,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Alemania",
+        "visitantes": 5695,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Honduras",
+        "visitantes": 4309,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Italia",
+        "visitantes": 3518,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Aruba",
+        "visitantes": 2953,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "China",
+        "visitantes": 1981,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Curazao",
+        "visitantes": 1938,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Suiza",
+        "visitantes": 1873,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Australia",
+        "visitantes": 1750,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Jamaica",
+        "visitantes": 1598,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Uruguay",
+        "visitantes": 1455,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "India",
+        "visitantes": 1094,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Portugal",
+        "visitantes": 1070,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bélgica",
+        "visitantes": 980,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Irlanda",
+        "visitantes": 854,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bolivia",
+        "visitantes": 854,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Israel",
+        "visitantes": 836,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Polonia",
+        "visitantes": 770,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Nicaragua",
+        "visitantes": 733,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Trinidad y Tobago",
+        "visitantes": 589,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Surinam",
+        "visitantes": 583,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Japón",
+        "visitantes": 557,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Dinamarca",
+        "visitantes": 552,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Suecia",
+        "visitantes": 538,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Austria",
+        "visitantes": 527,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Rusia",
+        "visitantes": 519,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Paraguay",
+        "visitantes": 475,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Corea del Sur",
+        "visitantes": 411,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Turquía",
+        "visitantes": 410,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Rumania",
+        "visitantes": 395,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Noruega",
+        "visitantes": 378,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Ucrania",
+        "visitantes": 347,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Nueva Zelanda",
+        "visitantes": 325,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guyana",
+        "visitantes": 321,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Grecia",
+        "visitantes": 317,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Cuba",
+        "visitantes": 306,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bahamas",
+        "visitantes": 303,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Checa",
+        "visitantes": 276,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Hungría",
+        "visitantes": 217,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Finlandia",
+        "visitantes": 215,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bonaire-San Esustaquio y Saba",
+        "visitantes": 189,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bulgaria",
+        "visitantes": 173,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Belice",
+        "visitantes": 165,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Croacia",
+        "visitantes": 148,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Filipinas",
+        "visitantes": 145,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Lituania",
+        "visitantes": 139,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Marruecos",
+        "visitantes": 135,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Barbados",
+        "visitantes": 132,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Eslovaquia",
+        "visitantes": 126,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Serbia",
+        "visitantes": 122,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Antillas Neerlandesas",
+        "visitantes": 111,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Taiwán",
+        "visitantes": 98,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Kazajistán",
+        "visitantes": 90,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Estonia",
+        "visitantes": 84,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Haití",
+        "visitantes": 81,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Hong Kong",
+        "visitantes": 80,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Eslovenia",
+        "visitantes": 79,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Albania",
+        "visitantes": 73,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Emiratos Árabes Unidos",
+        "visitantes": 72,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Letonia",
+        "visitantes": 72,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Malta",
+        "visitantes": 68,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Singapur",
+        "visitantes": 66,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Cristóbal y Nieves",
+        "visitantes": 55,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sudáfrica",
+        "visitantes": 51,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Luxemburgo",
+        "visitantes": 49,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Malasia",
+        "visitantes": 44,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Caimán",
+        "visitantes": 43,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Georgia",
+        "visitantes": 38,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Tailandia",
+        "visitantes": 37,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islandia",
+        "visitantes": 35,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Indonesia",
+        "visitantes": 33,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República de Kosovo",
+        "visitantes": 33,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Arabia Saudita",
+        "visitantes": 30,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bosnia",
+        "visitantes": 29,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "San Martín",
+        "visitantes": 28,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Egipto",
+        "visitantes": 27,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Andorra",
+        "visitantes": 26,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Chipre",
+        "visitantes": 26,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Bielorrusia",
+        "visitantes": 25,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Kenia",
+        "visitantes": 24,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Pakistán",
+        "visitantes": 24,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bermudas",
+        "visitantes": 23,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Antigua y Barbuda",
+        "visitantes": 23,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Granada",
+        "visitantes": 22,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Dominica",
+        "visitantes": 20,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nigeria",
+        "visitantes": 19,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Martin",
+        "visitantes": 19,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República de Macedonia",
+        "visitantes": 18,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Líbano",
+        "visitantes": 17,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Azerbaiyán",
+        "visitantes": 17,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Vietnam",
+        "visitantes": 16,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Santa Lucia",
+        "visitantes": 16,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Moldavia",
+        "visitantes": 13,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Liechtenstein",
+        "visitantes": 12,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Túnez",
+        "visitantes": 11,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Qatar",
+        "visitantes": 11,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Costa de Marfil",
+        "visitantes": 9,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Omán",
+        "visitantes": 9,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Martinica",
+        "visitantes": 9,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Vicente y las Granadinas",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Kuwait",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Argelia",
+        "visitantes": 8,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Organismos internacionales",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Tanzania",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Irán",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Armenia",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Vírgenes Británicas",
+        "visitantes": 7,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Centroafricana",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sri Lanka",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Etiopía",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Montenegro",
+        "visitantes": 6,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Islas Turcas y Caicos",
+        "visitantes": 6,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "República Democratica del Congo",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bangladesh",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Jordania",
+        "visitantes": 5,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Vírgenes Estadounidenses",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nepal",
+        "visitantes": 4,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mónaco",
+        "visitantes": 4,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Afganistán",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Fiyi",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Bahréin",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sáhara Occidental",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mongolia",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Siria",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Anguila",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Iraq",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Uganda",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Camerún",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Benín",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Senegal",
+        "visitantes": 3,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mauricio",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Palestina",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Bartolomé",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Uzbekistán",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Madagascar",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guinea",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sudán",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Sierra Leona",
+        "visitantes": 2,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Myanmar",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Micronesia",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Isla Aland",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Ultramarinas Menores de Estados Unidos",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Polinesia Francesa",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guinea-Bisáu",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mozambique",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Islas Marshall",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Guadalupe",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Burkina Faso",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Burundi",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ciudad del Vaticano",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "San Marino",
+        "visitantes": 1,
+        "mercado": "Europa"
+      },
+      {
+        "pais": "Guayana Francesa",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Eritrea",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Zimbabue",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Chad",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Mayotte",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Gabón",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Ghana",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Nueva Caledonia",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Gibraltar",
+        "visitantes": 1,
+        "mercado": "Otros"
+      },
+      {
+        "pais": "Papua Nueva Guinea",
+        "visitantes": 1,
+        "mercado": "Otros"
       }
     ]
   },

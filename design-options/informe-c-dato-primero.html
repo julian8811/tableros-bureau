@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opción C · Dato primero</title>
+<link rel="stylesheet" href="informe-shared.css">
+<style>
+  :root{color-scheme:dark}
+  body{
+    background:#0b1220;
+    color:var(--text);min-height:100vh;
+  }
+  .page{max-width:980px;margin:0 auto;padding:0 24px 72px}
+  .mast{
+    margin:0 -24px 28px;padding:32px 24px 28px;
+    background:linear-gradient(180deg,#172139 0%,#121c30 100%);
+    border-bottom:4px solid var(--gold);
+  }
+  .mast-inner{max-width:980px;margin:0 auto}
+  .mast .kicker{margin:0 0 10px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  .mast h1{margin:0 0 8px;font-size:30px;letter-spacing:-.02em;max-width:20ch}
+  .mast p{margin:0;color:rgba(255,255,255,.75);max-width:56ch}
+  .mast .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .chip{
+    display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.22);font-size:11px;font-weight:600;color:var(--text-2);
+  }
+  .exec{
+    display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-bottom:22px;
+  }
+  @media (max-width:860px){.exec,.sec-head{grid-template-columns:1fr}}
+  .box{
+    border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:18px;
+    background:rgba(255,255,255,.03);
+  }
+  .box h2{margin:0 0 10px;font-size:15px}
+  .sec{margin:0 0 28px;padding:0 0 22px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .sec-head{display:grid;grid-template-columns:1fr 1.15fr;gap:18px;align-items:start;margin-bottom:14px}
+  .sec-head h2{margin:0 0 6px;font-size:20px}
+  .sec-head .idx{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-bright)}
+  .figure{
+    border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:14px 16px;
+    background:rgba(14,22,38,.55);
+  }
+  .figure h3{margin:0 0 12px;font-size:12px;font-weight:600;color:var(--text-2)}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:700px){.cols{grid-template-columns:1fr}}
+  .callout{background:rgba(251,187,40,.1)}
+  .no-photo{
+    margin:8px 0 0;font-size:11px;color:var(--muted);font-style:italic;
+  }
+  footer.doc{font-size:11px;color:var(--muted);margin-top:8px}
+</style>
+</head>
+<body>
+  <nav class="back">
+    <span class="opt">Opción C · recomendada</span>
+    <strong>Dato primero</strong>
+    <a href="informe-index.html">← Volver al chooser</a>
+  </nav>
+
+  <header class="mast">
+    <div class="mast-inner">
+      <p class="kicker">Bureau Medellín · Observatorio Colmayor</p>
+      <h1>Informe de inteligencia turística</h1>
+      <p>Sin hero fotográfico genérico. Cada sección abre con figura de datos del dashboard; insights en callout oro.</p>
+      <div class="meta">
+        <span class="chip">Corte 2026-11-01</span>
+        <span class="chip">0 fotos de stock en cuerpo</span>
+        <span class="chip">Figuras numeradas</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="page">
+    <section class="exec">
+      <div class="box">
+        <h2>Resumen ejecutivo</h2>
+        <ul class="clean">
+          <li>Ventana 3m: <b>247.331</b> visitantes (−7,0% YoY).</li>
+          <li>Medellín YTD <b>551.226</b> · share <b>24,4%</b>.</li>
+          <li>Top 5 emisores concentran <b>59,9%</b> del receptivo internacional.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h2>Lectura rápida</h2>
+        <div class="bars">
+          <div class="bar-row"><span>YoY 3m</span><div class="track"><div class="fill" style="width:30%;background:linear-gradient(90deg,#E9901E,#FBBB28)"></div></div><span class="val">−7%</span></div>
+          <div class="bar-row"><span>Share MED</span><div class="track"><div class="fill" style="width:24%"></div></div><span class="val">24%</span></div>
+          <div class="bar-row"><span>Top5 em.</span><div class="track"><div class="fill" style="width:60%"></div></div><span class="val">60%</span></div>
+        </div>
+        <p class="fig-note">Figura 0 · indicadores de portada · dashboard</p>
+      </div>
+    </section>
+
+    <article class="sec">
+      <div class="sec-head">
+        <div>
+          <div class="idx">Sección 01</div>
+          <h2>Tendencias de mercado</h2>
+          <p class="no-photo">Sin imagen decorativa — el ancla es la figura.</p>
+        </div>
+        <div class="figure">
+          <h3>Figura 1 · Ocupación y tarifa (contexto)</h3>
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead>
+              <tr style="color:var(--gold);text-align:left">
+                <th style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,.2)">Indicador</th>
+                <th style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,.2);text-align:right">Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1)">Ocupación media</td><td style="text-align:right;font-weight:600">67,1 %</td></tr>
+              <tr><td style="padding:8px 0">Tarifa media</td><td style="text-align:right;font-weight:600">442.227 COP</td></tr>
+            </tbody>
+          </table>
+          <p class="fig-note">Figura 1 · fuente dashboard · occ_med_ult, tarifa_med_ult</p>
+        </div>
+      </div>
+      <div class="cols">
+        <div>
+          <h3 style="margin:0 0 8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2)">Hallazgos</h3>
+          <ul class="clean">
+            <li>247.331 visitantes abr–jun 2026 (−7,0% YoY).</li>
+            <li>Gasto promedio diario ~149.530 COP (2T 2026).</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="margin:0 0 8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2)">Análisis</h3>
+          <ul class="clean">
+            <li>Contracción de volumen con tarifa aún alta: posible compensación de ingreso.</li>
+          </ul>
+          <div class="callout"><strong>Insight.</strong> Priorizar elasticidad precio–ocupación en la próxima temporada.</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="sec">
+      <div class="sec-head">
+        <div>
+          <div class="idx">Sección 02</div>
+          <h2>Receptivo nacional</h2>
+        </div>
+        <div class="figure">
+          <h3>Figura 2 · Llegadas YTD 2026 por destino</h3>
+          <div class="bars">
+            <div class="bar-row"><span>Bogotá</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">760k</span></div>
+            <div class="bar-row"><span>Medellín</span><div class="track"><div class="fill" style="width:72%"></div></div><span class="val">551k</span></div>
+            <div class="bar-row"><span>Cartagena</span><div class="track"><div class="fill" style="width:58%"></div></div><span class="val">441k</span></div>
+            <div class="bar-row"><span>Cali</span><div class="track"><div class="fill" style="width:12%"></div></div><span class="val">92k</span></div>
+            <div class="bar-row"><span>San Andrés</span><div class="track"><div class="fill" style="width:10%"></div></div><span class="val">74k</span></div>
+          </div>
+          <p class="fig-note">Figura 2 · fuente dashboard · destinos_ytd_2026</p>
+        </div>
+      </div>
+      <div class="cols">
+        <div>
+          <h3 style="margin:0 0 8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2)">Hallazgos</h3>
+          <ul class="clean">
+            <li>Medellín share 24,4% (2.º destino nacional).</li>
+            <li>San Andrés +40,1% YoY.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="callout"><strong>Insight.</strong> Mantener narrativa de competitividad urbana frente a Bogotá/Cartagena con evidencia de share, no con foto genérica de skyline.</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="sec" style="border-bottom:0">
+      <div class="sec-head">
+        <div>
+          <div class="idx">Sección 03</div>
+          <h2>Emisores internacionales</h2>
+        </div>
+        <div class="figure">
+          <h3>Figura 3 · Top emisores YTD</h3>
+          <div class="bars">
+            <div class="bar-row"><span>EE.UU.</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">180k</span></div>
+            <div class="bar-row"><span>México</span><div class="track"><div class="fill" style="width:25%"></div></div><span class="val">46k</span></div>
+            <div class="bar-row"><span>C. Rica</span><div class="track"><div class="fill" style="width:22%"></div></div><span class="val">39k</span></div>
+            <div class="bar-row"><span>Ecuador</span><div class="track"><div class="fill" style="width:17%"></div></div><span class="val">30k</span></div>
+            <div class="bar-row"><span>Panamá</span><div class="track"><div class="fill" style="width:16%"></div></div><span class="val">30k</span></div>
+          </div>
+          <p class="fig-note">Figura 3 · fuente dashboard · emisores_ytd_2026</p>
+        </div>
+      </div>
+      <div class="callout"><strong>Insight.</strong> Concentración 59,9% en top 5: riesgo de dependencia; diversificar sin diluir EE.UU.</div>
+    </article>
+
+    <footer class="doc">Mockup C · Dato primero · Bureau + Colmayor · Corte 2026-11-01 · Sin stock en cuerpo</footer>
+  </div>
+</body>
+</html>

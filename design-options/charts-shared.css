@@ -1,0 +1,24 @@
+/* Capas comunes de gráficas futuristas + legibles */
+.fx-chart{position:relative;border-radius:14px;overflow:hidden}
+.fx-chart svg{width:100%;height:100%;display:block}
+.fx-legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin:10px 0 0;font-size:11px;font-weight:600}
+.fx-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.fx-axis{font-size:10px;font-weight:600;letter-spacing:.02em}
+.fx-val{font-size:11px;font-weight:700}
+.fx-glow{filter:drop-shadow(0 0 6px rgba(0,174,172,.55))}
+.fx-glow-orange{filter:drop-shadow(0 0 6px rgba(233,144,30,.5))}
+.fx-glow-gold{filter:drop-shadow(0 0 6px rgba(251,187,40,.45))}
+.hbar{display:grid;gap:10px}
+.hbar .row{display:grid;grid-template-columns:72px 1fr 48px;gap:8px;align-items:center;font-size:12px;font-weight:600}
+.hbar .track{height:14px;border-radius:999px;background:rgba(128,128,128,.12);overflow:hidden;position:relative}
+.hbar .fill{height:100%;border-radius:999px;position:relative}
+.hbar .fill::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35));mix-blend-mode:soft-light}
+.donut-wrap{display:grid;grid-template-columns:140px 1fr;gap:14px;align-items:center}
+.donut-wrap .center-label{position:absolute;inset:0;display:grid;place-items:center;text-align:center;pointer-events:none}
+.donut-wrap .center-label b{display:block;font-size:22px;line-height:1}
+.donut-wrap .center-label span{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;opacity:.7}
+.radar-grid{position:relative}
+.scanline{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,174,172,.03) 3px,rgba(0,174,172,.03) 4px);pointer-events:none;border-radius:inherit}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#00AEAC;box-shadow:0 0 0 0 rgba(0,174,172,.6);animation:pulse 1.6s infinite;margin-right:6px;vertical-align:middle}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,174,172,.55)}70%{box-shadow:0 0 0 8px rgba(0,174,172,0)}100%{box-shadow:0 0 0 0 rgba(0,174,172,0)}}
+@media (prefers-reduced-motion:reduce){.live-dot{animation:none}}

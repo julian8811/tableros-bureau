@@ -1,0 +1,436 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Borrador informe TEC-Bureau</title><style>@font-face{font-family:"Montserrat";src:url("assets/fonts/Montserrat-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("assets/fonts/Montserrat-Medium.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("assets/fonts/Montserrat-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("assets/fonts/Montserrat-Bold.woff2") format("woff2");font-weight:700;font-display:swap}
+:root{
+  --navy:#172139;--teal:#108181;--teal-bright:#00AEAC;--teal-deep:#195855;
+  --gold:#FBBB28;--orange:#E9901E;--lime:#B4C42C;
+  --bg:#0c1526;--surface:rgba(23,33,57,.18);--surface-2:rgba(26,36,56,.22);--stroke:rgba(255,255,255,.22);
+  --glass:rgba(255,255,255,.045);--glass-strong:rgba(14,22,38,.28);--glass-border:rgba(255,255,255,.28);
+  --text:#eef3f3;--text-2:#9db3b3;--text-3:#7d8ea3;
+  --sim:#6E5A8A;--sim-bg:rgba(36,29,61,.32);
+  --blur:36px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Montserrat",Calibri,"Segoe UI",Arial,sans-serif;
+  background:
+    radial-gradient(980px 480px at 10% 12%,rgba(0,174,172,.28),transparent 58%),
+    radial-gradient(1200px 560px at 92% -8%,rgba(233,144,30,.2),transparent 52%),
+    radial-gradient(860px 440px at 72% 88%,rgba(16,129,129,.22),transparent 56%),
+    radial-gradient(700px 360px at 48% 42%,rgba(251,187,40,.08),transparent 60%),
+    linear-gradient(165deg,#071018 0%,#0a1424 40%,#122038 100%) fixed;
+  color:var(--text);
+  font-size:14px;
+  line-height:1.5;
+  min-height:100vh;
+}
+button,select,input{font:inherit}
+button{cursor:pointer}
+
+/* Cabecera institucional (Opción A) + glass */
+.site{
+  background:rgba(11,18,32,.28);
+  backdrop-filter:blur(var(--blur)) saturate(1.55);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(1.55);
+  border-bottom:4px solid var(--gold);
+  color:#fff;
+  box-shadow:0 8px 32px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.12);
+}
+.site .inner{max-width:1280px;margin:0 auto;padding:18px 24px;display:flex;align-items:center;gap:16px}
+.site img{height:110px;width:auto;max-width:320px;object-fit:contain;flex-shrink:0}
+.site h1{margin:0;font-size:20px;font-weight:700;letter-spacing:-.01em}
+.site p{margin:4px 0 0;font-size:12px;color:rgba(255,255,255,.78)}
+.site .corte-pill{
+  margin-left:auto;
+  border:1px solid var(--glass-border);
+  background:rgba(251,187,40,.1);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:11px;
+  font-weight:700;
+  color:var(--gold);
+  white-space:nowrap;
+}
+.site .corte-pill .live{
+  display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--teal-bright);
+  box-shadow:0 0 0 0 rgba(0,174,172,.55);margin-right:6px;vertical-align:middle;
+  animation:pulse 1.6s infinite;
+}
+
+#app{max-width:1280px;margin:0 auto;padding:0 24px 40px}
+.mando{
+  position:sticky;top:0;z-index:20;
+  background:rgba(12,21,38,.28);
+  backdrop-filter:blur(var(--blur)) saturate(1.55);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(1.55);
+  margin:0 -24px 20px;padding:16px 24px 12px;
+  border-bottom:1px solid var(--glass-border);
+  box-shadow:0 10px 30px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.1);
+}
+.tabs,.filters{display:flex;flex-wrap:wrap;gap:8px}
+.tabs{margin-bottom:12px}
+.tab,.btn{
+  border:1px solid var(--glass-border);
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  color:var(--text);
+  border-radius:999px;padding:8px 14px;min-height:44px;font-size:12px;font-weight:700;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
+}
+.tab{display:inline-flex;align-items:center;transition:border-color 180ms ease,background-color 180ms ease,color 180ms ease}
+.tab.active{background:var(--teal-deep);border-color:var(--teal-bright);color:#fff}
+.tab.mercados.active{background:var(--orange);border-color:var(--orange);color:var(--navy)}
+.tab.visitante.active{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.tab.captacion.active{background:var(--teal);border-color:var(--teal-bright);color:#fff}
+.tab.miembros.active{background:var(--teal-bright);border-color:var(--teal-bright);color:var(--navy)}
+.tab:hover{border-color:var(--teal-bright)}
+.kpi:hover,.block:hover{
+  box-shadow:0 16px 40px rgba(0,174,172,.22), inset 0 1px 0 rgba(255,255,255,.22);
+  border-color:rgba(0,174,172,.5);
+  background:rgba(255,255,255,.08);
+}
+.filter select,.calc input,.btn{min-height:44px}
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.skip{position:absolute;left:12px;top:-40px;background:var(--navy);color:#fff;padding:8px 12px;border-radius:8px;z-index:50}
+.skip:focus{top:12px}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.marco:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.leyenda i.trazo-1,.leyenda i.trazo-2,.leyenda i.trazo-3,.leyenda i.trazo-4{background-image:repeating-linear-gradient(90deg,transparent 0 3px,#fff 3px 5px)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,174,172,.55)}70%{box-shadow:0 0 0 8px rgba(0,174,172,0)}100%{box-shadow:0 0 0 0 rgba(0,174,172,0)}}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition:none !important;animation:none !important}
+  .site .corte-pill .live{animation:none}
+}
+
+.filters{align-items:end;margin:0}
+.filter{display:flex;flex-direction:column;gap:3px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text-3)}
+.filter select{
+  border:1px solid var(--glass-border);
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-radius:8px;padding:7px 8px;color:var(--text);font-size:12px;font-weight:600;text-transform:none;letter-spacing:0
+}
+.calc input{border:1px solid var(--glass-border);background:rgba(255,255,255,.05);border-radius:8px;padding:7px 8px;color:var(--text);font-weight:600}
+
+.qbox{
+  margin:0 0 20px;padding:16px 18px;
+  background:linear-gradient(90deg,rgba(251,187,40,.12),rgba(255,255,255,.04) 38%,rgba(20,28,46,.18) 100%);
+  border:1px solid var(--glass-border);border-left:4px solid var(--gold);
+  border-radius:0 14px 14px 0;
+  backdrop-filter:blur(var(--blur)) saturate(1.5);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(1.5);
+  box-shadow:0 8px 28px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.16);
+}
+.qbox strong{display:block;font-size:17px;line-height:1.35;max-width:65ch}
+.qbox span{display:block;margin-top:6px;color:var(--text-2);font-size:13px;max-width:65ch}
+
+.kpi-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:10px}
+.kpi,.block{
+  background:linear-gradient(165deg,rgba(255,255,255,.09),rgba(255,255,255,.02) 45%,rgba(14,22,38,.16));
+  border:1px solid var(--glass-border);
+  border-radius:16px;
+  padding:16px 18px;
+  backdrop-filter:blur(var(--blur)) saturate(1.6);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(1.6);
+  box-shadow:0 12px 36px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.2), inset 0 -1px 0 rgba(255,255,255,.04);
+  transition:box-shadow 180ms ease,border-color 180ms ease,background-color 180ms ease;
+}
+.kpi{
+  border-top:3px solid var(--teal);
+  background:linear-gradient(165deg,rgba(255,255,255,.12),rgba(255,255,255,.03) 40%,rgba(20,28,46,.14));
+}
+body[data-tablero="mercados"] .kpi{border-top-color:var(--orange)}
+body[data-tablero="visitante"] .kpi{border-top-color:var(--gold)}
+body[data-tablero="captacion"] .kpi{border-top-color:var(--teal)}
+body[data-tablero="miembros"] .kpi{border-top-color:var(--teal-bright)}
+.kpi button.hit{display:block;width:100%;border:0;background:transparent;padding:0;text-align:left;color:inherit}
+.kpi button.hit:active{opacity:.82}
+.kpi .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text-3)}
+.kpi .value{margin-top:8px;font-size:28px;font-weight:700;color:#fff;line-height:1.1;text-shadow:0 0 18px rgba(0,174,172,.25)}
+body[data-tablero="mercados"] .kpi .value{color:var(--orange)}
+body[data-tablero="visitante"] .kpi .value{color:var(--gold)}
+body[data-tablero="captacion"] .kpi .value{color:var(--teal-bright)}
+body[data-tablero="miembros"] .kpi .value{color:var(--teal-bright)}
+.kpi .meta{margin-top:8px;font-size:12px;color:var(--text-2)}
+
+.pastilla{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;background:#0e2b2b;color:var(--teal-bright)}
+.pastilla.proxy{background:#3a2c10;color:var(--gold)}
+.pastilla.primaria,.pastilla.usuario{background:#232f4a;color:#c6d4d4}
+.pastilla.cita,.pastilla.derivada{background:#26351f;color:var(--lime)}
+
+.g2{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
+.grupo{margin-top:28px}
+.grupo h2{
+  margin:0 0 12px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text-3);display:flex;align-items:center;gap:12px;
+}
+.grupo h2::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--stroke),transparent)}
+.lienzo{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px;align-items:start}
+.span-12{grid-column:span 12}
+.span-8{grid-column:span 8}
+.span-7{grid-column:span 7}
+.span-6{grid-column:span 6}
+.span-5{grid-column:span 5}
+.span-4{grid-column:span 4}
+.stack{display:grid;gap:10px}
+.mt{margin-top:10px}
+.block h3{margin:0 0 4px;font-size:15px;font-weight:700;line-height:1.3}
+.hint{display:block;color:var(--text-2);font-size:12px;line-height:1.45;margin-bottom:12px;max-width:65ch}
+
+.chart{width:100%;height:auto;display:block;filter:drop-shadow(0 0 10px rgba(0,174,172,.08))}
+.block .marco{border:0;padding:0;background:transparent}
+.marco.simulado,.block .marco.simulado{
+  border:1px dashed var(--sim);border-radius:10px;padding:8px;
+  background:rgba(36,29,61,.45);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.nota-sim{margin:8px 0 0;font-size:12px;color:var(--text-2)}
+.pastilla.simulacion{background:#2c2342;color:#b9a8e8}
+.leyenda i.sim{background-image:repeating-linear-gradient(32deg,#6E5A8A,#6E5A8A 1px,#241d3d 1px,#241d3d 3px)}
+.chart [data-tip]{cursor:pointer}
+.chart rect.foco,.chart circle.foco{stroke:var(--gold);stroke-width:2px}
+.chart .callout-bg{fill:#0b1220;stroke:var(--teal-bright)}
+.chart .callout-t{fill:var(--gold);font-weight:700;font-size:11px}
+.chart .track{fill:rgba(255,255,255,.06)}
+
+#tip{
+  position:fixed;z-index:40;
+  background:rgba(11,18,32,.7);border:1px solid var(--teal-bright);color:#fff;
+  font-size:12px;padding:6px 8px;border-radius:8px;pointer-events:none;max-width:240px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  box-shadow:0 0 16px rgba(0,174,172,.25), inset 0 1px 0 rgba(255,255,255,.1);
+}
+.corte{margin-left:auto;font-size:12px;color:var(--text-3);align-self:center}
+.chart.donut{max-width:220px;margin:0 auto}
+.figura{display:grid;gap:8px}
+.donut-frame{display:grid;grid-template-columns:minmax(140px,180px) 1fr;gap:14px;align-items:center}
+.donut-frame .leyenda{flex-direction:column;gap:6px}
+.leyenda{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12px;color:var(--text-2)}
+.leyenda i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;box-shadow:0 0 6px rgba(0,174,172,.25)}
+.wide{margin-top:10px}
+.table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;overflow:hidden;border-radius:12px;border:1px solid var(--glass-border);background:rgba(255,255,255,.03)}
+.table th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--gold);padding:10px 12px;background:rgba(251,187,40,.08);border-bottom:1px solid var(--glass-border);font-weight:700}
+.table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);color:var(--text-2);vertical-align:middle}
+.table tr:last-child td{border-bottom:0}
+.table tbody tr:hover td{background:rgba(0,174,172,.08);color:var(--text)}
+.table .num{text-align:right;font-weight:700;color:var(--text);white-space:nowrap}
+.table-sit{margin-top:8px}
+.table-sit td:nth-child(2),.table-sit td:nth-child(3),.table-sit td:nth-child(5),
+.table-sit th:nth-child(2),.table-sit th:nth-child(3),.table-sit th:nth-child(5){text-align:right}
+.table-wrap{overflow-x:auto;border-radius:12px;-webkit-overflow-scrolling:touch}
+
+.notes-rail{position:relative;overflow:hidden;margin:12px 0 4px;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.notes-track{display:flex;gap:12px;width:max-content;animation:notes-scroll 28s linear infinite}
+.notes-rail:hover .notes-track{animation-play-state:paused}
+.note-card{
+  flex:0 0 280px;min-height:88px;padding:12px 14px;border-radius:14px;
+  background:linear-gradient(145deg,rgba(255,255,255,.1),rgba(255,255,255,.02) 50%,rgba(20,28,46,.14));
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(var(--blur)) saturate(1.5);-webkit-backdrop-filter:blur(var(--blur)) saturate(1.5);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18);
+  font-size:12px;line-height:1.45;color:var(--text);
+}
+.note-card b{display:block;margin-bottom:6px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-bright)}
+.cal-rail .notes-track{animation-duration:40s}
+.cal-card{
+  flex:0 0 260px;min-height:160px;padding:14px 16px;border-radius:16px;
+  background:linear-gradient(160deg,rgba(0,174,172,.14),rgba(255,255,255,.04) 45%,rgba(20,28,46,.16));
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(var(--blur)) saturate(1.5);-webkit-backdrop-filter:blur(var(--blur)) saturate(1.5);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18);
+}
+.cal-card h4{margin:0 0 10px;font-size:14px;color:#fff;display:flex;align-items:center;gap:8px;text-transform:capitalize}
+.cal-card ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.cal-card li{font-size:12px;color:var(--text-2);display:flex;gap:8px;align-items:flex-start;line-height:1.35}
+@keyframes notes-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .notes-track{animation:none;flex-wrap:wrap;width:auto}
+  .notes-rail{mask-image:none;-webkit-mask-image:none;overflow:visible}
+}
+.hueco{
+  border:1px dashed rgba(0,174,172,.45);border-radius:10px;padding:12px;
+  background:rgba(16,29,51,.22);color:var(--text-2);
+  backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);
+}
+.hueco strong{color:var(--text)}
+.stocks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.stock{
+  border:1px solid var(--glass-border);border-radius:10px;padding:10px;
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
+}
+.stock .k{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-3)}
+.stock .v{font-size:22px;font-weight:700;color:var(--text);margin-top:2px}
+.stock p{margin:4px 0 0;font-size:11px;color:var(--text-2)}
+.calc{display:flex;flex-wrap:wrap;gap:8px;align-items:end}
+.calc label{display:flex;flex-direction:column;gap:3px;font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-3)}
+.calc input{border:1px solid var(--stroke);border-radius:8px;padding:7px 8px;width:140px;color:var(--text);font-weight:600;background:var(--surface)}
+.lista{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.lista li{
+  display:flex;justify-content:space-between;gap:8px;padding:7px 9px;border-radius:8px;
+  background:rgba(255,255,255,.04);border:1px solid var(--glass-border);
+  backdrop-filter:blur(14px) saturate(1.35);-webkit-backdrop-filter:blur(14px) saturate(1.35);
+}
+.footer-doc{max-width:1280px;margin:0 auto 24px;padding:0 24px 16px;color:var(--text-3);font-size:12px;line-height:1.5}
+.modal-back{position:fixed;inset:0;background:rgba(11,18,32,.4);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:18px;z-index:30}
+.modal{
+  background:rgba(20,28,46,.32);
+  border:1px solid var(--glass-border);
+  border-radius:16px;max-width:640px;width:100%;padding:16px;max-height:86vh;overflow:auto;
+  backdrop-filter:blur(var(--blur)) saturate(1.55);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(1.55);
+  box-shadow:0 20px 50px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.18);
+}
+.modal h3{margin:0 0 8px}
+.modal dl{display:grid;grid-template-columns:150px 1fr;gap:6px 10px;margin:0}
+.modal dt{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-3)}
+.modal dd{margin:0}
+.aviso{
+  background:rgba(20,28,46,.22);border:1px solid var(--glass-border);border-left:4px solid var(--teal-bright);
+  border-radius:0 10px 10px 0;padding:8px 12px;margin:0 0 12px;color:var(--text-2);
+  backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);
+}
+.src{display:block;color:var(--text-2);font-size:12px;line-height:1.45;margin-top:8px}
+
+.opts{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;
+  margin:0 0 16px;padding:12px 14px;
+  border:1px solid var(--glass-border);border-radius:12px;
+  background:var(--glass);
+  backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);
+}
+.opts > span{font-size:12px;font-weight:600;color:var(--text-2);margin-right:4px}
+.check{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;color:var(--text);cursor:pointer;
+  padding:4px 8px;border-radius:8px;border:1px solid transparent;
+}
+.check:hover{border-color:var(--glass-border);background:rgba(255,255,255,.04)}
+.check input{accent-color:var(--teal-bright);width:16px;height:16px}
+.btn-gen{border-color:rgba(0,174,172,.45);background:rgba(0,174,172,.12);font-weight:600}
+.btn-gen:disabled{opacity:.55;cursor:wait}
+.informe-lista li{align-items:flex-start}
+.informe-lista .src{display:inline;margin-left:4px;font-size:11px}
+.informe-lista .implicacion{display:block;color:var(--gold);font-size:12px;margin-top:4px;font-style:normal}
+.tec-doc{display:grid;gap:18px;margin-top:8px}
+.tec-portada{
+  position:relative;min-height:280px;border-radius:16px;overflow:hidden;
+  border:1px solid var(--glass-border);
+  background:rgba(8,14,28,.55);
+}
+.tec-hero{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  filter:saturate(1.05) brightness(.55);
+}
+.tec-portada-copy{
+  position:relative;z-index:1;padding:36px 28px;max-width:720px;
+}
+.tec-portada-copy h2{margin:0 0 8px;font-size:32px;line-height:1.15;letter-spacing:-.02em}
+.tec-kicker{margin:0 0 10px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.tec-resumen,.tec-toc,.tec-sec{
+  border:1px solid var(--glass-border);border-radius:14px;padding:16px 18px;
+  background:var(--glass);
+  backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);
+}
+.tec-toc ol{margin:8px 0 0;padding-left:20px;columns:2;gap:24px}
+.tec-toc a{color:var(--text);text-decoration:none}
+.tec-toc a:hover{color:var(--teal-bright)}
+.tec-sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px;margin-bottom:10px}
+.tec-sec-head h3{margin:0;font-size:20px}
+.tec-lead{font-size:15px;color:var(--text);margin:0 0 12px}
+.tec-figure{margin:0 0 14px}
+.tec-figure img{
+  display:block;width:100%;max-height:280px;object-fit:cover;
+  border-radius:12px;border:1px solid var(--glass-border);
+}
+.tec-figure figcaption{font-size:11px;color:var(--text-3);margin-top:6px}
+.tec-tabla-wrap{overflow:auto;margin:12px 0}
+.tec-tabla{width:100%;border-collapse:collapse;font-size:12px}
+.tec-tabla th,.tec-tabla td{border-bottom:1px solid var(--glass-border);padding:8px 10px;text-align:left}
+.tec-tabla th{color:var(--gold);font-weight:600;white-space:nowrap}
+.tec-tabla td:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
+.no-print{}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
+  .site,.mando,.kpi,.block,.qbox,.modal,.tab,.btn,.hueco,.stock,.lista li,.aviso,.site .corte-pill,.opts{
+    background:rgba(16,24,40,.92);
+  }
+}
+
+@media print{
+  body{
+    background:#fff !important;color:#111 !important;
+    font-size:11pt;line-height:1.35;
+  }
+  .site{
+    background:#172139 !important;color:#fff !important;
+    box-shadow:none !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important;
+    print-color-adjust:exact;-webkit-print-color-adjust:exact;
+  }
+  .site img{height:72px}
+  .site .corte-pill,.skip,.footer-doc,#tip,.modal-back{display:none !important}
+  .mando{
+    position:static;background:#f4f6f8 !important;color:#111 !important;
+    box-shadow:none !important;border-bottom:1px solid #ccc;margin:0 0 12px;
+    backdrop-filter:none !important;-webkit-backdrop-filter:none !important;
+  }
+  .tab:not(.on),.filters,.opts .btn,.opts .btn-gen,.opts a.btn,.no-print{display:none !important}
+  .opts{
+    background:transparent !important;border:none;padding:0;margin:0 0 8px;
+    backdrop-filter:none !important;-webkit-backdrop-filter:none !important;
+  }
+  .tec-portada{min-height:220px;border:none;border-radius:0;break-after:page}
+  .tec-hero{filter:brightness(.45)}
+  .tec-portada-copy h2{color:#fff !important;font-size:28pt}
+  .tec-resumen,.tec-toc,.tec-sec{
+    background:#fff !important;color:#111 !important;border:1px solid #ccc;
+    box-shadow:none !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important;
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .tec-sec{break-before:page}
+  .tec-tabla th{color:#172139 !important}
+  .tec-figure img{max-height:220px}
+  .informe-lista .implicacion{color:#195855 !important}
+  .check{border:none;padding:0 8px 0 0}
+  .check input{display:none}
+  .aviso{border-left:3px solid #108181;background:#f0f7f7 !important;color:#222 !important}
+  .block,.kpi,.hueco,.qbox,.stock{
+    background:#fff !important;color:#111 !important;border:1px solid #ccc;
+    box-shadow:none !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important;
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .block h3,.kpi .label{color:#172139 !important}
+  .src,.hint,.pie{color:#555 !important}
+  .pastilla{border:1px solid #999;color:#222 !important;background:#eee !important}
+  #app{max-width:100%;padding:0 12px 24px}
+  a{color:#111;text-decoration:none}
+}
+
+@media(max-width:1100px){
+  .g2,.g3,.kpi-row,.stocks{grid-template-columns:1fr 1fr}
+  .span-8,.span-7,.span-6,.span-5,.span-4{grid-column:span 6}
+  .donut-frame{grid-template-columns:1fr}
+  .site .corte-pill{display:none}
+}
+@media(max-width:640px){
+  .g2,.g3,.kpi-row,.stocks,.lienzo{grid-template-columns:1fr}
+  .span-12,.span-8,.span-7,.span-6,.span-5,.span-4{grid-column:auto}
+  .site .inner{align-items:flex-start}
+  #app{padding:0 16px 32px}
+  .mando{margin:0 -16px 16px;padding:12px 16px 10px}
+  .kpi-row{gap:8px}
+  .modal dl{grid-template-columns:1fr}
+  .kpi .value,.stock .v{font-size:24px}
+}
+.pv-bars{display:grid;gap:8px;margin:8px 0 16px}.pv-bar{display:grid;grid-template-columns:140px 1fr 90px;gap:8px;align-items:center;font-size:12px}.pv-track{height:10px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden}.pv-track i{display:block;height:100%;background:#00AEAC}.pv-val{text-align:right;font-variant-numeric:tabular-nums}.wrap{max-width:980px;margin:0 auto;padding:24px}.banner{background:#E9901E;color:#111;padding:10px 14px;border-radius:10px;margin-bottom:16px;font-weight:600}</style></head><body><div class="wrap"><div class="banner">Borrador determinístico del dashboard · sin GROQ_API_KEY · para corrección conjunta</div><section class="tec-portada"><div class="tec-hero" style="background-image:url('https://images.unsplash.com/photo-1599423300746-b62533397364?w=1600&amp;q=80')"></div><div class="tec-portada-copy"><p class="tec-kicker">BORRADOR · SIN GROQ</p><h2>Turismo e inteligencia de destino · Medellín</h2><p>Borrador TEC-Bureau · corte 2026-11-03 · cifras del dashboard (sin LLM)</p></div></section><section class="tec-resumen"><h3>Resumen ejecutivo</h3><ul class="lista"><li>En 2025 Medellín recibió 1.143.678 VNR MinCIT, el 24% de Colombia y el 93% de Antioquia.</li><li>Aerocivil 2025: el mercado con más llegadas priorizadas fue Colombia (5.094.485).</li><li>Gestión 2025: 103 eventos captados/apoyados, impacto USD 156.168.654, 200 miembros activos.</li><li>Este borrador es determinístico (agrega el dashboard). Con GROQ_API_KEY se regenera la prosa editorial estilo TEC.</li></ul></section><section class="tec-toc"><h3>Contenido</h3><ol><li><a href="#sec-portada">Portada</a></li><li><a href="#sec-tendencias">1. Tendencias</a></li><li><a href="#sec-receptivo">2. Turismo receptivo</a></li><li><a href="#sec-emisores">2.1 Emisores internacionales</a></li><li><a href="#sec-destinos">2.2 Destinos / ciudades</a></li><li><a href="#sec-reuniones">2.3 Reuniones y negocios</a></li><li><a href="#sec-visitante">3. Perfil del visitante (EVI)</a></li><li><a href="#sec-salidas">4. Salidas / emisivo (contexto)</a></li><li><a href="#sec-conectividad">5. Conectividad aérea</a></li><li><a href="#sec-marca">6. Marca y conversación</a></li><li><a href="#sec-territorio">7. Territorio, clima y seguridad</a></li><li><a href="#sec-gestion">8. Gestión Bureau (captación y miembros)</a></li><li><a href="#sec-pronostico">9. Pronóstico</a></li></ol></section><article class="tec-sec" id="sec-portada"><header class="tec-sec-head"><h3>Portada</h3></header><figure class="tec-figure"><img src="https://images.unsplash.com/photo-1599423300746-b62533397364?w=1600&amp;q=80" alt=""><figcaption>Unsplash (banco curado)</figcaption></figure><p class="tec-lead">Informe de trabajo para corrección conjunta · Greater Medellín CVB + Colmayor.</p><h4>Hallazgos</h4><ul class="lista informe-lista "><li><span>Estructura espejo TEC 1S 2026; cifras solo del paquete data/open del tablero.</span> <span class="src">(meta)</span></li><li><span>Modo borrador sin Groq: tablas e insights calculados; la prosa narrativa se enriquecerá con LLM.</span> <span class="src">(meta)</span></li></ul><h4>Insights</h4><ul class="lista informe-lista insights"><li><span>Usar este corte para validar diagramación, tono y gaps de datos antes del PDF final.</span> <em class="implicacion">Priorizar correcciones de contenido y fuentes en esta ronda.</em> <span class="src">(meta)</span></li></ul></article><article class="tec-sec" id="sec-tendencias"><header class="tec-sec-head"><h3>1. Tendencias</h3></header><figure class="tec-figure"><img src="https://images.unsplash.com/photo-1436491865332-7a61a109cab0?w=1400&amp;q=80" alt=""><figcaption>Unsplash (banco curado)</figcaption></figure><p class="tec-lead">Señales de precio, tipo de cambio y conversación digital del tablero.</p><h4>Hallazgos</h4><ul class="lista informe-lista "><li><span>TRM promedio del último mes publicado: 3199 COP/USD (2026-10).</span> <span class="src">(tablero_mercados.trm_banrep.ultimo)</span></li><li><span>EMA último índice Antioquia 162 vs promedio regiones 153 (índice 100=106).</span> <span class="src">(tablero_mercados.ema.serie)</span></li><li><span>Marca LLM: 421 piezas en ventana 2026-10 a 2026-11; tópico global: Feria Flores programación.</span> <span class="src">(tablero_mercados.marca_llm)</span></li></ul><h4>Análisis</h4><ul class="lista informe-lista "><li><span>La lectura conjunta TRM + EMA + marca permite separar presión de precio en destino de ruido mediático.</span> <span class="src">(tablero_mercados)</span></li></ul><h4>Insights</h4><ul class="lista informe-lista insights"><li><span>Si la TRM se deprecia y la tarifa EMA se mantiene alta, el destino puede perder competitividad en emisores sensibles a precio.</span> <em class="implicacion">Cruzar en semanal TRM con Medata por zona (Poblado/Laureles/Centro).</em> <span class="src">(trm_banrep, ema, medata_tarifas)</span></li></ul><h4>Índice EMA Antioquia (últimos 8 meses)</h4><p class="src">Índice</p><div class="pv-bars"><div class="pv-bar"><span class="pv-lab">2026-01</span><span class="pv-track"><i style="width:100%"></i></span><span class="pv-val">172</span></div><div class="pv-bar"><span class="pv-lab">2026-02</span><span class="pv-track"><i style="width:94%"></i></span><span class="pv-val">161</span></div><div class="pv-bar"><span class="pv-lab">2026-03</span><span class="pv-track"><i style="width:95%"></i></span><span class="pv-val">163</span></div><div class="pv-bar"><span class="pv-lab">2026-04</span><span class="pv-track"><i style="width:94%"></i></span><span class="pv-val">161</span></div><div class="pv-bar"><span class="pv-lab">2026-05</span><span class="pv-track"><i style="width:94%"></i></span><span class="pv-val">161</span></div><div class="pv-bar"><span class="pv-lab">2026-06</span><span class="pv-track"><i style="width:93%"></i></span><span class="pv-val">160</span></div><div class="pv-bar"><span class="pv-lab">2026-07</span><span class="pv-track"><i style="width:96%"></i></span><span class="pv-val">165</span></div><div class="pv-bar"><span class="pv-lab">2026-08</span><span class="pv-track"><i style="width:94%"></i></span><span class="pv-val">162</span></div></div></article><article class="tec-sec" id="sec-receptivo"><header class="tec-sec-head"><h3>2. Turismo receptivo</h3></header><figure class="tec-figure"><img src="https://images.unsplash.com/photo-1483729558449-99ef03a8a546?w=1400&amp;q=80" alt=""><figcaption>Unsplash (banco curado)</figcaption></figure><p class="tec-lead">Visitantes no residentes MinCIT con destino Medellín (no es Migración ni Aerocivil).</p><h4>Hallazgos</h4><ul class="lista informe-lista "><li><span>2025: 1.143.678 VNR a Medellín; share Colombia 24%.</span> <span class="src">(mincit_vnr.shares_anual)</span></li><li><span>2026 (parcial en dashboard): 551.226 VNR; share Colombia 25%.</span> <span class="src">(mincit_vnr.shares_anual)</span></li><li><span>Migración Colombia (entradas nacionales, no ciudad): 5.130.449 en 2025.</span> <span class="src">(migracion_entradas.anual)</span></li></ul><h4>Análisis</h4><ul class="lista informe-lista "><li><span>MinCIT VNR mide destino declarado; Migración mide cruces al país. No se suman ni se sustituyen.</span> <span class="src">(mincit_vnr, migracion_entradas)</span></li></ul><h4>Insights</h4><ul class="lista informe-lista insights"><li><span>Medellín concentra cerca de un cuarto de los VNR de Colombia en los cortes anuales del tablero.</span> <em class="implicacion">En piezas externas citar siempre MinCIT VNR y el año/corte; no usar el total Migración como llegadas a la ciudad.</em> <span class="src">(mincit_vnr.shares_anual)</span></li></ul><div class="tec-tabla-wrap"><h4>Shares MinCIT · Medellín en Colombia / Antioquia</h4><table class="tec-tabla"><thead><tr><th>Año</th><th>Medellín</th><th>Antioquia</th><th>Colombia</th><th>Share Ant. %</th><th>Share Col. %</th></tr></thead><tbody><tr><td>2.023</td><td>790.135</td><td>906.306</td><td>4.077.639</td><td>87</td><td>19</td></tr><tr><td>2.024</td><td>1.048.471</td><td>1.125.506</td><td>4.504.530</td><td>93</td><td>23</td></tr><tr><td>2.025</td><td>1.143.678</td><td>1.224.985</td><td>4.677.578</td><td>93</td><td>24</td></tr><tr><td>2.026</td><td>551.226</td><td>581.983</td><td>2.223.471</td><td>95</td><td>25</td></tr></tbody></table></div><h4>VNR Medellín (shares anuales)</h4><p class="src">Visitantes</p><div class="pv-bars"><div class="pv-bar"><span class="pv-lab">2022</span><span class="pv-track"><i style="width:56%"></i></span><span class="pv-val">642.036</span></div><div class="pv-bar"><span class="pv-lab">2023</span><span class="pv-track"><i style="width:69%"></i></span><span class="pv-val">790.135</span></div><div class="pv-bar"><span class="pv-lab">2024</span><span class="pv-track"><i style="width:92%"></i></span><span class="pv-val">1.048.471</span></div><div class="pv-bar"><span class="pv-lab">2025</span><span class="pv-track"><i style="width:100%"></i></span><span class="pv-val">1.143.678</span></div><div class="pv-bar"><span class="pv-lab">2026</span><span class="pv-track"><i style="width:48%"></i></span><span class="pv-val">551.226</span></div></div></article><article class="tec-sec" id="sec-emisores"><header class="tec-sec-head"><h3>2.1 Emisores internacionales</h3></header><figure class="tec-figure"><img src="https://images.unsplash.com/photo-1529078155058-5d716f45d604?w=1400&amp;q=80" alt=""><figcaption>Unsplash (banco curado)</figcaption></figure><p class="tec-lead">Top países MinCIT VNR hacia Medellín según el dashboard.</p><h4>Hallazgos</h4><ul class="lista informe-lista "><li><span>1. Estados Unidos: 378.326 visitantes.</span> <span class="src">(mincit_vnr.top_paises)</span></li><li><span>2. México: 94.288 visitantes.</span> <span class="src">(mincit_vnr.top_paises)</span></li><li><span>3. Costa Rica: 81.319 visitantes.</span> <span class="src">(mincit_vnr.top_paises)</span></li><li><span>4. Panamá: 70.848 visitantes.</span> <span class="src">(mincit_vnr.top_paises)</span></li><li><span>5. Ecuador: 60.782 visitantes.</span> <span class="src">(mincit_vnr.top_paises)</span></li></ul><h4>Análisis</h4><ul class="lista informe-lista "><li><span>EE. UU. lidera de forma estructural; la cola latina (México, Panamá, Perú) concentra la dinamización relativa en cortes recientes del tablero.</span> <span class="src">(mincit_vnr.top_paises)</span></li></ul><h4>Insights</h4><ul class="lista informe-lista insights"><li><span>La dependencia del primer emisor obliga a un portafolio de captación y conectividad hacia 2°–5°.</span> <em class="implicacion">Priorizar acciones comerciales en México y Brasil alineadas a sillas Aerocivil.</em> <span class="src">(mincit_vnr.top_paises, conectividad_aerocivil)</span></li></ul><div class="tec-tabla-wrap"><h4>Top mercados emisores MinCIT VNR hacia Medellín (referencia dashboard)</h4><table class="tec-tabla"><thead><tr><th>País</th><th>Visitantes (último año disponible)</th></tr></thead><tbody><tr><td>Estados Unidos</td><td>378.326</td></tr><tr><td>México</td><td>94.288</td></tr><tr><td>Costa Rica</td><td>81.319</td></tr><tr><td>Panamá</td><td>70.848</td></tr><tr><td>Ecuador</td><td>60.782</td></tr><tr><td>República Dominicana</td><td>59.678</td></tr><tr><td>Perú</td><td>46.641</td></tr><tr><td>Puerto Rico</td><td>45.990</td></tr><tr><td>Venezuela</td><td>32.373</td></tr><tr><td>España</td><td>26.818</td></tr></tbody></table></div><h4>Top 8 emisores (último corte top_paises)</h4><p class="src">Visitantes</p><div class="pv-bars"><div class="pv-bar"><span class="pv-lab">Estados Unidos</span><span class="pv-track"><i style="width:100%"></i></span><span class="pv-val">378.326</span></div><div class="pv-bar"><span class="pv-lab">México</span><span class="pv-track"><i style="width:25%"></i></span><span class="pv-val">94.288</span></div><div class="pv-bar"><span class="pv-lab">Costa Rica</span><span class="pv-track"><i style="width:21%"></i></span><span class="pv-val">81.319</span></div><div class="pv-bar"><span class="pv-lab">Panamá</span><span class="pv-track"><i style="width:19%"></i></span><span class="pv-val">70.848</span></div><div class="pv-bar"><span class="pv-lab">Ecuador</span><span class="pv-track"><i style="width:16%"></i></span><span class="pv-val">60.782</span></div><div class="pv-bar"><span class="pv-lab">República Dominicana</span><span class="pv-track"><i style="width:16%"></i></span><span class="pv-val">59.678</span></div><div class="pv-bar"><span class="pv-lab">Perú</span><span class="pv-track"><i style="width:12%"></i></span><span class="pv-val">46.641</span></div><div class="pv-bar"><span class="pv-lab">Puerto Rico</span><span class="pv-track"><i style="width:12%"></i></span><span class="pv-val">45.990</span></div></div></article><article class="tec-sec" id="sec-destinos"><header class="tec-sec-head"><h3>2.2 Destinos / ciudades</h3></header><figure class="tec-figure"><img src="https://images.unsplash.com/photo-1568632234157-ce7aecd03d0d?w=1400&amp;q=80" alt=""><figcaption>Unsplash (banco curado)</figcaption></figure><p class="tec-lead">Comparables MinCIT y share Medellín vs Antioquia/Colombia.</p><h4>Hallazgos</h4><ul class="lista informe-lista "><li><span>Medellín vs Rionegro se mantienen separados en el tablero (no se suman).</span> <span class="src">(mincit_vnr)</span></li><li><span>Share Antioquia 2025: 93%.</span> <span class="src">(mincit_vnr.shares_anual)</span></li></ul><h4>Análisis</h4><ul class="lista informe-lista "><li><span>El peso de Medellín dentro de Antioquia supera el 90% en los cortes anuales del paquete.</span> <span class="src">(mincit_vnr.shares_anual)</span></li></ul><h4>Insights</h4><ul class="lista informe-lista insights"><li><span>Rionegro no debe reportarse como Medellín en comunicaciones del Bureau.</span> <em class="implicacion">Revisar plantillas y dashboards externos que mezclan destino ciudad.</em> <span class="src">(mincit_vnr)</span></li></ul><div class="tec-tabla-wrap"><h4>Shares MinCIT · Medellín en Colombia / Antioquia</h4><table class="tec-tabla"><thead><tr><th>Año</th><th>Medellín</th><th>Antioquia</th><th>Colombia</th><th>Share Ant. %</th><th>Share Col. %</th></tr></thead><tbody><tr><td>2.023</td><td>790.135</td><td>906.306</td><td>4.077.639</td><td>87</td><td>19</td></tr><tr><td>2.024</td><td>1.048.471</td><td>1.125.506</td><td>4.504.530</td><td>93</td><td>23</td></tr><tr><td>2.025</td><td>1.143.678</td><td>1.224.985</td><td>4.677.578</td><td>93</td><td>24</td></tr><tr><td>2.026</td><td>551.226</td><td>581.983</td><td>2.223.471</td><td>95</td><td>25</td></tr></tbody></table></div></article><article class="tec-sec" id="sec-reuniones"><header class="tec-sec-head"><h3>2.3 Reuniones y negocios</h3></header><figure class="tec-figure"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1400&amp;q=80" alt=""><figcaption>Unsplash (banco curado)</figcaption></figure><p class="tec-lead">ICCA + gestión Bureau (no hay CRM de reuniones en data/open).</p><h4>Hallazgos</h4><ul class="lista informe-lista "><li><span>ICCA 2025: Medellín puesto 103 con 26 reuniones elegibles.</span> <span class="src">(icca.ciudades)</span></li><li><span>Captados/apoyados 2025: 103 (int. 59 / nac. 44).</span> <span class="src">(informe_gestion_2025)</span></li><li><span>Impacto estimado USD 156.168.654; asistentes 242.019.</span> <span class="src">(informe_gestion_2025)</span></li></ul><h4>Análisis</h4><ul class="lista informe-lista "><li><span>ICCA mide un universo estrecho; el pipeline del Bureau (103 captados) es la narrativa operativa local.</span> <span class="src">(icca, informe_gestion_2025)</span></li></ul><h4>Insights</h4><ul class="lista informe-lista insights"><li><span>Hay hueco de CRM: sin extracto de inspección/pérdidas no se cierra el funnel completo.</span> <em class="implicacion">Pedir extractos de candidaturas perdidas para la próxima oleada del informe.</em> <span class="src">(informe_gestion_2025)</span></li></ul><div class="tec-tabla-wrap"><h4>ICCA ciudades Colombia (corte tablero)</h4><table class="tec-tabla"><thead><tr><th>Ciudad</th><th>Puesto</th><th>Reuniones</th></tr></thead><tbody><tr><td>Bogotá</td><td>36</td><td>63</td></tr><tr><td>Cartagena</td><td>77</td><td>36</td></tr><tr><td>Medellín</td><td>103</td><td>26</td></tr></tbody></table></div><h4>Reuniones ICCA por ciudad</h4><p class="src">Reuniones</p><div class="pv-bars"><div class="pv-bar"><span class="pv-lab">Bogotá</span><span class="pv-track"><i style="width:100%"></i></span><span class="pv-val">63</span></div><div class="pv-bar"><span class="pv-lab">Cartagena</span><span class="pv-track"><i style="width:57%"></i></span><span class="pv-val">36</span></div><div class="pv-bar"><span class="pv-lab">Medellín</span><span class="pv-track"><i style="width:41%"></i></span><span class="pv-val">26</span></div></div></article><article class="tec-sec" id="sec-visitante"><header class="tec-sec-head"><h3>3. Perfil del visitante (EVI)</h3></header><figure class="tec-figure"><img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1400&amp;q=80" alt=""><figcaption>Unsplash (banco curado)</figcaption></figure><p class="tec-lead">Ola EVI Agosto 2023 – julio 2024 · n=13308</p><h4>Hallazgos</h4><ul class="lista informe-lista "><li><span>Gasto estadía USD 1115; diario USD 176; noches 9.</span> <span class="src">(evi.olas)</span></li><li><span>Motivos top: {&quot;nombre&quot;:&quot;Vacaciones&quot;,&quot;peso&quot;:354797,&quot;participacion&quot;:63.7}; {&quot;nombre&quot;:&quot;Visita a fam/ami&quot;,&quot;peso&quot;:128711,&quot;participacion&quot;:23.1}; {&quot;nombre&quot;:&quot;Negocios origen&quot;,&quot;peso&quot;:37863,&quot;participacion&quot;:6.8}.</span> <span class="src">(evi.olas.motivos)</span></li></ul><h4>Análisis</h4><ul class="lista informe-lista "><li><span>La EVI del tablero está anclada a JMC; no generalizar a todo el destino sin nota metodológica.</span> <span class="src">(evi.universo)</span></li></ul><h4>Insights</h4><ul class="lista informe-lista insights"><li><span>Gasto y noches son el puente entre receptivo MinCIT y narrativa de derrama.</span> <em class="implicacion">En el PDF final, una página EVI con donas de motivo/residencia como el TEC de reuniones.</em> <span class="src">(evi)</span></li></ul><h4>EVI · gasto y estadía</h4><p class="src">Mixto</p><div class="pv-bars"><div class="pv-bar"><span class="pv-lab">Gasto estadía USD</span><span class="pv-track"><i style="width:100%"></i></span><span class="pv-val">1.115</span></div><div class="pv-bar"><span class="pv-lab">Gasto diario USD</span><span class="pv-track"><i style="width:16%"></i></span><span class="pv-val">176</span></div><div class="pv-bar"><span class="pv-lab">Noches</span><span class="pv-track"><i style="width:2%"></i></span><span class="pv-val">8,95</span></div></div></article><article class="tec-sec" id="sec-salidas"><header class="tec-sec-head"><h3>4. Salidas / emisivo (contexto)</h3></header><figure class="tec-figure"><img src="https://images.unsplash.com/photo-1436491865332-7a61a109cab0?w=1400&amp;q=80" alt=""><figcaption>Unsplash (banco curado)</figcaption></figure><p class="tec-lead">Aerocivil salidas por mercado priorizado (no es salida de colombianos Migración).</p><h4>Hallazgos</h4><ul class="lista informe-lista "><li><span>Colombia: 5.193.153 salidas 2025.</span> <span class="src">(conectividad_aerocivil.anual_por_mercado)</span></li><li><span>Estados Unidos: 715.582 salidas 2025.</span> <span class="src">(conectividad_aerocivil.anual_por_mercado)</span></li><li><span>México: 200.370 salidas 2025.</span> <span class="src">(conectividad_aerocivil.anual_por_mercado)</span></li><li><span>Europa: 179.564 salidas 2025.</span> <span class="src">(conectividad_aerocivil.anual_por_mercado)</span></li><li><span>Brasil: 32.270 salidas 2025.</span> <span class="src">(conectividad_aerocivil.anual_por_mercado)</span></li></ul><h4>Análisis</h4><ul class="lista informe-lista "><li><span>El TEC nacional usa salidas de colombianos Migración; aquí el proxy local es Aerocivil salidas por mercado.</span> <span class="src">(conectividad_aerocivil)</span></li></ul><h4>Insights</h4><ul class="lista informe-lista insights"><li><span>Hay asimetría metodológica vs TEC nacional en esta sección.</span> <em class="implicacion">Rotular explícitamente Aerocivil vs Migración en la diagramación.</em> <span class="src">(meta)</span></li></ul><div class="tec-tabla-wrap"><h4>Llegadas aéreas por mercado priorizado · Aerocivil 2025</h4><table class="tec-tabla"><thead><tr><th>Mercado</th><th>Llegadas 2025</th><th>Salidas 2025</th><th>YoY llegadas vs 2024 %</th></tr></thead><tbody><tr><td>Colombia</td><td>5.094.485</td><td>5.193.153</td><td>3,9</td></tr><tr><td>Estados Unidos</td><td>674.259</td><td>715.582</td><td>7,4</td></tr><tr><td>México</td><td>192.420</td><td>200.370</td><td>0</td></tr><tr><td>Europa</td><td>142.202</td><td>179.564</td><td>9,9</td></tr><tr><td>Brasil</td><td>18.148</td><td>32.270</td><td>59,2</td></tr></tbody></table></div><h4>Salidas 2025 por mercado</h4><p class="src">Salidas</p><div class="pv-bars"><div class="pv-bar"><span class="pv-lab">Colombia</span><span class="pv-track"><i style="width:100%"></i></span><span class="pv-val">5.193.153</span></div><div class="pv-bar"><span class="pv-lab">Estados Unidos</span><span class="pv-track"><i style="width:14%"></i></span><span class="pv-val">715.582</span></div><div class="pv-bar"><span class="pv-lab">México</span><span class="pv-track"><i style="width:4%"></i></span><span class="pv-val">200.370</span></div><div class="pv-bar"><span class="pv-lab">Europa</span><span class="pv-track"><i style="width:3%"></i></span><span class="pv-val">179.564</span></div><div class="pv-bar"><span class="pv-lab">Brasil</span><span class="pv-track"><i style="width:2%"></i></span><span class="pv-val">32.270</span></div></div></article><article class="tec-sec" id="sec-conectividad"><header class="tec-sec-head"><h3>5. Conectividad aérea</h3></header><figure class="tec-figure"><img src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=1400&amp;q=80" alt=""><figcaption>Unsplash (banco curado)</figcaption></figure><p class="tec-lead">Pasajeros Aerocivil mercados priorizados MDE/EOH.</p><h4>Hallazgos</h4><ul class="lista informe-lista "><li><span>Colombia: 5.094.485 llegadas 2025 (YoY 3.9%).</span> <span class="src">(conectividad_aerocivil)</span></li><li><span>Estados Unidos: 674.259 llegadas 2025 (YoY 7.4%).</span> <span class="src">(conectividad_aerocivil)</span></li><li><span>México: 192.420 llegadas 2025 (YoY 0%).</span> <span class="src">(conectividad_aerocivil)</span></li><li><span>Europa: 142.202 llegadas 2025 (YoY 9.9%).</span> <span class="src">(conectividad_aerocivil)</span></li><li><span>Brasil: 18.148 llegadas 2025 (YoY 59.2%).</span> <span class="src">(conectividad_aerocivil)</span></li></ul><h4>Análisis</h4><ul class="lista informe-lista "><li><span>La serie mensual reciente del paquete permite leer estacionalidad; el anual cierra el mensaje gerencial.</span> <span class="src">(conectividad_aerocivil)</span></li></ul><h4>Insights</h4><ul class="lista informe-lista insights"><li><span>Donde YoY de llegadas cae y el emisor MinCIT crece (o viceversa), hay fricción asiento–demanda.</span> <em class="implicacion">Agenda con aerolíneas en mercados con peor YoY Aerocivil.</em> <span class="src">(conectividad_aerocivil, mincit_vnr)</span></li></ul><div class="tec-tabla-wrap"><h4>Llegadas aéreas por mercado priorizado · Aerocivil 2025</h4><table class="tec-tabla"><thead><tr><th>Mercado</th><th>Llegadas 2025</th><th>Salidas 2025</th><th>YoY llegadas vs 2024 %</th></tr></thead><tbody><tr><td>Colombia</td><td>5.094.485</td><td>5.193.153</td><td>3,9</td></tr><tr><td>Estados Unidos</td><td>674.259</td><td>715.582</td><td>7,4</td></tr><tr><td>México</td><td>192.420</td><td>200.370</td><td>0</td></tr><tr><td>Europa</td><td>142.202</td><td>179.564</td><td>9,9</td></tr><tr><td>Brasil</td><td>18.148</td><td>32.270</td><td>59,2</td></tr></tbody></table></div><h4>Llegadas 2025 por mercado</h4><p class="src">Llegadas</p><div class="pv-bars"><div class="pv-bar"><span class="pv-lab">Colombia</span><span class="pv-track"><i style="width:100%"></i></span><span class="pv-val">5.094.485</span></div><div class="pv-bar"><span class="pv-lab">Estados Unidos</span><span class="pv-track"><i style="width:13%"></i></span><span class="pv-val">674.259</span></div><div class="pv-bar"><span class="pv-lab">México</span><span class="pv-track"><i style="width:4%"></i></span><span class="pv-val">192.420</span></div><div class="pv-bar"><span class="pv-lab">Europa</span><span class="pv-track"><i style="width:3%"></i></span><span class="pv-val">142.202</span></div><div class="pv-bar"><span class="pv-lab">Brasil</span><span class="pv-track"><i style="width:2%"></i></span><span class="pv-val">18.148</span></div></div></article><article class="tec-sec" id="sec-marca"><header class="tec-sec-head"><h3>6. Marca y conversación</h3></header><figure class="tec-figure"><img src="https://images.unsplash.com/photo-1611162616475-46b635cb4957?w=1400&amp;q=80" alt=""><figcaption>Unsplash (banco curado)</figcaption></figure><p class="tec-lead">Ventana 2026-10 a 2026-11</p><h4>Hallazgos</h4><ul class="lista informe-lista "><li><span>vacacional: n=180, share=43%, sent_net=0.6.</span> <span class="src">(marca_llm.serie)</span></li><li><span>otro: n=71, share=17%, sent_net=0.2.</span> <span class="src">(marca_llm.serie)</span></li><li><span>marca: n=46, share=11%, sent_net=0.9.</span> <span class="src">(marca_llm.serie)</span></li><li><span>mice: n=46, share=11%, sent_net=0.8.</span> <span class="src">(marca_llm.serie)</span></li><li><span>seguridad: n=40, share=10%, sent_net=-0.7.</span> <span class="src">(marca_llm.serie)</span></li><li><span>infraestructura: n=38, share=9%, sent_net=0.2.</span> <span class="src">(marca_llm.serie)</span></li></ul><h4>Análisis</h4><ul class="lista informe-lista "><li><span>La clasificación LLM es proxy de agenda mediática, no de demanda real.</span> <span class="src">(marca_llm)</span></li></ul><h4>Insights</h4><ul class="lista informe-lista insights"><li><span>Si seguridad/clima dominan share, la captación MICE compite por atención.</span> <em class="implicacion">Alinear prensa Bureau con calendario de eventos captados.</em> <span class="src">(marca_llm, informe_gestion_2025)</span></li></ul><h4>Share conversación por categoría</h4><p class="src">%</p><div class="pv-bars"><div class="pv-bar"><span class="pv-lab">vacacional</span><span class="pv-track"><i style="width:100%"></i></span><span class="pv-val">43</span></div><div class="pv-bar"><span class="pv-lab">otro</span><span class="pv-track"><i style="width:40%"></i></span><span class="pv-val">17</span></div><div class="pv-bar"><span class="pv-lab">marca</span><span class="pv-track"><i style="width:26%"></i></span><span class="pv-val">11</span></div><div class="pv-bar"><span class="pv-lab">mice</span><span class="pv-track"><i style="width:26%"></i></span><span class="pv-val">11</span></div><div class="pv-bar"><span class="pv-lab">seguridad</span><span class="pv-track"><i style="width:23%"></i></span><span class="pv-val">10</span></div><div class="pv-bar"><span class="pv-lab">infraestructura</span><span class="pv-track"><i style="width:21%"></i></span><span class="pv-val">9</span></div></div></article><article class="tec-sec" id="sec-territorio"><header class="tec-sec-head"><h3>7. Territorio, clima y seguridad</h3></header><figure class="tec-figure"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&amp;q=80" alt=""><figcaption>Unsplash (banco curado)</figcaption></figure><p class="tec-lead">Oferta, seguridad y clima del ETL Bureau en el tablero.</p><h4>Hallazgos</h4><ul class="lista informe-lista "><li><span>Oferta: 78 filas en serie.</span> <span class="src">(oferta)</span></li><li><span>Seguridad: 99 agregados anio×tipo.</span> <span class="src">(seguridad)</span></li><li><span>Clima presente en paquete (serie/resumen según archivo).</span> <span class="src">(clima)</span></li><li><span>Huella de carbono disponible en tablero visitante.</span> <span class="src">(huella)</span></li></ul><h4>Análisis</h4><ul class="lista informe-lista "><li><span>Territorio es contexto de decisión del visitante; no sustituye VNR ni Aerocivil.</span> <span class="src">(tablero_visitante)</span></li></ul><h4>Insights</h4><ul class="lista informe-lista insights"><li><span>En diagramación TEC, esta sección suele ir breve con un mapa/foto y 3 bullets.</span> <em class="implicacion">Evitar tablas densas de delitos; preferir tendencia y nota metodológica.</em> <span class="src">(seguridad)</span></li></ul></article><article class="tec-sec" id="sec-gestion"><header class="tec-sec-head"><h3>8. Gestión Bureau (captación y miembros)</h3></header><figure class="tec-figure"><img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1400&amp;q=80" alt=""><figcaption>Unsplash (banco curado)</figcaption></figure><p class="tec-lead">Cifras publicadas informe de gestión 2025.</p><h4>Hallazgos</h4><ul class="lista informe-lista "><li><span>Flujo: investigados &gt;370; candidaturas 30; captados/apoyados 103.</span> <span class="src">(informe_gestion_2025.flujo)</span></li><li><span>Realizados: 111 eventos; 266.875 asistentes; derrama USD 167 M.</span> <span class="src">(informe_gestion_2025.realizados)</span></li><li><span>Miembros 200; altas 23; Rueda: 68 miembros, 433 citas, efectividad 97%.</span> <span class="src">(informe_gestion_2025)</span></li><li><span>Satisfacción 4.9 / 5.</span> <span class="src">(informe_gestion_2025.satisfaccion)</span></li></ul><h4>Análisis</h4><ul class="lista informe-lista "><li><span>Los 103 captados no son subconjunto de las 30 candidaturas; el informe lo declara explícitamente.</span> <span class="src">(informe_gestion_2025.flujo)</span></li></ul><h4>Insights</h4><ul class="lista informe-lista insights"><li><span>La Rueda concentra el relato de valor para afiliados; LTV/deserción siguen sin padrón de apertura.</span> <em class="implicacion">Pedir stock inicial 2025 para cerrar deserción en el próximo informe.</em> <span class="src">(informe_gestion_2025)</span></li></ul><div class="tec-tabla-wrap"><h4>Gestión 2025 · cifras clave</h4><table class="tec-tabla"><thead><tr><th>Indicador</th><th>Valor</th></tr></thead><tbody><tr><td>Captados/apoyados</td><td>103</td></tr><tr><td>Impacto USD</td><td>156.168.654</td></tr><tr><td>Asistentes</td><td>242.019</td></tr><tr><td>Cuartos-noche</td><td>752.214</td></tr><tr><td>Miembros</td><td>200</td></tr><tr><td>Altas</td><td>23</td></tr></tbody></table></div><h4>Captación 2025</h4><p class="src">Eventos</p><div class="pv-bars"><div class="pv-bar"><span class="pv-lab">Internacionales</span><span class="pv-track"><i style="width:100%"></i></span><span class="pv-val">59</span></div><div class="pv-bar"><span class="pv-lab">Nacionales</span><span class="pv-track"><i style="width:75%"></i></span><span class="pv-val">44</span></div></div></article><article class="tec-sec" id="sec-pronostico"><header class="tec-sec-head"><h3>9. Pronóstico</h3></header><figure class="tec-figure"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&amp;q=80" alt=""><figcaption>Unsplash (banco curado)</figcaption></figure><p class="tec-lead">[object Object]</p><h4>Hallazgos</h4><ul class="lista informe-lista "><li><span>llegadas_colombia · MAPE 4.5 · holt_winters</span> <span class="src">(pronostico.series)</span></li><li><span>llegadas_estados_unidos · MAPE 8.9 · sarima</span> <span class="src">(pronostico.series)</span></li><li><span>llegadas_mexico · MAPE 7.3 · sarima</span> <span class="src">(pronostico.series)</span></li><li><span>llegadas_brasil · MAPE 47.8 · sarima</span> <span class="src">(pronostico.series)</span></li><li><span>llegadas_europa · MAPE 5.6 · gradiente</span> <span class="src">(pronostico.series)</span></li></ul><h4>Análisis</h4><ul class="lista informe-lista "><li><span>El horizonte del modelo está en el JSON de pronóstico; validar holdout antes de comunicar a prensa.</span> <span class="src">(pronostico)</span></li></ul><h4>Insights</h4><ul class="lista informe-lista insights"><li><span>Pronóstico es apoyo a planificación, no cifra oficial MinCIT.</span> <em class="implicacion">Etiquetar como proyección Bureau/ETL en la portadilla.</em> <span class="src">(pronostico)</span></li></ul></article><p class="src" style="margin-top:24px">meta: {&quot;cobertura_dashboard&quot;:true,&quot;banco&quot;:&quot;unsplash_curado&quot;,&quot;modelo_referencia&quot;:&quot;TEC 1S 2026&quot;,&quot;modo&quot;:&quot;borrador_deterministico&quot;,&quot;nota&quot;:&quot;Sin GROQ_API_KEY en el entorno del agente. Regenerar con /api/generar-informe cuando exista la clave.&quot;}</p></div></body></html>

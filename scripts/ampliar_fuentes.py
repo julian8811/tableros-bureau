@@ -15,6 +15,8 @@ def guardar_manifiesto(errores_extra):
     for nombre, clave in (
         ("conectividad.json", "serie"),
         ("mincit_vnr.json", "serie"),
+        ("migracion_entradas.json", "serie"),
+        ("trm_banrep.json", "serie"),
         ("gdelt.json", "serie"),
         ("tendencias.json", "serie"),
         ("ema.json", "serie"),
@@ -58,13 +60,18 @@ if __name__ == "__main__":
     p.write("conectividad.json", con)
     print("aero", len(cortes["aeropuertos"]), len(cortes["aerolineas"]), len(cortes["carga"]))
 
-    try:
-        vnr = p.mincit_vnr()
-        p.write("mincit_vnr.json", vnr)
-        print("mincit_vnr", len(vnr.get("serie") or []))
-    except Exception:
-        errores.append("mincit_vnr.json: " + traceback.format_exc(limit=2))
-        print("mincit_vnr fallo")
+    for nombre, fn in (
+        ("mincit_vnr.json", p.mincit_vnr),
+        ("migracion_entradas.json", p.migracion_entradas),
+        ("trm_banrep.json", p.trm_banrep),
+    ):
+        try:
+            payload = fn()
+            p.write(nombre, payload)
+            print(nombre, len(payload.get("serie") or []))
+        except Exception:
+            errores.append(nombre + ": " + traceback.format_exc(limit=2))
+            print(nombre, "fallo")
 
     evi = p.agregar_evi()
     for ola in evi.get("olas") or []:

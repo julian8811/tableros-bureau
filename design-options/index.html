@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opciones de rediseño · Tableros Bureau</title>
+<style>
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Medium.woff2") format("woff2");font-weight:500;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Bold.woff2") format("woff2");font-weight:700;font-display:swap}
+  :root{
+    --navy:#172139;--teal:#108181;--teal-bright:#00AEAC;--teal-deep:#195855;
+    --gold:#FBBB28;--orange:#E9901E;--lime:#B4C42C;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Montserrat",system-ui,sans-serif;background:#0e1422;color:#eef3f3}
+  .chooser{max-width:1280px;margin:0 auto;padding:28px 24px 48px}
+  .chooser h1{margin:0;font-size:28px;letter-spacing:-.02em}
+  .chooser .lead{margin:8px 0 0;color:#9db3b3;max-width:70ch;line-height:1.5}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px}
+  @media (max-width:980px){.grid{grid-template-columns:1fr}}
+  .card{background:#141c2e;border:1px solid #2c3a55;border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+  .card header{padding:16px 18px 12px;border-bottom:1px solid #2c3a55}
+  .card header .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+  .card header h2{margin:0;font-size:18px}
+  .card header p{margin:6px 0 0;font-size:13px;color:#9db3b3;line-height:1.45}
+  .preview{aspect-ratio:16/11;background:#111;position:relative;overflow:hidden}
+  .preview iframe{width:200%;height:200%;border:0;transform:scale(.5);transform-origin:0 0;pointer-events:none}
+  .meta{padding:14px 18px 18px;display:grid;gap:10px}
+  .meta ul{margin:0;padding-left:18px;color:#9db3b3;font-size:12px;line-height:1.55}
+  .meta a{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 14px;border-radius:999px;background:var(--teal);color:#fff;text-decoration:none;font-size:12px;font-weight:700;width:fit-content}
+  .meta a:hover{background:var(--teal-bright);color:var(--navy)}
+  .note{margin-top:24px;padding:14px 16px;border-left:4px solid var(--gold);background:#141c2e;border-radius:0 10px 10px 0;font-size:13px;color:#9db3b3;line-height:1.5}
+  .note b{color:#eef3f3}
+</style>
+</head>
+<body>
+  <div class="chooser">
+    <h1>Opciones de rediseño del tablero</h1>
+    <p class="lead">Cuatro direcciones con paleta Colmayor V7 y Montserrat. Las gráficas ya llevan ejes, valores, leyenda, callouts y acentos luminosos para que se lean rápido y se vean más “futuras”. Abre cada una a pantalla completa y elige A–D.</p>
+    <div class="grid">
+      <article class="card">
+        <header>
+          <span class="tag">Opción A</span>
+          <h2>Institucional claro</h2>
+          <p>Fondo claro, barra navy + franja oro. Ideal para presentaciones a dirección y alianzas.</p>
+        </header>
+        <div class="preview"><iframe src="a-institucional-claro.html" title="Vista A"></iframe></div>
+        <div class="meta">
+          <ul>
+            <li>Superficies blancas / gris frío; tipografía institucional</li>
+            <li>Tabs con color de tablero (naranja / oro / teal)</li>
+            <li>Serie con comparación año vs año + pico etiquetado</li>
+            <li>Donut con % central y barras con cifra a la derecha</li>
+          </ul>
+          <a href="a-institucional-claro.html" target="_blank">Abrir A a pantalla completa</a>
+        </div>
+      </article>
+      <article class="card">
+        <header>
+          <span class="tag">Opción B</span>
+          <h2>Observatorio ejecutivo</h2>
+          <p>Sidebar fija + lienzo amplio. Lectura de mando para reuniones del Bureau.</p>
+        </header>
+        <div class="preview"><iframe src="b-observatorio-ejecutivo.html" title="Vista B"></iframe></div>
+        <div class="meta">
+          <ul>
+            <li>Navegación lateral con los 4 tableros</li>
+            <li>Cabecera limpia con corte de datos</li>
+            <li>Mapa con orbes + etiquetas de share</li>
+            <li>Barras + gráfico Δ vs año anterior con signos</li>
+          </ul>
+          <a href="b-observatorio-ejecutivo.html" target="_blank">Abrir B a pantalla completa</a>
+        </div>
+      </article>
+      <article class="card">
+        <header>
+          <span class="tag">Opción C</span>
+          <h2>Radar Medellín</h2>
+          <p>Oscuro refinado: se conserva el espíritu actual, pero más editorial y menos “consola”.</p>
+        </header>
+        <div class="preview"><iframe src="c-radar-medellin.html" title="Vista C"></iframe></div>
+        <div class="meta">
+          <ul>
+            <li>Fondo navy profundo + gradiente sutil</li>
+            <li>Sin prompt de terminal; tipografía Montserrat pura</li>
+            <li>Área neón con último dato en callout</li>
+            <li>Barras holográficas + bloque simulación hatch</li>
+          </ul>
+          <a href="c-radar-medellin.html" target="_blank">Abrir C a pantalla completa</a>
+        </div>
+      </article>
+      <article class="card">
+        <header>
+          <span class="tag">Opción D</span>
+          <h2>Agenda densificada</h2>
+          <p>Máxima densidad para analistas: menos aire, tablas y chips, sin perder marca.</p>
+        </header>
+        <div class="preview"><iframe src="d-agenda-densa.html" title="Vista D"></iframe></div>
+        <div class="meta">
+          <ul>
+            <li>Ribbon superior compacto</li>
+            <li>KPIs en franja horizontal estrecha</li>
+            <li>Tabla+microbarra+Δ coloreado</li>
+            <li>Sparklines con valor del último punto</li>
+          </ul>
+          <a href="d-agenda-densa.html" target="_blank">Abrir D a pantalla completa</a>
+        </div>
+      </article>
+    </div>
+    <p class="note"><b>Qué no cambia en ninguna opción:</b> cifras oficiales, reglas 370/30/103, simulaciones con hatch + nota, fuentes, Montserrat y colores V7. Solo rediseño visual y de layout.</p>
+  </div>
+</body>
+</html>

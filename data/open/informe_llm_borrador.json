@@ -1,0 +1,1054 @@
+{
+  "corte": "2026-11-03",
+  "titulo": "Turismo e inteligencia de destino · Medellín",
+  "subtitulo": "Borrador TEC-Bureau · corte 2026-11-03 · cifras del dashboard (sin LLM)",
+  "resumen_ejecutivo": [
+    "En 2025 Medellín recibió 1.143.678 VNR MinCIT, el 24% de Colombia y el 93% de Antioquia.",
+    "Aerocivil 2025: el mercado con más llegadas priorizadas fue Colombia (5.094.485).",
+    "Gestión 2025: 103 eventos captados/apoyados, impacto USD 156.168.654, 200 miembros activos.",
+    "Este borrador es determinístico (agrega el dashboard). Con GROQ_API_KEY se regenera la prosa editorial estilo TEC."
+  ],
+  "secciones": [
+    {
+      "id": "portada",
+      "titulo": "Portada",
+      "lead": "Informe de trabajo para corrección conjunta · Greater Medellín CVB + Colmayor.",
+      "bullets": [
+        {
+          "texto": "Estructura espejo TEC 1S 2026; cifras solo del paquete data/open del tablero.",
+          "fuente": "meta"
+        },
+        {
+          "texto": "Modo borrador sin Groq: tablas e insights calculados; la prosa narrativa se enriquecerá con LLM.",
+          "fuente": "meta"
+        }
+      ],
+      "analisis": [],
+      "insights": [
+        {
+          "texto": "Usar este corte para validar diagramación, tono y gaps de datos antes del PDF final.",
+          "implicacion": "Priorizar correcciones de contenido y fuentes en esta ronda.",
+          "fuente": "meta"
+        }
+      ],
+      "tabla": null,
+      "grafico": null,
+      "imagen": {
+        "url": "https://images.unsplash.com/photo-1599423300746-b62533397364?w=1600&q=80",
+        "credito": "Unsplash (banco curado)",
+        "fuente_banco": "unsplash_curado"
+      }
+    },
+    {
+      "id": "tendencias",
+      "titulo": "1. Tendencias",
+      "lead": "Señales de precio, tipo de cambio y conversación digital del tablero.",
+      "bullets": [
+        {
+          "texto": "TRM promedio del último mes publicado: 3199 COP/USD (2026-10).",
+          "fuente": "tablero_mercados.trm_banrep.ultimo"
+        },
+        {
+          "texto": "EMA último índice Antioquia 162 vs promedio regiones 153 (índice 100=106).",
+          "fuente": "tablero_mercados.ema.serie"
+        },
+        {
+          "texto": "Marca LLM: 421 piezas en ventana 2026-10 a 2026-11; tópico global: Feria Flores programación.",
+          "fuente": "tablero_mercados.marca_llm"
+        }
+      ],
+      "analisis": [
+        {
+          "texto": "La lectura conjunta TRM + EMA + marca permite separar presión de precio en destino de ruido mediático.",
+          "fuente": "tablero_mercados"
+        }
+      ],
+      "insights": [
+        {
+          "texto": "Si la TRM se deprecia y la tarifa EMA se mantiene alta, el destino puede perder competitividad en emisores sensibles a precio.",
+          "implicacion": "Cruzar en semanal TRM con Medata por zona (Poblado/Laureles/Centro).",
+          "fuente": "trm_banrep, ema, medata_tarifas"
+        }
+      ],
+      "tabla": null,
+      "grafico": {
+        "titulo": "Índice EMA Antioquia (últimos 8 meses)",
+        "labels": [
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08"
+        ],
+        "values": [
+          172,
+          161,
+          163,
+          161,
+          161,
+          160,
+          165,
+          162
+        ],
+        "unidad": "Índice"
+      },
+      "imagen": {
+        "url": "https://images.unsplash.com/photo-1436491865332-7a61a109cab0?w=1400&q=80",
+        "credito": "Unsplash (banco curado)",
+        "fuente_banco": "unsplash_curado"
+      }
+    },
+    {
+      "id": "receptivo",
+      "titulo": "2. Turismo receptivo",
+      "lead": "Visitantes no residentes MinCIT con destino Medellín (no es Migración ni Aerocivil).",
+      "bullets": [
+        {
+          "texto": "2025: 1.143.678 VNR a Medellín; share Colombia 24%.",
+          "fuente": "mincit_vnr.shares_anual"
+        },
+        {
+          "texto": "2026 (parcial en dashboard): 551.226 VNR; share Colombia 25%.",
+          "fuente": "mincit_vnr.shares_anual"
+        },
+        {
+          "texto": "Migración Colombia (entradas nacionales, no ciudad): 5.130.449 en 2025.",
+          "fuente": "migracion_entradas.anual"
+        }
+      ],
+      "analisis": [
+        {
+          "texto": "MinCIT VNR mide destino declarado; Migración mide cruces al país. No se suman ni se sustituyen.",
+          "fuente": "mincit_vnr, migracion_entradas"
+        }
+      ],
+      "insights": [
+        {
+          "texto": "Medellín concentra cerca de un cuarto de los VNR de Colombia en los cortes anuales del tablero.",
+          "implicacion": "En piezas externas citar siempre MinCIT VNR y el año/corte; no usar el total Migración como llegadas a la ciudad.",
+          "fuente": "mincit_vnr.shares_anual"
+        }
+      ],
+      "tabla": {
+        "titulo": "Shares MinCIT · Medellín en Colombia / Antioquia",
+        "columnas": [
+          "Año",
+          "Medellín",
+          "Antioquia",
+          "Colombia",
+          "Share Ant. %",
+          "Share Col. %"
+        ],
+        "filas": [
+          [
+            2023,
+            790135,
+            906306,
+            4077639,
+            87,
+            19
+          ],
+          [
+            2024,
+            1048471,
+            1125506,
+            4504530,
+            93,
+            23
+          ],
+          [
+            2025,
+            1143678,
+            1224985,
+            4677578,
+            93,
+            24
+          ],
+          [
+            2026,
+            551226,
+            581983,
+            2223471,
+            95,
+            25
+          ]
+        ]
+      },
+      "grafico": {
+        "titulo": "VNR Medellín (shares anuales)",
+        "labels": [
+          "2022",
+          "2023",
+          "2024",
+          "2025",
+          "2026"
+        ],
+        "values": [
+          642036,
+          790135,
+          1048471,
+          1143678,
+          551226
+        ],
+        "unidad": "Visitantes"
+      },
+      "imagen": {
+        "url": "https://images.unsplash.com/photo-1483729558449-99ef03a8a546?w=1400&q=80",
+        "credito": "Unsplash (banco curado)",
+        "fuente_banco": "unsplash_curado"
+      }
+    },
+    {
+      "id": "emisores",
+      "titulo": "2.1 Emisores internacionales",
+      "lead": "Top países MinCIT VNR hacia Medellín según el dashboard.",
+      "bullets": [
+        {
+          "texto": "1. Estados Unidos: 378.326 visitantes.",
+          "fuente": "mincit_vnr.top_paises"
+        },
+        {
+          "texto": "2. México: 94.288 visitantes.",
+          "fuente": "mincit_vnr.top_paises"
+        },
+        {
+          "texto": "3. Costa Rica: 81.319 visitantes.",
+          "fuente": "mincit_vnr.top_paises"
+        },
+        {
+          "texto": "4. Panamá: 70.848 visitantes.",
+          "fuente": "mincit_vnr.top_paises"
+        },
+        {
+          "texto": "5. Ecuador: 60.782 visitantes.",
+          "fuente": "mincit_vnr.top_paises"
+        }
+      ],
+      "analisis": [
+        {
+          "texto": "EE. UU. lidera de forma estructural; la cola latina (México, Panamá, Perú) concentra la dinamización relativa en cortes recientes del tablero.",
+          "fuente": "mincit_vnr.top_paises"
+        }
+      ],
+      "insights": [
+        {
+          "texto": "La dependencia del primer emisor obliga a un portafolio de captación y conectividad hacia 2°–5°.",
+          "implicacion": "Priorizar acciones comerciales en México y Brasil alineadas a sillas Aerocivil.",
+          "fuente": "mincit_vnr.top_paises, conectividad_aerocivil"
+        }
+      ],
+      "tabla": {
+        "titulo": "Top mercados emisores MinCIT VNR hacia Medellín (referencia dashboard)",
+        "columnas": [
+          "País",
+          "Visitantes (último año disponible)"
+        ],
+        "filas": [
+          [
+            "Estados Unidos",
+            378326
+          ],
+          [
+            "México",
+            94288
+          ],
+          [
+            "Costa Rica",
+            81319
+          ],
+          [
+            "Panamá",
+            70848
+          ],
+          [
+            "Ecuador",
+            60782
+          ],
+          [
+            "República Dominicana",
+            59678
+          ],
+          [
+            "Perú",
+            46641
+          ],
+          [
+            "Puerto Rico",
+            45990
+          ],
+          [
+            "Venezuela",
+            32373
+          ],
+          [
+            "España",
+            26818
+          ]
+        ]
+      },
+      "grafico": {
+        "titulo": "Top 8 emisores (último corte top_paises)",
+        "labels": [
+          "Estados Unidos",
+          "México",
+          "Costa Rica",
+          "Panamá",
+          "Ecuador",
+          "República Dominicana",
+          "Perú",
+          "Puerto Rico"
+        ],
+        "values": [
+          378326,
+          94288,
+          81319,
+          70848,
+          60782,
+          59678,
+          46641,
+          45990
+        ],
+        "unidad": "Visitantes"
+      },
+      "imagen": {
+        "url": "https://images.unsplash.com/photo-1529078155058-5d716f45d604?w=1400&q=80",
+        "credito": "Unsplash (banco curado)",
+        "fuente_banco": "unsplash_curado"
+      }
+    },
+    {
+      "id": "destinos",
+      "titulo": "2.2 Destinos / ciudades",
+      "lead": "Comparables MinCIT y share Medellín vs Antioquia/Colombia.",
+      "bullets": [
+        {
+          "texto": "Medellín vs Rionegro se mantienen separados en el tablero (no se suman).",
+          "fuente": "mincit_vnr"
+        },
+        {
+          "texto": "Share Antioquia 2025: 93%.",
+          "fuente": "mincit_vnr.shares_anual"
+        }
+      ],
+      "analisis": [
+        {
+          "texto": "El peso de Medellín dentro de Antioquia supera el 90% en los cortes anuales del paquete.",
+          "fuente": "mincit_vnr.shares_anual"
+        }
+      ],
+      "insights": [
+        {
+          "texto": "Rionegro no debe reportarse como Medellín en comunicaciones del Bureau.",
+          "implicacion": "Revisar plantillas y dashboards externos que mezclan destino ciudad.",
+          "fuente": "mincit_vnr"
+        }
+      ],
+      "tabla": {
+        "titulo": "Shares MinCIT · Medellín en Colombia / Antioquia",
+        "columnas": [
+          "Año",
+          "Medellín",
+          "Antioquia",
+          "Colombia",
+          "Share Ant. %",
+          "Share Col. %"
+        ],
+        "filas": [
+          [
+            2023,
+            790135,
+            906306,
+            4077639,
+            87,
+            19
+          ],
+          [
+            2024,
+            1048471,
+            1125506,
+            4504530,
+            93,
+            23
+          ],
+          [
+            2025,
+            1143678,
+            1224985,
+            4677578,
+            93,
+            24
+          ],
+          [
+            2026,
+            551226,
+            581983,
+            2223471,
+            95,
+            25
+          ]
+        ]
+      },
+      "grafico": null,
+      "imagen": {
+        "url": "https://images.unsplash.com/photo-1568632234157-ce7aecd03d0d?w=1400&q=80",
+        "credito": "Unsplash (banco curado)",
+        "fuente_banco": "unsplash_curado"
+      }
+    },
+    {
+      "id": "reuniones",
+      "titulo": "2.3 Reuniones y negocios",
+      "lead": "ICCA + gestión Bureau (no hay CRM de reuniones en data/open).",
+      "bullets": [
+        {
+          "texto": "ICCA 2025: Medellín puesto 103 con 26 reuniones elegibles.",
+          "fuente": "icca.ciudades"
+        },
+        {
+          "texto": "Captados/apoyados 2025: 103 (int. 59 / nac. 44).",
+          "fuente": "informe_gestion_2025"
+        },
+        {
+          "texto": "Impacto estimado USD 156.168.654; asistentes 242.019.",
+          "fuente": "informe_gestion_2025"
+        }
+      ],
+      "analisis": [
+        {
+          "texto": "ICCA mide un universo estrecho; el pipeline del Bureau (103 captados) es la narrativa operativa local.",
+          "fuente": "icca, informe_gestion_2025"
+        }
+      ],
+      "insights": [
+        {
+          "texto": "Hay hueco de CRM: sin extracto de inspección/pérdidas no se cierra el funnel completo.",
+          "implicacion": "Pedir extractos de candidaturas perdidas para la próxima oleada del informe.",
+          "fuente": "informe_gestion_2025"
+        }
+      ],
+      "tabla": {
+        "titulo": "ICCA ciudades Colombia (corte tablero)",
+        "columnas": [
+          "Ciudad",
+          "Puesto",
+          "Reuniones"
+        ],
+        "filas": [
+          [
+            "Bogotá",
+            36,
+            63
+          ],
+          [
+            "Cartagena",
+            77,
+            36
+          ],
+          [
+            "Medellín",
+            103,
+            26
+          ]
+        ]
+      },
+      "grafico": {
+        "titulo": "Reuniones ICCA por ciudad",
+        "labels": [
+          "Bogotá",
+          "Cartagena",
+          "Medellín"
+        ],
+        "values": [
+          63,
+          36,
+          26
+        ],
+        "unidad": "Reuniones"
+      },
+      "imagen": {
+        "url": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1400&q=80",
+        "credito": "Unsplash (banco curado)",
+        "fuente_banco": "unsplash_curado"
+      }
+    },
+    {
+      "id": "visitante",
+      "titulo": "3. Perfil del visitante (EVI)",
+      "lead": "Ola EVI Agosto 2023 – julio 2024 · n=13308",
+      "bullets": [
+        {
+          "texto": "Gasto estadía USD 1115; diario USD 176; noches 9.",
+          "fuente": "evi.olas"
+        },
+        {
+          "texto": "Motivos top: {\"nombre\":\"Vacaciones\",\"peso\":354797,\"participacion\":63.7}; {\"nombre\":\"Visita a fam/ami\",\"peso\":128711,\"participacion\":23.1}; {\"nombre\":\"Negocios origen\",\"peso\":37863,\"participacion\":6.8}.",
+          "fuente": "evi.olas.motivos"
+        }
+      ],
+      "analisis": [
+        {
+          "texto": "La EVI del tablero está anclada a JMC; no generalizar a todo el destino sin nota metodológica.",
+          "fuente": "evi.universo"
+        }
+      ],
+      "insights": [
+        {
+          "texto": "Gasto y noches son el puente entre receptivo MinCIT y narrativa de derrama.",
+          "implicacion": "En el PDF final, una página EVI con donas de motivo/residencia como el TEC de reuniones.",
+          "fuente": "evi"
+        }
+      ],
+      "tabla": null,
+      "grafico": {
+        "titulo": "EVI · gasto y estadía",
+        "labels": [
+          "Gasto estadía USD",
+          "Gasto diario USD",
+          "Noches"
+        ],
+        "values": [
+          1115,
+          176,
+          8.95
+        ],
+        "unidad": "Mixto"
+      },
+      "imagen": {
+        "url": "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1400&q=80",
+        "credito": "Unsplash (banco curado)",
+        "fuente_banco": "unsplash_curado"
+      }
+    },
+    {
+      "id": "salidas",
+      "titulo": "4. Salidas / emisivo (contexto)",
+      "lead": "Aerocivil salidas por mercado priorizado (no es salida de colombianos Migración).",
+      "bullets": [
+        {
+          "texto": "Colombia: 5.193.153 salidas 2025.",
+          "fuente": "conectividad_aerocivil.anual_por_mercado"
+        },
+        {
+          "texto": "Estados Unidos: 715.582 salidas 2025.",
+          "fuente": "conectividad_aerocivil.anual_por_mercado"
+        },
+        {
+          "texto": "México: 200.370 salidas 2025.",
+          "fuente": "conectividad_aerocivil.anual_por_mercado"
+        },
+        {
+          "texto": "Europa: 179.564 salidas 2025.",
+          "fuente": "conectividad_aerocivil.anual_por_mercado"
+        },
+        {
+          "texto": "Brasil: 32.270 salidas 2025.",
+          "fuente": "conectividad_aerocivil.anual_por_mercado"
+        }
+      ],
+      "analisis": [
+        {
+          "texto": "El TEC nacional usa salidas de colombianos Migración; aquí el proxy local es Aerocivil salidas por mercado.",
+          "fuente": "conectividad_aerocivil"
+        }
+      ],
+      "insights": [
+        {
+          "texto": "Hay asimetría metodológica vs TEC nacional en esta sección.",
+          "implicacion": "Rotular explícitamente Aerocivil vs Migración en la diagramación.",
+          "fuente": "meta"
+        }
+      ],
+      "tabla": {
+        "titulo": "Llegadas aéreas por mercado priorizado · Aerocivil 2025",
+        "columnas": [
+          "Mercado",
+          "Llegadas 2025",
+          "Salidas 2025",
+          "YoY llegadas vs 2024 %"
+        ],
+        "filas": [
+          [
+            "Colombia",
+            5094485,
+            5193153,
+            3.9
+          ],
+          [
+            "Estados Unidos",
+            674259,
+            715582,
+            7.4
+          ],
+          [
+            "México",
+            192420,
+            200370,
+            0
+          ],
+          [
+            "Europa",
+            142202,
+            179564,
+            9.9
+          ],
+          [
+            "Brasil",
+            18148,
+            32270,
+            59.2
+          ]
+        ]
+      },
+      "grafico": {
+        "titulo": "Salidas 2025 por mercado",
+        "labels": [
+          "Colombia",
+          "Estados Unidos",
+          "México",
+          "Europa",
+          "Brasil"
+        ],
+        "values": [
+          5193153,
+          715582,
+          200370,
+          179564,
+          32270
+        ],
+        "unidad": "Salidas"
+      },
+      "imagen": {
+        "url": "https://images.unsplash.com/photo-1436491865332-7a61a109cab0?w=1400&q=80",
+        "credito": "Unsplash (banco curado)",
+        "fuente_banco": "unsplash_curado"
+      }
+    },
+    {
+      "id": "conectividad",
+      "titulo": "5. Conectividad aérea",
+      "lead": "Pasajeros Aerocivil mercados priorizados MDE/EOH.",
+      "bullets": [
+        {
+          "texto": "Colombia: 5.094.485 llegadas 2025 (YoY 3.9%).",
+          "fuente": "conectividad_aerocivil"
+        },
+        {
+          "texto": "Estados Unidos: 674.259 llegadas 2025 (YoY 7.4%).",
+          "fuente": "conectividad_aerocivil"
+        },
+        {
+          "texto": "México: 192.420 llegadas 2025 (YoY 0%).",
+          "fuente": "conectividad_aerocivil"
+        },
+        {
+          "texto": "Europa: 142.202 llegadas 2025 (YoY 9.9%).",
+          "fuente": "conectividad_aerocivil"
+        },
+        {
+          "texto": "Brasil: 18.148 llegadas 2025 (YoY 59.2%).",
+          "fuente": "conectividad_aerocivil"
+        }
+      ],
+      "analisis": [
+        {
+          "texto": "La serie mensual reciente del paquete permite leer estacionalidad; el anual cierra el mensaje gerencial.",
+          "fuente": "conectividad_aerocivil"
+        }
+      ],
+      "insights": [
+        {
+          "texto": "Donde YoY de llegadas cae y el emisor MinCIT crece (o viceversa), hay fricción asiento–demanda.",
+          "implicacion": "Agenda con aerolíneas en mercados con peor YoY Aerocivil.",
+          "fuente": "conectividad_aerocivil, mincit_vnr"
+        }
+      ],
+      "tabla": {
+        "titulo": "Llegadas aéreas por mercado priorizado · Aerocivil 2025",
+        "columnas": [
+          "Mercado",
+          "Llegadas 2025",
+          "Salidas 2025",
+          "YoY llegadas vs 2024 %"
+        ],
+        "filas": [
+          [
+            "Colombia",
+            5094485,
+            5193153,
+            3.9
+          ],
+          [
+            "Estados Unidos",
+            674259,
+            715582,
+            7.4
+          ],
+          [
+            "México",
+            192420,
+            200370,
+            0
+          ],
+          [
+            "Europa",
+            142202,
+            179564,
+            9.9
+          ],
+          [
+            "Brasil",
+            18148,
+            32270,
+            59.2
+          ]
+        ]
+      },
+      "grafico": {
+        "titulo": "Llegadas 2025 por mercado",
+        "labels": [
+          "Colombia",
+          "Estados Unidos",
+          "México",
+          "Europa",
+          "Brasil"
+        ],
+        "values": [
+          5094485,
+          674259,
+          192420,
+          142202,
+          18148
+        ],
+        "unidad": "Llegadas"
+      },
+      "imagen": {
+        "url": "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=1400&q=80",
+        "credito": "Unsplash (banco curado)",
+        "fuente_banco": "unsplash_curado"
+      }
+    },
+    {
+      "id": "marca",
+      "titulo": "6. Marca y conversación",
+      "lead": "Ventana 2026-10 a 2026-11",
+      "bullets": [
+        {
+          "texto": "vacacional: n=180, share=43%, sent_net=0.6.",
+          "fuente": "marca_llm.serie"
+        },
+        {
+          "texto": "otro: n=71, share=17%, sent_net=0.2.",
+          "fuente": "marca_llm.serie"
+        },
+        {
+          "texto": "marca: n=46, share=11%, sent_net=0.9.",
+          "fuente": "marca_llm.serie"
+        },
+        {
+          "texto": "mice: n=46, share=11%, sent_net=0.8.",
+          "fuente": "marca_llm.serie"
+        },
+        {
+          "texto": "seguridad: n=40, share=10%, sent_net=-0.7.",
+          "fuente": "marca_llm.serie"
+        },
+        {
+          "texto": "infraestructura: n=38, share=9%, sent_net=0.2.",
+          "fuente": "marca_llm.serie"
+        }
+      ],
+      "analisis": [
+        {
+          "texto": "La clasificación LLM es proxy de agenda mediática, no de demanda real.",
+          "fuente": "marca_llm"
+        }
+      ],
+      "insights": [
+        {
+          "texto": "Si seguridad/clima dominan share, la captación MICE compite por atención.",
+          "implicacion": "Alinear prensa Bureau con calendario de eventos captados.",
+          "fuente": "marca_llm, informe_gestion_2025"
+        }
+      ],
+      "tabla": null,
+      "grafico": {
+        "titulo": "Share conversación por categoría",
+        "labels": [
+          "vacacional",
+          "otro",
+          "marca",
+          "mice",
+          "seguridad",
+          "infraestructura"
+        ],
+        "values": [
+          43,
+          17,
+          11,
+          11,
+          10,
+          9
+        ],
+        "unidad": "%"
+      },
+      "imagen": {
+        "url": "https://images.unsplash.com/photo-1611162616475-46b635cb4957?w=1400&q=80",
+        "credito": "Unsplash (banco curado)",
+        "fuente_banco": "unsplash_curado"
+      }
+    },
+    {
+      "id": "territorio",
+      "titulo": "7. Territorio, clima y seguridad",
+      "lead": "Oferta, seguridad y clima del ETL Bureau en el tablero.",
+      "bullets": [
+        {
+          "texto": "Oferta: 78 filas en serie.",
+          "fuente": "oferta"
+        },
+        {
+          "texto": "Seguridad: 99 agregados anio×tipo.",
+          "fuente": "seguridad"
+        },
+        {
+          "texto": "Clima presente en paquete (serie/resumen según archivo).",
+          "fuente": "clima"
+        },
+        {
+          "texto": "Huella de carbono disponible en tablero visitante.",
+          "fuente": "huella"
+        }
+      ],
+      "analisis": [
+        {
+          "texto": "Territorio es contexto de decisión del visitante; no sustituye VNR ni Aerocivil.",
+          "fuente": "tablero_visitante"
+        }
+      ],
+      "insights": [
+        {
+          "texto": "En diagramación TEC, esta sección suele ir breve con un mapa/foto y 3 bullets.",
+          "implicacion": "Evitar tablas densas de delitos; preferir tendencia y nota metodológica.",
+          "fuente": "seguridad"
+        }
+      ],
+      "tabla": null,
+      "grafico": null,
+      "imagen": {
+        "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80",
+        "credito": "Unsplash (banco curado)",
+        "fuente_banco": "unsplash_curado"
+      }
+    },
+    {
+      "id": "gestion",
+      "titulo": "8. Gestión Bureau (captación y miembros)",
+      "lead": "Cifras publicadas informe de gestión 2025.",
+      "bullets": [
+        {
+          "texto": "Flujo: investigados >370; candidaturas 30; captados/apoyados 103.",
+          "fuente": "informe_gestion_2025.flujo"
+        },
+        {
+          "texto": "Realizados: 111 eventos; 266.875 asistentes; derrama USD 167 M.",
+          "fuente": "informe_gestion_2025.realizados"
+        },
+        {
+          "texto": "Miembros 200; altas 23; Rueda: 68 miembros, 433 citas, efectividad 97%.",
+          "fuente": "informe_gestion_2025"
+        },
+        {
+          "texto": "Satisfacción 4.9 / 5.",
+          "fuente": "informe_gestion_2025.satisfaccion"
+        }
+      ],
+      "analisis": [
+        {
+          "texto": "Los 103 captados no son subconjunto de las 30 candidaturas; el informe lo declara explícitamente.",
+          "fuente": "informe_gestion_2025.flujo"
+        }
+      ],
+      "insights": [
+        {
+          "texto": "La Rueda concentra el relato de valor para afiliados; LTV/deserción siguen sin padrón de apertura.",
+          "implicacion": "Pedir stock inicial 2025 para cerrar deserción en el próximo informe.",
+          "fuente": "informe_gestion_2025"
+        }
+      ],
+      "tabla": {
+        "titulo": "Gestión 2025 · cifras clave",
+        "columnas": [
+          "Indicador",
+          "Valor"
+        ],
+        "filas": [
+          [
+            "Captados/apoyados",
+            103
+          ],
+          [
+            "Impacto USD",
+            156168654
+          ],
+          [
+            "Asistentes",
+            242019
+          ],
+          [
+            "Cuartos-noche",
+            752214
+          ],
+          [
+            "Miembros",
+            200
+          ],
+          [
+            "Altas",
+            23
+          ]
+        ]
+      },
+      "grafico": {
+        "titulo": "Captación 2025",
+        "labels": [
+          "Internacionales",
+          "Nacionales"
+        ],
+        "values": [
+          59,
+          44
+        ],
+        "unidad": "Eventos"
+      },
+      "imagen": {
+        "url": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1400&q=80",
+        "credito": "Unsplash (banco curado)",
+        "fuente_banco": "unsplash_curado"
+      }
+    },
+    {
+      "id": "pronostico",
+      "titulo": "9. Pronóstico",
+      "lead": "[object Object]",
+      "bullets": [
+        {
+          "texto": "llegadas_colombia · MAPE 4.5 · holt_winters",
+          "fuente": "pronostico.series"
+        },
+        {
+          "texto": "llegadas_estados_unidos · MAPE 8.9 · sarima",
+          "fuente": "pronostico.series"
+        },
+        {
+          "texto": "llegadas_mexico · MAPE 7.3 · sarima",
+          "fuente": "pronostico.series"
+        },
+        {
+          "texto": "llegadas_brasil · MAPE 47.8 · sarima",
+          "fuente": "pronostico.series"
+        },
+        {
+          "texto": "llegadas_europa · MAPE 5.6 · gradiente",
+          "fuente": "pronostico.series"
+        }
+      ],
+      "analisis": [
+        {
+          "texto": "El horizonte del modelo está en el JSON de pronóstico; validar holdout antes de comunicar a prensa.",
+          "fuente": "pronostico"
+        }
+      ],
+      "insights": [
+        {
+          "texto": "Pronóstico es apoyo a planificación, no cifra oficial MinCIT.",
+          "implicacion": "Etiquetar como proyección Bureau/ETL en la portadilla.",
+          "fuente": "pronostico"
+        }
+      ],
+      "tabla": null,
+      "grafico": null,
+      "imagen": {
+        "url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=80",
+        "credito": "Unsplash (banco curado)",
+        "fuente_banco": "unsplash_curado"
+      }
+    }
+  ],
+  "banco_imagenes": {
+    "portada": {
+      "url": "https://images.unsplash.com/photo-1599423300746-b62533397364?w=1600&q=80",
+      "credito": "Unsplash (banco curado)",
+      "fuente_banco": "unsplash_curado"
+    },
+    "tendencias": {
+      "url": "https://images.unsplash.com/photo-1436491865332-7a61a109cab0?w=1400&q=80",
+      "credito": "Unsplash (banco curado)",
+      "fuente_banco": "unsplash_curado"
+    },
+    "receptivo": {
+      "url": "https://images.unsplash.com/photo-1483729558449-99ef03a8a546?w=1400&q=80",
+      "credito": "Unsplash (banco curado)",
+      "fuente_banco": "unsplash_curado"
+    },
+    "emisores": {
+      "url": "https://images.unsplash.com/photo-1529078155058-5d716f45d604?w=1400&q=80",
+      "credito": "Unsplash (banco curado)",
+      "fuente_banco": "unsplash_curado"
+    },
+    "destinos": {
+      "url": "https://images.unsplash.com/photo-1568632234157-ce7aecd03d0d?w=1400&q=80",
+      "credito": "Unsplash (banco curado)",
+      "fuente_banco": "unsplash_curado"
+    },
+    "reuniones": {
+      "url": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1400&q=80",
+      "credito": "Unsplash (banco curado)",
+      "fuente_banco": "unsplash_curado"
+    },
+    "visitante": {
+      "url": "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1400&q=80",
+      "credito": "Unsplash (banco curado)",
+      "fuente_banco": "unsplash_curado"
+    },
+    "salidas": {
+      "url": "https://images.unsplash.com/photo-1436491865332-7a61a109cab0?w=1400&q=80",
+      "credito": "Unsplash (banco curado)",
+      "fuente_banco": "unsplash_curado"
+    },
+    "conectividad": {
+      "url": "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=1400&q=80",
+      "credito": "Unsplash (banco curado)",
+      "fuente_banco": "unsplash_curado"
+    },
+    "marca": {
+      "url": "https://images.unsplash.com/photo-1611162616475-46b635cb4957?w=1400&q=80",
+      "credito": "Unsplash (banco curado)",
+      "fuente_banco": "unsplash_curado"
+    },
+    "territorio": {
+      "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80",
+      "credito": "Unsplash (banco curado)",
+      "fuente_banco": "unsplash_curado"
+    },
+    "gestion": {
+      "url": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1400&q=80",
+      "credito": "Unsplash (banco curado)",
+      "fuente_banco": "unsplash_curado"
+    },
+    "pronostico": {
+      "url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=80",
+      "credito": "Unsplash (banco curado)",
+      "fuente_banco": "unsplash_curado"
+    }
+  },
+  "meta_generacion": {
+    "cobertura_dashboard": true,
+    "banco": "unsplash_curado",
+    "modelo_referencia": "TEC 1S 2026",
+    "modo": "borrador_deterministico",
+    "nota": "Sin GROQ_API_KEY en el entorno del agente. Regenerar con /api/generar-informe cuando exista la clave."
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "fuente": "Wikimedia Commons API",
+  "api": "https://commons.wikimedia.org/w/api.php",
+  "nota": "Imágenes CC/public domain. Atribución por archivo. No usar fotos del PDF TEC.",
+  "slots": {
+    "toc": {
+      "file": "assets/colombia-photos/toc.jpg",
+      "query": "Cartagena Colombia murallas colonial",
+      "title": "File:Muralla & Baluarte de Santo Domingo CTG 11 2019 2149.jpg",
+      "artist": "Mariordo (Mario Roberto Durán Ortiz)",
+      "license": "CC BY-SA 4.0",
+      "commons": "https://commons.wikimedia.org/wiki/File:Muralla_%26_Baluarte_de_Santo_Domingo_CTG_11_2019_2149.jpg",
+      "bytes": 1059130
+    },
+    "resumen": {
+      "file": "assets/colombia-photos/resumen.jpg",
+      "query": "Medellín skyline Colombia",
+      "title": "File:Medellín skyline02.jpg",
+      "artist": "I.D. R.J.",
+      "license": "CC BY-SA 2.0",
+      "commons": "https://commons.wikimedia.org/wiki/File:Medell%C3%ADn_skyline02.jpg",
+      "bytes": 845026
+    },
+    "tendencias": {
+      "file": "assets/colombia-photos/tendencias.jpg",
+      "query": "Valle del Cocora Colombia",
+      "title": "File:Valle del Cocora, Colombia.jpg",
+      "artist": "McKay Savage",
+      "license": "CC BY 2.0",
+      "commons": "https://commons.wikimedia.org/wiki/File:Valle_del_Cocora,_Colombia.jpg",
+      "bytes": 404748
+    },
+    "receptivo": {
+      "file": "assets/colombia-photos/receptivo.jpg",
+      "query": "Guatapé Piedra del Peñol",
+      "title": "File:El Peñol de Guatapé (The Rock of Guatape) 2017-04-10.jpg",
+      "artist": "Sebastian Reategui",
+      "license": "CC0",
+      "commons": "https://commons.wikimedia.org/wiki/File:El_Pe%C3%B1ol_de_Guatap%C3%A9_(The_Rock_of_Guatape)_2017-04-10.jpg",
+      "bytes": 1794355
+    },
+    "destinos": {
+      "file": "assets/colombia-photos/destinos.jpg",
+      "query": "Ciudad Amurallada Cartagena",
+      "title": "File:Sunset-cartagena-tower-dewired.jpg",
+      "artist": "Igvir Ramirez",
+      "license": "CC BY-SA 2.0",
+      "commons": "https://commons.wikimedia.org/wiki/File:Sunset-cartagena-tower-dewired.jpg",
+      "bytes": 311729
+    },
+    "cover": {
+      "file": "assets/colombia-photos/cover.jpg",
+      "query": "Cartagena ciudad amurallada murallas",
+      "title": "File:Las Murallas, the walls of Cartagena, Colombia (23957251843).jpg",
+      "artist": "Joe Ross from Lansing, Michigan",
+      "license": "CC BY-SA 2.0",
+      "source": "commons",
+      "bytes": 259048
+    },
+    "emisores": {
+      "file": "assets/colombia-photos/emisores.jpg",
+      "query": "airport Colombia Medellín",
+      "title": "File:2018 Bóveda del Aeropuerto Olaya Herrera - Medellín.jpg",
+      "artist": "Felipe Restrepo Acosta",
+      "license": "CC BY-SA 4.0",
+      "source": "commons",
+      "bytes": 336835
+    },
+    "reuniones": {
+      "file": "assets/colombia-photos/reuniones.jpg",
+      "query": "Bogotá Colombia city",
+      "title": "File:BOGOTA CITY.jpg",
+      "artist": "KEVIN CASTAÑEDA VILLAMIL",
+      "license": "CC BY-SA 4.0",
+      "source": "commons",
+      "bytes": 356291
+    },
+    "visitante": {
+      "file": "assets/colombia-photos/visitante.jpg",
+      "query": "flowers festival Colombia Medellín",
+      "title": "File:A tractor decorated with flowers in the 63rd International Flower Festival motorcade.jpg",
+      "artist": "Komilkhuja",
+      "license": "CC BY 4.0",
+      "source": "commons",
+      "bytes": 327218
+    },
+    "conectividad": {
+      "file": "assets/colombia-photos/conectividad.jpg",
+      "query": "Metro Medellín Colombia",
+      "title": "File:Línea J (Medellín Metrocable).jpg",
+      "artist": "Bernard Gagnon",
+      "license": "CC BY-SA 4.0",
+      "source": "commons",
+      "bytes": 453126
+    },
+    "marca": {
+      "file": "assets/colombia-photos/marca.jpg",
+      "query": "graffiti Comuna 13 Medellín",
+      "title": "File:Graffiti in Comuna 13, Medellín 02.jpg",
+      "artist": "Bernard Gagnon",
+      "license": "CC BY-SA 4.0",
+      "source": "commons",
+      "bytes": 368366
+    },
+    "territorio": {
+      "file": "assets/colombia-photos/territorio.jpg",
+      "query": "Chicamocha canyon Colombia",
+      "title": "File:Cañon del Chicamocha. Santander,Colombia.jpg",
+      "artist": "CarlosDavid12345",
+      "license": "CC BY-SA 4.0",
+      "source": "commons",
+      "bytes": 84799
+    },
+    "gestion": {
+      "file": "assets/colombia-photos/gestion.jpg",
+      "query": "Botero plaza Medellín sculptures",
+      "title": "File:2019 Medellín - Parque San Antonio - Escultura de Botero y Torre Coltejer.jpg",
+      "artist": "Felipe Restrepo Acosta",
+      "license": "CC BY-SA 4.0",
+      "source": "commons",
+      "bytes": 277461
+    },
+    "pronostico": {
+      "file": "assets/colombia-photos/pronostico.jpg",
+      "query": "San Andrés island beach Colombia",
+      "title": "File:Atardecer en San Andres Isla.JPG",
+      "artist": "Mr.Jhosimar",
+      "license": "CC BY-SA 3.0",
+      "source": "commons",
+      "bytes": 248097
+    },
+    "extra_cafe": {
+      "file": "assets/colombia-photos/extra_cafe.jpg",
+      "query": "coffee plantation Colombia",
+      "title": "File:Coffee Farm.jpg",
+      "artist": "Frank_am_Main",
+      "license": "CC BY-SA 2.0",
+      "source": "commons",
+      "bytes": 288799
+    },
+    "extra_tayrona": {
+      "file": "assets/colombia-photos/extra_tayrona.jpg",
+      "query": "Tayrona park beach Colombia",
+      "title": "File:116 Tayrona Colombia Beach.JPG",
+      "artist": "David Shankbone",
+      "license": "CC BY-SA 3.0",
+      "source": "commons",
+      "bytes": 283211
+    },
+    "extra_salento": {
+      "file": "assets/colombia-photos/extra_salento.jpg",
+      "query": "Salento Colombia colorful",
+      "title": "File:Café Jesús Martín, Salento 02.jpg",
+      "artist": "Bernard Gagnon",
+      "license": "CC BY-SA 4.0",
+      "source": "commons",
+      "bytes": 304931
+    },
+    "oferta": {
+      "file": "assets/colombia-photos/oferta.jpg",
+      "query": "Eje Cafetero (alias oferta)",
+      "title": "File:Coffee Farm.jpg",
+      "artist": "Frank_am_Main",
+      "license": "CC BY-SA 2.0",
+      "source": "commons",
+      "bytes": 288799,
+      "note": "copia local de extra_cafe hasta reintento Commons"
+    }
+  }
+}

@@ -1,0 +1,667 @@
+{
+  "id": "migracion-entradas",
+  "fuente": "Migración Colombia · Entradas de extranjeros a Colombia",
+  "url": "https://www.datos.gov.co/Estad-sticas-Nacionales/Entradas-de-extranjeros-a-Colombia/96sh-4v8d",
+  "licencia": "Datos abiertos del Estado colombiano (datos.gov.co).",
+  "descarga": "2026-11-03",
+  "universo": "Cruces de entrada de extranjeros a Colombia (conteo de movimientos, no personas distintas). Serie nacional: no es destino Medellín ni la VNR MinCIT. No incluye salidas ni el dataset del aeropuerto José María Córdova (403 al corte).",
+  "grano": "mensual y anual",
+  "serie": [
+    {
+      "anio": 2022,
+      "mes": 1,
+      "entradas": 222755
+    },
+    {
+      "anio": 2022,
+      "mes": 2,
+      "entradas": 230786
+    },
+    {
+      "anio": 2022,
+      "mes": 3,
+      "entradas": 264574
+    },
+    {
+      "anio": 2022,
+      "mes": 4,
+      "entradas": 273843
+    },
+    {
+      "anio": 2022,
+      "mes": 5,
+      "entradas": 260095
+    },
+    {
+      "anio": 2022,
+      "mes": 6,
+      "entradas": 277403
+    },
+    {
+      "anio": 2022,
+      "mes": 7,
+      "entradas": 338278
+    },
+    {
+      "anio": 2022,
+      "mes": 8,
+      "entradas": 333827
+    },
+    {
+      "anio": 2022,
+      "mes": 9,
+      "entradas": 301025
+    },
+    {
+      "anio": 2022,
+      "mes": 10,
+      "entradas": 303937
+    },
+    {
+      "anio": 2022,
+      "mes": 11,
+      "entradas": 334201
+    },
+    {
+      "anio": 2022,
+      "mes": 12,
+      "entradas": 371226
+    },
+    {
+      "anio": 2023,
+      "mes": 1,
+      "entradas": 346400
+    },
+    {
+      "anio": 2023,
+      "mes": 2,
+      "entradas": 350876
+    },
+    {
+      "anio": 2023,
+      "mes": 3,
+      "entradas": 362149
+    },
+    {
+      "anio": 2023,
+      "mes": 4,
+      "entradas": 333458
+    },
+    {
+      "anio": 2023,
+      "mes": 5,
+      "entradas": 318349
+    },
+    {
+      "anio": 2023,
+      "mes": 6,
+      "entradas": 347157
+    },
+    {
+      "anio": 2023,
+      "mes": 7,
+      "entradas": 422998
+    },
+    {
+      "anio": 2023,
+      "mes": 8,
+      "entradas": 399127
+    },
+    {
+      "anio": 2023,
+      "mes": 9,
+      "entradas": 334494
+    },
+    {
+      "anio": 2023,
+      "mes": 10,
+      "entradas": 326846
+    },
+    {
+      "anio": 2023,
+      "mes": 11,
+      "entradas": 379275
+    },
+    {
+      "anio": 2023,
+      "mes": 12,
+      "entradas": 414423
+    },
+    {
+      "anio": 2024,
+      "mes": 1,
+      "entradas": 384743
+    },
+    {
+      "anio": 2024,
+      "mes": 2,
+      "entradas": 400209
+    },
+    {
+      "anio": 2024,
+      "mes": 3,
+      "entradas": 397364
+    },
+    {
+      "anio": 2024,
+      "mes": 4,
+      "entradas": 355090
+    },
+    {
+      "anio": 2024,
+      "mes": 5,
+      "entradas": 354495
+    },
+    {
+      "anio": 2024,
+      "mes": 6,
+      "entradas": 378540
+    },
+    {
+      "anio": 2024,
+      "mes": 7,
+      "entradas": 438045
+    },
+    {
+      "anio": 2024,
+      "mes": 8,
+      "entradas": 454164
+    },
+    {
+      "anio": 2024,
+      "mes": 9,
+      "entradas": 376136
+    },
+    {
+      "anio": 2024,
+      "mes": 10,
+      "entradas": 384067
+    },
+    {
+      "anio": 2024,
+      "mes": 11,
+      "entradas": 426761
+    },
+    {
+      "anio": 2024,
+      "mes": 12,
+      "entradas": 494673
+    },
+    {
+      "anio": 2025,
+      "mes": 1,
+      "entradas": 443624
+    },
+    {
+      "anio": 2025,
+      "mes": 2,
+      "entradas": 428717
+    },
+    {
+      "anio": 2025,
+      "mes": 3,
+      "entradas": 437994
+    },
+    {
+      "anio": 2025,
+      "mes": 4,
+      "entradas": 403715
+    },
+    {
+      "anio": 2025,
+      "mes": 5,
+      "entradas": 384254
+    },
+    {
+      "anio": 2025,
+      "mes": 6,
+      "entradas": 399770
+    },
+    {
+      "anio": 2025,
+      "mes": 7,
+      "entradas": 479045
+    },
+    {
+      "anio": 2025,
+      "mes": 8,
+      "entradas": 457736
+    },
+    {
+      "anio": 2025,
+      "mes": 9,
+      "entradas": 362360
+    },
+    {
+      "anio": 2025,
+      "mes": 10,
+      "entradas": 385007
+    },
+    {
+      "anio": 2025,
+      "mes": 11,
+      "entradas": 428358
+    },
+    {
+      "anio": 2025,
+      "mes": 12,
+      "entradas": 519869
+    },
+    {
+      "anio": 2026,
+      "mes": 1,
+      "entradas": 468509
+    },
+    {
+      "anio": 2026,
+      "mes": 2,
+      "entradas": 448393
+    },
+    {
+      "anio": 2026,
+      "mes": 3,
+      "entradas": 450844
+    },
+    {
+      "anio": 2026,
+      "mes": 4,
+      "entradas": 376876
+    },
+    {
+      "anio": 2026,
+      "mes": 5,
+      "entradas": 351797
+    },
+    {
+      "anio": 2026,
+      "mes": 6,
+      "entradas": 334065
+    }
+  ],
+  "anual": [
+    {
+      "anio": 2022,
+      "entradas": 3511950
+    },
+    {
+      "anio": 2023,
+      "entradas": 4335552
+    },
+    {
+      "anio": 2024,
+      "entradas": 4844287
+    },
+    {
+      "anio": 2025,
+      "entradas": 5130449
+    },
+    {
+      "anio": 2026,
+      "entradas": 2430484
+    }
+  ],
+  "top_paises": {
+    "2022": [
+      {
+        "pais": "Estados Unidos de América",
+        "entradas": 910350
+      },
+      {
+        "pais": "Venezuela (República Bolivariana de)",
+        "entradas": 453842
+      },
+      {
+        "pais": "Ecuador",
+        "entradas": 243792
+      },
+      {
+        "pais": "México",
+        "entradas": 240679
+      },
+      {
+        "pais": "Perú",
+        "entradas": 188559
+      },
+      {
+        "pais": "Chile",
+        "entradas": 137852
+      },
+      {
+        "pais": "Panamá",
+        "entradas": 135220
+      },
+      {
+        "pais": "España",
+        "entradas": 130193
+      },
+      {
+        "pais": "Brasil",
+        "entradas": 105918
+      },
+      {
+        "pais": "Argentina",
+        "entradas": 100479
+      },
+      {
+        "pais": "República Dominicana",
+        "entradas": 88201
+      },
+      {
+        "pais": "Costa Rica",
+        "entradas": 83071
+      }
+    ],
+    "2023": [
+      {
+        "pais": "Estados Unidos de América",
+        "entradas": 1104966
+      },
+      {
+        "pais": "Venezuela (República Bolivariana de)",
+        "entradas": 468198
+      },
+      {
+        "pais": "México",
+        "entradas": 320323
+      },
+      {
+        "pais": "Ecuador",
+        "entradas": 300584
+      },
+      {
+        "pais": "Perú",
+        "entradas": 188150
+      },
+      {
+        "pais": "Panamá",
+        "entradas": 180094
+      },
+      {
+        "pais": "Chile",
+        "entradas": 160618
+      },
+      {
+        "pais": "España",
+        "entradas": 159792
+      },
+      {
+        "pais": "Brasil",
+        "entradas": 153436
+      },
+      {
+        "pais": "Costa Rica",
+        "entradas": 126428
+      },
+      {
+        "pais": "República Dominicana",
+        "entradas": 115397
+      },
+      {
+        "pais": "Argentina",
+        "entradas": 107184
+      }
+    ],
+    "2024": [
+      {
+        "pais": "Estados Unidos de América",
+        "entradas": 1211437
+      },
+      {
+        "pais": "Venezuela (República Bolivariana de)",
+        "entradas": 560627
+      },
+      {
+        "pais": "México",
+        "entradas": 367373
+      },
+      {
+        "pais": "Ecuador",
+        "entradas": 349187
+      },
+      {
+        "pais": "Perú",
+        "entradas": 212865
+      },
+      {
+        "pais": "Costa Rica",
+        "entradas": 191968
+      },
+      {
+        "pais": "Chile",
+        "entradas": 183677
+      },
+      {
+        "pais": "Panamá",
+        "entradas": 180626
+      },
+      {
+        "pais": "España",
+        "entradas": 178999
+      },
+      {
+        "pais": "Brasil",
+        "entradas": 166032
+      },
+      {
+        "pais": "República Dominicana",
+        "entradas": 132597
+      },
+      {
+        "pais": "Argentina",
+        "entradas": 115976
+      }
+    ],
+    "2025": [
+      {
+        "pais": "Estados Unidos de América",
+        "entradas": 1232329
+      },
+      {
+        "pais": "Venezuela (República Bolivariana de)",
+        "entradas": 658669
+      },
+      {
+        "pais": "México",
+        "entradas": 414249
+      },
+      {
+        "pais": "Ecuador",
+        "entradas": 323597
+      },
+      {
+        "pais": "Perú",
+        "entradas": 250098
+      },
+      {
+        "pais": "España",
+        "entradas": 206187
+      },
+      {
+        "pais": "Brasil",
+        "entradas": 205508
+      },
+      {
+        "pais": "Chile",
+        "entradas": 174958
+      },
+      {
+        "pais": "Panamá",
+        "entradas": 174660
+      },
+      {
+        "pais": "Costa Rica",
+        "entradas": 166581
+      },
+      {
+        "pais": "Argentina",
+        "entradas": 139638
+      },
+      {
+        "pais": "República Dominicana",
+        "entradas": 124479
+      }
+    ],
+    "2026": [
+      {
+        "pais": "Estados Unidos De América",
+        "entradas": 570545
+      },
+      {
+        "pais": "Venezuela (República Bolivariana De)",
+        "entradas": 293146
+      },
+      {
+        "pais": "México",
+        "entradas": 195488
+      },
+      {
+        "pais": "Ecuador",
+        "entradas": 137684
+      },
+      {
+        "pais": "Perú",
+        "entradas": 126363
+      },
+      {
+        "pais": "Brasil",
+        "entradas": 121581
+      },
+      {
+        "pais": "Chile",
+        "entradas": 100217
+      },
+      {
+        "pais": "España",
+        "entradas": 91133
+      },
+      {
+        "pais": "Panamá",
+        "entradas": 76545
+      },
+      {
+        "pais": "Costa Rica",
+        "entradas": 76467
+      },
+      {
+        "pais": "Argentina",
+        "entradas": 76467
+      },
+      {
+        "pais": "Canadá",
+        "entradas": 57845
+      }
+    ]
+  },
+  "mercados": {
+    "2022": [
+      {
+        "mercado": "Estados Unidos",
+        "entradas": 910350
+      },
+      {
+        "mercado": "México",
+        "entradas": 240679
+      },
+      {
+        "mercado": "Brasil",
+        "entradas": 105918
+      },
+      {
+        "mercado": "Europa",
+        "entradas": 517951
+      },
+      {
+        "mercado": "Otros",
+        "entradas": 1737052
+      }
+    ],
+    "2023": [
+      {
+        "mercado": "Estados Unidos",
+        "entradas": 1104966
+      },
+      {
+        "mercado": "México",
+        "entradas": 320323
+      },
+      {
+        "mercado": "Brasil",
+        "entradas": 153436
+      },
+      {
+        "mercado": "Europa",
+        "entradas": 639487
+      },
+      {
+        "mercado": "Otros",
+        "entradas": 2117340
+      }
+    ],
+    "2024": [
+      {
+        "mercado": "Estados Unidos",
+        "entradas": 1211437
+      },
+      {
+        "mercado": "México",
+        "entradas": 367373
+      },
+      {
+        "mercado": "Brasil",
+        "entradas": 166032
+      },
+      {
+        "mercado": "Europa",
+        "entradas": 689566
+      },
+      {
+        "mercado": "Otros",
+        "entradas": 2409879
+      }
+    ],
+    "2025": [
+      {
+        "mercado": "Estados Unidos",
+        "entradas": 1232329
+      },
+      {
+        "mercado": "México",
+        "entradas": 414249
+      },
+      {
+        "mercado": "Brasil",
+        "entradas": 205508
+      },
+      {
+        "mercado": "Europa",
+        "entradas": 745194
+      },
+      {
+        "mercado": "Otros",
+        "entradas": 2533169
+      }
+    ],
+    "2026": [
+      {
+        "mercado": "Estados Unidos",
+        "entradas": 570545
+      },
+      {
+        "mercado": "México",
+        "entradas": 195488
+      },
+      {
+        "mercado": "Brasil",
+        "entradas": 121581
+      },
+      {
+        "mercado": "Europa",
+        "entradas": 347230
+      },
+      {
+        "mercado": "Otros",
+        "entradas": 1195640
+      }
+    ]
+  }
+}

@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mock completo TEC · Colmayor V7 · cobertura dashboard</title>
+<style>
+  @font-face{font-family:"Montserrat";src:url("assets/fonts/Montserrat-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("assets/fonts/Montserrat-Medium.woff2") format("woff2");font-weight:500;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("assets/fonts/Montserrat-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("assets/fonts/Montserrat-Bold.woff2") format("woff2");font-weight:700;font-display:swap}
+  :root{
+    /* Manual comunicaciones y mercadeo V7 */
+    --tec-navy:#172139;
+    --tec-navy-deep:#172139;
+    --tec-teal:#108181;
+    --tec-teal-bright:#00AEAC;
+    --tec-teal-deep:#195855;
+    --tec-gold:#FBBB28;
+    --tec-orange:#E9901E;
+    --tec-lime:#B4C42C;
+    --tec-yellow:var(--tec-gold);
+    --tec-bar:#108181;
+    --tec-text:#1a1a1a;
+    --tec-muted:#5a5a5a;
+    --slide-w:1280px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Montserrat",Calibri,Arial,Helvetica,sans-serif;background:#0e1422;color:var(--tec-text)}
+  .back{
+    position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+    padding:10px 18px;background:#172139;color:#eef3f3;font-size:12px;font-weight:600;
+    border-bottom:3px solid var(--tec-gold);
+  }
+  .back a{color:var(--tec-teal-bright);text-decoration:none}
+  .back .opt{color:var(--tec-gold);letter-spacing:.08em;text-transform:uppercase;font-size:10px}
+  .deck{padding:24px 16px 48px;display:grid;gap:28px;justify-items:center}
+  .slide{
+    width:min(100%,var(--slide-w));aspect-ratio:16/9;background:#fff;position:relative;overflow:hidden;
+    box-shadow:0 18px 50px rgba(0,0,0,.35);
+  }
+  .slide-label{
+    position:absolute;left:10px;top:10px;z-index:6;
+    background:rgba(0,0,0,.55);color:#fff;font-size:10px;font-weight:700;
+    letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:4px;
+  }
+  .bar-maroon,.bar-v7{position:absolute;left:0;right:0;bottom:0;height:10px;background:var(--tec-gold);z-index:3}
+
+  .logos{display:flex;align-items:center;gap:16px}
+  .logos img{display:block;object-fit:contain}
+  .logos .logo-bureau{height:36px;width:auto}
+  .logos .logo-colmayor{height:42px;width:auto}
+  .logos.compact .logo-bureau{height:30px}
+  .logos.compact .logo-colmayor{height:36px}
+  /* Colmayor blanco/light ya vienen listos: no invert (destruye escudo a color) */
+  .logos.on-light .logo-bureau{/* SVG already orange/dark */}
+
+  .turismo-tag{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#fff;
+  }
+  .turismo-tag i{display:block;width:28px;height:14px;background:var(--tec-yellow);flex-shrink:0}
+
+  /* Portada */
+  .cover{
+    background:
+      linear-gradient(180deg,rgba(23,33,57,.45) 0%,rgba(23,33,57,.2) 45%,rgba(0,0,0,.5) 100%),
+      none center/cover;
+    color:#fff;
+  }
+  .cover .top{
+    position:absolute;inset:28px 36px auto;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
+  }
+  .cover .logos .logo-colmayor{height:44px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.65))}
+  .cover .logos .logo-bureau{filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+  .cover .center{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    text-align:center;width:min(92%,860px);
+  }
+  .cover h1{
+    margin:0 0 18px;font-size:clamp(26px,4vw,50px);font-weight:800;line-height:1.08;
+    letter-spacing:.02em;text-transform:uppercase;text-shadow:0 2px 18px rgba(0,0,0,.4);
+  }
+  .cover .period{
+    display:inline-block;background:var(--tec-gold);color:var(--tec-navy);
+    font-size:clamp(13px,1.5vw,18px);font-weight:800;letter-spacing:.12em;
+    text-transform:uppercase;padding:10px 28px;
+  }
+
+  .split{display:grid;grid-template-columns:1fr 1fr;height:100%}
+  .split .photo{background-size:cover;background-position:center}
+  .split .panel{position:relative;padding:32px 40px 48px;background:#f3f4f6}
+  .split .panel.white{background:#fff}
+
+  .toc h2{
+    margin:36px 0 10px;font-size:40px;font-weight:800;color:var(--tec-navy-deep);
+    letter-spacing:.04em;text-transform:uppercase;
+  }
+  .toc .rule{width:72px;height:4px;background:var(--tec-yellow);margin-bottom:24px}
+  .toc ol{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+  .toc li{display:grid;grid-template-columns:48px 1px 1fr;gap:16px;align-items:center}
+  .toc .n{font-size:26px;font-weight:800;color:var(--tec-gold);text-align:right}
+  .toc .v{background:#b0b0b0;height:26px}
+  .toc .t{font-size:17px;font-weight:600;color:#333}
+
+  /* Divisor — foto | navy (logos) + franja gold (título) + blanco */
+  .divider .stack{display:grid;grid-template-rows:minmax(0,1.35fr) auto minmax(0,.9fr);height:100%}
+  .divider .top-block{
+    background:var(--tec-navy-deep);color:#fff;padding:28px 32px;
+    display:flex;align-items:center;justify-content:center;min-height:0;
+  }
+  .divider .top-block .logos{gap:20px}
+  .divider .top-block .logos .logo-colmayor{height:40px}
+  .divider .top-block .logos .logo-bureau{height:36px;filter:brightness(0) invert(1)}
+  .divider .mid-block{
+    background:var(--tec-yellow);padding:22px 32px;
+    font-size:clamp(20px,2.3vw,32px);font-weight:800;color:var(--tec-navy-deep);
+    letter-spacing:.02em;
+  }
+  .divider .bot-block{background:#fff}
+
+  .insight .copy{padding:26px 36px 42px;display:flex;flex-direction:column;min-height:0}
+  .insight .copy .logos{margin-bottom:14px;justify-content:flex-end}
+  .insight h2{
+    margin:0 0 16px;font-size:clamp(17px,1.9vw,24px);line-height:1.28;
+    font-weight:800;color:var(--tec-navy);max-width:36ch;
+  }
+  .insight ul{margin:0;padding-left:18px;display:grid;gap:11px;flex:1}
+  .insight li{font-size:13.5px;line-height:1.45}
+  .fuente{margin-top:auto;padding-top:12px;font-size:10px;font-style:italic;color:var(--tec-muted)}
+
+  .chart-page{padding:24px 36px 40px;display:grid;grid-template-rows:auto 1fr auto;height:100%}
+  .chart-page .head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
+  .chart-page h2{
+    margin:0;font-size:clamp(16px,1.85vw,22px);line-height:1.28;font-weight:800;
+    color:var(--tec-navy);max-width:54ch;flex:1;
+  }
+  .chart-body{display:grid;grid-template-columns:.9fr 1.2fr;gap:24px;align-items:stretch;min-height:0;padding:10px 0}
+  .chart-body ul{margin:0;padding-left:18px;display:grid;gap:11px;align-content:center}
+  .chart-body li{font-size:13.5px;line-height:1.45}
+  .chart-box{
+    border:1px solid #d9e2f2;border-radius:8px;padding:14px 16px 12px;
+    background:linear-gradient(180deg,#f8fafc,#eef3fb);
+    display:flex;flex-direction:column;min-height:0;
+  }
+  .chart-box h3{margin:0 0 8px;font-size:13px;font-weight:700;color:var(--tec-navy);text-align:center}
+  .chart-box svg{width:100%;height:auto;flex:1;min-height:200px}
+  .legend{display:flex;gap:18px;justify-content:center;margin-top:6px;font-size:11px;color:#333}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:12px;height:12px;border-radius:2px;display:inline-block}
+
+  .table-page{padding:24px 34px 40px;height:100%;display:grid;grid-template-rows:auto 1fr auto}
+  .table-page .head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:12px}
+  .table-page h2{margin:0;font-size:clamp(15px,1.7vw,21px);font-weight:800;color:var(--tec-navy);max-width:55ch;line-height:1.25}
+  .table-grid{display:grid;grid-template-columns:1.35fr .85fr;gap:20px;min-height:0}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  thead th{background:var(--tec-navy);color:#fff;padding:8px 10px;text-align:left;font-weight:700}
+  thead th:not(:first-child){text-align:right}
+  tbody td{padding:7px 10px;border-bottom:1px solid #e6e6e6}
+  tbody td:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
+  tbody tr:nth-child(even){background:#f5f7fb}
+  tfoot td{background:var(--tec-navy);color:#fff;padding:8px 10px;font-weight:700}
+  tfoot td:not(:first-child){text-align:right}
+  .table-grid .side ul{margin:0;padding-left:18px;display:grid;gap:10px}
+  .table-grid .side li{font-size:13px;line-height:1.4}
+  .table-grid .side h3{margin:0 0 10px;font-size:13px;color:var(--tec-navy)}
+
+  .note{max-width:1280px;width:min(100%,1280px);color:#c5cdd8;font-size:12px;line-height:1.5;padding:0 8px}
+  .note b{color:#fff}
+  @media (max-width:900px){
+    .slide{aspect-ratio:auto;min-height:520px}
+    .split,.chart-body,.table-grid{grid-template-columns:1fr}
+    .split .photo{min-height:220px}
+  }
+
+  .toc ol{gap:7px}
+  .toc .n{font-size:16px}
+  .toc .t{font-size:13px;line-height:1.25}
+  .toc h2{margin:18px 0 8px;font-size:30px}
+  .cover .top{justify-content:flex-start}
+
+  .cover{background-size:cover;background-position:center}
+  .cover .photo-credit{z-index:4}
+  .toc .panel{padding:24px 28px 40px;display:flex;flex-direction:column}
+  .toc ol{gap:6px;grid-template-columns:1fr 1fr;display:grid}
+  .toc li{grid-template-columns:40px 1px 1fr;gap:10px}
+  .toc .n{font-size:15px}
+  .toc .t{font-size:12.5px;line-height:1.2}
+  .toc .v{height:22px}
+  .toc h2{margin:14px 0 6px;font-size:28px}
+  .cover .top{justify-content:flex-start}
+  .split .photo{position:relative;background-size:cover;background-position:center}
+  .photo-credit{
+    position:absolute;left:0;right:0;bottom:0;margin:0;padding:6px 10px;
+    font-size:9px;line-height:1.3;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.72));
+  }
+  .kicker-sec{margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tec-teal)}
+  .col-label{margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tec-gold)}
+  .insight-cols{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;flex:1;min-height:0}
+  .insight-cols ul{margin:0;padding-left:16px;display:grid;gap:8px}
+  .insight-cols li{font-size:12.5px;line-height:1.4}
+  .analisis{border-left:3px solid var(--tec-gold);padding-left:14px}
+  .analisis-text{margin:0;font-size:12.5px;line-height:1.45;color:#333}
+  .insight h2{font-size:clamp(16px,1.7vw,22px);max-width:42ch}
+  .chart-body{grid-template-columns:1fr 1.15fr;gap:20px}
+  .table-grid{grid-template-columns:1.25fr .9fr;gap:18px}
+  .divider .mid-block{padding:18px 28px;font-size:clamp(18px,2.1vw,28px)}
+  @media (max-width:900px){
+    .toc ol,.insight-cols{grid-template-columns:1fr}
+  }
+
+  /* Foto completa en contenedor (sin crop) + cajas de texto encima */
+  .photo-frame{
+    position:relative;background:#0b1220;display:grid;place-items:center;
+    overflow:hidden;min-height:0;height:100%;width:100%;
+  }
+  .photo-img{
+    width:100%;height:100%;object-fit:contain;object-position:center;display:block;
+  }
+  .photo-credit{
+    position:absolute;left:0;right:0;bottom:0;z-index:3;margin:0;padding:6px 10px;
+    font-size:9px;line-height:1.3;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.75));
+  }
+  .text-box{border-radius:10px}
+  .text-box.dark{background:rgba(23,33,57,.88);padding:14px 16px;backdrop-filter:blur(6px)}
+  .text-box.gold{background:var(--tec-gold);color:var(--tec-navy);padding:14px 18px;font-weight:800}
+  .text-box.light{background:rgba(255,255,255,.96);padding:14px 16px;box-shadow:0 8px 24px rgba(23,33,57,.12)}
+  .cover{
+    background:#0b1220 !important;background-image:none !important;
+    display:grid;grid-template-rows:1fr;position:relative;
+  }
+  .cover-stage{position:absolute;inset:0;z-index:0}
+  .cover-stage .photo-img{object-fit:contain}
+  .cover .top,.cover .center{position:relative;z-index:2}
+  .cover .top{inset:auto;padding:28px 36px 0;display:flex;justify-content:flex-start}
+  .cover .top .text-box{display:inline-flex}
+  .cover .center{
+    left:50%;top:50%;transform:translate(-50%,-50%);position:absolute;
+    text-align:center;width:min(92%,860px);
+  }
+  .cover .center h1{
+    display:inline-block;background:rgba(23,33,57,.82);padding:14px 22px;border-radius:12px;
+    backdrop-filter:blur(6px);margin:0 0 14px;
+  }
+  .cover .photo-credit{z-index:4}
+  .toc .panel{padding:24px 28px 40px;display:flex;flex-direction:column}
+  .toc ol{gap:6px;grid-template-columns:1fr 1fr;display:grid}
+  .toc li{grid-template-columns:40px 1px 1fr;gap:10px}
+  .toc .n{font-size:15px}
+  .toc .t{font-size:12.5px;line-height:1.2}
+  .toc .v{height:22px}
+  .toc h2{margin:14px 0 6px;font-size:28px}
+  .kicker-sec{margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tec-teal)}
+  .col-label{margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tec-gold)}
+  .insight-cols{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;flex:1;min-height:0}
+  .insight-cols ul{margin:0;padding-left:16px;display:grid;gap:8px}
+  .insight-cols li{font-size:12.5px;line-height:1.4}
+  .analisis{border-left:3px solid var(--tec-gold);padding-left:14px}
+  .analisis-text{margin:0;font-size:12.5px;line-height:1.45;color:#333}
+  .insight h2{font-size:clamp(16px,1.7vw,22px);max-width:42ch}
+  .insight .copy{gap:12px;padding:22px 28px 40px}
+  .insight .body-box{flex:1;display:flex;flex-direction:column;min-height:0}
+  .chart-body{grid-template-columns:1fr 1.15fr;gap:20px}
+  .table-page{display:grid;grid-template-rows:auto 1fr auto;gap:10px}
+  .table-grid{grid-template-columns:1.3fr .85fr;gap:16px;align-items:stretch;min-height:0}
+  .table-wrap{overflow:auto;min-height:0}
+  .table-page table{font-size:13px}
+  .table-page tbody td{padding:10px 12px;vertical-align:top}
+  .table-page .side h3{margin:0 0 10px;font-size:14px;color:var(--tec-navy)}
+  .table-page .side ul{gap:12px}
+  .table-page .side li{font-size:13.5px;line-height:1.45}
+  .table-sparse .table-grid{grid-template-columns:1fr 1fr;align-content:center}
+  .table-sparse table{font-size:15px}
+  .table-sparse tbody td{padding:16px 14px}
+  .divider .top-block,.divider .mid-block,.divider .bot-block{display:flex;align-items:center}
+  .divider .top-block{justify-content:center;padding:22px}
+  .divider .mid-block{padding:16px 22px;background:transparent !important;font-size:clamp(18px,2.1vw,28px)}
+  .divider .mid-block .text-box.gold{width:100%;font-size:inherit;letter-spacing:.02em}
+  .kpi-photo{padding:0;overflow:hidden}
+  .kpi-photo-stage{position:relative;height:100%;background:#0b1220}
+  .kpi-photo-stage .photo-frame{position:absolute;inset:0}
+  .kpi-overlay{
+    position:relative;z-index:2;height:100%;padding:28px 32px 40px;
+    display:grid;grid-template-rows:auto 1fr auto;gap:16px;box-sizing:border-box;
+  }
+  .kpi-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+  .kpi-head h2{margin:0;color:#fff;font-size:clamp(16px,1.8vw,22px);max-width:40ch;line-height:1.25}
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;align-content:center}
+  .kpi-card{min-height:120px;display:grid;align-content:center;gap:6px}
+  .kpi-label{margin:0;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tec-teal)}
+  .kpi-value{margin:0;font-size:clamp(18px,2vw,26px);font-weight:800;color:var(--tec-navy);line-height:1.2}
+  .kpi-note{margin:0;font-size:12px;color:#445;line-height:1.4}
+  .fuente.on-photo{color:#e8eef8;background:rgba(0,0,0,.45);padding:8px 10px;border-radius:8px;width:fit-content}
+  @media (max-width:900px){
+    .toc ol,.insight-cols,.table-grid,.kpi-grid{grid-template-columns:1fr}
+  }
+
+  /* Foto completa en contenedor (sin crop) + cajas de texto encima */
+  .photo-frame{
+    position:relative;background:#0b1220;display:grid;place-items:center;
+    overflow:hidden;min-height:0;height:100%;width:100%;
+  }
+  .photo-img{
+    width:100%;height:100%;object-fit:contain;object-position:center;display:block;
+  }
+  .photo-credit{
+    position:absolute;left:0;right:0;bottom:0;z-index:3;margin:0;padding:6px 10px;
+    font-size:9px;line-height:1.3;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.75));
+  }
+  .text-box{border-radius:10px}
+  .text-box.dark{background:rgba(23,33,57,.88);padding:14px 16px;backdrop-filter:blur(6px)}
+  .text-box.gold{background:var(--tec-gold);color:var(--tec-navy);padding:14px 18px;font-weight:800}
+  .text-box.light{background:rgba(255,255,255,.96);padding:14px 16px;box-shadow:0 8px 24px rgba(23,33,57,.12)}
+  .cover{
+    background:#0b1220 !important;background-image:none !important;
+    display:grid;grid-template-rows:1fr;position:relative;
+  }
+  .cover-stage{position:absolute;inset:0;z-index:0}
+  .cover-stage .photo-img{object-fit:contain}
+  .cover .top,.cover .center{position:relative;z-index:2}
+  .cover .top{inset:auto;padding:28px 36px 0;display:flex;justify-content:flex-start}
+  .cover .top .text-box{display:inline-flex}
+  .cover .center{
+    left:50%;top:50%;transform:translate(-50%,-50%);position:absolute;
+    text-align:center;width:min(92%,860px);
+  }
+  .cover .center h1{
+    display:inline-block;background:rgba(23,33,57,.82);padding:14px 22px;border-radius:12px;
+    backdrop-filter:blur(6px);margin:0 0 14px;
+  }
+  .cover .photo-credit{z-index:4}
+  .toc .panel{padding:24px 28px 40px;display:flex;flex-direction:column}
+  .toc ol{gap:6px;grid-template-columns:1fr 1fr;display:grid}
+  .toc li{grid-template-columns:40px 1px 1fr;gap:10px}
+  .toc .n{font-size:15px}
+  .toc .t{font-size:12.5px;line-height:1.2}
+  .toc .v{height:22px}
+  .toc h2{margin:14px 0 6px;font-size:28px}
+  .kicker-sec{margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tec-teal)}
+  .col-label{margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tec-gold)}
+  .insight-cols{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;flex:1;min-height:0}
+  .insight-cols ul{margin:0;padding-left:16px;display:grid;gap:8px}
+  .insight-cols li{font-size:12.5px;line-height:1.4}
+  .analisis{border-left:3px solid var(--tec-gold);padding-left:14px}
+  .analisis-text{margin:0;font-size:12.5px;line-height:1.45;color:#333}
+  .insight h2{font-size:clamp(16px,1.7vw,22px);max-width:42ch}
+  .insight .copy{gap:12px;padding:22px 28px 40px}
+  .insight .body-box{flex:1;display:flex;flex-direction:column;min-height:0}
+  .chart-body{grid-template-columns:1fr 1.15fr;gap:20px}
+  .table-page{display:grid;grid-template-rows:auto 1fr auto;gap:10px}
+  .table-grid{grid-template-columns:1.3fr .85fr;gap:16px;align-items:stretch;min-height:0}
+  .table-wrap{overflow:auto;min-height:0}
+  .table-page table{font-size:13px}
+  .table-page tbody td{padding:10px 12px;vertical-align:top}
+  .table-page .side h3{margin:0 0 10px;font-size:14px;color:var(--tec-navy)}
+  .table-page .side ul{gap:12px}
+  .table-page .side li{font-size:13.5px;line-height:1.45}
+  .table-sparse .table-grid{grid-template-columns:1fr 1fr;align-content:center}
+  .table-sparse table{font-size:15px}
+  .table-sparse tbody td{padding:16px 14px}
+  .divider .top-block,.divider .mid-block,.divider .bot-block{display:flex;align-items:center}
+  .divider .top-block{justify-content:center;padding:22px}
+  .divider .mid-block{padding:16px 22px;background:transparent !important;font-size:clamp(18px,2.1vw,28px)}
+  .divider .mid-block .text-box.gold{width:100%;font-size:inherit;letter-spacing:.02em}
+  .kpi-photo{padding:0;overflow:hidden}
+  .kpi-photo-stage{position:relative;height:100%;background:#0b1220}
+  .kpi-photo-stage .photo-frame{position:absolute;inset:0}
+  .kpi-fallback{
+    background:
+      radial-gradient(ellipse at 30% 20%,rgba(0,174,172,.28),transparent 55%),
+      linear-gradient(160deg,#172139 0%,#195855 55%,#0b1220 100%) !important;
+  }
+  .kpi-overlay{
+    position:relative;z-index:2;height:100%;padding:28px 32px 40px;
+    display:grid;grid-template-rows:auto 1fr auto;gap:16px;box-sizing:border-box;
+  }
+  .kpi-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+  .kpi-head h2{margin:0;color:#fff;font-size:clamp(16px,1.8vw,22px);max-width:40ch;line-height:1.25}
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;align-content:center}
+  .kpi-card{min-height:120px;display:grid;align-content:center;gap:6px}
+  .kpi-label{margin:0;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tec-teal)}
+  .kpi-value{margin:0;font-size:clamp(18px,2vw,26px);font-weight:800;color:var(--tec-navy);line-height:1.2}
+  .kpi-note{margin:0;font-size:12px;color:#445;line-height:1.4}
+  .fuente.on-photo{color:#e8eef8;background:rgba(0,0,0,.45);padding:8px 10px;border-radius:8px;width:fit-content}
+  @media (max-width:900px){
+    .toc ol,.insight-cols,.table-grid,.kpi-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+  <nav class="back">
+    <span class="opt">TEC + Colmayor V7</span>
+    <strong>Mock completo · diagramación de Generar</strong>
+    <a href="informe-index.html">← Chooser</a>
+  </nav>
+  <div class="deck">
+    <p class="note"><b>Sí:</b> diagramación de <b>Generar</b> (TEC + Manual V7). Fotos: <b>Wikimedia Commons API</b> (+ Openverse fallback), turismo Colombia, una imagen distinta por lámina fotográfica. Atribución CC en cada foto. Sin imágenes del PDF TEC.</p>
+    <section class="slide cover" aria-label="Portada">
+  <span class="slide-label">1 · Portada</span>
+  <div class="cover-stage"><div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/cover.jpg" alt="Cartagena ciudad amurallada" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: Joe Ross from Lansing, Michigan · CC BY-SA 2.0</p>
+</div></div>
+  <div class="top">
+    <div class="text-box dark">
+      <div class="logos on-dark">
+        <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Greater Medellín Convention and Visitors Bureau">
+        <img class="logo-colmayor" src="assets/logo_colmayor_blanco.png?v=5" alt="Colegio Mayor de Antioquia">
+      </div>
+    </div>
+  </div>
+  <div class="center">
+    <h1>Turismo e inteligencia<br>de destino · Medellín</h1>
+    <div class="period">Corte 2026-11-03</div>
+  </div>
+  <div class="bar-maroon"></div>
+</section><section class="slide" aria-label="Contenido">
+  <span class="slide-label">2 · Contenido</span>
+  <div class="split toc">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/toc.jpg" alt="Cartagena murallas" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: Mariordo (Mario Roberto Durán Ortiz) · CC BY-SA 4.0</p>
+</div>
+    <div class="panel">
+      <div style="display:flex;justify-content:flex-end"><div class="logos on-light compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
+</div></div>
+      <h2>Contenido</h2>
+      <div class="rule"></div>
+      <ol><li><span class="n">1</span><span class="v"></span><span class="t">Tendencias</span></li><li><span class="n">2</span><span class="v"></span><span class="t">Turismo receptivo</span></li><li><span class="n">2.1</span><span class="v"></span><span class="t">Emisores internacionales</span></li><li><span class="n">2.2</span><span class="v"></span><span class="t">Destinos / ciudades</span></li><li><span class="n">2.3</span><span class="v"></span><span class="t">Reuniones y negocios (ICCA)</span></li><li><span class="n">3</span><span class="v"></span><span class="t">Perfil del visitante (EVI)</span></li><li><span class="n">3.1</span><span class="v"></span><span class="t">Oferta turística</span></li><li><span class="n">4</span><span class="v"></span><span class="t">Conectividad aérea</span></li><li><span class="n">5</span><span class="v"></span><span class="t">Marca y conversación</span></li><li><span class="n">6</span><span class="v"></span><span class="t">Territorio, clima y seguridad</span></li><li><span class="n">7</span><span class="v"></span><span class="t">Gestión Bureau</span></li><li><span class="n">8</span><span class="v"></span><span class="t">Pronóstico</span></li></ol>
+      <div class="bar-maroon"></div>
+    </div>
+  </div>
+</section><section class="slide insight" aria-label="3 · Resumen ejecutivo">
+  <span class="slide-label">3 · Resumen ejecutivo</span>
+  <div class="split">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/resumen.jpg" alt="Colombia" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: I.D. R.J. · CC BY-SA 2.0</p>
+</div>
+    <div class="copy panel white">
+      <div class="text-box light logos-box"><div class="logos on-light compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
+</div></div>
+      <div class="text-box light body-box">
+        <p class="kicker-sec">Hallazgo</p>
+        <h2>Corte 2026-11-03 · cobertura completa del dashboard Bureau + Colmayor</h2>
+        <div class="insight-cols">
+          <div>
+            <p class="col-label">Datos</p>
+            <ul><li>En <strong>2025</strong> Medellín recibió <strong>1.143.678</strong> VNR MinCIT (<strong>24,0%</strong> de Colombia).</li><li>TRM promedio último mes: <strong>3.199 COP/USD</strong> (2026-10).</li><li>Gestión 2025: <strong>103</strong> eventos captados/apoyados · impacto <strong>USD 156.168.654</strong>.</li><li>Marca LLM: <strong>421</strong> piezas · tópico: <strong>Feria Flores programación</strong>.</li><li>Oferta en tablero: <strong>78</strong> registros · Prensa: <strong>26</strong> piezas.</li></ul>
+          </div>
+          <div class="analisis">
+            <p class="col-label">Lectura</p>
+            <p class="analisis-text">Priorizar este hallazgo en la narrativa de destino y contrastarlo con el resto del pack.</p>
+          </div>
+        </div>
+        <p class="fuente">Fuente: paquete compacto dashboard · meta.corte_sugerido 2026-11-03</p>
+      </div>
+      <div class="bar-maroon"></div>
+    </div>
+  </div>
+</section><section class="slide divider" aria-label="Divisor 1. TENDENCIAS">
+  <span class="slide-label">4 · Divisor tendencias</span>
+  <div class="split">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/tendencias.jpg" alt="1. TENDENCIAS" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: McKay Savage · CC BY 2.0</p>
+</div>
+    <div class="stack">
+      <div class="top-block"><div class="text-box dark"><div class="logos on-dark compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_blanco.png?v=5" alt="Colmayor">
+</div></div></div>
+      <div class="mid-block"><div class="text-box gold">1. TENDENCIAS</div></div>
+      <div class="bot-block"></div>
+    </div>
+  </div>
+  <div class="bar-maroon"></div>
+</section><section class="slide chart-page" aria-label="5 · Tendencias · EMA + TRM">
+  <span class="slide-label">5 · Tendencias · EMA + TRM</span>
+  <div class="head"><h2>EMA Antioquia en <strong>162</strong> vs regiones <strong>153</strong> · TRM <strong>3.199</strong></h2><div class="logos on-light compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
+</div></div>
+  <div class="chart-body">
+    <ul><li>Último índice Antioquia <strong>162</strong> (índice 100 = <strong>106</strong>).</li><li>TRM promedio <strong>3.199</strong> COP/USD en 2026-10 (22 días).</li><li>Medata tarifas por zona (ej. CENTRO, LAURELES, POBLADO).</li><li>OWID: Spain lidera llegadas de referencia (93.759.300, 2024).</li></ul>
+    <div class="chart-box">
+      <h3>Índice EMA Antioquia (últimos meses)</h3>
+      <svg viewBox="0 0 520 260" role="img">
+        <defs><linearGradient id="barFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>
+        <line x1="48" y1="220" x2="500" y2="220" stroke="#cfd8e6"/>
+      <text x="42" y="224" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">0</text><line x1="48" y1="172.5" x2="500" y2="172.5" stroke="#cfd8e6"/>
+      <text x="42" y="176.5" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">41</text><line x1="48" y1="124.99999999999999" x2="500" y2="124.99999999999999" stroke="#cfd8e6"/>
+      <text x="42" y="129" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">83</text><line x1="48" y1="77.5" x2="500" y2="77.5" stroke="#cfd8e6"/>
+      <text x="42" y="81.5" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">124</text><line x1="48" y1="29.99999999999997" x2="500" y2="29.99999999999997" stroke="#cfd8e6"/>
+      <text x="42" y="33.99999999999997" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">165</text>
+        <rect x="78" y="34.606060606060595" width="48" height="185.3939393939394" fill="url(#barFill)" rx="2"/>
+      <text x="102" y="28.606060606060595" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">161</text>
+      <text x="102" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026-04</text><rect x="166" y="34.606060606060595" width="48" height="185.3939393939394" fill="url(#barFill)" rx="2"/>
+      <text x="190" y="28.606060606060595" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">161</text>
+      <text x="190" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026-05</text><rect x="254" y="35.75757575757575" width="48" height="184.24242424242425" fill="url(#barFill)" rx="2"/>
+      <text x="278" y="29.75757575757575" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">160</text>
+      <text x="278" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026-06</text><rect x="342" y="29.99999999999997" width="48" height="190.00000000000003" fill="url(#barFill)" rx="2"/>
+      <text x="366" y="23.99999999999997" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">165</text>
+      <text x="366" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026-07</text><rect x="430" y="33.45454545454544" width="48" height="186.54545454545456" fill="url(#barFill)" rx="2"/>
+      <text x="454" y="27.45454545454544" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">162</text>
+      <text x="454" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026-08</text>
+        <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>
+  <p class="fuente">Fuente: ema_ult6, trm_ultimo, medata_zonas, owid_top</p>
+  <div class="bar-maroon"></div>
+</section><section class="slide divider" aria-label="Divisor 2. TURISMO RECEPTIVO">
+  <span class="slide-label">6 · Divisor receptivo</span>
+  <div class="split">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/receptivo.jpg" alt="2. TURISMO RECEPTIVO" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: Sebastian Reategui · CC0</p>
+</div>
+    <div class="stack">
+      <div class="top-block"><div class="text-box dark"><div class="logos on-dark compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_blanco.png?v=5" alt="Colmayor">
+</div></div></div>
+      <div class="mid-block"><div class="text-box gold">2. TURISMO RECEPTIVO</div></div>
+      <div class="bot-block"></div>
+    </div>
+  </div>
+  <div class="bar-maroon"></div>
+</section><section class="slide chart-page" aria-label="7 · Receptivo MinCIT VNR">
+  <span class="slide-label">7 · Receptivo MinCIT VNR</span>
+  <div class="head"><h2>Medellín <strong>1.143.678</strong> VNR en 2025 · <strong>24,0%</strong> de Colombia · <strong>93,0%</strong> de Antioquia</h2><div class="logos on-light compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
+</div></div>
+  <div class="chart-body">
+    <ul><li>En <strong>2024</strong>: Medellín <strong>1.048.471</strong> · Antioquia <strong>1.125.506</strong> · Colombia <strong>4.504.530</strong>.</li><li>En <strong>2025</strong>: Medellín <strong>1.143.678</strong> · Antioquia <strong>1.224.985</strong> · Colombia <strong>4.677.578</strong>.</li><li>En <strong>2026</strong>: Medellín <strong>551.226</strong> · Antioquia <strong>581.983</strong> · Colombia <strong>2.223.471</strong>.</li></ul>
+    <div class="chart-box">
+      <h3>Llegadas Medellín VNR (miles)</h3>
+      <svg viewBox="0 0 520 260" role="img">
+        <defs><linearGradient id="barFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>
+        <line x1="48" y1="220" x2="500" y2="220" stroke="#cfd8e6"/>
+      <text x="42" y="224" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">0</text><line x1="48" y1="172.5" x2="500" y2="172.5" stroke="#cfd8e6"/>
+      <text x="42" y="176.5" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">286</text><line x1="48" y1="125" x2="500" y2="125" stroke="#cfd8e6"/>
+      <text x="42" y="129" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">572</text><line x1="48" y1="77.5" x2="500" y2="77.5" stroke="#cfd8e6"/>
+      <text x="42" y="81.5" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">858</text><line x1="48" y1="30" x2="500" y2="30" stroke="#cfd8e6"/>
+      <text x="42" y="34" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">1144</text>
+        <rect x="78" y="88.7937062937063" width="48" height="131.2062937062937" fill="url(#barFill)" rx="2"/>
+      <text x="102" y="82.7937062937063" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">790</text>
+      <text x="102" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2023</text><rect x="166" y="45.94405594405595" width="48" height="174.05594405594405" fill="url(#barFill)" rx="2"/>
+      <text x="190" y="39.94405594405595" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">1.048</text>
+      <text x="190" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2024</text><rect x="254" y="30" width="48" height="190" fill="url(#barFill)" rx="2"/>
+      <text x="278" y="24" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">1.144</text>
+      <text x="278" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2025</text><rect x="342" y="128.48776223776224" width="48" height="91.51223776223777" fill="url(#barFill)" rx="2"/>
+      <text x="366" y="122.48776223776224" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">551</text>
+      <text x="366" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026</text>
+        <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>
+  <p class="fuente">Fuente: mincit_vnr.shares_anual</p>
+  <div class="bar-maroon"></div>
+</section><section class="slide divider" aria-label="Divisor 2.1 EMISORES INTERNACIONALES">
+  <span class="slide-label">8 · Divisor emisores</span>
+  <div class="split">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/emisores.jpg" alt="2.1 EMISORES INTERNACIONALES" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: Felipe Restrepo Acosta · CC BY-SA 4.0</p>
+</div>
+    <div class="stack">
+      <div class="top-block"><div class="text-box dark"><div class="logos on-dark compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_blanco.png?v=5" alt="Colmayor">
+</div></div></div>
+      <div class="mid-block"><div class="text-box gold">2.1 EMISORES INTERNACIONALES</div></div>
+      <div class="bot-block"></div>
+    </div>
+  </div>
+  <div class="bar-maroon"></div>
+</section><section class="slide table-page" aria-label="9 · Tabla emisores YTD 2026">
+  <span class="slide-label">9 · Tabla emisores YTD 2026</span>
+  <div class="head"><h2>Estados Unidos lidera con <strong>180.138</strong> llegadas YTD 2026</h2><div class="logos on-light compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
+</div></div>
+  <div class="table-grid">
+    <div class="table-wrap text-box light">
+      <table><thead><tr><th>País emisor</th><th>YTD 2026</th><th>% part. top</th></tr></thead><tbody><tr><td>Estados Unidos</td><td>180.138</td><td>42,0%</td></tr><tr><td>México</td><td>45.910</td><td>10,7%</td></tr><tr><td>Costa Rica</td><td>39.224</td><td>9,1%</td></tr><tr><td>Ecuador</td><td>30.130</td><td>7,0%</td></tr><tr><td>Panamá</td><td>29.502</td><td>6,9%</td></tr><tr><td>República Dominicana</td><td>27.108</td><td>6,3%</td></tr></tbody><tfoot><tr><td>Top 5</td><td>—</td><td>75,7%</td></tr></tfoot></table>
+    </div>
+    <div class="side text-box light">
+      <h3>Lectura</h3>
+      <ul><li><strong>Estados Unidos</strong> concentra la mayor cuota del top publicado.</li><li>El top 5 concentra <strong>75,7%</strong> del set de países en pack.</li><li><strong>México</strong> es el segundo mercado (45.910).</li></ul>
+    </div>
+  </div>
+  <p class="fuente">Fuente: mincit_vnr.top_paises_2026</p>
+  <div class="bar-maroon"></div>
+</section><section class="slide divider" aria-label="Divisor 2.2 DESTINOS / CIUDADES">
+  <span class="slide-label">10 · Divisor destinos</span>
+  <div class="split">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/destinos.jpg" alt="2.2 DESTINOS / CIUDADES" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: Igvir Ramirez · CC BY-SA 2.0</p>
+</div>
+    <div class="stack">
+      <div class="top-block"><div class="text-box dark"><div class="logos on-dark compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_blanco.png?v=5" alt="Colmayor">
+</div></div></div>
+      <div class="mid-block"><div class="text-box gold">2.2 DESTINOS / CIUDADES</div></div>
+      <div class="bot-block"></div>
+    </div>
+  </div>
+  <div class="bar-maroon"></div>
+</section><section class="slide insight" aria-label="11 · Share ciudad vs país">
+  <span class="slide-label">11 · Share ciudad vs país</span>
+  <div class="split">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/extra_salento.jpg" alt="Colombia" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: Bernard Gagnon · CC BY-SA 4.0</p>
+</div>
+    <div class="copy panel white">
+      <div class="text-box light logos-box"><div class="logos on-light compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
+</div></div>
+      <div class="text-box light body-box">
+        <p class="kicker-sec">Hallazgo</p>
+        <h2>Share Medellín/Colombia en 2025: <strong>24,0%</strong> · vs Antioquia <strong>93,0%</strong></h2>
+        <div class="insight-cols">
+          <div>
+            <p class="col-label">Datos</p>
+            <ul><li>Volumen ciudad: <strong>1.143.678</strong> VNR.</li><li>Comparar trayectoria 2023–2025 en shares_anual del pack.</li><li>Competitividad relativa vs otros destinos: cruzar con tablero MinCIT cuando el pack lo amplíe.</li></ul>
+          </div>
+          <div class="analisis">
+            <p class="col-label">Lectura</p>
+            <p class="analisis-text">Priorizar este hallazgo en la narrativa de destino y contrastarlo con el resto del pack.</p>
+          </div>
+        </div>
+        <p class="fuente">Fuente: mincit_vnr.shares_anual</p>
+      </div>
+      <div class="bar-maroon"></div>
+    </div>
+  </div>
+</section><section class="slide divider" aria-label="Divisor 2.3 REUNIONES Y NEGOCIOS">
+  <span class="slide-label">12 · Divisor ICCA</span>
+  <div class="split">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/reuniones.jpg" alt="2.3 REUNIONES Y NEGOCIOS" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: KEVIN CASTAÑEDA VILLAMIL · CC BY-SA 4.0</p>
+</div>
+    <div class="stack">
+      <div class="top-block"><div class="text-box dark"><div class="logos on-dark compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_blanco.png?v=5" alt="Colmayor">
+</div></div></div>
+      <div class="mid-block"><div class="text-box gold">2.3 REUNIONES Y NEGOCIOS</div></div>
+      <div class="bot-block"></div>
+    </div>
+  </div>
+  <div class="bar-maroon"></div>
+</section><section class="slide table-page table-sparse" aria-label="13 · ICCA ciudades">
+  <span class="slide-label">13 · ICCA ciudades</span>
+  <div class="head"><h2>Ranking ICCA 2025 · referencia de reuniones internacionales</h2><div class="logos on-light compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
+</div></div>
+  <div class="table-grid">
+    <div class="table-wrap text-box light">
+      <table><thead><tr><th>Ciudad</th><th>Puesto</th><th>Reuniones</th></tr></thead><tbody><tr><td>Bogotá</td><td>36</td><td>63</td></tr><tr><td>Cartagena</td><td>77</td><td>36</td></tr><tr><td>Medellín</td><td>103</td><td>26</td></tr></tbody></table>
+    </div>
+    <div class="side text-box light">
+      <h3>Lectura</h3>
+      <ul><li><strong>Bogotá</strong> lidera el set local con puesto <strong>36</strong>.</li><li>Usar ICCA como proxy de agenda MICE, no como flujo vacacional.</li><li>Cruzar con captación Bureau (gestión 2025) en la sección 7.</li></ul>
+    </div>
+  </div>
+  <p class="fuente">Fuente: icca · anio 2025</p>
+  <div class="bar-maroon"></div>
+</section><section class="slide divider" aria-label="Divisor 3. PERFIL DEL VISITANTE (EVI)">
+  <span class="slide-label">14 · Divisor visitante</span>
+  <div class="split">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/visitante.jpg" alt="3. PERFIL DEL VISITANTE (EVI)" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: Komilkhuja · CC BY 4.0</p>
+</div>
+    <div class="stack">
+      <div class="top-block"><div class="text-box dark"><div class="logos on-dark compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_blanco.png?v=5" alt="Colmayor">
+</div></div></div>
+      <div class="mid-block"><div class="text-box gold">3. PERFIL DEL VISITANTE (EVI)</div></div>
+      <div class="bot-block"></div>
+    </div>
+  </div>
+  <div class="bar-maroon"></div>
+</section><section class="slide insight" aria-label="15 · EVI gasto y motivos">
+  <span class="slide-label">15 · EVI gasto y motivos</span>
+  <div class="split">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/extra_tayrona.jpg" alt="Colombia" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: David Shankbone · CC BY-SA 3.0</p>
+</div>
+    <div class="copy panel white">
+      <div class="text-box light logos-box"><div class="logos on-light compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
+</div></div>
+      <div class="text-box light body-box">
+        <p class="kicker-sec">Hallazgo</p>
+        <h2>EVI Agosto 2023 – julio 2024 · n=<strong>13.308</strong> · gasto diario <strong>USD 176</strong></h2>
+        <div class="insight-cols">
+          <div>
+            <p class="col-label">Datos</p>
+            <ul><li>Gasto por estadía <strong>USD 1.115</strong> · noches media <strong>8,9</strong>.</li><li><strong>Vacaciones</strong>: 63,7% de participación.</li><li><strong>Visita a fam/ami</strong>: 23,1% de participación.</li><li><strong>Negocios origen</strong>: 6,8% de participación.</li><li>Residencia top: <strong>Estados Unidos</strong> (36,1%).</li></ul>
+          </div>
+          <div class="analisis">
+            <p class="col-label">Lectura</p>
+            <p class="analisis-text">Priorizar este hallazgo en la narrativa de destino y contrastarlo con el resto del pack.</p>
+          </div>
+        </div>
+        <p class="fuente">Fuente: evi_ola · huella (factores GEI Reino Unido)</p>
+      </div>
+      <div class="bar-maroon"></div>
+    </div>
+  </div>
+</section><section class="slide divider" aria-label="Divisor 3.1 OFERTA TURÍSTICA">
+  <span class="slide-label">16 · Divisor oferta</span>
+  <div class="split">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/oferta.jpg" alt="3.1 OFERTA TURÍSTICA" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: Frank_am_Main · CC BY-SA 2.0</p>
+</div>
+    <div class="stack">
+      <div class="top-block"><div class="text-box dark"><div class="logos on-dark compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_blanco.png?v=5" alt="Colmayor">
+</div></div></div>
+      <div class="mid-block"><div class="text-box gold">3.1 OFERTA TURÍSTICA</div></div>
+      <div class="bot-block"></div>
+    </div>
+  </div>
+  <div class="bar-maroon"></div>
+</section><section class="slide table-page table-sparse" aria-label="17 · Oferta en tablero">
+  <span class="slide-label">17 · Oferta en tablero</span>
+  <div class="head"><h2>El tablero registra <strong>78</strong> elementos de oferta turística</h2><div class="logos on-light compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
+</div></div>
+  <div class="table-grid">
+    <div class="table-wrap text-box light">
+      <table><thead><tr><th>Indicador</th><th>Valor</th></tr></thead><tbody><tr><td>Registros de oferta (pack)</td><td>78</td></tr><tr><td>Uso</td><td>Cruzar con receptivo y conectividad</td></tr></tbody></table>
+    </div>
+    <div class="side text-box light">
+      <h3>Lectura</h3>
+      <ul><li>Inventario compacto; no inventar tipologías fuera del pack.</li><li>Útil para narrativa de capacidad frente a picos de demanda.</li></ul>
+    </div>
+  </div>
+  <p class="fuente">Fuente: oferta_n</p>
+  <div class="bar-maroon"></div>
+</section><section class="slide divider" aria-label="Divisor 4. CONECTIVIDAD AÉREA">
+  <span class="slide-label">18 · Divisor conectividad</span>
+  <div class="split">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/conectividad.jpg" alt="4. CONECTIVIDAD AÉREA" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: Bernard Gagnon · CC BY-SA 4.0</p>
+</div>
+    <div class="stack">
+      <div class="top-block"><div class="text-box dark"><div class="logos on-dark compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_blanco.png?v=5" alt="Colmayor">
+</div></div></div>
+      <div class="mid-block"><div class="text-box gold">4. CONECTIVIDAD AÉREA</div></div>
+      <div class="bot-block"></div>
+    </div>
+  </div>
+  <div class="bar-maroon"></div>
+</section><section class="slide table-page" aria-label="19 · Aerocivil / mercados 2025">
+  <span class="slide-label">19 · Aerocivil / mercados 2025</span>
+  <div class="head"><h2>Top mercados por llegadas 2025 (serie conectividad)</h2><div class="logos on-light compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
+</div></div>
+  <div class="table-grid">
+    <div class="table-wrap text-box light">
+      <table><thead><tr><th>Mercado</th><th>Llegadas</th><th>Salidas</th><th>Pasajeros</th></tr></thead><tbody><tr><td>Colombia</td><td>5.094.485</td><td>5.193.153</td><td>10.287.638</td></tr><tr><td>Estados Unidos</td><td>674.259</td><td>715.582</td><td>1.389.841</td></tr><tr><td>México</td><td>192.420</td><td>200.370</td><td>392.790</td></tr><tr><td>Europa</td><td>142.202</td><td>179.564</td><td>321.766</td></tr><tr><td>Brasil</td><td>18.148</td><td>32.270</td><td>50.418</td></tr></tbody></table>
+    </div>
+    <div class="side text-box light">
+      <h3>Lectura</h3>
+      <ul><li><strong>Colombia</strong> concentra el mayor volumen de llegadas en 2025.</li><li>Separar doméstico vs internacional al comunicar capacidad aérea.</li><li>Serie anual disponible en conectividad_anual del pack.</li></ul>
+    </div>
+  </div>
+  <p class="fuente">Fuente: conectividad_anual · anio 2025</p>
+  <div class="bar-maroon"></div>
+</section><section class="slide divider" aria-label="Divisor 5. MARCA Y CONVERSACIÓN">
+  <span class="slide-label">20 · Divisor marca</span>
+  <div class="split">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/marca.jpg" alt="5. MARCA Y CONVERSACIÓN" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: Bernard Gagnon · CC BY-SA 4.0</p>
+</div>
+    <div class="stack">
+      <div class="top-block"><div class="text-box dark"><div class="logos on-dark compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_blanco.png?v=5" alt="Colmayor">
+</div></div></div>
+      <div class="mid-block"><div class="text-box gold">5. MARCA Y CONVERSACIÓN</div></div>
+      <div class="bot-block"></div>
+    </div>
+  </div>
+  <div class="bar-maroon"></div>
+</section><section class="slide chart-page" aria-label="21 · Marca LLM + prensa + SIT">
+  <span class="slide-label">21 · Marca LLM + prensa + SIT</span>
+  <div class="head"><h2>Marca LLM: <strong>421</strong> piezas · tópico <strong>Feria Flores programación</strong></h2><div class="logos on-light compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
+</div></div>
+  <div class="chart-body">
+    <ul><li>Ventana <strong>2026-10 a 2026-11</strong>.</li><li>Prensa Bureau en pack: <strong>26</strong> piezas.</li><li>SIT ejemplo: <strong>Francia</strong> · llegadas 9.088 (2025).</li><li><strong>vacacional</strong>: n=180 · share 43,0% · sent_net 0.57</li><li><strong>otro</strong>: n=71 · share 17,0% · sent_net 0.21</li></ul>
+    <div class="chart-box">
+      <h3>Piezas por categoría (Marca LLM)</h3>
+      <svg viewBox="0 0 520 260" role="img">
+        <defs><linearGradient id="barFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>
+        <line x1="48" y1="220" x2="500" y2="220" stroke="#cfd8e6"/>
+      <text x="42" y="224" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">0</text><line x1="48" y1="172.5" x2="500" y2="172.5" stroke="#cfd8e6"/>
+      <text x="42" y="176.5" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">45</text><line x1="48" y1="125" x2="500" y2="125" stroke="#cfd8e6"/>
+      <text x="42" y="129" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">90</text><line x1="48" y1="77.5" x2="500" y2="77.5" stroke="#cfd8e6"/>
+      <text x="42" y="81.5" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">135</text><line x1="48" y1="30" x2="500" y2="30" stroke="#cfd8e6"/>
+      <text x="42" y="34" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">180</text>
+        <rect x="78" y="30" width="48" height="190" fill="url(#barFill)" rx="2"/>
+      <text x="102" y="24" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">180</text>
+      <text x="102" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">vacacional</text><rect x="166" y="145.05555555555554" width="48" height="74.94444444444444" fill="url(#barFill)" rx="2"/>
+      <text x="190" y="139.05555555555554" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">71</text>
+      <text x="190" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">otro</text><rect x="254" y="171.44444444444446" width="48" height="48.55555555555556" fill="url(#barFill)" rx="2"/>
+      <text x="278" y="165.44444444444446" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">46</text>
+      <text x="278" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">marca</text><rect x="342" y="171.44444444444446" width="48" height="48.55555555555556" fill="url(#barFill)" rx="2"/>
+      <text x="366" y="165.44444444444446" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">46</text>
+      <text x="366" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">mice</text><rect x="430" y="177.77777777777777" width="48" height="42.22222222222222" fill="url(#barFill)" rx="2"/>
+      <text x="454" y="171.77777777777777" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">40</text>
+      <text x="454" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">seguridad</text>
+        <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>
+  <p class="fuente">Fuente: marca_llm, prensa_n, sit</p>
+  <div class="bar-maroon"></div>
+</section><section class="slide divider" aria-label="Divisor 6. TERRITORIO, CLIMA Y SEGURIDAD">
+  <span class="slide-label">22 · Divisor territorio</span>
+  <div class="split">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/territorio.jpg" alt="6. TERRITORIO, CLIMA Y SEGURIDAD" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: CarlosDavid12345 · CC BY-SA 4.0</p>
+</div>
+    <div class="stack">
+      <div class="top-block"><div class="text-box dark"><div class="logos on-dark compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_blanco.png?v=5" alt="Colmayor">
+</div></div></div>
+      <div class="mid-block"><div class="text-box gold">6. TERRITORIO, CLIMA Y SEGURIDAD</div></div>
+      <div class="bot-block"></div>
+    </div>
+  </div>
+  <div class="bar-maroon"></div>
+</section><section class="slide kpi-photo" aria-label="23 · Seguridad + clima">
+  <span class="slide-label">23 · Seguridad + clima</span>
+  <div class="kpi-photo-stage">
+    <div class="photo-frame kpi-fallback" aria-hidden="true"></div>
+    <div class="kpi-overlay">
+      <div class="text-box dark kpi-head"><div class="logos on-dark compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_blanco.png?v=5" alt="Colmayor">
+</div><h2>Señales territoriales del pack</h2></div>
+      <div class="kpi-grid"><article class="kpi-card text-box light">
+      <p class="kpi-label">Seguridad (muestra)</p>
+      <p class="kpi-value">8 periodos</p>
+      <p class="kpi-note">Hurtos 1.834 · 2019-02 · no extrapolar fuera de la muestra</p>
+    </article><article class="kpi-card text-box light">
+      <p class="kpi-label">Clima</p>
+      <p class="kpi-value">2026-08</p>
+      <p class="kpi-note">mm_prom 0 · estaciones 2</p>
+    </article><article class="kpi-card text-box light">
+      <p class="kpi-label">Lectura</p>
+      <p class="kpi-value">Cautela territorial</p>
+      <p class="kpi-note">Usar solo la muestra publicada; cruzar con tablero Seguridad/Clima.</p>
+    </article></div>
+      <p class="fuente on-photo">Fuente: seguridad_muestra, clima</p>
+    </div>
+  </div>
+  <div class="bar-maroon"></div>
+</section><section class="slide divider" aria-label="Divisor 7. GESTIÓN BUREAU">
+  <span class="slide-label">24 · Divisor gestión</span>
+  <div class="split">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/gestion.jpg" alt="7. GESTIÓN BUREAU" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: Felipe Restrepo Acosta · CC BY-SA 4.0</p>
+</div>
+    <div class="stack">
+      <div class="top-block"><div class="text-box dark"><div class="logos on-dark compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_blanco.png?v=5" alt="Colmayor">
+</div></div></div>
+      <div class="mid-block"><div class="text-box gold">7. GESTIÓN BUREAU</div></div>
+      <div class="bot-block"></div>
+    </div>
+  </div>
+  <div class="bar-maroon"></div>
+</section><section class="slide table-page" aria-label="25 · Informe de gestión 2025">
+  <span class="slide-label">25 · Informe de gestión 2025</span>
+  <div class="head"><h2>Captación 2025: <strong>103</strong> eventos · impacto <strong>USD 156.168.654</strong></h2><div class="logos on-light compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
+</div></div>
+  <div class="table-grid">
+    <div class="table-wrap text-box light">
+      <table><thead><tr><th>Indicador</th><th>Valor</th></tr></thead><tbody><tr><td>Eventos captados/apoyados</td><td>103</td></tr><tr><td>Internacionales</td><td>59</td></tr><tr><td>Nacionales</td><td>44</td></tr><tr><td>Asistentes</td><td>242.019</td></tr><tr><td>Cuartos-noche</td><td>752.214</td></tr><tr><td>Impacto USD</td><td>156.168.654</td></tr><tr><td>Eventos investigados</td><td>más de 370</td></tr><tr><td>Candidaturas presentadas</td><td>30</td></tr><tr><td>Eventos captados y apoyados</td><td>103</td></tr></tbody></table>
+    </div>
+    <div class="side text-box light">
+      <h3>Lectura</h3>
+      <ul><li>Fuente institucional: Informe de gestión 2025 Greater Medellín CVB.</li><li>Separar captados vs realizados al comunicar derrama.</li><li>Cruzar con ICCA (sección 2.3) para narrativa MICE.</li></ul>
+    </div>
+  </div>
+  <p class="fuente">Fuente: informe_gestion_2025</p>
+  <div class="bar-maroon"></div>
+</section><section class="slide divider" aria-label="Divisor 8. PRONÓSTICO">
+  <span class="slide-label">26 · Divisor pronóstico</span>
+  <div class="split">
+    <div class="photo-frame">
+  <img class="photo-img" src="assets/colombia-photos/pronostico.jpg" alt="8. PRONÓSTICO" loading="eager" decoding="async">
+  <p class="photo-credit">Foto: Mr.Jhosimar · CC BY-SA 3.0</p>
+</div>
+    <div class="stack">
+      <div class="top-block"><div class="text-box dark"><div class="logos on-dark compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_blanco.png?v=5" alt="Colmayor">
+</div></div></div>
+      <div class="mid-block"><div class="text-box gold">8. PRONÓSTICO</div></div>
+      <div class="bot-block"></div>
+    </div>
+  </div>
+  <div class="bar-maroon"></div>
+</section><section class="slide table-page" aria-label="27 · Modelos de pronóstico">
+  <span class="slide-label">27 · Modelos de pronóstico</span>
+  <div class="head"><h2>Pronóstico generado <strong>2026-10</strong> · series del tablero</h2><div class="logos on-light compact">
+  <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
+  <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
+</div></div>
+  <div class="table-grid">
+    <div class="table-wrap text-box light">
+      <table><thead><tr><th>Serie</th><th>Modelo</th><th>MAPE</th></tr></thead><tbody><tr><td>llegadas_colombia</td><td>holt_winters</td><td>4,5%</td></tr><tr><td>llegadas_estados_unidos</td><td>sarima</td><td>8,9%</td></tr><tr><td>llegadas_mexico</td><td>sarima</td><td>7,3%</td></tr><tr><td>llegadas_brasil</td><td>sarima</td><td>47,8%</td></tr><tr><td>llegadas_europa</td><td>gradiente</td><td>5,6%</td></tr><tr><td>llegadas_cinco</td><td>holt_winters</td><td>5,9%</td></tr></tbody></table>
+    </div>
+    <div class="side text-box light">
+      <h3>Lectura</h3>
+      <ul><li>MAPE bajo no garantiza acierto fuera de muestra; usar como rango de planeación.</li><li>Ejemplo: <strong>llegadas_colombia</strong> · holt_winters · MAPE 4.5%.</li><li>Horizonte y holdout están en el objeto pronostico del pack.</li></ul>
+    </div>
+  </div>
+  <p class="fuente">Fuente: pronostico</p>
+  <div class="bar-maroon"></div>
+</section>
+  </div>
+</body>
+</html>

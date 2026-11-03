@@ -25,10 +25,30 @@ window.CATALOGO = [
     pastilla: "Dato abierto", clase: "abierto",
     fuenteTipo: "Secundaria", fuente: "MinCIT · VNR / Citur, Extranjeros No Residentes en datos.gov.co 7wm8-w5ad",
     pedida: "Mensual", grano: "Mensual y anual", unidad: "Visitantes",
-    formula: "Suma de extranjeros no residentes con ciudad de destino Medellín, por mes y por país de residencia.",
-    universo: "Operación VNR del MinCIT. Destino declarado Medellín. No es Aerocivil, ni puesto migratorio, ni colombianos en el exterior, ni cruceros. Rionegro no se suma.",
+    formula: "Suma de extranjeros no residentes con ciudad de destino Medellín, por mes y por país de residencia. Shares = Medellín / Antioquia y Medellín / Colombia.",
+    universo: "Operación VNR del MinCIT. Destino declarado Medellín. Antioquia y Rionegro se muestran aparte. No es Aerocivil, ni puesto migratorio, ni colombianos en el exterior, ni cruceros.",
     licencia: "Datos abiertos del Estado colombiano.",
-    noMide: "Pasajeros de MDE/EOH ni el CRM del Bureau."
+    noMide: "Pasajeros de MDE/EOH ni el CRM del Bureau. Rionegro no se suma a Medellín."
+  },
+  {
+    id: "migracion-entradas", tab: "mercados", nombre: "Entradas de extranjeros Migración Colombia",
+    pastilla: "Dato abierto", clase: "abierto",
+    fuenteTipo: "Secundaria", fuente: "Migración Colombia, Entradas de extranjeros a Colombia, datos.gov.co 96sh-4v8d",
+    pedida: "Mensual", grano: "Mensual y anual", unidad: "Cruces de entrada",
+    formula: "Suma de entradas de extranjeros por nacionalidad y mes a nivel nacional.",
+    universo: "Cruces de entrada a Colombia. No es destino Medellín ni la VNR MinCIT. No es el dataset del aeropuerto JMC.",
+    licencia: "Datos abiertos del Estado colombiano.",
+    noMide: "Visitantes con destino ciudad Medellín ni personas distintas (es conteo de movimientos)."
+  },
+  {
+    id: "trm-banrep", tab: "mercados", nombre: "TRM promedio mensual",
+    pastilla: "Dato abierto", clase: "abierto",
+    fuenteTipo: "Secundaria", fuente: "Superintendencia Financiera, TRM oficial, datos.gov.co 32sa-8pi3",
+    pedida: "Diaria", grano: "Mensual (promedio)", unidad: "COP por USD",
+    formula: "Promedio de la TRM oficial de los días publicados en el mes.",
+    universo: "Tasa representativa del mercado. Contexto de gasto en dólares.",
+    licencia: "Datos abiertos del Estado colombiano.",
+    noMide: "El gasto del visitante ni una causa de las llegadas aéreas."
   },
   {
     id: "reservas", tab: "mercados", nombre: "Reservas hacia Medellín",
@@ -249,10 +269,10 @@ window.CATALOGO = [
     pastilla: "Bureau", clase: "proxy",
     fuenteTipo: "Secundaria", fuente: "ETL Bureau, RNT + DANE EGIT, scripts/alimentar_bureau.py",
     pedida: "Por corte", grano: "Registro + trimestre", unidad: "Prestadores y participación",
-    formula: "Conteo RNT por categoría y serie trimestral de turismo interno.",
-    universo: "Prestadores RNT (corte 2026-10) y turismo interno trimestral DANE (corte II-2026). Cada sección muestra su corte. Sin series descontinuadas.",
+    formula: "Conteo RNT por categoría y municipio (Antioquia); share Medellín distrito; serie EGIT nacional de turismo interno.",
+    universo: "Prestadores RNT con domicilio en Antioquia (Medellín es un municipio del top). EGIT es residentes colombianos con viaje interno, no EVI.",
     licencia: "Agregados propios del ETL; fuentes primarias datos.gov.co / DANE.",
-    noMide: "La tarifa vigente de un hotel ni series descontinuadas (uplift, tarifa-zona)."
+    noMide: "La tarifa vigente de un hotel, el inventario solo del Distrito sin el resto de Antioquia, ni el visitante internacional."
   },
 
   {
@@ -280,12 +300,12 @@ window.CATALOGO = [
   {
     id: "informe-llm", tab: "informes", nombre: "Informe narrativo redactado por LLM",
     pastilla: "Bureau · LLM", clase: "proxy",
-    fuenteTipo: "Secundaria", fuente: "ETL Bureau: warehouse PROC redactado con LLM (Groq), report/redactar_informe.py",
-    pedida: "Por corte", grano: "Secciones espejo TEC", unidad: "Hallazgos con cifra y fuente",
-    formula: "Cada cifra del texto se verifica contra el warehouse; la cifra sin fuente se rechaza y no se publica.",
-    universo: "Destinos, emisores, ult3m, conectividad, gasto/hotel y marca LLM del corte.",
-    licencia: "Agregados propios del ETL.",
-    noMide: "Flujos de Migración Colombia ni encuestas que el ETL no ingiere."
+    fuenteTipo: "Secundaria", fuente: "POST /api/generar-informe (Groq) con paquete completo del dashboard + banco Pexels/Unsplash. Estático: informe_llm.json.",
+    pedida: "Por corte / on-demand", grano: "Secciones estilo TEC + insights + tablas + figuras + imagen",
+    formula: "Agrega toda la info de los tableros (no dumps crudos); cada cifra cita clave del paquete; insights con implicación gerencial.",
+    universo: "Mercados + Visitante + Captación/Miembros (data/open e informe gestión 2025). Diagramación tipo TEC 1S 2026.",
+    licencia: "Agregados propios del tablero / ETL; fotos según banco (Pexels/Unsplash).",
+    noMide: "CRM, Wikipedia, ni el PDF TEC original de ProColombia como fuente de cifras."
   },
 
   {

@@ -1,0 +1,359 @@
+{
+  "id": "trm-banrep",
+  "fuente": "Superintendencia Financiera · TRM oficial (datos.gov.co 32sa-8pi3)",
+  "url": "https://www.datos.gov.co/resource/32sa-8pi3.json",
+  "licencia": "Datos abiertos del Estado colombiano (datos.gov.co).",
+  "descarga": "2026-11-03",
+  "universo": "Promedio mensual de la TRM oficial (COP por USD). Es contexto de gasto en dólares; no es el gasto del visitante ni una causa de llegadas.",
+  "grano": "mensual (promedio de días hábiles publicados)",
+  "serie": [
+    {
+      "anio": 2022,
+      "mes": 1,
+      "trm": 4002.19,
+      "n_dias": 18
+    },
+    {
+      "anio": 2022,
+      "mes": 2,
+      "trm": 3938.95,
+      "n_dias": 19
+    },
+    {
+      "anio": 2022,
+      "mes": 3,
+      "trm": 3805.52,
+      "n_dias": 22
+    },
+    {
+      "anio": 2022,
+      "mes": 4,
+      "trm": 3804.88,
+      "n_dias": 20
+    },
+    {
+      "anio": 2022,
+      "mes": 5,
+      "trm": 4030.66,
+      "n_dias": 20
+    },
+    {
+      "anio": 2022,
+      "mes": 6,
+      "trm": 3922.5,
+      "n_dias": 20
+    },
+    {
+      "anio": 2022,
+      "mes": 7,
+      "trm": 4389.33,
+      "n_dias": 20
+    },
+    {
+      "anio": 2022,
+      "mes": 8,
+      "trm": 4328.03,
+      "n_dias": 21
+    },
+    {
+      "anio": 2022,
+      "mes": 9,
+      "trm": 4435.91,
+      "n_dias": 21
+    },
+    {
+      "anio": 2022,
+      "mes": 10,
+      "trm": 4720.74,
+      "n_dias": 19
+    },
+    {
+      "anio": 2022,
+      "mes": 11,
+      "trm": 4931.33,
+      "n_dias": 18
+    },
+    {
+      "anio": 2022,
+      "mes": 12,
+      "trm": 4790.04,
+      "n_dias": 20
+    },
+    {
+      "anio": 2023,
+      "mes": 1,
+      "trm": 4702.31,
+      "n_dias": 18
+    },
+    {
+      "anio": 2023,
+      "mes": 2,
+      "trm": 4796.64,
+      "n_dias": 19
+    },
+    {
+      "anio": 2023,
+      "mes": 3,
+      "trm": 4760.96,
+      "n_dias": 22
+    },
+    {
+      "anio": 2023,
+      "mes": 4,
+      "trm": 4533.56,
+      "n_dias": 19
+    },
+    {
+      "anio": 2023,
+      "mes": 5,
+      "trm": 4536.83,
+      "n_dias": 19
+    },
+    {
+      "anio": 2023,
+      "mes": 6,
+      "trm": 4213.53,
+      "n_dias": 20
+    },
+    {
+      "anio": 2023,
+      "mes": 7,
+      "trm": 4061.53,
+      "n_dias": 18
+    },
+    {
+      "anio": 2023,
+      "mes": 8,
+      "trm": 4066.87,
+      "n_dias": 21
+    },
+    {
+      "anio": 2023,
+      "mes": 9,
+      "trm": 4007.96,
+      "n_dias": 21
+    },
+    {
+      "anio": 2023,
+      "mes": 10,
+      "trm": 4219.05,
+      "n_dias": 19
+    },
+    {
+      "anio": 2023,
+      "mes": 11,
+      "trm": 4037.51,
+      "n_dias": 19
+    },
+    {
+      "anio": 2023,
+      "mes": 12,
+      "trm": 3954.14,
+      "n_dias": 19
+    },
+    {
+      "anio": 2024,
+      "mes": 1,
+      "trm": 3926.36,
+      "n_dias": 19
+    },
+    {
+      "anio": 2024,
+      "mes": 2,
+      "trm": 3932.56,
+      "n_dias": 20
+    },
+    {
+      "anio": 2024,
+      "mes": 3,
+      "trm": 3905.18,
+      "n_dias": 19
+    },
+    {
+      "anio": 2024,
+      "mes": 4,
+      "trm": 3867.25,
+      "n_dias": 21
+    },
+    {
+      "anio": 2024,
+      "mes": 5,
+      "trm": 3864.44,
+      "n_dias": 20
+    },
+    {
+      "anio": 2024,
+      "mes": 6,
+      "trm": 4057.13,
+      "n_dias": 18
+    },
+    {
+      "anio": 2024,
+      "mes": 7,
+      "trm": 4028.28,
+      "n_dias": 20
+    },
+    {
+      "anio": 2024,
+      "mes": 8,
+      "trm": 4067.62,
+      "n_dias": 21
+    },
+    {
+      "anio": 2024,
+      "mes": 9,
+      "trm": 4195.18,
+      "n_dias": 19
+    },
+    {
+      "anio": 2024,
+      "mes": 10,
+      "trm": 4257.76,
+      "n_dias": 22
+    },
+    {
+      "anio": 2024,
+      "mes": 11,
+      "trm": 4411.83,
+      "n_dias": 19
+    },
+    {
+      "anio": 2024,
+      "mes": 12,
+      "trm": 4384.53,
+      "n_dias": 20
+    },
+    {
+      "anio": 2025,
+      "mes": 1,
+      "trm": 4292.27,
+      "n_dias": 19
+    },
+    {
+      "anio": 2025,
+      "mes": 2,
+      "trm": 4133.6,
+      "n_dias": 19
+    },
+    {
+      "anio": 2025,
+      "mes": 3,
+      "trm": 4133.48,
+      "n_dias": 20
+    },
+    {
+      "anio": 2025,
+      "mes": 4,
+      "trm": 4273.88,
+      "n_dias": 20
+    },
+    {
+      "anio": 2025,
+      "mes": 5,
+      "trm": 4201.5,
+      "n_dias": 21
+    },
+    {
+      "anio": 2025,
+      "mes": 6,
+      "trm": 4113.55,
+      "n_dias": 17
+    },
+    {
+      "anio": 2025,
+      "mes": 7,
+      "trm": 4049.69,
+      "n_dias": 21
+    },
+    {
+      "anio": 2025,
+      "mes": 8,
+      "trm": 4049.93,
+      "n_dias": 20
+    },
+    {
+      "anio": 2025,
+      "mes": 9,
+      "trm": 3914.83,
+      "n_dias": 20
+    },
+    {
+      "anio": 2025,
+      "mes": 10,
+      "trm": 3881.44,
+      "n_dias": 22
+    },
+    {
+      "anio": 2025,
+      "mes": 11,
+      "trm": 3779.76,
+      "n_dias": 17
+    },
+    {
+      "anio": 2025,
+      "mes": 12,
+      "trm": 3797.46,
+      "n_dias": 20
+    },
+    {
+      "anio": 2026,
+      "mes": 1,
+      "trm": 3693.16,
+      "n_dias": 19
+    },
+    {
+      "anio": 2026,
+      "mes": 2,
+      "trm": 3678.7,
+      "n_dias": 19
+    },
+    {
+      "anio": 2026,
+      "mes": 3,
+      "trm": 3714.86,
+      "n_dias": 20
+    },
+    {
+      "anio": 2026,
+      "mes": 4,
+      "trm": 3613.54,
+      "n_dias": 20
+    },
+    {
+      "anio": 2026,
+      "mes": 5,
+      "trm": 3718.86,
+      "n_dias": 19
+    },
+    {
+      "anio": 2026,
+      "mes": 6,
+      "trm": 3497.09,
+      "n_dias": 17
+    },
+    {
+      "anio": 2026,
+      "mes": 7,
+      "trm": 3272.01,
+      "n_dias": 21
+    },
+    {
+      "anio": 2026,
+      "mes": 8,
+      "trm": 3126.78,
+      "n_dias": 19
+    },
+    {
+      "anio": 2026,
+      "mes": 9,
+      "trm": 3184.33,
+      "n_dias": 21
+    },
+    {
+      "anio": 2026,
+      "mes": 10,
+      "trm": 3198.62,
+      "n_dias": 22
+    }
+  ]
+}

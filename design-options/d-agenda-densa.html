@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D · Agenda densificada</title>
+<link rel="stylesheet" href="charts-shared.css">
+<style>
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Bold.woff2") format("woff2");font-weight:700;font-display:swap}
+  :root{--navy:#172139;--teal:#108181;--teal-b:#00AEAC;--gold:#FBBB28;--orange:#E9901E;--lime:#B4C42C;--bg:#f7f8fa;--card:#fff;--stroke:#cfd6e0;--t2:#5d6c7d}
+  *{box-sizing:border-box}body{margin:0;font-family:"Montserrat",sans-serif;background:var(--bg);color:var(--navy);font-size:12.5px}
+  .ribbon{background:var(--navy);color:#fff;border-bottom:3px solid var(--gold)}
+  .ribbon .inner{max-width:1280px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .ribbon h1{margin:0;font-size:14px;font-weight:700;flex:1}
+  .tabs{display:flex;gap:4px}.tab{padding:6px 10px;border-radius:6px;font-size:11px;font-weight:700;color:rgba(255,255,255,.7)}
+  .tab.on{background:var(--orange);color:var(--navy)}
+  .wrap{max-width:1280px;margin:0 auto;padding:10px 16px 24px}
+  .strip{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:10px}
+  .kpi{background:#fff;border:1px solid var(--stroke);border-radius:8px;padding:8px 10px}
+  .kpi .l{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--t2)}
+  .kpi .v{font-size:18px;font-weight:700;margin-top:2px}
+  .grid{display:grid;grid-template-columns:1.05fr 1.1fr .95fr;gap:8px}
+  .block{background:#fff;border:1px solid var(--stroke);border-radius:8px;padding:10px}
+  .block h3{margin:0 0 2px;font-size:12px}.hint{margin:0 0 8px;color:var(--t2);font-size:11px}
+  table{width:100%;border-collapse:collapse;font-size:11px}
+  th{text-align:left;font-size:9px;text-transform:uppercase;color:var(--t2);padding:0 4px 6px;border-bottom:1px solid var(--stroke)}
+  td{padding:5px 4px;border-bottom:1px solid var(--stroke)}
+  .num{text-align:right;font-weight:700}
+  .spark{height:120px;border:1px solid var(--stroke);border-radius:6px;background:linear-gradient(180deg,#fff,#eef5f6)}
+  .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+  .tag{background:#eef6f6;color:var(--teal);font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px}
+  .q{background:#fff;border:1px solid var(--stroke);border-left:3px solid var(--gold);padding:8px 10px;border-radius:0 8px 8px 0;margin-bottom:10px}
+  .q strong{font-size:13px}.q span{color:var(--t2);font-size:11px}
+  .hbar .row{grid-template-columns:56px 1fr 36px;font-size:11px;gap:6px}
+  .hbar .track{height:10px}
+  .delta-up{color:#108181}.delta-dn{color:#E9901E}
+</style>
+</head>
+<body>
+<header class="ribbon"><div class="inner">
+  <h1>Bureau · Tableros · Colmayor</h1>
+  <div class="tabs"><span class="tab on">Mercados</span><span class="tab">Visitante</span><span class="tab">Captación</span><span class="tab">Miembros</span></div>
+</div></header>
+<main class="wrap">
+  <div class="q"><strong>Agenda densificada · gráficas compactas pero legibles</strong> <span>Sparklines con último valor, barras con % y deltas coloreados.</span></div>
+  <div class="strip">
+    <div class="kpi"><div class="l">Llegadas</div><div class="v">1,84 M</div></div>
+    <div class="kpi"><div class="l">Top share</div><div class="v">68%</div></div>
+    <div class="kpi"><div class="l">Rutas</div><div class="v">18</div></div>
+    <div class="kpi"><div class="l">Pronóstico</div><div class="v">+4,2%</div></div>
+    <div class="kpi"><div class="l">ICCA</div><div class="v">#—</div></div>
+    <div class="kpi"><div class="l">GDELT</div><div class="v">—</div></div>
+  </div>
+  <div class="grid">
+    <section class="block">
+      <h3>Países · ranking + barra</h3>
+      <p class="hint">Tabla + microbarra: ranking y magnitud juntos.</p>
+      <table>
+        <thead><tr><th>País</th><th></th><th class="num">Share</th><th class="num">Δ</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>EE.UU.</td>
+            <td style="width:40%"><div class="track" style="height:8px;border-radius:99px;background:#eef1f5;overflow:hidden"><div style="width:92%;height:100%;background:linear-gradient(90deg,#E9901E,#FBBB28)"></div></div></td>
+            <td class="num">32%</td><td class="num delta-up">+1,2</td>
+          </tr>
+          <tr>
+            <td>México</td>
+            <td><div class="track" style="height:8px;border-radius:99px;background:#eef1f5;overflow:hidden"><div style="width:48%;height:100%;background:linear-gradient(90deg,#108181,#00AEAC)"></div></div></td>
+            <td class="num">14%</td><td class="num delta-up">+0,4</td>
+          </tr>
+          <tr>
+            <td>España</td>
+            <td><div class="track" style="height:8px;border-radius:99px;background:#eef1f5;overflow:hidden"><div style="width:34%;height:100%;background:#108181"></div></div></td>
+            <td class="num">9%</td><td class="num delta-dn">−0,3</td>
+          </tr>
+          <tr>
+            <td>Perú</td>
+            <td><div class="track" style="height:8px;border-radius:99px;background:#eef1f5;overflow:hidden"><div style="width:26%;height:100%;background:#B4C42C"></div></div></td>
+            <td class="num">7%</td><td class="num delta-up">+0,8</td>
+          </tr>
+          <tr>
+            <td>Ecuador</td>
+            <td><div class="track" style="height:8px;border-radius:99px;background:#eef1f5;overflow:hidden"><div style="width:22%;height:100%;background:#FBBB28"></div></div></td>
+            <td class="num">6%</td><td class="num">0,0</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="block">
+      <h3><span class="live-dot"></span>Serie corta · spark con valor</h3>
+      <p class="hint">Último punto etiquetado; área con glow sutil.</p>
+      <div class="fx-chart spark">
+        <svg viewBox="0 0 420 120">
+          <defs>
+            <linearGradient id="dFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#00AEAC" stop-opacity=".35"/>
+              <stop offset="100%" stop-color="#00AEAC" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="dGlow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <g stroke="#cfd6e0" stroke-dasharray="2 3"><line x1="8" y1="20" x2="410" y2="20"/><line x1="8" y1="60" x2="410" y2="60"/><line x1="8" y1="100" x2="410" y2="100"/></g>
+          <polygon fill="url(#dFill)" points="8,85 50,78 95,82 140,60 185,66 230,45 275,50 320,30 365,36 405,28 405,100 8,100"/>
+          <polyline fill="none" stroke="#00AEAC" stroke-width="2.5" filter="url(#dGlow)" points="8,85 50,78 95,82 140,60 185,66 230,45 275,50 320,30 365,36 405,28"/>
+          <circle cx="405" cy="28" r="5" fill="#FBBB28" stroke="#172139" stroke-width="1.5"/>
+          <rect x="330" y="6" width="72" height="18" rx="4" fill="#172139"/>
+          <text x="366" y="18" text-anchor="middle" fill="#FBBB28" font-size="10" font-weight="700">186k · dic</text>
+        </svg>
+      </div>
+      <div class="tags"><span class="tag">Aerocivil</span><span class="tag">EVI cat.869</span><span class="tag">Sin CRM</span></div>
+    </section>
+    <section class="block">
+      <h3>Comparativo 3 series</h3>
+      <p class="hint">Mismo eje; colores V7; leyenda corta.</p>
+      <div class="fx-chart spark">
+        <svg viewBox="0 0 360 120">
+          <g stroke="#cfd6e0" stroke-dasharray="2 3"><line x1="30" y1="20" x2="350" y2="20"/><line x1="30" y1="60" x2="350" y2="60"/><line x1="30" y1="100" x2="350" y2="100"/></g>
+          <polyline fill="none" stroke="#E9901E" stroke-width="2" points="30,80 90,70 150,74 210,55 270,50 330,40"/>
+          <polyline fill="none" stroke="#00AEAC" stroke-width="2" points="30,90 90,85 150,82 210,70 270,68 330,58"/>
+          <polyline fill="none" stroke="#FBBB28" stroke-width="2" stroke-dasharray="4 3" points="30,70 90,72 150,65 210,60 270,48 330,42"/>
+          <g font-size="9" font-weight="700" fill="#5d6c7d">
+            <text x="30" y="114">Ene</text><text x="210" y="114">Jul</text><text x="320" y="114">Dic</text>
+          </g>
+        </svg>
+      </div>
+      <div class="fx-legend" style="color:var(--t2);font-size:10px">
+        <span><i style="background:#E9901E"></i>Llegadas</span>
+        <span><i style="background:#00AEAC"></i>Conectividad</span>
+        <span><i style="background:#FBBB28"></i>Pronóstico</span>
+      </div>
+    </section>
+  </div>
+</main>
+</body>
+</html>

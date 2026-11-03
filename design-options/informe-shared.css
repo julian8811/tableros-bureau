@@ -1,0 +1,35 @@
+@font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Medium.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Bold.woff2") format("woff2");font-weight:700;font-display:swap}
+:root{
+  --navy:#172139;--teal:#108181;--teal-bright:#00AEAC;--teal-deep:#195855;
+  --gold:#FBBB28;--orange:#E9901E;--lime:#B4C42C;
+  --text:#eef3f3;--text-2:#9db3b3;--muted:#7d8ea3;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Montserrat",system-ui,sans-serif;font-size:14px;line-height:1.5}
+a{color:inherit}
+.back{
+  position:sticky;top:0;z-index:5;display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+  padding:10px 20px;font-size:12px;font-weight:600;
+  border-bottom:1px solid rgba(255,255,255,.15);
+  background:rgba(12,18,32,.92);color:#eef3f3;backdrop-filter:blur(12px);
+}
+.back a{color:var(--teal-bright);text-decoration:none}
+.back .opt{color:var(--gold);letter-spacing:.06em;text-transform:uppercase;font-size:10px}
+.fig-note{font-size:11px;color:var(--muted);margin:6px 0 0}
+.bars{display:grid;gap:8px;margin:0}
+.bar-row{display:grid;grid-template-columns:110px 1fr 72px;gap:8px;align-items:center;font-size:12px}
+.bar-row .track{height:10px;border-radius:999px;background:rgba(127,140,160,.2);overflow:hidden}
+.bar-row .fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--teal),var(--teal-bright))}
+.bar-row .val{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.kpi-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.kpi-strip .k{padding:12px 14px;border-radius:12px}
+.kpi-strip .k b{display:block;font-size:20px;letter-spacing:-.02em}
+.kpi-strip .k span{font-size:11px;opacity:.8}
+ul.clean{margin:0;padding-left:18px}
+ul.clean li{margin:0 0 8px}
+.src{font-size:11px;opacity:.65}
+.callout{border-left:4px solid var(--gold);padding:10px 14px;margin:12px 0 0;border-radius:0 10px 10px 0}
+@media print{.back{display:none}}

@@ -7,3 +7,9 @@ qa/salida/
 .atl/
 .vercel
 .env*
+assets/logo_bureau_dl_*
+assets/bureau_extract/
+assets/extract_*
+design-options/qa-informe/
+design-options/qa-selects/
+design-options/tec-ref/

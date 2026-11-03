@@ -8,6 +8,24 @@
       "n": 270
     },
     {
+      "archivo": "data/open/mincit_vnr.json",
+      "id": "mincit-vnr",
+      "estado": "ok",
+      "n": 54
+    },
+    {
+      "archivo": "data/open/migracion_entradas.json",
+      "id": "migracion-entradas",
+      "estado": "ok",
+      "n": 54
+    },
+    {
+      "archivo": "data/open/trm_banrep.json",
+      "id": "trm-banrep",
+      "estado": "ok",
+      "n": 58
+    },
+    {
       "archivo": "data/open/ema.json",
       "id": "ema",
       "estado": "ok",
@@ -44,12 +62,6 @@
       "n": 6
     },
     {
-      "archivo": "data/open/bureau_paises_2025_2026.json",
-      "id": "bureau-paises",
-      "estado": "ok",
-      "n": 788
-    },
-    {
       "archivo": "data/open/bureau_prensa.json",
       "id": "prensa-medios",
       "estado": "ok",
@@ -77,7 +89,7 @@
       "archivo": "data/open/bureau_conectividad.json",
       "id": "bureau-conectividad",
       "estado": "ok",
-      "n": 19
+      "n": 31
     },
     {
       "archivo": "data/open/bureau_calendario.json",
@@ -104,21 +116,21 @@
       "n": 13
     },
     {
-      "archivo": "data/open/mincit_vnr.json",
-      "id": "mincit-vnr",
+      "archivo": "data/open/bureau_paises_2025_2026.json",
+      "id": "bureau-paises",
       "estado": "ok",
-      "n": 54
+      "n": 788
+    },
+    {
+      "archivo": "data/open/informe_llm.json",
+      "id": "informe-llm",
+      "estado": "ok",
+      "n": 10
     }
   ],
   "errores": [
-    "gdelt: RuntimeError: GDELT respondió 429 Too Many Requests. No se inventan menciones.",
-    "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
-    "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
-    "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
-    "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
-    "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
-    "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
-    "gdelt/tendencias: reintento solo con cuota estable"
+    "gdelt.json: pendiente de cuota estable",
+    "tendencias.json: pendiente de cuota estable"
   ],
   "mercados": [
     "Colombia",

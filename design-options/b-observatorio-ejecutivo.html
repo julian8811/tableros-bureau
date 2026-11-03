@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B · Observatorio ejecutivo</title>
+<link rel="stylesheet" href="charts-shared.css">
+<style>
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Bold.woff2") format("woff2");font-weight:700;font-display:swap}
+  :root{--navy:#172139;--teal:#108181;--teal-b:#00AEAC;--gold:#FBBB28;--orange:#E9901E;--bg:#eef1f5;--card:#fff;--stroke:#d5dce6;--t2:#607086}
+  *{box-sizing:border-box}body{margin:0;font-family:"Montserrat",sans-serif;background:var(--bg);color:var(--navy);display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+  aside{background:var(--navy);color:#fff;padding:20px 16px;display:flex;flex-direction:column;gap:18px}
+  .brand{display:flex;gap:10px;align-items:center;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .mark{width:40px;height:40px;border-radius:10px;background:var(--teal-b);color:var(--navy);display:grid;place-items:center;font-weight:800;font-size:12px}
+  .brand b{display:block;font-size:13px}.brand span{font-size:11px;opacity:.7}
+  nav{display:grid;gap:6px}
+  nav a{display:block;padding:10px 12px;border-radius:10px;color:rgba(255,255,255,.78);text-decoration:none;font-size:13px;font-weight:600}
+  nav a.on{background:rgba(0,174,172,.18);color:#fff;box-shadow:inset 3px 0 0 var(--gold)}
+  .foot{margin-top:auto;font-size:10px;line-height:1.4;opacity:.55}
+  main{padding:18px 22px 32px}
+  .top{display:flex;justify-content:space-between;align-items:end;margin-bottom:16px;gap:12px;flex-wrap:wrap}
+  .top h1{margin:0;font-size:22px}.top p{margin:4px 0 0;color:var(--t2);font-size:13px}
+  .corte{background:#fff;border:1px solid var(--stroke);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:700}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+  .kpi{background:#fff;border:1px solid var(--stroke);border-radius:14px;padding:14px 16px}
+  .kpi .l{font-size:11px;color:var(--t2);font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+  .kpi .v{font-size:30px;font-weight:700;margin-top:6px;color:var(--teal)}
+  .kpi .d{font-size:12px;color:var(--t2);margin-top:4px}
+  .row{display:grid;grid-template-columns:1.35fr .95fr;gap:12px;margin-bottom:12px}
+  .panel{background:#fff;border:1px solid var(--stroke);border-radius:14px;padding:16px}
+  .panel h3{margin:0 0 4px;font-size:15px}
+  .hint{margin:0 0 12px;color:var(--t2);font-size:12px}
+  .mapfake{height:260px;border-radius:12px;background:radial-gradient(circle at 52% 48%,rgba(0,174,172,.2),transparent 42%),linear-gradient(160deg,#f7fafb,#e4ebf4);border:1px solid var(--stroke);position:relative;overflow:hidden}
+  .node{position:absolute;transform:translate(-50%,-50%);text-align:center}
+  .node .orb{width:18px;height:18px;border-radius:50%;margin:0 auto 4px;box-shadow:0 0 0 6px rgba(0,174,172,.15),0 0 18px rgba(0,174,172,.45)}
+  .node .lbl{font-size:10px;font-weight:700;background:rgba(255,255,255,.92);padding:2px 6px;border-radius:6px;border:1px solid var(--stroke);white-space:nowrap}
+  .hbar .row{grid-template-columns:78px 1fr 44px}
+</style>
+</head>
+<body>
+<aside>
+  <div class="brand"><div class="mark">CM</div><div><b>Observatorio</b><span>Bureau · Colmayor</span></div></div>
+  <nav>
+    <a class="on" href="#">Mercados</a>
+    <a href="#">Visitante</a>
+    <a href="#">Captación</a>
+    <a href="#">Miembros</a>
+  </nav>
+  <p class="foot">Vigilada por el Ministerio de Educación Nacional · Línea gráfica V7</p>
+</aside>
+<main>
+  <div class="top">
+    <div><h1>Mercados prioritarios</h1><p>Mapa de atención + ranking con valores visibles</p></div>
+    <div class="corte"><span class="live-dot"></span>Corte · nov 2026</div>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><div class="l">Llegadas int.</div><div class="v">1,84 M</div><div class="d">Aerocivil agregado</div></div>
+    <div class="kpi"><div class="l">Share top 5</div><div class="v">68%</div><div class="d">Países foco</div></div>
+    <div class="kpi"><div class="l">Rutas activas</div><div class="v">18</div><div class="d">Proxy conectividad</div></div>
+    <div class="kpi"><div class="l">Pronóstico 6 m</div><div class="v">+4,2%</div><div class="d">Escenario base</div></div>
+  </div>
+  <div class="row">
+    <section class="panel">
+      <h3>Mapa de atención · pulsos por mercado</h3>
+      <p class="hint">Cada orbe = mercado; tamaño/intensidad ≈ importancia. Etiqueta con share.</p>
+      <div class="mapfake radar-grid">
+        <div class="scanline"></div>
+        <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 640 260" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <radialGradient id="pulse"><stop offset="0%" stop-color="#00AEAC" stop-opacity=".5"/><stop offset="100%" stop-color="#00AEAC" stop-opacity="0"/></radialGradient>
+          </defs>
+          <!-- arcs -->
+          <g fill="none" stroke="#00AEAC" stroke-opacity=".18" stroke-width="1">
+            <ellipse cx="320" cy="130" rx="90" ry="55"/><ellipse cx="320" cy="130" rx="150" ry="90"/><ellipse cx="320" cy="130" rx="220" ry="120"/>
+          </g>
+          <!-- links from Medellín -->
+          <g stroke="#00AEAC" stroke-width="1.5" stroke-opacity=".45" stroke-dasharray="4 5">
+            <path d="M320,130 C280,90 220,70 180,78"/><path d="M320,130 C360,80 420,70 470,85"/>
+            <path d="M320,130 C300,170 250,200 210,210"/><path d="M320,130 C360,180 430,200 490,195"/>
+            <path d="M320,130 C340,100 380,60 410,40"/>
+          </g>
+          <circle cx="320" cy="130" r="10" fill="#FBBB28" stroke="#172139" stroke-width="2"/>
+          <text x="320" y="155" text-anchor="middle" font-size="10" font-weight="700" fill="#172139">Medellín</text>
+        </svg>
+        <div class="node" style="left:28%;top:30%"><div class="orb" style="background:#E9901E;width:22px;height:22px"></div><div class="lbl">EE.UU. 32%</div></div>
+        <div class="node" style="left:74%;top:32%"><div class="orb" style="background:#00AEAC"></div><div class="lbl">México 14%</div></div>
+        <div class="node" style="left:64%;top:14%"><div class="orb" style="background:#108181;width:14px;height:14px"></div><div class="lbl">España 9%</div></div>
+        <div class="node" style="left:33%;top:78%"><div class="orb" style="background:#B4C42C;width:14px;height:14px"></div><div class="lbl">Perú 7%</div></div>
+        <div class="node" style="left:77%;top:74%"><div class="orb" style="background:#FBBB28;width:12px;height:12px"></div><div class="lbl">Ecuador 6%</div></div>
+      </div>
+    </section>
+    <section class="panel">
+      <h3>Participación por mercado</h3>
+      <p class="hint">Barra + número: no hay que adivinar longitudes.</p>
+      <div class="hbar">
+        <div class="row"><span>EE.UU.</span><div class="track"><div class="fill" style="width:90%;background:linear-gradient(90deg,#172139,#E9901E)"></div></div><span>32%</span></div>
+        <div class="row"><span>México</span><div class="track"><div class="fill" style="width:48%;background:linear-gradient(90deg,#108181,#00AEAC)"></div></div><span>14%</span></div>
+        <div class="row"><span>España</span><div class="track"><div class="fill" style="width:34%;background:linear-gradient(90deg,#195855,#00AEAC)"></div></div><span>9%</span></div>
+        <div class="row"><span>Perú</span><div class="track"><div class="fill" style="width:26%;background:linear-gradient(90deg,#B4C42C,#108181)"></div></div><span>7%</span></div>
+        <div class="row"><span>Ecuador</span><div class="track"><div class="fill" style="width:22%;background:linear-gradient(90deg,#FBBB28,#E9901E)"></div></div><span>6%</span></div>
+      </div>
+      <div class="fx-chart" style="height:150px;margin-top:16px;border:1px solid var(--stroke);border-radius:12px;background:#f7fafb">
+        <svg viewBox="0 0 420 150">
+          <text x="16" y="22" class="fx-val" fill="#172139">Δ vs año anterior</text>
+          <g>
+            <rect x="60" y="40" width="18" height="70" rx="4" fill="#00AEAC"/><text x="69" y="128" text-anchor="middle" class="fx-axis" fill="#607086">US</text><text x="69" y="36" text-anchor="middle" class="fx-val" fill="#108181">+1.2</text>
+            <rect x="120" y="55" width="18" height="55" rx="4" fill="#00AEAC"/><text x="129" y="128" text-anchor="middle" class="fx-axis" fill="#607086">MX</text><text x="129" y="50" text-anchor="middle" class="fx-val" fill="#108181">+.4</text>
+            <rect x="180" y="78" width="18" height="32" rx="4" fill="#E9901E"/><text x="189" y="128" text-anchor="middle" class="fx-axis" fill="#607086">ES</text><text x="189" y="74" text-anchor="middle" class="fx-val" fill="#E9901E">−.3</text>
+            <rect x="240" y="48" width="18" height="62" rx="4" fill="#00AEAC"/><text x="249" y="128" text-anchor="middle" class="fx-axis" fill="#607086">PE</text><text x="249" y="44" text-anchor="middle" class="fx-val" fill="#108181">+.8</text>
+            <rect x="300" y="85" width="18" height="25" rx="4" fill="#B4C42C"/><text x="309" y="128" text-anchor="middle" class="fx-axis" fill="#607086">EC</text><text x="309" y="80" text-anchor="middle" class="fx-val" fill="#607086">0</text>
+          </g>
+          <line x1="40" y1="110" x2="380" y2="110" stroke="#d5dce6"/>
+        </svg>
+      </div>
+    </section>
+  </div>
+</main>
+</body>
+</html>

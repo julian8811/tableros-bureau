@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """Trae los agregados del ETL Bureau (repo bureau-inteligencia-turistica)
-y los deja en data/open con el schema de este tablero. No toca las piezas
-propias (icca/evi/huella/informe) ni reescribe conectividad/ema/medata.
+y los deja en data/open con el schema de este tablero. No reescribe
+conectividad/ema/medata/icca/evi/huella locales.
+Intenta sincronizar informe_llm.json del export; si 404, conserva el local.
 Wikipedia y GDELT salieron del tablero: la señal digital ahora es prensa
 (bureau_prensa.json). Si una fuente falla, el JSON anterior queda.
 """
@@ -27,11 +28,12 @@ _PIEZAS_PROPIAS = ("bureau_marca_llm.json", "bureau_paises_2025_2026.json",
                     "bureau_seguridad.json", "bureau_clima.json",
                     "bureau_conectividad.json", "bureau_calendario.json",
                     "bureau_owid.json", "bureau_sit.json",
-                    "bureau_pronostico.json")
+                    "bureau_pronostico.json", "informe_llm.json")
 _IDS_PROPIOS = ("marca-llm", "bureau-paises", "prensa-medios",
                   "bureau-oferta", "bureau-seguridad", "bureau-clima",
                   "bureau-conectividad", "bureau-calendario",
-                  "bureau-owid", "bureau-sit", "bureau-pronostico")
+                  "bureau-owid", "bureau-sit", "bureau-pronostico",
+                  "informe-llm")
 
 
 def _es_pieza_propia(entrada):
@@ -319,6 +321,27 @@ def pronostico():
     print("pronostico ok", len(src.get("series") or []))
 
 
+def informe_llm():
+    """Baja informe_llm.json del export remoto si existe; si 404, conserva el local."""
+    local = OUT / "informe_llm.json"
+    try:
+        src = bajar("informe_llm.json")
+    except Exception as exc:
+        msg = "".join(traceback.format_exception_only(type(exc), exc)).strip()
+        ERRORES.append("informe_llm: " + msg)
+        if local.exists():
+            print("falla informe_llm, se conserva el anterior")
+        else:
+            print("falla informe_llm y no hay local:", msg)
+        return
+    if not isinstance(src, dict) or not isinstance(src.get("secciones"), list):
+        ERRORES.append("informe_llm: payload sin secciones")
+        print("informe_llm inválido remoto, se conserva el anterior")
+        return
+    guardar("informe_llm.json", src)
+    print("informe_llm ok", len(src.get("secciones") or []), "secciones · corte", src.get("corte"))
+
+
 def manifiesto():
     try:
         previo = json.loads((OUT / "manifiesto.json").read_text(encoding="utf-8"))
@@ -337,6 +360,7 @@ def manifiesto():
         ("bureau_owid.json", "bureau-owid", "serie"),
         ("bureau_sit.json", "bureau-sit", "serie"),
         ("bureau_pronostico.json", "bureau-pronostico", "series"),
+        ("informe_llm.json", "informe-llm", "secciones"),
     ):
         path = OUT / nombre
         if not path.exists():
@@ -351,8 +375,9 @@ def manifiesto():
     doc = dict(previo)
     doc["piezas"] = piezas
     doc["errores"] = (previo.get("errores", []) + ERRORES)[-20:]
+    doc["generado"] = _dt.date.today().isoformat()
     (OUT / "manifiesto.json").write_text(json.dumps(doc, ensure_ascii=False, indent=1), encoding="utf-8")
-    print("manifiesto", [(x["id"], x["n"]) for x in piezas if str(x["id"]).startswith("marca") or str(x["id"]).startswith("bureau")])
+    print("manifiesto", [(x["id"], x["n"]) for x in piezas if str(x["id"]).startswith("marca") or str(x["id"]).startswith("bureau") or str(x["id"]).startswith("informe")])
 
 
 if __name__ == "__main__":
@@ -367,4 +392,5 @@ if __name__ == "__main__":
     owid()
     sit()
     pronostico()
+    informe_llm()
     manifiesto()

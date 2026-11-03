@@ -3,6 +3,7 @@
 @font-face{font-family:"Montserrat";src:url("assets/fonts/Montserrat-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
 @font-face{font-family:"Montserrat";src:url("assets/fonts/Montserrat-Bold.woff2") format("woff2");font-weight:700;font-display:swap}
 :root{
+  color-scheme:dark;
   --navy:#172139;--teal:#108181;--teal-bright:#00AEAC;--teal-deep:#195855;
   --gold:#FBBB28;--orange:#E9901E;--lime:#B4C42C;
   --bg:#0c1526;--surface:rgba(23,33,57,.18);--surface-2:rgba(26,36,56,.22);--stroke:rgba(255,255,255,.22);
@@ -10,6 +11,10 @@
   --text:#eef3f3;--text-2:#9db3b3;--text-3:#7d8ea3;
   --sim:#6E5A8A;--sim-bg:rgba(36,29,61,.32);
   --blur:36px;
+  --select-bg:#121c30;
+  --select-bg-open:#0e1728;
+  --select-option:#152238;
+  --select-option-active:#195855;
 }
 *{box-sizing:border-box}
 body{
@@ -110,12 +115,36 @@ button{cursor:pointer}
 
 .filters{align-items:end;margin:0}
 .filter{display:flex;flex-direction:column;gap:3px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text-3)}
-.filter select{
+.filter select,.llm-sel select,.calc select{
+  appearance:none;-webkit-appearance:none;-moz-appearance:none;
   border:1px solid var(--glass-border);
-  background:rgba(255,255,255,.05);
-  backdrop-filter:blur(14px) saturate(1.4);
-  -webkit-backdrop-filter:blur(14px) saturate(1.4);
-  border-radius:8px;padding:7px 8px;color:var(--text);font-size:12px;font-weight:600;text-transform:none;letter-spacing:0
+  background-color:var(--select-bg);
+  background-image:
+    linear-gradient(165deg,rgba(255,255,255,.08),rgba(255,255,255,.02)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath stroke='%239db3b3' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round' d='M1.5 1.8 6 6.2l4.5-4.4'/%3E%3C/svg%3E");
+  background-repeat:no-repeat,no-repeat;
+  background-position:0 0,right 10px center;
+  background-size:auto,12px 8px;
+  border-radius:8px;padding:7px 32px 7px 10px;color:var(--text);font-size:12px;font-weight:600;text-transform:none;letter-spacing:0;
+  color-scheme:dark;
+}
+.filter select:hover,.llm-sel select:hover,.calc select:hover{border-color:rgba(0,174,172,.55)}
+.filter select:focus-visible,.llm-sel select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.filter select option,.llm-sel select option,.calc select option{
+  background-color:var(--select-option);
+  color:var(--text);
+}
+.filter select option:checked,.llm-sel select option:checked,
+.filter select option:hover,.llm-sel select option:hover,
+.filter select option:focus,.llm-sel select option:focus{
+  background-color:var(--select-option-active);
+  color:#fff;
+}
+.filter select[size],.llm-sel select[size],
+.filter select[data-qa-open],.llm-sel select[data-qa-open]{
+  background-color:var(--select-bg-open);
+  background-image:none;
+  padding-right:10px;
 }
 .calc input{border:1px solid var(--glass-border);background:rgba(255,255,255,.05);border-radius:8px;padding:7px 8px;color:var(--text);font-weight:600}
 
@@ -302,10 +331,146 @@ body[data-tablero="miembros"] .kpi .value{color:var(--teal-bright)}
 }
 .src{display:block;color:var(--text-2);font-size:12px;line-height:1.45;margin-top:8px}
 
+.opts{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;
+  margin:0 0 16px;padding:12px 14px;
+  border:1px solid var(--glass-border);border-radius:12px;
+  background:var(--glass);
+  backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);
+}
+.opts > span{font-size:12px;font-weight:600;color:var(--text-2);margin-right:4px}
+.check{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;color:var(--text);cursor:pointer;
+  padding:4px 8px;border-radius:8px;border:1px solid transparent;
+}
+.check:hover{border-color:var(--glass-border);background:rgba(255,255,255,.04)}
+.check input{accent-color:var(--teal-bright);width:16px;height:16px}
+.btn-gen{border-color:rgba(0,174,172,.45);background:rgba(0,174,172,.12);font-weight:600}
+.btn-gen:disabled{opacity:.55;cursor:wait}
+.llm-sel{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)}
+.llm-sel select{min-height:36px;padding-top:6px;padding-bottom:6px}
+.informe-lista li{align-items:flex-start}
+.informe-lista .src{display:inline;margin-left:4px;font-size:11px}
+.informe-lista .implicacion{display:block;color:var(--gold);font-size:12px;margin-top:4px;font-style:normal}
+.tec-doc{display:grid;gap:18px;margin-top:8px}
+.tec-logos{display:flex;align-items:center;gap:14px}
+.tec-logo-bureau{height:34px;width:auto;display:block}
+.tec-logo-colmayor{height:42px;width:auto;display:block;object-fit:contain}
+/* Usar assets blanco/light según fondo — no invert (borra colores del escudo) */
+.tec-portada{
+  position:relative;min-height:320px;border-radius:16px;overflow:hidden;
+  border:1px solid var(--glass-border);
+  background:rgba(8,14,28,.55);
+}
+.tec-hero{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  filter:saturate(1.05) brightness(.5);
+}
+.tec-portada-top{
+  position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-start;
+  padding:20px 24px 0;gap:12px;
+}
+.tec-turismo-tag{
+  display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:#fff;
+}
+.tec-turismo-tag i{display:block;width:24px;height:12px;background:var(--gold)}
+.tec-portada-copy{
+  position:relative;z-index:1;padding:28px 28px 40px;max-width:760px;
+}
+.tec-portada-copy h2{margin:0 0 12px;font-size:32px;line-height:1.15;letter-spacing:-.02em;text-transform:uppercase}
+.tec-period{
+  display:inline-block;margin:0;padding:8px 16px;background:var(--gold);color:var(--navy);
+  font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+}
+.tec-portada-bar{position:absolute;left:0;right:0;bottom:0;height:8px;background:var(--gold);z-index:2}
+.tec-kicker{margin:0 0 10px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.tec-resumen,.tec-toc,.tec-sec{
+  border:1px solid var(--glass-border);border-radius:14px;padding:16px 18px;
+  background:var(--glass);
+  backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);
+}
+.tec-toc-head{display:flex;justify-content:flex-end;margin-bottom:8px}
+.tec-toc ol{margin:8px 0 0;padding-left:20px;columns:2;gap:24px}
+.tec-toc a{color:var(--text);text-decoration:none}
+.tec-toc a:hover{color:var(--teal-bright)}
+.tec-sec-head{display:flex;flex-wrap:wrap;align-items:flex-start;gap:10px 14px;margin-bottom:12px}
+.tec-sec-num{font-size:22px;font-weight:800;color:var(--gold);letter-spacing:.04em;line-height:1}
+.tec-sec-head h3{margin:0;font-size:20px}
+.tec-insight-title{
+  margin:0 0 14px;font-size:17px;font-weight:700;line-height:1.35;color:var(--teal-bright);max-width:70ch;
+}
+.tec-anchor{
+  margin:0 0 14px;padding:12px 14px;border:1px solid var(--glass-border);border-radius:12px;
+  background:rgba(255,255,255,.04);
+}
+.tec-fig-label{margin:0 0 8px;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text-3)}
+.tec-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:4px}
+@media (max-width:800px){.tec-cols{grid-template-columns:1fr}}
+.tec-col h4{margin:0 0 8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold)}
+.tec-lead{font-size:15px;color:var(--text);margin:0 0 12px}
+.tec-tabla-wrap{overflow:auto;margin:8px 0}
+.tec-tabla{width:100%;border-collapse:collapse;font-size:12px}
+.tec-tabla th,.tec-tabla td{border-bottom:1px solid var(--glass-border);padding:8px 10px;text-align:left}
+.tec-tabla th{background:rgba(23,33,57,.55);color:#fff;font-weight:600;white-space:nowrap}
+.tec-tabla td:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
+.no-print{}
+
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
-  .site,.mando,.kpi,.block,.qbox,.modal,.tab,.btn,.hueco,.stock,.lista li,.aviso,.site .corte-pill{
+  .site,.mando,.kpi,.block,.qbox,.modal,.tab,.btn,.hueco,.stock,.lista li,.aviso,.site .corte-pill,.opts{
     background:rgba(16,24,40,.92);
   }
+}
+
+@media print{
+  body{
+    background:#fff !important;color:#111 !important;
+    font-size:11pt;line-height:1.35;
+  }
+  .site{
+    background:#172139 !important;color:#fff !important;
+    box-shadow:none !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important;
+    print-color-adjust:exact;-webkit-print-color-adjust:exact;
+  }
+  .site img{height:72px}
+  .site .corte-pill,.skip,.footer-doc,#tip,.modal-back{display:none !important}
+  .mando{
+    position:static;background:#f4f6f8 !important;color:#111 !important;
+    box-shadow:none !important;border-bottom:1px solid #ccc;margin:0 0 12px;
+    backdrop-filter:none !important;-webkit-backdrop-filter:none !important;
+  }
+  .tab:not(.on),.filters,.opts .btn,.opts .btn-gen,.opts a.btn,.no-print{display:none !important}
+  .opts{
+    background:transparent !important;border:none;padding:0;margin:0 0 8px;
+    backdrop-filter:none !important;-webkit-backdrop-filter:none !important;
+  }
+  .tec-portada{min-height:220px;border:none;border-radius:0;break-after:page}
+  .tec-hero{filter:brightness(.45)}
+  .tec-portada-copy h2{color:#fff !important;font-size:28pt}
+  .tec-resumen,.tec-toc,.tec-sec{
+    background:#fff !important;color:#111 !important;border:1px solid #ccc;
+    box-shadow:none !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important;
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .tec-sec{break-before:page}
+  .tec-tabla th{color:#172139 !important}
+  .tec-figure img{max-height:220px}
+  .informe-lista .implicacion{color:#195855 !important}
+  .check{border:none;padding:0 8px 0 0}
+  .check input{display:none}
+  .aviso{border-left:3px solid #108181;background:#f0f7f7 !important;color:#222 !important}
+  .block,.kpi,.hueco,.qbox,.stock{
+    background:#fff !important;color:#111 !important;border:1px solid #ccc;
+    box-shadow:none !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important;
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .block h3,.kpi .label{color:#172139 !important}
+  .src,.hint,.pie{color:#555 !important}
+  .pastilla{border:1px solid #999;color:#222 !important;background:#eee !important}
+  #app{max-width:100%;padding:0 12px 24px}
+  a{color:#111;text-decoration:none}
 }
 
 @media(max-width:1100px){

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opciones de diagramación · Informe TEC</title>
+<style>
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Medium.woff2") format("woff2");font-weight:500;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Bold.woff2") format("woff2");font-weight:700;font-display:swap}
+  :root{
+    --navy:#172139;--teal:#108181;--teal-bright:#00AEAC;
+    --gold:#FBBB28;--tec-yellow:#FBBB28;--tec-navy:#172139;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Montserrat",system-ui,sans-serif;background:#0e1422;color:#eef3f3}
+  .chooser{max-width:1280px;margin:0 auto;padding:28px 24px 48px}
+  .chooser h1{margin:0;font-size:28px;letter-spacing:-.02em}
+  .chooser .lead{margin:8px 0 0;color:#9db3b3;max-width:72ch;line-height:1.5}
+  .hero-card{
+    margin-top:24px;display:grid;grid-template-columns:1.15fr .85fr;gap:0;
+    border:1px solid rgba(251,187,40,.45);border-radius:16px;overflow:hidden;background:#141c2e;
+  }
+  @media (max-width:980px){.hero-card,.grid{grid-template-columns:1fr}}
+  .hero-card .preview{aspect-ratio:16/10;background:#111;min-height:280px}
+  .hero-card .preview iframe{width:200%;height:200%;border:0;transform:scale(.5);transform-origin:0 0;pointer-events:none}
+  .hero-card .meta{padding:22px 24px;display:grid;gap:12px;align-content:start}
+  .hero-card .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tec-yellow)}
+  .hero-card h2{margin:0;font-size:22px}
+  .hero-card p{margin:0;font-size:13px;color:#9db3b3;line-height:1.45}
+  .hero-card ul{margin:0;padding-left:18px;color:#9db3b3;font-size:12px;line-height:1.55}
+  .hero-card a,.meta a{
+    display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 16px;
+    border-radius:999px;background:var(--teal);color:#fff;text-decoration:none;font-size:12px;font-weight:700;width:fit-content;
+  }
+  .hero-card a:hover{background:var(--teal-bright);color:var(--navy)}
+  .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:28px}
+  .card{background:#141c2e;border:1px solid #2c3a55;border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+  .card header{padding:16px 18px 12px;border-bottom:1px solid #2c3a55}
+  .card header .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+  .card header h2{margin:0;font-size:18px}
+  .card header p{margin:6px 0 0;font-size:13px;color:#9db3b3;line-height:1.45}
+  .preview{aspect-ratio:16/12;background:#111;position:relative;overflow:hidden}
+  .preview iframe{width:200%;height:200%;border:0;transform:scale(.5);transform-origin:0 0;pointer-events:none}
+  .meta{padding:14px 18px 18px;display:grid;gap:10px;flex:1}
+  .meta ul{margin:0;padding-left:18px;color:#9db3b3;font-size:12px;line-height:1.55}
+  .meta a{background:var(--teal)}
+  .meta a:hover{background:var(--teal-bright);color:var(--navy)}
+  .note{margin-top:24px;padding:14px 16px;border-left:4px solid var(--tec-yellow);background:#141c2e;border-radius:0 10px 10px 0;font-size:13px;color:#9db3b3;line-height:1.5}
+  .note b{color:#eef3f3}
+  .links{margin-top:12px;font-size:12px;color:#7d8ea3}
+  .links a{color:var(--teal-bright)}
+  h3.sub{margin:32px 0 0;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#7d8ea3}
+</style>
+</head>
+<body>
+  <div class="chooser">
+    <h1>Diagramación del informe TEC</h1>
+    <p class="lead">Referencia aprobada para <b>Generar</b>: estructura TEC + Manual V7 + cobertura dashboard. Fotos de <b>turismo Colombia vía Wikimedia Commons API</b> (Openverse como fallback), una distinta por lámina; sin imágenes del PDF TEC.</p>
+
+    <article class="hero-card">
+      <div class="preview"><iframe src="informe-tec-referencia.html" title="Mock TEC V7 completo"></iframe></div>
+      <div class="meta">
+        <span class="tag">Referencia · Generar</span>
+        <h2>Mock completo TEC · Colmayor V7</h2>
+        <p>~27 láminas: portada, contenido, resumen y las 12 secciones del pack (divisor + insight/chart/tabla). Regenerable con <code>node scripts/build_informe_mock.js</code>.</p>
+        <ul>
+          <li>Portada full-bleed + franja gold V7</li>
+          <li>Divisores navy + logos (sin etiqueta TURISMO / iconos +)</li>
+          <li>Datos vivos del paquete compacto</li>
+          <li>Fotos Commons API (CC) · QA Playwright OK</li>
+        </ul>
+        <a href="informe-tec-referencia.html" target="_blank" rel="noopener">Abrir mock completo (.html)</a>
+        <a href="mock.html" target="_blank" rel="noopener" style="background:#195855">Alias mock.html</a>
+      </div>
+    </article>
+
+    <h3 class="sub">Variantes anteriores (tablero / dato primero)</h3>
+    <div class="grid">
+      <article class="card">
+        <header>
+          <span class="tag">Opción A</span>
+          <h2>Editorial claro</h2>
+          <p>Documento largo claro; menos “lámina” que el PDF.</p>
+        </header>
+        <div class="preview"><iframe src="informe-a-editorial-tec.html" title="Vista A"></iframe></div>
+        <div class="meta">
+          <ul>
+            <li>Más reporte continuo que deck</li>
+            <li>Foto solo portada</li>
+          </ul>
+          <a href="informe-a-editorial-tec.html" target="_blank">Abrir A</a>
+        </div>
+      </article>
+      <article class="card">
+        <header>
+          <span class="tag">Opción B</span>
+          <h2>Bureau · rejilla</h2>
+          <p>Piel oscura del tablero (no es el look del PDF).</p>
+        </header>
+        <div class="preview"><iframe src="informe-b-bureau-rejilla.html" title="Vista B"></iframe></div>
+        <div class="meta">
+          <ul>
+            <li>Navy/teal glass</li>
+            <li>Rail curado o vacío</li>
+          </ul>
+          <a href="informe-b-bureau-rejilla.html" target="_blank">Abrir B</a>
+        </div>
+      </article>
+      <article class="card">
+        <header>
+          <span class="tag">Opción C</span>
+          <h2>Dato primero</h2>
+          <p>Sin foto; figuras numeradas del dashboard.</p>
+        </header>
+        <div class="preview"><iframe src="informe-c-dato-primero.html" title="Vista C"></iframe></div>
+        <div class="meta">
+          <ul>
+            <li>0 stock en cuerpo</li>
+            <li>Callouts oro</li>
+          </ul>
+          <a href="informe-c-dato-primero.html" target="_blank">Abrir C</a>
+        </div>
+      </article>
+    </div>
+
+    <p class="note"><b>Diagramación de Generar:</b> el mock TEC+V7 es la plantilla visual. En producción, <code>/api/generar-informe</code> emite JSON con las mismas ids de sección según evidencia del pack; la UI Informes renderiza con tokens V7. Fotos solo en portada/divisores (banco local Colombia); cuerpo = tablas/gráficos de datos.</p>
+    <p class="links"><a href="index.html">Opciones de rediseño del tablero</a> · <a href="tec-ref/page-01.png" target="_blank">Portada PDF</a> · <a href="tec-ref/page-04.png" target="_blank">Página chart PDF</a> · <a href="tec-ref/page-15.png" target="_blank">Página tabla PDF</a></p>
+  </div>
+</body>
+</html>
