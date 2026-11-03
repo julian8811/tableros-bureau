@@ -214,6 +214,14 @@ window.Charts = (function () {
     }).join("");
     var defs = patron.def;
     var trazos = ["0", "6 5", "2 3", "9 3 2 3", "4 2"];
+    /* Serie con mayor pico: trazo sólido más grueso (suele ser Colombia) */
+    var topSerie = 0;
+    var topPeak = -1;
+    series.forEach(function (s, i) {
+      s.points.forEach(function (p) {
+        if (p.y > topPeak) { topPeak = p.y; topSerie = i; }
+      });
+    });
     var lineas = series.map(function (s, serie) {
       var fx = fxDefs(s.color);
       defs += fx.def;
@@ -222,18 +230,23 @@ window.Charts = (function () {
         return { x: padL + i * step, y: yDe(p.y, max, height, padB), p: p };
       });
       var pts = ptsArr.map(function (pt) { return pt.x + "," + pt.y; }).join(" ");
+      var isTop = serie === topSerie;
+      var sw = isTop ? 3.4 : 2.4;
+      var dash = isTop ? "0" : trazos[(serie % (trazos.length - 1)) + 1];
       var area = "";
-      if (serie === 0 && ptsArr.length) {
+      if (isTop && ptsArr.length) {
         area = '<polygon points="' + ptsArr[0].x + "," + yDe(0, max, height, padB) + " " + pts + " " + ptsArr[ptsArr.length - 1].x + "," + yDe(0, max, height, padB) + '" fill="url(#' + fx.gid + ')"></polygon>';
       }
       var circulos = ptsArr.map(function (pt) {
-        return '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="3.5" fill="' + s.color + '"' + marca({ tip: s.name + " · " + pt.p.x + ": " + eje(pt.p.y), pais: s.pais }) + "></circle>";
+        return '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="' + (isTop ? "4.2" : "3.4") + '" fill="' + s.color + '" stroke="#0b1220" stroke-width="1.5"' + marca({ tip: s.name + " · " + pt.p.x + ": " + eje(pt.p.y), pais: s.pais }) + "></circle>";
       }).join("");
       var last = ptsArr[ptsArr.length - 1];
-      var tip = last ? callout(last.x, last.y, eje(last.p.y)) : "";
+      var tip = last && isTop ? callout(last.x, last.y, eje(last.p.y)) : "";
+      /* Bajo-trazo oscuro para contraste sobre navy */
       return area +
-        '<polyline fill="none" stroke="' + s.color + '" stroke-width="' + (serie === 0 ? "2.8" : "2.2") + '" stroke-linecap="round" stroke-dasharray="' + trazos[serie % trazos.length] + '" filter="url(#' + fx.fid + ')" points="' + pts + '"></polyline>' +
-        circulos + (serie === 0 ? tip : "");
+        '<polyline fill="none" stroke="#0b1220" stroke-width="' + (sw + 2.2) + '" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="' + dash + '" points="' + pts + '" opacity="0.55"></polyline>' +
+        '<polyline fill="none" stroke="' + s.color + '" stroke-width="' + sw + '" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="' + dash + '" filter="url(#' + fx.fid + ')" points="' + pts + '"></polyline>' +
+        circulos + tip;
     }).join("");
     var svg = '<svg class="chart" viewBox="0 0 ' + width + " " + height + '" role="img"><defs>' + defs + "</defs>" +
       grilla(width, height, padL, padB, max) + lineas + axis + ejesTitulos(width, height, padL, padB, xLabel, yLabel) + "</svg>";

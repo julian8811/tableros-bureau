@@ -39,8 +39,9 @@
   var MERCADOS = ["Colombia", "Estados Unidos", "México", "Brasil", "Europa"];
   var DESTINOS = ["Medellín", "Bogotá", "Cartagena", "Ciudad de México", "São Paulo", "Lima"];
   var COLOR = {
-    Colombia: "#172139", "Estados Unidos": "#E9901E", "México": "#108181", Brasil: "#B4C42C", Europa: "#195855",
-    MDE: "#108181", EOH: "#E9901E", CENTRO: "#172139", LAURELES: "#108181", POBLADO: "#E9901E"
+    /* Colores de serie visibles sobre fondo navy (evitar #172139 en líneas) */
+    Colombia: "#FBBB28", "Estados Unidos": "#E9901E", "México": "#00AEAC", Brasil: "#B4C42C", Europa: "#108181",
+    MDE: "#108181", EOH: "#E9901E", CENTRO: "#FBBB28", LAURELES: "#108181", POBLADO: "#E9901E"
   };
 
   function esc(text) {
