@@ -224,12 +224,12 @@ window.CATALOGO = [
   },
 
   {
-    id: "bureau-conectividad", tab: "mercados", nombre: "Conectividad ampliada y benchmarks (ETL Bureau)",
+    id: "bureau-conectividad", tab: "mercados", nombre: "Conectividad y benchmarks (ETL Bureau)",
     pastilla: "Bureau", clase: "proxy",
     fuenteTipo: "Secundaria", fuente: "ETL Bureau, Aerocivil/terminales/DANE/Eurostat/WB/Wikimedia 2011-01..2026-11",
     pedida: "Mensual", grano: "Mensual", unidad: "Operaciones y sillas",
     formula: "Operaciones por periodo de la serie y sillas/vuelos por ruta de la oferta aérea.",
-    universo: "Oferta aérea (sillas/vuelos), operaciones, metro, TRM, costos, benchmarks EU/mundo, digital.",
+    universo: "Operaciones aéreas (corte 2026-07), TRM, benchmark UE 2024 y señal digital. Cada sección muestra su corte. Sin series descontinuadas.",
     licencia: "Agregados propios del ETL; fuentes primarias datos.gov.co / Eurostat / Banco Mundial.",
     noMide: "Reservas futuras ni frecuencias vigentes por aerolínea."
   },
@@ -237,12 +237,12 @@ window.CATALOGO = [
   {
     id: "bureau-oferta", tab: "visitante", nombre: "Oferta y territorio (ETL Bureau)",
     pastilla: "Bureau", clase: "proxy",
-    fuenteTipo: "Secundaria", fuente: "ETL Bureau, RNT + MEData + DANE EGIT 2025-2026",
-    pedida: "Por corte", grano: "Temporada y categoría", unidad: "Prestadores y puntos de uplift",
-    formula: "Uplift de ocupación por temporada en puntos porcentuales sobre la base y conteo RNT por categoría.",
-    universo: "Prestadores RNT, tarifa y ocupación por zona, uplift de 6 temporadas, turismo interno.",
-    licencia: "Agregados propios del ETL; fuentes primarias datos.gov.co / DANE / MEData.",
-    noMide: "La tarifa vigente de un hotel ni la ocupación de un mes fuera de la ventana."
+    fuenteTipo: "Secundaria", fuente: "ETL Bureau, RNT + DANE EGIT, scripts/alimentar_bureau.py",
+    pedida: "Por corte", grano: "Registro + trimestre", unidad: "Prestadores y participación",
+    formula: "Conteo RNT por categoría y serie trimestral de turismo interno.",
+    universo: "Prestadores RNT (corte 2026-10) y turismo interno trimestral DANE (corte II-2026). Cada sección muestra su corte. Sin series descontinuadas.",
+    licencia: "Agregados propios del ETL; fuentes primarias datos.gov.co / DANE.",
+    noMide: "La tarifa vigente de un hotel ni series descontinuadas (uplift, tarifa-zona)."
   },
 
   {

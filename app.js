@@ -344,23 +344,22 @@
     var data = DATA.bureauOferta || {};
     var rnt = data.rnt || {};
     var serie = data.serie || [];
-    var cats = rnt.por_categoria || [];
-    if (!serie.length && !rnt.prestadores && !cats.length) return hueco("Oferta", "Corra scripts/alimentar_bureau.py para traer la oferta del ETL.");
-    var uplift = serie.filter(function (row) { return row.uplift_pp != null; }).map(function (row, i) {
-      return { label: row.evento, value: row.uplift_pp, text: num(row.uplift_pp, 1) + " pp", color: Charts.palette[i % Charts.palette.length] };
-    });
-    var categorias = cats.map(function (row, i) {
+    var cortes = data.cortes || {};
+    if (!serie.length && !rnt.prestadores) return hueco("Oferta", "Corra scripts/alimentar_bureau.py para traer la oferta del ETL.");
+    var cats = (rnt.por_categoria || []).map(function (row, i) {
       return { label: row.categoria, value: row.prestadores, text: num(row.prestadores), color: Charts.palette[i % Charts.palette.length] };
     });
+    var porc = serie.filter(function (r) { return r.concepto === "Porcentaje de personas que realizaron turismo interno"; })
+      .map(function (r) { return { x: r.trimestre, y: r.valor }; });
+    var ultimo = porc.length ? porc[porc.length - 1] : null;
     return '<div class="kpi-row">' +
-      kpi("bureau-oferta", "Prestadores RNT", num(rnt.prestadores), esc(data.ventana || "ventana corriente")) +
-      kpi("bureau-oferta", "Habitaciones", num(rnt.habitaciones), "RNT") +
-      kpi("bureau-oferta", "Camas", num(rnt.camas), "RNT") +
+      kpi("bureau-oferta", "Prestadores RNT", num(rnt.prestadores), "corte " + esc(cortes.rnt || data.ventana || "")) +
+      kpi("bureau-oferta", "Turismo interno", ultimo ? num(ultimo.y, 1) + "%" : "—", "corte " + esc(cortes.turismo_interno || "")) +
       "</div>" +
-      block("Uplift de ocupación por temporada", "Puntos porcentuales sobre la base. " + esc(data.ventana || "") + ".",
-        Charts.bars(uplift, "#00AEAC") + pie("ETL Bureau · RNT + MEData + DANE EGIT" + extraido("bureauOferta"))) +
-      block("Prestadores por categoría", "Registro Nacional de Turismo.",
-        (categorias.length ? Charts.bars(categorias, "#108181") : hueco("Sin categorías", "El agregado no trae el desglose por categoría.")) + pie("ETL Bureau · RNT" + extraido("bureauOferta")));
+      block("Oferta y territorio", "Cortes: RNT " + esc(cortes.rnt || "—") + " · turismo " + esc(cortes.turismo_interno || "—") + ".",
+      "<h3>Prestadores por categoría</h3>" + Charts.bars(cats, "#108181") +
+      "<h3>Turismo interno (%)</h3>" + Charts.line(porc, "#00AEAC") +
+      pie("ETL Bureau · RNT + DANE EGIT" + extraido("bureauOferta")));
   }
 
   function bloqueSeguridad() {
@@ -418,19 +417,24 @@
   function bloqueConectividad() {
     var data = DATA.bureauConectividad || {};
     var serie = data.serie || [];
-    var metro = data.metro_serie || [];
-    var rutas = ((data.oferta_aerea || {}).top_rutas || []);
-    if (!serie.length && !rutas.length) return hueco("Conectividad ampliada", "Corra scripts/alimentar_bureau.py para traer la conectividad del ETL.");
+    var wiki = data.wikimedia_serie || [];
+    var trm = data.trm_serie || [];
+    var cortes = data.cortes || {};
+    if (!serie.length) return hueco("Conectividad ampliada", "Corra scripts/alimentar_bureau.py para traer la conectividad del ETL.");
     var ops = serie.map(function (row) { return { x: row.periodo, y: row.operaciones }; });
-    var metroPts = metro.map(function (row) { return { x: row.periodo, y: row.valor }; });
-    var barras = rutas.map(function (row, i) {
-      return { label: row.ruta, value: row.sillas, text: num(row.sillas), color: Charts.palette[i % Charts.palette.length] };
-    });
-    return block("Conectividad ampliada", "Operaciones, metro como proxy terrestre y oferta aérea por ruta. " + esc(data.ventana || "") + ".",
-      "<h3>Operaciones</h3>" + Charts.line(ops, "#108181") +
-      "<h3>Metro (proxy terrestre)</h3>" + Charts.line(metroPts, "#195855") +
-      "<h3>Top rutas por sillas</h3>" + Charts.bars(barras, "#00AEAC") +
-      pie("ETL Bureau · Aerocivil/terminales/DANE/Eurostat/WB/Wikimedia" + extraido("bureauConectividad")));
+    var ultimoOp = ops.length ? ops[ops.length - 1] : null;
+    var ultimoTrm = trm.length ? trm[trm.length - 1] : null;
+    var dig = wiki.map(function (row) { return { x: row.periodo, y: row.views }; });
+    var corteTxt = "operaciones " + esc(cortes.operaciones || "—") + " · TRM " + esc(cortes.trm || "—") +
+      " · UE " + esc(cortes.benchmark_eu || "—") + " · digital " + esc(cortes.wikimedia || "—");
+    return '<div class="kpi-row">' +
+      kpi("bureau-conectividad", "Operaciones", ultimoOp ? num(ultimoOp.y) : "—", ultimoOp ? ultimoOp.x : "") +
+      kpi("bureau-conectividad", "TRM", ultimoTrm ? num(ultimoTrm.cop_per_usd, 0) : "—", ultimoTrm ? String(ultimoTrm.date).slice(0, 10) : "") +
+      "</div>" +
+      block("Conectividad", corteTxt + ".",
+      "<h3>Operaciones aéreas</h3>" + Charts.line(ops, "#108181") +
+      "<h3>Señal digital (vistas)</h3>" + Charts.line(dig, "#00AEAC") +
+      pie("ETL Bureau · Aerocivil/Eurostat/Wikimedia" + extraido("bureauConectividad")));
   }
 
   function tarifas() {
