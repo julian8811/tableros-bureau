@@ -399,29 +399,24 @@ window.Piezas = (function () {
 
   function cssExportExtras(kind) {
     var common =
-      "html,body{margin:0;background:#0c1526!important;color:#eef3f3!important}" +
-      ".no-print,.pieza-dl,.opts,.site,.mando,.footer-doc,.skip,#tip,.modal-back{display:none!important}" +
+      "html,body{margin:0;background:#0e1422!important}" +
+      ".no-print,.pieza-dl,.opts,.site,.mando,.footer-doc,.skip,#tip,.modal-back,.aviso,.check{display:none!important}" +
       ".stage-wrap{padding:24px;display:grid;place-items:center;min-height:100vh;box-sizing:border-box}" +
-      ".export-informe{padding:24px;max-width:1100px;margin:0 auto;box-sizing:border-box;background:#0c1526!important;color:#eef3f3!important}" +
-      ".export-informe .tec-doc{display:grid;gap:18px}" +
-      ".export-informe .tec-resumen,.export-informe .tec-toc,.export-informe .tec-sec{" +
-      "background:rgba(14,22,38,.92)!important;color:#eef3f3!important;border:1px solid rgba(255,255,255,.14)!important}" +
-      ".export-informe .tec-sec-head h3,.export-informe .block h3,.export-informe .kpi .label{color:#FBBB28!important}" +
-      ".export-informe .src,.export-informe .hint,.export-informe .pie,.export-informe .lista{color:#c5d0d8!important}" +
       "@media print{" +
-      "  @page{margin:10mm}" +
-      "  html,body,.export-informe,.stage-wrap{background:#0c1526!important;color:#eef3f3!important;" +
-      "-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}" +
-      "  .stage-wrap,.export-informe{padding:0!important;min-height:0!important;max-width:none!important}" +
-      "  .tec-resumen,.tec-toc,.tec-sec,.block,.kpi{" +
-      "background:rgba(14,22,38,.96)!important;color:#eef3f3!important;border-color:rgba(255,255,255,.16)!important}" +
-      "  .tec-portada-copy h2,.tec-kicker,.tec-period{color:#fff!important}" +
-      "  .stage,.pieza-stage,.tec-portada,.tec-sec,.tec-resumen,.tec-toc{break-inside:avoid;page-break-inside:avoid}" +
-      "  .tec-portada{break-after:page;page-break-after:always}" +
-      "  .tec-sec{break-before:page;page-break-before:always}" +
-      "}";
-    if (kind === "informe") return common;
+      "  @page{size:landscape;margin:8mm}" +
+      "  html,body{background:#0e1422!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}" +
+      "  .deck{padding:0!important;gap:0!important}" +
+      "  .slide{break-after:page;page-break-after:always;box-shadow:none!important;width:100%!important;max-width:none!important}" +
+      "}" ;
+    if (kind === "informe") {
+      return common +
+        ".export-informe{padding:16px;background:#0e1422!important}" +
+        ".export-informe .deck{padding:12px 0 24px;display:grid;gap:24px;justify-items:center}" +
+        ".export-informe .slide{width:min(100%,1280px)}" +
+        ".export-informe .back{display:none!important}";
+    }
     return common +
+      "body{background:#0c1526!important;color:#eef3f3!important}" +
       ".stage.sq{width:min(100%,1080px);aspect-ratio:1/1}" +
       ".stage.story{width:min(100%,420px);aspect-ratio:9/16}" +
       ".stage.email{width:min(100%,600px)}" +
@@ -446,13 +441,21 @@ window.Piezas = (function () {
     var el = document.getElementById("pieza-export") || document.querySelector(".tec-doc");
     if (!el) return Promise.reject(new Error("No hay pieza visible para descargar."));
     var baseName = tituloExport(kind, anio);
-    return Promise.all([
-      fetchText("design-options/brand-v7-shared.css"),
-      fetchText("styles.css")
-    ]).then(function (cssArr) {
-      var brand = absolutizarHtml(cssArr[0] || "");
-      var appCss = absolutizarHtml(cssArr[1] || "");
-      var css = brand + "\n" + (kind === "informe" ? appCss : "") + "\n" + cssExportExtras(kind);
+    var fetches = kind === "informe"
+      ? [
+        fetchText("design-options/informe-tec-deck.css"),
+        fetchText("design-options/brand-v7-shared.css")
+      ]
+      : [
+        fetchText("design-options/brand-v7-shared.css"),
+        fetchText("styles.css")
+      ];
+    return Promise.all(fetches).then(function (cssArr) {
+      var primary = absolutizarHtml(cssArr[0] || "");
+      var secondary = absolutizarHtml(cssArr[1] || "");
+      var css = kind === "informe"
+        ? primary + "\n" + secondary + "\n" + cssExportExtras(kind)
+        : primary + "\n" + cssExportExtras(kind);
       var bodyClass = kind === "informe" ? "export-informe" : "export-pieza stage-wrap";
       var markup = absolutizarHtml(el.outerHTML);
       var html =

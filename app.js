@@ -1683,17 +1683,20 @@
     var descargaJson = DATA.informeLive
       ? '<button class="btn" type="button" data-action="descargar-informe">JSON</button>'
       : '<a class="btn" href="data/open/informe_llm.json" download="informe_' + esc(inf.corte || "llm") + '.json">JSON</a>';
+    var deck = window.InformeDeck
+      ? InformeDeck.render(inf, { secciones: secs })
+      : ('<div class="tec-doc" id="pieza-export">' + portadaInforme(inf) +
+        secs.map(function (sec, i) { return cuerpoSeccionInforme(sec, i); }).join("") + "</div>");
     return shell +
-      '<p class="aviso">Formato TEC-Bureau. Corte ' + esc(inf.corte || "—") + ".</p>" +
+      '<p class="aviso">Formato <strong>mock TEC · láminas 16:9</strong> (informe-tec-referencia). Corte ' +
+      esc(inf.corte || "—") + ". Fotos Commons + gráficos SVG.</p>" +
       '<div class="opts no-print"><span>Secciones:</span> ' + checks +
       " " + descargaJson +
       ' <button class="btn" type="button" data-action="descargar-html" data-kind="informe">HTML</button>' +
       ' <button class="btn" type="button" data-action="descargar-pdf" data-kind="informe">PDF</button>' +
-      ' <button class="btn" type="button" data-ficha="informe-llm">Ficha</button></div>' +
-      '<div class="tec-doc" id="pieza-export">' +
-      portadaInforme(inf) +
-      secs.map(function (sec, i) { return cuerpoSeccionInforme(sec, i); }).join("") +
-      "</div>";
+      ' <button class="btn" type="button" data-ficha="informe-llm">Ficha</button>' +
+      ' <a class="btn" href="design-options/informe-tec-referencia.html" target="_blank" rel="noopener">Ver mock</a></div>' +
+      '<div class="informe-deck-live">' + deck + "</div>";
   }
 
   function vistaInformes() {

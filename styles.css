@@ -432,6 +432,27 @@ body[data-tablero="miembros"] .kpi .value{color:var(--teal-bright)}
 .tec-tabla td:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
 .no-print{}
 
+/* Informe TEC · deck 16:9 (mismo markup que el mock) embebido en Informes */
+.informe-deck-live{
+  margin-top:12px;padding:16px 8px 28px;border-radius:16px;
+  border:1px solid var(--glass-border);background:rgba(7,13,24,.45);
+  overflow:auto;max-height:min(78vh,920px);
+}
+.informe-deck-live .deck{
+  padding:8px 4px 24px;gap:20px;background:transparent;
+}
+.informe-deck-live .slide{
+  width:min(100%,960px);box-shadow:0 12px 36px rgba(0,0,0,.4);
+}
+.informe-deck-live .back{display:none}
+body.print-pieza .informe-deck-live{
+  max-height:none!important;overflow:visible!important;border:none!important;background:transparent!important;padding:0!important;
+}
+body.print-pieza .informe-deck-live .slide{
+  break-after:page;page-break-after:always;box-shadow:none!important;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+
 /* Piezas · infografía / boletín en tab Informes */
 .pieza-nav{gap:8px;flex-wrap:wrap}
 .pieza-tab{border-radius:999px!important;padding:8px 14px!important;font-size:12px!important}
