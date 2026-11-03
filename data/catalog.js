@@ -276,6 +276,17 @@ window.CATALOGO = [
     universo: "Destinos, emisores, ult3m, conectividad, gasto/hotel y marca LLM del corte.",
     licencia: "Agregados propios del ETL.",
     noMide: "Flujos de Migración Colombia ni encuestas que el ETL no ingiere."
+  },
+
+  {
+    id: "bureau-calendario", tab: "visitante", nombre: "Calendario y contexto (ETL Bureau)",
+    pastilla: "Bureau · ETL", clase: "proxy",
+    fuenteTipo: "Secundaria", fuente: "ETL Bureau: festivos CO + IDEAM, scripts/alimentar_bureau.py",
+    pedida: "Por corte", grano: "Fecha (feriados) + inventario (estaciones)", unidad: "Fechas y conteos",
+    formula: "Lista de feriados del corte y conteo de estaciones por estado/categoría/municipio.",
+    universo: "Feriados nacionales y red de estaciones IDEAM con reporte en Medellín.",
+    licencia: "Datos abiertos; agregados propios del ETL.",
+    noMide: "Puentes efectivos ni ocupación de esos días."
   }
 ];
 

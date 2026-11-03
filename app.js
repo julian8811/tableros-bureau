@@ -393,6 +393,28 @@
       pie("ETL Bureau · IDEAM + Open-Meteo + aire_med" + extraido("bureauClima")));
   }
 
+  function bloqueCalendario() {
+    var data = DATA.bureauCalendario || {};
+    var festivos = data.serie || [];
+    var est = data.estaciones || {};
+    if (!festivos.length && !est.total) return hueco("Calendario", "Corra scripts/alimentar_bureau.py para traer el calendario del ETL.");
+    var porEstado = est.por_estado || {};
+    var barras = Object.keys(porEstado).map(function (k, i) {
+      return { label: k, value: porEstado[k], text: num(porEstado[k]), color: Charts.palette[i % Charts.palette.length] };
+    });
+    var filas = festivos.map(function (f) {
+      return "<tr><td>" + esc(f.date) + "</td><td>" + esc(f.nombre) + "</td></tr>";
+    }).join("");
+    return '<div class="kpi-row">' +
+      kpi("bureau-calendario", "Feriados", num(festivos.length), esc(data.ventana || "")) +
+      kpi("bureau-calendario", "Estaciones IDEAM", num(est.total || 0), "red con reporte") +
+      "</div>" +
+      block("Calendario y contexto", "Feriados nacionales y red IDEAM. " + esc(data.ventana || "") + ".",
+      "<h3>Feriados</h3><table><tr><th>Fecha</th><th>Nombre</th></tr>" + filas + "</table>" +
+      "<h3>Estaciones por estado</h3>" + Charts.bars(barras, "#108181") +
+      pie("ETL Bureau · festivos CO + IDEAM" + extraido("bureauCalendario")));
+  }
+
   function bloqueConectividad() {
     var data = DATA.bureauConectividad || {};
     var serie = data.serie || [];
@@ -503,7 +525,8 @@
       celda("span-12", npsSimulado()) +
       celda("span-12", bloqueOferta()) +
       celda("span-12", bloqueSeguridad()) +
-      celda("span-12", bloqueClima()));
+      celda("span-12", bloqueClima()) +
+      celda("span-12", bloqueCalendario()));
     return html;
   }
 
@@ -959,7 +982,8 @@
     cargar("bureau_oferta.json"),
     cargar("bureau_seguridad.json"),
     cargar("bureau_clima.json"),
-    cargar("bureau_conectividad.json")
+    cargar("bureau_conectividad.json"),
+    cargar("bureau_calendario.json")
   ]).then(function (piezas) {
     DATA.conectividad = piezas[0];
     DATA.bureauPrensa = piezas[1];
@@ -976,6 +1000,7 @@
     DATA.bureauSeguridad = piezas[12];
     DATA.bureauClima = piezas[13];
     DATA.bureauConectividad = piezas[14];
+    DATA.bureauCalendario = piezas[15];
     leerUrl();
     if (!DATA.conectividad || !DATA.ema || !DATA.icca) {
       document.getElementById("app").innerHTML = hueco("Faltan agregados", "Abra esta carpeta con un servidor local después de correr scripts/preparar_fuentes.py.");
