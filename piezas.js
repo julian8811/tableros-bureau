@@ -383,16 +383,20 @@ window.Piezas = (function () {
     catch (e) { return rel; }
   }
 
-  /** Convierte src relativos de assets a absolutos (imprescindible en blob/print). */
+  /** Convierte src relativos de assets a absolutos (imprescindible en blob/print).
+   *  No tocar url(#id) — son referencias SVG internas (gradientes); absolutizarlas
+   *  las rompe y las barras del informe quedan invisibles en HTML/PDF. */
   function absolutizarHtml(html) {
     return String(html || "")
       .replace(/\bsrc=(["'])(?!https?:|data:|blob:)([^"']+)\1/gi, function (_, q, src) {
         return "src=" + q + absUrl(src) + q;
       })
-      .replace(/url\((["']?)(?!https?:|data:|blob:)([^"')]+)\1\)/gi, function (_, q, u) {
-        return "url(" + q + absUrl(u.trim()) + q + ")";
+      .replace(/url\((["']?)(?!https?:|data:|blob:|#)([^"')]+)\1\)/gi, function (_, q, u) {
+        var path = String(u || "").trim();
+        if (!path || path.charAt(0) === "#") return "url(" + q + path + q + ")";
+        return "url(" + q + absUrl(path) + q + ")";
       })
-      .replace(/background-image:\s*url\((['"])(?!https?:|data:|blob:)([^'"]+)\1\)/gi, function (_, q, u) {
+      .replace(/background-image:\s*url\((['"])(?!https?:|data:|blob:|#)([^'"]+)\1\)/gi, function (_, q, u) {
         return "background-image:url(" + q + absUrl(u) + q + ")";
       });
   }

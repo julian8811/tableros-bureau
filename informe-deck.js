@@ -88,7 +88,6 @@ window.InformeDeck = (function () {
     if (!bars.length) {
       return '<svg class="chart-svg" viewBox="0 0 520 260"><text x="260" y="130" text-anchor="middle" fill="#7a8799" font-size="14">Sin serie</text></svg>';
     }
-    var id = nextId("bf");
     var max = Math.max.apply(null, bars.map(function (b) { return Math.abs(Number(b.value)) || 0; }).concat([1]));
     var base = 220;
     var top = 28;
@@ -107,7 +106,7 @@ window.InformeDeck = (function () {
       var h = Math.max(8, Math.abs(Number(b.value) || 0) * scale);
       var x = startX + i * (barW + gap);
       var y = base - h;
-      var fill = b.highlight ? "#FBBB28" : "url(#" + id + ")";
+      var fill = b.highlight ? "#FBBB28" : "#108181";
       return '<rect x="' + x + '" y="' + y + '" width="' + barW + '" height="' + h + '" fill="' + fill + '" rx="2"/>' +
         '<text x="' + (x + barW / 2) + '" y="' + (y - 6) + '" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial">' +
         esc(b.display != null ? b.display : b.value) + "</text>" +
@@ -116,8 +115,6 @@ window.InformeDeck = (function () {
     }).join("");
     return (
       '<svg class="chart-svg" viewBox="0 0 520 260" role="img">' +
-      '<defs><linearGradient id="' + id + '" x1="0" y1="0" x2="0" y2="1">' +
-      '<stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>' +
       ticks + rects +
       '<line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>' +
       "</svg>"
@@ -129,7 +126,6 @@ window.InformeDeck = (function () {
     if (!bars.length) {
       return '<svg class="chart-svg" viewBox="0 0 520 260"><text x="260" y="130" text-anchor="middle" fill="#7a8799" font-size="14">Sin serie</text></svg>';
     }
-    var id = nextId("hb");
     var max = Math.max.apply(null, bars.map(function (b) { return Math.abs(Number(b.value)) || 0; }).concat([1]));
     var left = 128;
     var right = 500;
@@ -138,7 +134,7 @@ window.InformeDeck = (function () {
     var rows = bars.map(function (b, i) {
       var y = top + i * rowH;
       var w = Math.max(12, ((Math.abs(Number(b.value)) || 0) / max) * (right - left - 8));
-      var fill = b.highlight ? "#FBBB28" : "url(#" + id + ")";
+      var fill = b.highlight ? "#FBBB28" : "#108181";
       return '<text x="120" y="' + (y + 14) + '" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial">' +
         esc(shortLabel(b.label, 16)) + "</text>" +
         '<rect x="' + left + '" y="' + (y + 2) + '" width="' + w + '" height="16" fill="' + fill + '" rx="3"/>' +
@@ -146,10 +142,7 @@ window.InformeDeck = (function () {
         esc(b.display != null ? b.display : b.value) + "</text>";
     }).join("");
     return (
-      '<svg class="chart-svg" viewBox="0 0 520 260" role="img">' +
-      '<defs><linearGradient id="' + id + '" x1="0" y1="0" x2="1" y2="0">' +
-      '<stop offset="0%" stop-color="#108181"/><stop offset="100%" stop-color="#00AEAC"/></linearGradient></defs>' +
-      rows + "</svg>"
+      '<svg class="chart-svg" viewBox="0 0 520 260" role="img">' + rows + "</svg>"
     );
   }
 
@@ -178,14 +171,44 @@ window.InformeDeck = (function () {
       return '<li><span class="n">' + ("0" + (i + 1)).slice(-2) + '</span><span class="v"></span><span class="t">' +
         esc(s.titulo || s.id) + "</span></li>";
     }).join("");
+    /* Misma estructura que el mock: .split.toc (no solo .slide.toc) */
     return (
-      '<section class="slide toc" aria-label="Contenido">' +
+      '<section class="slide" aria-label="Contenido">' +
       '<span class="slide-label">2 · Contenido</span>' +
-      '<div class="split">' + photoFrame("toc", "Contenido") +
+      '<div class="split toc">' + photoFrame("toc", "Contenido") +
       '<div class="panel white">' + logos("light") +
       "<h2>Contenido</h2><div class=\"rule\"></div><ol>" + items + "</ol>" +
       '<div class="bar-maroon"></div></div></div></section>'
     );
+  }
+
+  var DIV_TITLES = {
+    tendencias: "1. TENDENCIAS",
+    receptivo: "2. TURISMO RECEPTIVO",
+    emisores: "2.1 EMISORES INTERNACIONALES",
+    destinos: "2.2 DESTINOS / CIUDADES",
+    reuniones: "2.3 REUNIONES Y NEGOCIOS",
+    visitante: "3. PERFIL DEL VISITANTE (EVI)",
+    oferta: "3.1 OFERTA TURÍSTICA",
+    conectividad: "4. CONECTIVIDAD AÉREA",
+    aereo: "4. CONECTIVIDAD AÉREA",
+    marca: "5. MARCA Y CONVERSACIÓN",
+    territorio: "6. TERRITORIO, CLIMA Y SEGURIDAD",
+    gestion: "7. GESTIÓN BUREAU",
+    pronostico: "8. PRONÓSTICO",
+    salidas: "2.1 EMISORES INTERNACIONALES"
+  };
+
+  function dividerTitle(sec, idx) {
+    if (DIV_TITLES[sec.id]) return DIV_TITLES[sec.id];
+    var n = ("0" + (idx + 1)).slice(-2);
+    return n + ". " + String(sec.titulo || sec.id || "Sección").toUpperCase();
+  }
+
+  /** Resalta cifras en texto plano para títulos/bullets estilo mock. */
+  function richText(t) {
+    var s = esc(textoBullet(t));
+    return s.replace(/(\d[\d.,]*\s*%?)/g, "<strong>$1</strong>");
   }
 
   function slideResumen(inf) {
@@ -432,105 +455,68 @@ window.InformeDeck = (function () {
 
   function slideChart(sec, label, data) {
     var g = sec.grafico;
-    var bullets = (sec.bullets || []).slice(0, 4).map(function (b) {
-      return "<li>" + esc(textoBullet(b)) + "</li>";
+    var bulletsSrc = (sec.bullets && sec.bullets.length ? sec.bullets : sec.insights) || [];
+    var bullets = bulletsSrc.slice(0, 4).map(function (b) {
+      return "<li>" + richText(b) + "</li>";
     }).join("");
     var packs = packBarsFor(sec.id, data);
-    var groups = [];
-    var titulo = (g && g.titulo) || (sec.titulo + " · figura") || "Gráfico";
-    var fuente = "Figura informe · " + (sec.id || "");
+    var chartTitle = (g && g.titulo) || (packs && packs.titulo) || ((sec.titulo || "Serie") + " · figura");
+    var fuente = (packs && packs.fuente) || ("Figura informe · " + (sec.id || ""));
+    var h2 =
+      (sec.insights && sec.insights[0] && richText(sec.insights[0])) ||
+      (sec.bullets && sec.bullets[0] && richText(sec.bullets[0])) ||
+      esc(chartTitle);
+    if (String(h2).replace(/<[^>]+>/g, "").length > 160) {
+      h2 = esc(String(textoBullet(sec.insights && sec.insights[0] || sec.bullets && sec.bullets[0] || chartTitle)).slice(0, 150) + "…");
+    }
+
+    var svg = "";
+    var boxTitle = chartTitle;
 
     if (g && g.labels && g.labels.length) {
       var bars = barsFromGrafico(g);
       var mixto = /mixto/i.test(String(g.unidad || ""));
       var parts = (mixto || bars.length >= 2) ? splitScaleGroups(bars) : [bars];
       var sparse = parts.length > 1 && parts.every(function (p) { return p.length <= 1; });
-      if (sparse) {
-        /* Un punto por escala: mejor KPI cards + serie del pack si existe */
-        var cards = bars.map(function (b) {
-          return '<article class="kpi-card text-box light">' +
-            '<p class="kpi-label">' + esc(b.label) + "</p>" +
-            '<p class="kpi-value">' + esc(b.display) + "</p></article>";
-        }).join("");
-        if (packs && packs.bars && packs.bars.length >= 2) {
-          groups.push({
-            title: packs.titulo,
-            svg: packs.kind === "hbar" ? svgHBars(packs.bars) : svgBars(packs.bars)
-          });
-          fuente = packs.fuente + " · KPIs LLM";
-          titulo = packs.titulo;
-          var figurePack = chartBox(groups[0].title, groups[0].svg);
-          return (
-            '<section class="slide chart-page" aria-label="' + esc(label) + '">' +
-            '<span class="slide-label">' + esc(label) + "</span>" +
-            '<div class="head"><h2>' + esc(titulo) + "</h2>" + logos("light") + "</div>" +
-            '<div class="chart-body">' +
-            '<div><ul>' + (bullets || "") + '</ul><div class="kpi-grid" style="margin-top:12px">' + cards + "</div></div>" +
-            figurePack +
-            "</div>" +
-            '<p class="fuente">' + esc(fuente) + "</p>" +
-            '<div class="bar-maroon"></div></section>'
-          );
-        }
-        return (
-          '<section class="slide kpi-photo" aria-label="' + esc(label) + '">' +
-          '<span class="slide-label">' + esc(label) + "</span>" +
-          '<div class="kpi-photo-stage">' + photoFrame(slotFor(sec.id), titulo) +
-          '<div class="kpi-overlay">' +
-          '<div class="text-box dark kpi-head">' + logos("dark") + "<h2>" + esc(titulo) + "</h2></div>" +
-          '<div class="kpi-grid">' + cards + "</div>" +
-          '<p class="fuente on-photo">Indicadores mixtos · sin forzar una sola escala</p>' +
-          "</div></div><div class=\"bar-maroon\"></div></section>"
-        );
-      }
-      if (parts.length > 1) {
-        parts.forEach(function (grp, i) {
-          groups.push({
-            title: titulo + (i === 0 ? " · escala A" : " · escala B"),
-            svg: preferHBar(g, grp) ? svgHBars(grp) : svgBars(grp)
-          });
-        });
+      if (sparse && packs && packs.bars && packs.bars.length >= 2) {
+        boxTitle = packs.titulo;
+        svg = packs.kind === "hbar" ? svgHBars(packs.bars) : svgBars(packs.bars);
+        fuente = packs.fuente;
+      } else if (mixto && packs && packs.bars && packs.bars.length >= 3) {
+        boxTitle = packs.titulo;
+        svg = packs.kind === "hbar" ? svgHBars(packs.bars) : svgBars(packs.bars);
+        fuente = packs.fuente;
+      } else if (parts.length > 1) {
+        /* Dos escalas: apilar como el mock evita un solo eje engañoso */
+        svg = '<div class="chart-stack">' + parts.map(function (grp, i) {
+          var t = chartTitle + (i === 0 ? " · escala A" : " · escala B");
+          var s = preferHBar(g, grp) ? svgHBars(grp) : svgBars(grp);
+          return chartBox(t, s);
+        }).join("") + "</div>";
+        boxTitle = null;
       } else {
         var useH = preferHBar(g, bars) || (mixto && bars.length >= 3);
-        groups.push({
-          title: titulo + (g.unidad ? " · " + g.unidad : ""),
-          svg: useH ? svgHBars(bars) : svgBars(bars)
-        });
-      }
-      if (mixto && packs && packs.bars && packs.bars.length >= 3 && groups.length <= 2) {
-        groups = [{
-          title: packs.titulo,
-          svg: packs.kind === "hbar" ? svgHBars(packs.bars) : svgBars(packs.bars)
-        }];
-        fuente = packs.fuente;
-        titulo = packs.titulo;
+        svg = useH ? svgHBars(bars) : svgBars(bars);
+        if (g.unidad) boxTitle = chartTitle + " · " + g.unidad;
       }
     } else if (packs && packs.bars && packs.bars.length) {
-      groups.push({
-        title: packs.titulo,
-        svg: packs.kind === "hbar" ? svgHBars(packs.bars) : svgBars(packs.bars)
-      });
+      boxTitle = packs.titulo;
+      svg = packs.kind === "hbar" ? svgHBars(packs.bars) : svgBars(packs.bars);
       fuente = packs.fuente;
-      titulo = packs.titulo;
     } else {
       return "";
     }
 
-    var figure = groups.length === 1
-      ? chartBox(groups[0].title, groups[0].svg)
-      : '<div class="chart-stack">' + groups.map(function (gr) {
-        return chartBox(gr.title, gr.svg);
-      }).join("") + "</div>";
-
+    var figure = boxTitle == null ? svg : chartBox(boxTitle, svg);
     return (
-      '<section class="slide chart-page' + (groups.length > 1 ? " chart-page-multi" : "") + '" aria-label="' + esc(label) + '">' +
+      '<section class="slide chart-page" aria-label="' + esc(label) + '">' +
       '<span class="slide-label">' + esc(label) + "</span>" +
-      '<div class="head"><h2>' + esc(titulo) + "</h2>" + logos("light") + "</div>" +
+      '<div class="head"><h2>' + h2 + "</h2>" + logos("light") + "</div>" +
       '<div class="chart-body">' +
       "<ul>" + (bullets || "<li>Serie del pack dashboard.</li>") + "</ul>" +
       figure +
       "</div>" +
-      '<p class="fuente">' + esc(fuente) + "</p>" +
+      '<p class="fuente">Fuente: ' + esc(fuente) + "</p>" +
       '<div class="bar-maroon"></div></section>'
     );
   }
@@ -620,7 +606,10 @@ window.InformeDeck = (function () {
     return clone;
   }
 
-  /** Render completo del deck (mismo markup que el mock de Generar). */
+  /**
+   * Misma receta que design-options/informe-tec-referencia.html (build_informe_mock):
+   * portada → contenido → resumen → (divisor + gráfico) por sección.
+   */
   function render(inf, opts) {
     opts = opts || {};
     if (!inf) return "";
@@ -629,31 +618,28 @@ window.InformeDeck = (function () {
     var secs = opts.secciones || inf.secciones || [];
     inf = ensureResumen(inf, secs);
     var parts = [];
-    var n = 1;
+    var n = 0;
     function lab(txt) {
-      var s = n + " · " + txt;
       n += 1;
-      return s;
+      return n + " · " + txt;
     }
     parts.push(slideCover(inf));
-    n = 2;
     parts.push(slideToc(inf, secs));
-    n = 3;
     var res = slideResumen(inf);
-    if (res) {
-      parts.push(res);
-    }
-    secs.forEach(function (sec) {
+    if (res) parts.push(res);
+    n = 3; /* 1 portada · 2 contenido · 3 resumen */
+    secs.forEach(function (sec, idx) {
       var slot = slotFor(sec.id);
-      var titulo = sec.titulo || sec.id;
+      var titulo = dividerTitle(sec, idx);
       parts.push(slideDivider(titulo, slot, lab("Divisor " + (sec.id || ""))));
-      parts.push(slideInsight(sec, lab("Insight"), slot));
-      var kpi = slideKpi(sec, lab("KPI"), slot);
-      if (kpi) parts.push(kpi);
-      var ch = slideChart(sec, lab("Gráfico"), data);
-      if (ch) parts.push(ch);
-      var tb = slideTable(sec, lab("Tabla"));
-      if (tb) parts.push(tb);
+      var ch = slideChart(sec, lab((sec.titulo || sec.id || "Gráfico")), data);
+      if (ch) {
+        parts.push(ch);
+      } else {
+        /* Sin serie: insight fotográfico (no inventar KPI/tabla sueltos) */
+        var ins = slideInsight(sec, lab("Insight"), slot);
+        if (ins) parts.push(ins);
+      }
     });
     return (
       '<div class="deck tec-deck" id="pieza-export" data-export="informe-tec-deck">' +
