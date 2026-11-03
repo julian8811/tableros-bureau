@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boletín A · Email 600px</title>
+<link rel="stylesheet" href="brand-v7-shared.css">
+<style>
+  .stage.email{min-height:auto;aspect-ratio:auto}
+  .stage.email .stage-inner{grid-template-rows:auto;gap:14px;padding:22px 20px}
+  .kpi-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .rank li{padding:8px 10px}
+  .rank .pais{font-size:12px}
+</style>
+</head>
+<body>
+  <div class="stage-wrap">
+    <p class="stage-label">Mock · Boletín A · 600px email/web</p>
+    <article class="stage email" aria-label="Boletín email">
+      <div class="stage-bg" aria-hidden="true"></div>
+      <div class="stage-inner">
+        <header style="display:grid;gap:8px">
+          <div class="logos dark">
+            <img class="logo-bureau" src="../assets/logo_bureau.svg" alt="Bureau" style="height:32px">
+            <img class="logo-colmayor" src="../assets/logo_colmayor_blanco.png" alt="Colmayor" style="height:40px">
+          </div>
+          <div class="gold-bar"></div>
+          <p class="kicker">Boletín de inteligencia · Nov 2025</p>
+          <h1 class="h-title" style="font-size:22px">Emisores y receptivo Medellín · corte anual</h1>
+          <p class="lead" style="font-size:13px">Resumen para stakeholders del Bureau. Cifras del pack abierto (Migración + MinCIT VNR). Sin CRM.</p>
+        </header>
+
+        <div class="kpi-row">
+          <div class="kpi glass">
+            <p class="label">Entradas CO · USA</p>
+            <p class="value" style="font-size:26px">1,23 M</p>
+            <p class="meta">Migración 2025</p>
+          </div>
+          <div class="kpi glass">
+            <p class="label">Medellín VNR</p>
+            <p class="value" style="font-size:26px">1,14 M</p>
+            <p class="meta">Share Colombia 24,5 %</p>
+          </div>
+        </div>
+
+        <div>
+          <p class="kicker" style="margin-bottom:8px">Top emisores (Migración)</p>
+          <ol class="rank">
+            <li><span class="n">1</span><span class="pais">Estados Unidos</span><span class="val">1.232.329</span></li>
+            <li><span class="n">2</span><span class="pais">Venezuela</span><span class="val">658.669</span></li>
+            <li><span class="n">3</span><span class="pais">México</span><span class="val">414.249</span></li>
+          </ol>
+        </div>
+
+        <p class="insight" style="font-size:13px">El top emisor nacional no sustituye el ranking MinCIT de destino Medellín (USA, México, Costa Rica…). Usar ambos universos con etiqueta clara.</p>
+
+        <footer style="display:grid;gap:8px;border-top:1px solid rgba(255,255,255,.14);padding-top:12px">
+          <a class="cta" href="../index.html">Abrir tableros</a>
+          <p class="fuente"><b>Fuentes:</b> migracion.top_paises[2025] · mincit_vnr.shares_anual · Bureau · Colmayor V7</p>
+        </footer>
+      </div>
+    </article>
+    <p class="fuente"><a href="boletin-index.html" style="color:var(--teal-bright)">← Boletines</a></p>
+  </div>
+</body>
+</html>

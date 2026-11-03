@@ -1,0 +1,213 @@
+/* Línea gráfica Colmayor Manual V7 + glass Bureau — compartida por infográficos y boletines */
+@font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Medium.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("../assets/fonts/Montserrat-Bold.woff2") format("woff2");font-weight:700;font-display:swap}
+
+:root{
+  --navy:#172139;
+  --teal:#108181;
+  --teal-bright:#00AEAC;
+  --teal-deep:#195855;
+  --gold:#FBBB28;
+  --orange:#E9901E;
+  --lime:#B4C42C;
+  --bg:#0c1526;
+  --text:#eef3f3;
+  --text-2:#9db3b3;
+  --text-3:#7d8ea3;
+  --glass:rgba(255,255,255,.045);
+  --glass-strong:rgba(14,22,38,.42);
+  --glass-border:rgba(255,255,255,.28);
+  --blur:28px;
+  --font:"Montserrat",Calibri,Arial,sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:var(--font);
+  color:var(--text);
+  background:
+    radial-gradient(980px 480px at 10% 12%,rgba(0,174,172,.22),transparent 58%),
+    radial-gradient(900px 420px at 92% -8%,rgba(233,144,30,.16),transparent 52%),
+    linear-gradient(165deg,#071018 0%,#0a1424 45%,#122038 100%);
+  min-height:100vh;
+}
+
+.glass{
+  background:var(--glass-strong);
+  border:1px solid var(--glass-border);
+  border-radius:16px;
+  backdrop-filter:blur(var(--blur)) saturate(1.5);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(1.5);
+  box-shadow:0 12px 36px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.12);
+}
+
+.gold-bar{
+  height:4px;
+  background:linear-gradient(90deg,var(--gold),var(--orange));
+  border-radius:2px;
+}
+
+.kicker{
+  margin:0;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+
+.h-title{margin:0;font-weight:800;letter-spacing:-.02em;line-height:1.15;color:#fff}
+.lead{margin:0;color:var(--text-2);line-height:1.45}
+.fuente{
+  margin:0;
+  font-size:10px;
+  color:var(--text-3);
+  line-height:1.4;
+}
+.fuente b{color:var(--text-2);font-weight:600}
+
+.logos{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.logos img{display:block;object-fit:contain}
+.logos .logo-bureau{height:36px;width:auto;max-width:160px}
+.logos .logo-colmayor{height:44px;width:auto;max-width:140px}
+/* Nunca invert en Colmayor (escudo a color) */
+.logos.dark .logo-bureau{filter:none}
+
+.kpi{
+  display:grid;
+  gap:4px;
+  padding:12px 14px;
+  border-radius:12px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.16);
+}
+.kpi .label{
+  margin:0;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--teal-bright);
+}
+.kpi .value{
+  margin:0;
+  font-size:clamp(22px,3.2vw,34px);
+  font-weight:800;
+  color:#fff;
+  font-variant-numeric:tabular-nums;
+  line-height:1.1;
+}
+.kpi .meta{margin:0;font-size:11px;color:var(--text-2)}
+
+.kpi-hero{
+  padding:18px 20px;
+  border-radius:16px;
+  background:rgba(251,187,40,.1);
+  border:1px solid rgba(251,187,40,.45);
+}
+.kpi-hero .label{color:var(--gold)}
+.kpi-hero .value{font-size:clamp(36px,6vw,56px);color:var(--gold)}
+
+.stage-wrap{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:24px 16px 40px;
+  gap:16px;
+}
+.stage-label{
+  font-size:11px;
+  font-weight:600;
+  color:var(--text-3);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.stage{
+  position:relative;
+  background:var(--navy);
+  overflow:hidden;
+  box-shadow:0 24px 64px rgba(0,0,0,.45);
+}
+.stage.sq{width:min(100%,1080px);aspect-ratio:1/1}
+.stage.story{width:min(100%,420px);aspect-ratio:9/16;max-height:92vh}
+.stage.email{width:min(100%,600px)}
+.stage.a4{
+  width:min(100%,794px);
+  aspect-ratio:210/297;
+  max-height:92vh;
+}
+
+.stage-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(620px 360px at 12% 18%,rgba(0,174,172,.28),transparent 55%),
+    radial-gradient(520px 300px at 88% 8%,rgba(251,187,40,.14),transparent 50%),
+    radial-gradient(480px 280px at 70% 90%,rgba(16,129,129,.2),transparent 55%),
+    linear-gradient(165deg,#0b1220 0%,#172139 55%,#122038 100%);
+  pointer-events:none;
+}
+
+.stage-inner{
+  position:relative;z-index:1;
+  height:100%;
+  padding:28px 32px 24px;
+  display:grid;
+  gap:16px;
+  grid-template-rows:auto 1fr auto;
+}
+
+.rank{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.rank li{
+  display:grid;
+  grid-template-columns:28px 1fr auto;
+  gap:10px;
+  align-items:center;
+  padding:10px 12px;
+  border-radius:10px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.12);
+}
+.rank .n{color:var(--gold);font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+.rank .pais{font-size:13px;font-weight:600;color:#fff}
+.rank .val{font-weight:800;font-variant-numeric:tabular-nums;color:#fff;font-size:13px}
+.rank .bar{
+  grid-column:2 / -1;
+  height:6px;
+  border-radius:99px;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+}
+.rank .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:99px}
+
+.cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:40px;
+  padding:0 16px;
+  border-radius:999px;
+  background:var(--teal);
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+  text-decoration:none;
+}
+.cta:hover{background:var(--teal-bright);color:var(--navy)}
+
+.insight{
+  margin:0;
+  padding:14px 16px;
+  border-left:4px solid var(--gold);
+  background:rgba(255,255,255,.05);
+  border-radius:0 12px 12px 0;
+  font-size:14px;
+  line-height:1.45;
+  color:#fff;
+}

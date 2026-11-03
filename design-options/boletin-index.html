@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagramación · Boletines V7</title>
+<link rel="stylesheet" href="brand-v7-shared.css">
+<style>
+  .chooser{max-width:1100px;margin:0 auto;padding:28px 20px 48px}
+  .chooser h1{margin:0;font-size:28px;letter-spacing:-.02em}
+  .chooser .lead{margin:8px 0 0;color:var(--text-2);max-width:72ch;line-height:1.5}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px}
+  @media (max-width:900px){.grid{grid-template-columns:1fr}}
+  .card{overflow:hidden;display:flex;flex-direction:column}
+  .card header{padding:14px 16px 10px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .card header .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+  .card header h2{margin:0;font-size:17px}
+  .card header p{margin:6px 0 0;font-size:12px;color:var(--text-2);line-height:1.45}
+  .preview{aspect-ratio:3/4;background:#0b1220;overflow:hidden;max-height:480px}
+  .preview iframe{width:200%;height:200%;border:0;transform:scale(.5);transform-origin:0 0;pointer-events:none}
+  .meta{padding:12px 16px 16px;display:grid;gap:10px}
+  .meta ul{margin:0;padding-left:16px;color:var(--text-2);font-size:12px;line-height:1.5}
+  .links{margin-top:20px;font-size:12px;color:var(--text-3)}
+  .links a{color:var(--teal-bright);margin-right:12px}
+</style>
+</head>
+<body>
+  <div class="chooser">
+    <p class="kicker">Mocks · sin Generar</p>
+    <h1>Boletines · línea gráfica V7</h1>
+    <p class="lead">Dos diagramaciones post-infográficos: email 600px y hoja A4. Misma marca glass / gold / logos Bureau–Colmayor y datos del pack.</p>
+
+    <div class="grid">
+      <article class="card glass">
+        <header>
+          <span class="tag">Opción A · 600px</span>
+          <h2>Email / web</h2>
+          <p>Cabecera, 2 KPIs, ranking corto, insight y CTA.</p>
+        </header>
+        <div class="preview"><iframe src="boletin-a-email.html" title="Preview boletín A"></iframe></div>
+        <div class="meta">
+          <ul>
+            <li>Ancho email-safe</li>
+            <li>Universos etiquetados</li>
+            <li>CTA al tablero</li>
+          </ul>
+          <a class="cta" href="boletin-a-email.html" target="_blank" rel="noopener">Abrir A</a>
+        </div>
+      </article>
+
+      <article class="card glass">
+        <header>
+          <span class="tag">Opción B · A4</span>
+          <h2>Hoja vertical</h2>
+          <p>Portada corta + receptivo / emisores en dos columnas.</p>
+        </header>
+        <div class="preview"><iframe src="boletin-b-a4.html" title="Preview boletín B"></iframe></div>
+        <div class="meta">
+          <ul>
+            <li>Proporción A4</li>
+            <li>Dos secciones + SVG</li>
+            <li>Pie de fuentes</li>
+          </ul>
+          <a class="cta" href="boletin-b-a4.html" target="_blank" rel="noopener">Abrir B</a>
+        </div>
+      </article>
+    </div>
+
+    <p class="links">
+      <a href="infografia-index.html">← Infográficos</a>
+      <a href="informe-index.html">Informes TEC</a>
+      <a href="index.html">Rediseño tablero</a>
+    </p>
+  </div>
+</body>
+</html>

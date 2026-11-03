@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infografía A · Hero KPI · 1080×1080</title>
+<link rel="stylesheet" href="brand-v7-shared.css">
+<style>
+  .stage.sq .stage-inner{grid-template-rows:auto auto 1fr auto;gap:18px}
+  .hero-block{display:grid;gap:14px;align-content:start}
+  .kpi-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px}
+  @media (max-width:640px){
+    .stage.sq{aspect-ratio:auto;min-height:640px}
+    .kpi-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+  <div class="stage-wrap">
+    <p class="stage-label">Mock · Infografía A · 1080×1080 · Hero KPI</p>
+    <article class="stage sq" aria-label="Infografía hero KPI">
+      <div class="stage-bg" aria-hidden="true"></div>
+      <div class="stage-inner">
+        <header style="display:grid;gap:10px">
+          <div class="logos dark">
+            <img class="logo-bureau" src="../assets/logo_bureau.svg" alt="Greater Medellín Convention &amp; Visitors Bureau">
+            <img class="logo-colmayor" src="../assets/logo_colmayor_blanco.png" alt="Colegio Mayor de Antioquia">
+          </div>
+          <div class="gold-bar"></div>
+          <p class="kicker">Inteligencia turística · Corte 2025</p>
+        </header>
+
+        <div class="hero-block">
+          <h1 class="h-title" style="font-size:clamp(26px,3.6vw,40px);max-width:18ch">Estados Unidos lidera las entradas a Colombia</h1>
+          <p class="lead" style="max-width:42ch">Mercados emisores con mayor tráfico hacia el país. Universo Migración Colombia (cruces de entrada), contrastable con MinCIT Medellín y EVI.</p>
+          <div class="kpi-hero glass">
+            <p class="label">Top emisor 2025</p>
+            <p class="value">1.232.329</p>
+            <p class="meta">Estados Unidos · 29,4 % del set publicado</p>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi glass">
+            <p class="label">2.º Venezuela</p>
+            <p class="value" style="font-size:22px">658.669</p>
+            <p class="meta">15,7 %</p>
+          </div>
+          <div class="kpi glass">
+            <p class="label">3.º México</p>
+            <p class="value" style="font-size:22px">414.249</p>
+            <p class="meta">9,9 %</p>
+          </div>
+          <div class="kpi glass">
+            <p class="label">Medellín VNR</p>
+            <p class="value" style="font-size:22px">1,14 M</p>
+            <p class="meta">Share CO 24,5 %</p>
+          </div>
+        </div>
+
+        <footer class="foot">
+          <p class="fuente"><b>Fuente:</b> migracion.top_paises[2025] · mincit_vnr shares 2025 · sin CRM</p>
+          <p class="fuente">Bureau Medellín · Colmayor V7</p>
+        </footer>
+      </div>
+    </article>
+    <p class="fuente"><a href="infografia-index.html" style="color:var(--teal-bright)">← Infografías</a></p>
+  </div>
+</body>
+</html>

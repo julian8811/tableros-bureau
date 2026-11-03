@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infografía C · Story · 1080×1920</title>
+<link rel="stylesheet" href="brand-v7-shared.css">
+<style>
+  .stage.story .stage-inner{
+    padding:22px 20px 18px;
+    grid-template-rows:auto auto 1fr auto auto;
+    gap:14px;
+  }
+  .map-static{
+    width:100%;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.18);
+    background:#070d18;
+    overflow:hidden;
+  }
+  .map-static svg{display:block;width:100%;height:auto}
+  .stack{display:grid;gap:10px}
+</style>
+</head>
+<body>
+  <div class="stage-wrap">
+    <p class="stage-label">Mock · Infografía C · 1080×1920 · Story</p>
+    <article class="stage story" aria-label="Infografía story emisores">
+      <div class="stage-bg" aria-hidden="true"></div>
+      <div class="stage-inner">
+        <header class="stack" style="gap:8px">
+          <div class="logos dark">
+            <img class="logo-bureau" src="../assets/logo_bureau.svg" alt="Bureau" style="height:28px">
+            <img class="logo-colmayor" src="../assets/logo_colmayor_blanco.png" alt="Colmayor" style="height:36px">
+          </div>
+          <div class="gold-bar"></div>
+          <p class="kicker">Story · Emisores 2025</p>
+        </header>
+
+        <div class="stack">
+          <h1 class="h-title" style="font-size:26px">¿De dónde llegan los visitantes a Colombia?</h1>
+          <p class="lead" style="font-size:13px">Densidad de países emisores · corte anual Migración + lectura Medellín MinCIT.</p>
+        </div>
+
+        <div class="map-static glass" aria-hidden="false">
+          <!-- Mapa mundi simplificado SVG (sin Leaflet) — Américas + Europa destacados -->
+          <svg viewBox="0 0 360 220" role="img" aria-label="Mapa densidad emisores simplificado">
+            <rect width="360" height="220" fill="#070d18"/>
+            <!-- Siluetas aproximadas -->
+            <path d="M48 48h52v78H48z" fill="#FBBB28" opacity=".92"/>
+            <text x="56" y="90" fill="#172139" font-size="9" font-weight="700" font-family="Montserrat">US</text>
+            <path d="M58 128h28v36H58z" fill="#E9901E" opacity=".9"/>
+            <text x="62" y="150" fill="#fff" font-size="8" font-family="Montserrat">MX</text>
+            <path d="M92 150h18v22H92z" fill="#00AEAC"/>
+            <path d="M110 158h22v48h-22z" fill="#108181"/>
+            <path d="M132 168h40v42h-40z" fill="#00AEAC" opacity=".85"/>
+            <text x="138" y="192" fill="#fff" font-size="8" font-family="Montserrat">BR</text>
+            <path d="M118 140h16v18h-16z" fill="#B4C42C"/>
+            <!-- Colombia destino -->
+            <path d="M118 155h14v16h-14z" fill="#195855" stroke="#FBBB28" stroke-width="1.5"/>
+            <text x="120" y="166" fill="#FBBB28" font-size="7" font-weight="700" font-family="Montserrat">CO</text>
+            <!-- Europa -->
+            <path d="M198 62h14v18h-14z" fill="#FBBB28" opacity=".75"/>
+            <text x="200" y="74" fill="#172139" font-size="7" font-family="Montserrat">ES</text>
+            <path d="M214 58h12v14h-12z" fill="#00AEAC" opacity=".7"/>
+            <path d="M228 55h12v16h-12z" fill="#108181" opacity=".7"/>
+            <path d="M242 60h10v12h-10z" fill="#B4C42C" opacity=".65"/>
+            <text x="16" y="210" fill="#7d8ea3" font-size="8" font-family="Montserrat">SVG estático · Natural Earth look · sin API</text>
+          </svg>
+        </div>
+
+        <p class="insight">USA concentra <b style="color:var(--gold)">1,23 M</b> entradas (29,4 %). En Medellín, MinCIT VNR suma <b style="color:var(--teal-bright)">1,14 M</b> no residentes con share Colombia 24,5 %.</p>
+
+        <footer class="stack" style="gap:10px">
+          <a class="cta" href="../index.html">Ver tablero Bureau</a>
+          <p class="fuente"><b>Fuente:</b> migracion 2025 · mincit_vnr 2025 · evi_ola.residencia</p>
+        </footer>
+      </div>
+    </article>
+    <p class="fuente"><a href="infografia-index.html" style="color:var(--teal-bright)">← Infografías</a></p>
+  </div>
+</body>
+</html>
