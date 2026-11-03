@@ -90,7 +90,10 @@ window.Charts = (function () {
     var salto = Math.ceil(series.length / 6);
     var axis = series.filter(function (_, i) { return i % salto === 0; }).map(function (p) {
       var i = series.indexOf(p);
-      return '<text x="' + (padL + i * step) + '" y="' + (height - 8) + '" font-size="10" fill="#6b7789" text-anchor="middle">' + esc(p.x) + "</text>";
+      var x = padL + i * step;
+      var etiqueta = String(p.x);
+      var ancla = (x + etiqueta.length * 6 > width - 12) ? "end" : "middle";
+      return '<text x="' + x + '" y="' + (height - 8) + '" font-size="10" fill="#6b7789" text-anchor="' + ancla + '">' + esc(etiqueta) + "</text>";
     }).join("");
     var puntos = series.map(function (p, i) {
       var x = padL + i * step;
@@ -125,7 +128,10 @@ window.Charts = (function () {
     var salto = Math.ceil(labels.length / 6);
     var axis = labels.filter(function (_, i) { return i % salto === 0; }).map(function (label) {
       var i = labels.indexOf(label);
-      return '<text x="' + (padL + i * step) + '" y="' + (height - 8) + '" font-size="10" fill="#6b7789" text-anchor="middle">' + esc(label) + "</text>";
+      var x = padL + i * step;
+      var etiqueta = String(label);
+      var ancla = (x + etiqueta.length * 6 > width - 12) ? "end" : "middle";
+      return '<text x="' + x + '" y="' + (height - 8) + '" font-size="10" fill="#6b7789" text-anchor="' + ancla + '">' + esc(etiqueta) + "</text>";
     }).join("");
     var trazos = ["0", "7 4", "2 3", "9 3 2 3", "4 2"];
     var lineas = series.map(function (s, serie) {
