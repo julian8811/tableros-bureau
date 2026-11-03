@@ -19,7 +19,8 @@
     informeProvider: "cadena",
     informeModel: "",
     pieza: "infografia",
-    infografiaVar: "b"
+    infografiaVar: "a",
+    boletinVar: "a"
   };
 
   var PAIS_DE_MERCADO = { Colombia: "COLOMBIA", "Estados Unidos": "ESTADOS UNIDOS", "México": "MEXICO", Brasil: "BRASIL" };
@@ -138,7 +139,8 @@
     if (q.get("serie")) state.pronostico = q.get("serie");
     var piezas = ["infografia", "boletin", "informe"];
     if (piezas.indexOf(q.get("pieza")) >= 0) state.pieza = q.get("pieza");
-    if (q.get("ivar") === "a" || q.get("ivar") === "b") state.infografiaVar = q.get("ivar");
+    if (q.get("ivar") === "a" || q.get("ivar") === "b" || q.get("ivar") === "c") state.infografiaVar = q.get("ivar");
+    if (q.get("bvar") === "a" || q.get("bvar") === "b") state.boletinVar = q.get("bvar");
   }
 
   function escribirUrl() {
@@ -150,6 +152,7 @@
     if (state.tab === "informes") {
       q.set("pieza", state.pieza || "infografia");
       if (state.pieza === "infografia") q.set("ivar", state.infografiaVar || "a");
+      if (state.pieza === "boletin") q.set("bvar", state.boletinVar || "a");
     }
     var siguiente = "?" + q.toString();
     if (location.search !== siguiente) history.replaceState({ tab: state.tab, anio: state.anio, pais: state.pais }, "", siguiente);
@@ -1509,47 +1512,62 @@
   }
 
   function navInfografiaVar() {
-    var vars = [["a", "A · Hero KPI"], ["b", "B · Ranking"]];
+    var vars = [["a", "A · Hero KPI"], ["b", "B · Ranking"], ["c", "C · Story"]];
     return '<div class="opts no-print" role="tablist" aria-label="Variante infografía">' +
       '<span>Variante:</span> ' +
       vars.map(function (it) {
         var on = (state.infografiaVar || "a") === it[0];
         return '<button type="button" class="tab pieza-tab' + (on ? " active" : "") + '" data-ivar="' + it[0] + '" role="tab" aria-selected="' + on + '">' + it[1] + "</button>";
-      }).join("") +
-      ' <span class="hint" style="margin:0">C Story aún en mock</span></div>';
+      }).join("") + "</div>";
+  }
+
+  function navBoletinVar() {
+    var vars = [["a", "A · Email"], ["b", "B · A4"]];
+    return '<div class="opts no-print" role="tablist" aria-label="Variante boletín">' +
+      '<span>Variante:</span> ' +
+      vars.map(function (it) {
+        var on = (state.boletinVar || "a") === it[0];
+        return '<button type="button" class="tab pieza-tab' + (on ? " active" : "") + '" data-bvar="' + it[0] + '" role="tab" aria-selected="' + on + '">' + it[1] + "</button>";
+      }).join("") + "</div>";
   }
 
   function vistaInfografia() {
     if (!window.Piezas) return hueco("Piezas", "Falta piezas.js");
     var d = Piezas.datosEmisores(DATA, state.anio);
-    var varId = state.infografiaVar === "b" ? "b" : "a";
+    var varId = state.infografiaVar === "b" ? "b" : (state.infografiaVar === "c" ? "c" : "a");
     if (!d.top.length) {
       return navPiezas() + navInfografiaVar() +
         hueco("Sin emisores", "Cargue Migración o MinCIT para el año " + esc(String(state.anio)) + ".");
     }
-    var titulo = varId === "b"
-      ? "<strong>Infografía B · Ranking</strong> implementada con datos vivos (" + esc(String(state.anio)) + ")."
-      : "<strong>Infografía A · Hero KPI</strong> implementada con datos vivos (" + esc(String(state.anio)) + ").";
-    var cuerpo = varId === "b" ? Piezas.htmlInfografiaB(d) : Piezas.htmlInfografiaA(d);
-    var kind = varId === "b" ? "infografia_b" : "infografia_a";
+    var titulos = {
+      a: "<strong>Infografía A · Hero KPI</strong>",
+      b: "<strong>Infografía B · Ranking</strong>",
+      c: "<strong>Infografía C · Story</strong>"
+    };
+    var cuerpo = varId === "c" ? Piezas.htmlInfografiaC(d)
+      : varId === "b" ? Piezas.htmlInfografiaB(d)
+        : Piezas.htmlInfografiaA(d);
+    var kind = "infografia_" + varId;
     return navPiezas() + navInfografiaVar() +
-      '<p class="aviso">' + titulo + " Descargue HTML o PDF.</p>" +
+      '<p class="aviso">' + titulos[varId] + " con datos vivos (" + esc(String(state.anio)) + "). Descargue HTML o PDF.</p>" +
       Piezas.botonesDescarga({ kind: kind }) +
       '<div class="pieza-live">' + cuerpo + "</div>" +
-      '<p class="aviso no-print"><a class="btn" href="design-options/infografia-index.html" target="_blank" rel="noopener">Mocks A / B / C</a> · ' +
-      '<a href="design-options/infografia-a-hero-kpi.html" target="_blank" rel="noopener">Mock A</a> · ' +
-      '<a href="design-options/infografia-b-ranking.html" target="_blank" rel="noopener">Mock B</a> · ' +
-      '<a href="design-options/infografia-c-story.html" target="_blank" rel="noopener">Mock C</a></p>';
+      '<p class="aviso no-print"><a class="btn" href="design-options/infografia-index.html" target="_blank" rel="noopener">Mocks A / B / C</a></p>';
   }
 
   function vistaBoletin() {
     if (!window.Piezas) return hueco("Piezas", "Falta piezas.js");
     var d = Piezas.datosEmisores(DATA, state.anio);
-    return navPiezas() +
-      '<p class="aviso"><strong>Boletín A · email 600px</strong> con datos del pack. PDF vía impresión del navegador.</p>' +
-      Piezas.botonesDescarga({ kind: "boletin" }) +
-      '<div class="pieza-live">' + Piezas.htmlBoletinA(d) + "</div>" +
-      '<p class="hint no-print">Variante A4 en <a href="design-options/boletin-index.html">design-options/boletin-index.html</a>.</p>';
+    var varId = state.boletinVar === "b" ? "b" : "a";
+    var titulo = varId === "b"
+      ? "<strong>Boletín B · A4</strong> con datos vivos."
+      : "<strong>Boletín A · email 600px</strong> con datos del pack.";
+    var cuerpo = varId === "b" ? Piezas.htmlBoletinB(d) : Piezas.htmlBoletinA(d);
+    return navPiezas() + navBoletinVar() +
+      '<p class="aviso">' + titulo + " PDF vía impresión.</p>" +
+      Piezas.botonesDescarga({ kind: "boletin_" + varId }) +
+      '<div class="pieza-live">' + cuerpo + "</div>" +
+      '<p class="aviso no-print"><a class="btn" href="design-options/boletin-index.html" target="_blank" rel="noopener">Mocks boletines</a></p>';
   }
 
   function vistaInformeTec() {
@@ -1761,11 +1779,15 @@
       captacion: ["¿Qué organizadores avanzan, dónde se cae la candidatura y qué retorno deja cada segmento?", "Corte anual del informe de gestión 2025."],
       miembros: ["¿Cuánto vale, cuánto participa y cuánto se queda cada miembro?", "Rueda de Negocios y padrón publicados en 2025."],
       informes: state.pieza === "infografia"
-        ? (state.infografiaVar === "b"
-          ? ["¿Quiénes son los 5 mercados que más tráfico generan a Colombia?", "Infografía B · Ranking con barras y universo Migración."]
-          : ["¿Cómo comunicar el top de emisores en una pieza social?", "Infografía A · Hero KPI con datos vivos Migración + MinCIT."])
+        ? (state.infografiaVar === "c"
+          ? ["¿De dónde llegan los visitantes a Colombia?", "Infografía C · Story con mapa SVG estático."]
+          : state.infografiaVar === "b"
+            ? ["¿Quiénes son los 5 mercados que más tráfico generan a Colombia?", "Infografía B · Ranking con barras y universo Migración."]
+            : ["¿Cómo comunicar el top de emisores en una pieza social?", "Infografía A · Hero KPI con datos vivos Migración + MinCIT."])
         : state.pieza === "boletin"
-          ? ["¿Qué resumen cabe en un boletín para stakeholders?", "Boletín A · email con KPIs y ranking corto."]
+          ? (state.boletinVar === "b"
+            ? ["¿Qué cabe en una hoja A4 para comité?", "Boletín B · receptivo MinCIT + emisores Migración."]
+            : ["¿Qué resumen cabe en un boletín para stakeholders?", "Boletín A · email con KPIs y ranking corto."])
           : ["¿Qué dice el informe redactado por LLM sobre el corte?", "Narrativa verificada contra el warehouse, con fuente por hallazgo."]
     };
     var anos = [];
@@ -1847,6 +1869,14 @@
     if (ivarBtn && ivarBtn.getAttribute("data-ivar")) {
       state.infografiaVar = ivarBtn.getAttribute("data-ivar");
       state.pieza = "infografia";
+      state.ficha = null;
+      render();
+      return;
+    }
+    var bvarBtn = event.target.closest("[data-bvar]");
+    if (bvarBtn && bvarBtn.getAttribute("data-bvar")) {
+      state.boletinVar = bvarBtn.getAttribute("data-bvar");
+      state.pieza = "boletin";
       state.ficha = null;
       render();
       return;

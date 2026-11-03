@@ -46,9 +46,13 @@ window.Piezas = (function () {
     }
     rows.sort(function (a, b) { return b.valor - a.valor; });
     var total = rows.reduce(function (s, r) { return s + r.valor; }, 0);
+    var mincitTop = mincit.map(function (r) {
+      return { pais: r.pais, valor: Number(r.visitantes) || 0 };
+    }).sort(function (a, b) { return b.valor - a.valor; }).slice(0, 5);
     return {
       anio: anio,
       top: rows.slice(0, 5),
+      mincitTop: mincitTop,
       total: total,
       medellin: medAnual,
       shareColombia: share && share.share_colombia != null ? share.share_colombia : null,
@@ -180,6 +184,84 @@ window.Piezas = (function () {
     );
   }
 
+  function mapaSvgEstatico() {
+    return (
+      '<svg viewBox="0 0 360 220" role="img" aria-label="Mapa densidad emisores simplificado">' +
+      '<rect width="360" height="220" fill="#070d18"/>' +
+      '<path d="M48 48h52v78H48z" fill="#FBBB28" opacity=".92"/>' +
+      '<text x="56" y="90" fill="#172139" font-size="9" font-weight="700" font-family="Montserrat,Arial">US</text>' +
+      '<path d="M58 128h28v36H58z" fill="#E9901E" opacity=".9"/>' +
+      '<text x="62" y="150" fill="#fff" font-size="8" font-family="Montserrat,Arial">MX</text>' +
+      '<path d="M92 150h18v22H92z" fill="#00AEAC"/>' +
+      '<path d="M110 158h22v48h-22z" fill="#108181"/>' +
+      '<path d="M132 168h40v42h-40z" fill="#00AEAC" opacity=".85"/>' +
+      '<text x="138" y="192" fill="#fff" font-size="8" font-family="Montserrat,Arial">BR</text>' +
+      '<path d="M118 140h16v18h-16z" fill="#B4C42C"/>' +
+      '<path d="M118 155h14v16h-14z" fill="#195855" stroke="#FBBB28" stroke-width="1.5"/>' +
+      '<text x="120" y="166" fill="#FBBB28" font-size="7" font-weight="700" font-family="Montserrat,Arial">CO</text>' +
+      '<path d="M198 62h14v18h-14z" fill="#FBBB28" opacity=".75"/>' +
+      '<text x="200" y="74" fill="#172139" font-size="7" font-family="Montserrat,Arial">ES</text>' +
+      '<path d="M214 58h12v14h-12z" fill="#00AEAC" opacity=".7"/>' +
+      '<path d="M228 55h12v16h-12z" fill="#108181" opacity=".7"/>' +
+      '<path d="M242 60h10v12h-10z" fill="#B4C42C" opacity=".65"/>' +
+      '<text x="16" y="210" fill="#7d8ea3" font-size="8" font-family="Montserrat,Arial">SVG estático · sin API</text>' +
+      "</svg>"
+    );
+  }
+
+  function barrasMiniSvg(rows, titulo, colors) {
+    rows = (rows || []).slice(0, 3);
+    var max = (rows[0] && rows[0].valor) || 1;
+    var bars = rows.map(function (r, i) {
+      var w = Math.max(8, Math.round((r.valor / max) * 200));
+      var y = 28 + i * 20;
+      var lab = codigoPais(r.pais) + " " + (r.valor >= 1e6
+        ? (r.valor / 1e6).toFixed(2).replace(".", ",") + "M"
+        : (r.valor >= 1000 ? Math.round(r.valor / 1000) + "k" : num(r.valor)));
+      return '<rect x="0" y="' + y + '" width="' + w + '" height="12" rx="4" fill="' + (colors[i] || STACK_COLORS[i]) + '"/>' +
+        '<text x="' + (w + 8) + '" y="' + (y + 10) + '" fill="#eef3f3" font-size="9" font-family="Montserrat,Arial">' + esc(lab) + "</text>";
+    }).join("");
+    return (
+      '<svg class="fig" viewBox="0 0 320 100" role="img" aria-label="' + esc(titulo) + '">' +
+      '<text x="0" y="14" fill="#9db3b3" font-size="10" font-family="Montserrat,Arial">' + esc(titulo) + "</text>" +
+      bars + "</svg>"
+    );
+  }
+
+  /** Infografía C · Story 1080×1920 */
+  function htmlInfografiaC(d) {
+    d = d || {};
+    var t0 = (d.top && d.top[0]) || { pais: "—", valor: 0 };
+    var shareTxt = d.shareColombia != null
+      ? (d.shareColombia * 100).toFixed(1).replace(".", ",") + " %"
+      : "—";
+    return (
+      '<article class="pieza-stage stage story" id="pieza-export" data-export="infografia-c">' +
+      '<div class="stage-bg" aria-hidden="true"></div>' +
+      '<div class="stage-inner stage-inner-story">' +
+      '<header class="stack">' +
+      '<div class="logos dark">' +
+      '<img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau" style="height:28px">' +
+      '<img class="logo-colmayor" src="assets/logo_colmayor_blanco.png" alt="Colmayor" style="height:36px">' +
+      "</div>" +
+      '<div class="gold-bar"></div>' +
+      '<p class="kicker">Story · Emisores ' + esc(d.anio) + "</p>" +
+      "</header>" +
+      '<div class="stack">' +
+      '<h1 class="h-title h-story">¿De dónde llegan los visitantes a Colombia?</h1>' +
+      '<p class="lead">Densidad de países emisores · corte anual Migración + lectura Medellín MinCIT.</p>' +
+      "</div>" +
+      '<div class="map-static glass">' + mapaSvgEstatico() + "</div>" +
+      '<p class="insight">' + esc(nombreCorto(t0.pais)) + " concentra <b class='gold'>" + esc(cortoMillones(t0.valor)) +
+      "</b> entradas (" + esc(pct(t0.valor, d.total)) + "). En Medellín, MinCIT VNR suma <b class='teal'>" +
+      esc(cortoMillones(d.medellin)) + "</b> no residentes con share Colombia " + esc(shareTxt) + ".</p>" +
+      '<footer class="stack foot-story">' +
+      '<a class="cta" href="index.html?tab=mercados">Ver tablero Bureau</a>' +
+      '<p class="fuente"><b>Fuente:</b> ' + esc(d.fuenteMig) + " · " + esc(d.fuenteMincit) + "</p>" +
+      "</footer></div></article>"
+    );
+  }
+
   function htmlBoletinA(d) {
     d = d || {};
     var top = d.top || [];
@@ -204,6 +286,49 @@ window.Piezas = (function () {
       "<ol class='rank'>" + rows + "</ol>" +
       '<p class="fuente"><b>Fuentes:</b> ' + esc(d.fuenteMig) + " · " + esc(d.fuenteMincit) + "</p>" +
       "</div></article>"
+    );
+  }
+
+  /** Boletín B · A4 vertical */
+  function htmlBoletinB(d) {
+    d = d || {};
+    var top = d.top || [];
+    var mincitTop = d.mincitTop || [];
+    var shareTxt = d.shareColombia != null
+      ? (d.shareColombia * 100).toFixed(1).replace(".", ",") + " %"
+      : "—";
+    return (
+      '<article class="pieza-stage stage a4" id="pieza-export" data-export="boletin-b">' +
+      '<div class="stage-bg" aria-hidden="true"></div>' +
+      '<div class="stage-inner stage-inner-a4">' +
+      '<header class="pieza-head">' +
+      '<div class="logos dark">' +
+      '<img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau">' +
+      '<img class="logo-colmayor" src="assets/logo_colmayor_blanco.png" alt="Colmayor">' +
+      "</div>" +
+      '<div class="gold-bar"></div>' +
+      '<p class="kicker">Boletín TEC-Bureau · hoja A4</p>' +
+      '<h1 class="h-title h-a4">Receptivo e emisores · Medellín / Colombia ' + esc(d.anio) + "</h1>" +
+      '<p class="lead">Una página para comité. Dos universos etiquetados: MinCIT VNR (destino ciudad) y Migración (entradas nacionales).</p>' +
+      "</header>" +
+      '<div class="kpi-grid kpi-3">' +
+      '<div class="kpi glass"><p class="label">Medellín VNR</p><p class="value v-sm">' + esc(cortoMillones(d.medellin)) + '</p><p class="meta">MinCIT ' + esc(d.anio) + "</p></div>" +
+      '<div class="kpi glass"><p class="label">Share CO</p><p class="value v-sm">' + esc(shareTxt) + '</p><p class="meta">Medellín / país</p></div>' +
+      '<div class="kpi glass"><p class="label">Top Migración</p><p class="value v-sm">' + esc(codigoPais(top[0] && top[0].pais)) + '</p><p class="meta">' + esc(cortoMillones(top[0] && top[0].valor)) + " entradas</p></div>" +
+      "</div>" +
+      '<div class="secs">' +
+      '<section class="sec glass"><h2>1 · Receptivo Medellín</h2>' +
+      "<p>Visitantes no residentes con destino ciudad (MinCIT VNR). No sumar con Aerocivil ni con Migración nacional.</p>" +
+      barrasMiniSvg(mincitTop.length ? mincitTop : top, "Top MinCIT MDE " + d.anio, STACK_COLORS) +
+      "</section>" +
+      '<section class="sec glass"><h2>2 · Emisores Colombia</h2>' +
+      "<p>Cruces de entrada de extranjeros (Migración). Lectura de origen nacional, no de ciudad destino.</p>" +
+      barrasMiniSvg(top, "Top Migración CO " + d.anio, ["#E9901E", "#FBBB28", "#00AEAC"]) +
+      "</section></div>" +
+      '<footer class="foot">' +
+      '<p class="fuente"><b>Fuentes:</b> ' + esc(d.fuenteMincit) + " · " + esc(d.fuenteMig) + "</p>" +
+      '<p class="fuente">Greater Medellín CVB · Colmayor Manual V7</p>' +
+      "</footer></div></article>"
     );
   }
 
@@ -250,7 +375,9 @@ window.Piezas = (function () {
       fetchText("design-options/brand-v7-shared.css"),
       fetchText("styles.css")
     ]).then(function (cssArr) {
-      var css = (cssArr[0] || "") + "\n" + (kind === "informe" ? (cssArr[1] || "") : "");
+      var brand = cssArr[0] || "";
+      var appCss = cssArr[1] || "";
+      var css = brand + "\n" + (kind === "informe" ? appCss : "");
       /* Reescribir rutas de fuentes/assets para archivo local */
       css = css.replace(/\.\.\/assets\//g, "assets/").replace(/url\("assets\//g, 'url("assets/');
       var bodyClass = kind === "informe" ? "export-informe" : "export-pieza stage-wrap";
@@ -258,7 +385,8 @@ window.Piezas = (function () {
         "<!DOCTYPE html><html lang=\"es\"><head><meta charset=\"utf-8\">" +
         "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
         "<title>" + esc(nombre) + "</title>" +
-        "<style>" + css + "\n.stage-wrap{padding:24px}.no-print{display:none!important}</style></head>" +
+        "<style>" + css + "\n.stage-wrap{padding:24px;display:grid;place-items:center;min-height:100vh}" +
+        ".no-print{display:none!important}</style></head>" +
         "<body class=\"" + bodyClass + "\">" + el.outerHTML + "</body></html>";
       blobDownload(nombre, doc, "text/html;charset=utf-8");
     });
@@ -274,7 +402,9 @@ window.Piezas = (function () {
     datosEmisores: datosEmisores,
     htmlInfografiaA: htmlInfografiaA,
     htmlInfografiaB: htmlInfografiaB,
+    htmlInfografiaC: htmlInfografiaC,
     htmlBoletinA: htmlBoletinA,
+    htmlBoletinB: htmlBoletinB,
     botonesDescarga: botonesDescarga,
     descargarHtml: descargarHtml,
     descargarPdf: descargarPdf,
