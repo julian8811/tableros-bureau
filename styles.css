@@ -522,6 +522,7 @@ body.print-pieza .informe-deck-live .slide{
   border-radius:999px;background:var(--teal,#108181);color:#fff;font-size:12px;font-weight:700;text-decoration:none;
 }
 .pieza-live .secs{display:grid;grid-template-columns:1fr 1fr;gap:12px;min-height:0}
+.pieza-live .secs.secs-3{grid-template-columns:1fr 1fr 1fr}
 .pieza-live .sec{
   padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.16);
   background:rgba(255,255,255,.04);display:grid;gap:8px;align-content:start;
@@ -529,12 +530,19 @@ body.print-pieza .informe-deck-live .slide{
 .pieza-live .sec h2{margin:0;font-size:12px;color:var(--gold);letter-spacing:.06em;text-transform:uppercase}
 .pieza-live .sec p{margin:0;font-size:11px;color:var(--text-2);line-height:1.4}
 .pieza-live .sec .fig{width:100%;height:auto}
+.pieza-live .pulso-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.pieza-live .pulso-list li{display:grid;grid-template-columns:1fr auto;gap:2px 8px;font-size:11px;color:var(--text)}
+.pieza-live .pulso-list li span{color:var(--text-2);font-size:10px;text-transform:uppercase;letter-spacing:.04em;grid-column:1/-1}
+.pieza-live .pulso-list li strong{font-size:14px;color:#fff}
+.pieza-live .pulso-list li em{font-style:normal;font-size:10px;color:var(--text-3);text-align:right}
 .pieza-live .kpi-grid.kpi-3{grid-template-columns:1fr 1fr 1fr}
+.pieza-live .kpi-grid.kpi-4,.pieza-live .pulso-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.pieza-live .stage-inner-email{grid-template-rows:auto;gap:12px}
 .pieza-live .h-story{font-size:clamp(20px,4vw,26px)!important;max-width:16ch}
 .pieza-live .h-a4{font-size:clamp(18px,2.6vw,24px)!important;max-width:28ch}
 @media (max-width:700px){
   .pieza-live .stage.story,.pieza-live .stage.a4{aspect-ratio:auto;max-height:none}
-  .pieza-live .secs{grid-template-columns:1fr}
+  .pieza-live .secs,.pieza-live .secs.secs-3,.pieza-live .kpi-grid.kpi-4,.pieza-live .pulso-grid{grid-template-columns:1fr 1fr}
 }
 .pieza-live .hero-block{display:grid;gap:12px}
 .pieza-live .h-title{font-size:clamp(20px,3.2vw,32px);max-width:18ch}

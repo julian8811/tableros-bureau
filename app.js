@@ -1628,14 +1628,15 @@
 
   function vistaBoletin() {
     if (!window.Piezas) return hueco("Piezas", "Falta piezas.js");
-    var d = Piezas.datosEmisores(DATA, state.anio);
+    var packer = Piezas.datosBoletin || Piezas.datosEmisores;
+    var d = packer(DATA, state.anio);
     var varId = state.boletinVar === "b" ? "b" : "a";
     var titulo = varId === "b"
-      ? "<strong>Boletín B · A4</strong> con datos vivos."
-      : "<strong>Boletín A · email 600px</strong> con datos del pack.";
+      ? "<strong>Boletín B · A4</strong> con datos vivos del dashboard (MinCIT, Migración, EMA, ICCA, EVI, Aerocivil)."
+      : "<strong>Boletín A · email 600px</strong> con pack vivo del tablero (emisores + receptivo + pulso).";
     var cuerpo = varId === "b" ? Piezas.htmlBoletinB(d) : Piezas.htmlBoletinA(d);
     return navPiezas() + navBoletinVar() +
-      '<p class="aviso">' + titulo + " PDF vía impresión.</p>" +
+      '<p class="aviso">' + titulo + " Año " + esc(state.anio) + ". HTML/PDF desde los botones.</p>" +
       Piezas.botonesDescarga({ kind: "boletin_" + varId }) +
       '<div class="pieza-live">' + cuerpo + "</div>" +
       '<p class="aviso no-print"><a class="btn" href="design-options/boletin-index.html" target="_blank" rel="noopener">Mocks boletines</a></p>';
