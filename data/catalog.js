@@ -287,6 +287,17 @@ window.CATALOGO = [
     universo: "Feriados nacionales y red de estaciones IDEAM con reporte en Medellín.",
     licencia: "Datos abiertos; agregados propios del ETL.",
     noMide: "Puentes efectivos ni ocupación de esos días."
+  },
+
+  {
+    id: "bureau-owid", tab: "mercados", nombre: "Benchmark mundial (ETL Bureau)",
+    pastilla: "Bureau · ETL", clase: "proxy",
+    fuenteTipo: "Secundaria", fuente: "ETL Bureau: Our World in Data (UN Tourism), scripts/alimentar_bureau.py",
+    pedida: "Anual", grano: "País y año", unidad: "Llegadas",
+    formula: "Top 25 destinos del último año disponible + serie completa de Colombia.",
+    universo: "Llegadas internacionales por país 1995-2024; Colombia con corte 2022 en OWID.",
+    licencia: "CC-BY Our World in Data; agregados propios del ETL.",
+    noMide: "El turismo interno ni series sub-anuales."
   }
 ];
 

@@ -243,7 +243,8 @@
       celda("span-4", icca()) +
       celda("span-12", medataFigura()) +
       celda("span-12", marcaLLM()) +
-      celda("span-12", bloqueConectividad()));
+      celda("span-12", bloqueConectividad()) +
+      celda("span-12", bloqueOwid()));
     html += grupo("Simulación", celda("span-12", conversion()));
     return html;
   }
@@ -412,6 +413,27 @@
       "<h3>Feriados</h3><table><tr><th>Fecha</th><th>Nombre</th></tr>" + filas + "</table>" +
       "<h3>Estaciones por estado</h3>" + Charts.bars(barras, "#108181") +
       pie("ETL Bureau · festivos CO + IDEAM" + extraido("bureauCalendario")));
+  }
+
+  function bloqueOwid() {
+    var data = DATA.bureauOwid || {};
+    var serie = data.serie || [];
+    var col = data.colombia_serie || [];
+    var cortes = data.cortes || {};
+    if (!serie.length) return hueco("Benchmark mundial", "Corra scripts/alimentar_bureau.py para traer el benchmark OWID del ETL.");
+    var barras = serie.map(function (row, i) {
+      return { label: row.pais, value: row.valor, text: num(row.valor), color: Charts.palette[i % Charts.palette.length] };
+    });
+    var linea = col.map(function (row) { return { x: String(row.anio), y: row.valor }; });
+    var ultimoCol = col.length ? col[col.length - 1] : null;
+    return '<div class="kpi-row">' +
+      kpi("bureau-owid", "Top 1 mundial", serie.length ? serie[0].pais : "—", serie.length ? num(serie[0].valor) + " · " + serie[0].anio : "") +
+      kpi("bureau-owid", "Colombia", ultimoCol ? num(ultimoCol.valor) : "—", ultimoCol ? String(ultimoCol.anio) : "") +
+      "</div>" +
+      block("Benchmark mundial (llegadas)", "Top 25 " + esc(cortes.mundial || data.ventana || "") + " · Colombia " + esc(cortes.colombia || "") + ".",
+      "<h3>Top 25 destinos</h3>" + Charts.bars(barras, "#00AEAC") +
+      "<h3>Colombia</h3>" + Charts.line(linea, "#108181") +
+      pie("ETL Bureau · Our World in Data (UN Tourism)" + extraido("bureauOwid")));
   }
 
   function bloqueConectividad() {
@@ -987,7 +1009,8 @@
     cargar("bureau_seguridad.json"),
     cargar("bureau_clima.json"),
     cargar("bureau_conectividad.json"),
-    cargar("bureau_calendario.json")
+    cargar("bureau_calendario.json"),
+    cargar("bureau_owid.json")
   ]).then(function (piezas) {
     DATA.conectividad = piezas[0];
     DATA.bureauPrensa = piezas[1];
@@ -1005,6 +1028,7 @@
     DATA.bureauClima = piezas[13];
     DATA.bureauConectividad = piezas[14];
     DATA.bureauCalendario = piezas[15];
+    DATA.bureauOwid = piezas[16];
     leerUrl();
     if (!DATA.conectividad || !DATA.ema || !DATA.icca) {
       document.getElementById("app").innerHTML = hueco("Faltan agregados", "Abra esta carpeta con un servidor local después de correr scripts/preparar_fuentes.py.");

@@ -90,10 +90,17 @@
    "id": "bureau-calendario",
    "estado": "ok",
    "n": 37
+  },
+  {
+   "archivo": "data/open/bureau_owid.json",
+   "id": "bureau-owid",
+   "estado": "ok",
+   "n": 25
   }
  ],
  "errores": [
   "gdelt: RuntimeError: GDELT respondió 429 Too Many Requests. No se inventan menciones.",
+  "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
   "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
   "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
   "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",

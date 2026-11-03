@@ -25,10 +25,12 @@ ERRORES = []
 _PIEZAS_PROPIAS = ("bureau_marca_llm.json", "bureau_paises_2025_2026.json",
                     "bureau_prensa.json", "bureau_oferta.json",
                     "bureau_seguridad.json", "bureau_clima.json",
-                    "bureau_conectividad.json", "bureau_calendario.json")
+                    "bureau_conectividad.json", "bureau_calendario.json",
+                    "bureau_owid.json")
 _IDS_PROPIOS = ("marca-llm", "bureau-paises", "prensa-medios",
                   "bureau-oferta", "bureau-seguridad", "bureau-clima",
-                  "bureau-conectividad", "bureau-calendario")
+                  "bureau-conectividad", "bureau-calendario",
+                  "bureau-owid")
 
 
 def _es_pieza_propia(entrada):
@@ -256,6 +258,29 @@ def calendario():
     print("calendario ok")
 
 
+def owid():
+    try:
+        src = bajar("owid_benchmark_2025_2026.json")
+    except Exception as exc:
+        ERRORES.append("owid: " + "".join(traceback.format_exception_only(type(exc), exc)).strip())
+        print("falla owid, se conserva el anterior")
+        return
+    guardar("bureau_owid.json", {
+        "id": "bureau-owid",
+        "titulo": "Benchmark mundial (ETL Bureau)",
+        "fuente": "ETL Bureau, Our World in Data (UN Tourism) " + str(src.get("ventana", "")),
+        "ventana": str(src.get("ventana", "")),
+        "url": BASE + "/owid_benchmark_2025_2026.json",
+        "licencia": "CC-BY Our World in Data; agregados propios del ETL.",
+        "universo": "Llegadas internacionales por país; top 25 del último año + serie de Colombia.",
+        "serie": src.get("serie", []),
+        "colombia_serie": src.get("colombia_serie", []),
+        "regiones": src.get("regiones_ultimo", []),
+        "cortes": src.get("cortes", {}),
+    })
+    print("owid ok")
+
+
 def manifiesto():
     try:
         previo = json.loads((OUT / "manifiesto.json").read_text(encoding="utf-8"))
@@ -271,6 +296,7 @@ def manifiesto():
         ("bureau_clima.json", "bureau-clima", "serie"),
         ("bureau_conectividad.json", "bureau-conectividad", "serie"),
         ("bureau_calendario.json", "bureau-calendario", "serie"),
+        ("bureau_owid.json", "bureau-owid", "serie"),
     ):
         path = OUT / nombre
         if not path.exists():
@@ -298,4 +324,5 @@ if __name__ == "__main__":
     clima()
     conectividad_bench()
     calendario()
+    owid()
     manifiesto()
