@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mock mapa · densidad de emisores a Colombia / Medellín</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<style>
+  @font-face{font-family:"Montserrat";src:url("assets/fonts/Montserrat-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("assets/fonts/Montserrat-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+  @font-face{font-family:"Montserrat";src:url("assets/fonts/Montserrat-Bold.woff2") format("woff2");font-weight:700;font-display:swap}
+  :root{
+    --navy:#172139;--teal:#108181;--teal-bright:#00AEAC;--gold:#FBBB28;--orange:#E9901E;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Montserrat",Calibri,Arial,sans-serif;background:#0e1422;color:#eef3f3}
+  .back{
+    position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+    padding:10px 18px;background:var(--navy);border-bottom:3px solid var(--gold);font-size:12px;font-weight:600;
+  }
+  .back a{color:var(--teal-bright);text-decoration:none}
+  .back .opt{color:var(--gold);letter-spacing:.08em;text-transform:uppercase;font-size:10px}
+  .wrap{max-width:1280px;margin:0 auto;padding:20px 16px 48px;display:grid;gap:18px}
+  .lead{margin:0;color:#9db3b3;font-size:13px;line-height:1.5;max-width:90ch}
+  .lead b{color:#fff}
+  .layout{display:grid;grid-template-columns:1fr 320px;gap:16px;min-height:640px}
+  @media (max-width:960px){.layout{grid-template-columns:1fr}}
+  #map{
+    height:min(72vh,680px);border-radius:14px;border:1px solid rgba(255,255,255,.12);
+    background:#10182a;overflow:hidden;
+  }
+  .side{display:grid;gap:12px;align-content:start}
+  .card{
+    background:#141c2e;border:1px solid #2c3a55;border-radius:12px;padding:14px 16px;
+  }
+  .card h2{margin:0 0 8px;font-size:14px;color:var(--gold);letter-spacing:.04em;text-transform:uppercase}
+  .card p,.card li{margin:0;font-size:12px;color:#9db3b3;line-height:1.45}
+  .card ul{margin:8px 0 0;padding-left:16px;display:grid;gap:6px}
+  .card code{font-size:11px;color:#c5d4e8}
+  .toggles{display:flex;flex-wrap:wrap;gap:8px}
+  .toggles button{
+    border:1px solid #2c3a55;background:#0e1422;color:#eef3f3;border-radius:999px;
+    padding:8px 12px;font:600 11px/1 Montserrat,sans-serif;cursor:pointer;
+  }
+  .toggles button.active{background:rgba(0,174,172,.2);border-color:var(--teal-bright);color:#fff}
+  .legend{display:grid;gap:6px;margin-top:8px}
+  .legend .row{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:center;font-size:11px;color:#c5d4e8}
+  .legend i{display:block;height:12px;border-radius:2px;border:1px solid rgba(255,255,255,.15)}
+  .rank{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+  .rank li{display:grid;grid-template-columns:22px 1fr auto;gap:8px;font-size:12px;align-items:baseline}
+  .rank .n{color:var(--gold);font-weight:700;text-align:right}
+  .rank .v{font-variant-numeric:tabular-nums;color:#fff;font-weight:700}
+  .status{font-size:11px;color:#7d8ea3}
+  .status.err{color:#ff8f8f}
+  .leaflet-popup-content{font-family:Montserrat,Arial,sans-serif;font-size:12px;line-height:1.4;margin:10px 12px}
+  .leaflet-container a.leaflet-popup-close-button{color:#172139}
+</style>
+</head>
+<body>
+  <nav class="back">
+    <span class="opt">Mock mapa</span>
+    <strong>Densidad de emisores · Natural Earth + Leaflet</strong>
+    <a href="informe-index.html">← Informes</a>
+  </nav>
+  <div class="wrap">
+    <p class="lead">
+      Prototipo para el informe: <b>mapa mundi coroplético</b> de países emisores de visitantes a Medellín/Colombia.
+      Sin API key de mapas comerciales: límites de países vía <b>Natural Earth</b> (GeoJSON público) + <b>Leaflet</b>.
+      Datos embebidos del pack <code>mincit_vnr.top_paises_*</code> (mismo origen que Generar).
+    </p>
+
+    <div class="layout">
+      <div>
+        <div id="map" role="img" aria-label="Mapa de densidad de visitantes por país emisor"></div>
+        <p class="status" id="status">Cargando GeoJSON Natural Earth…</p>
+      </div>
+      <aside class="side">
+        <div class="card">
+          <h2>Serie</h2>
+          <div class="toggles" id="toggles">
+            <button type="button" data-serie="ytd2026" class="active">YTD 2026 MinCIT</button>
+            <button type="button" data-serie="anual2025">Anual 2025 MinCIT</button>
+            <button type="button" data-serie="evi">EVI residencia</button>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Qué datos usamos</h2>
+          <ul>
+            <li><code>mincit_vnr.top_paises_2026</code> — ranking YTD (recomendado para el corte actual).</li>
+            <li><code>mincit_vnr.top_paises_2025</code> — año cerrado completo.</li>
+            <li><code>evi_ola.residencia</code> — peso/participación por residencia (encuesta, no flujo fronterizo).</li>
+            <li>Hoy <code>migracion.top_paises</code> viene vacío en el pack compacto.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Cómo lo hacemos</h2>
+          <ul>
+            <li>GeoJSON países: Natural Earth 110m local (<code>assets/geo/</code>) + CDN fallback.</li>
+            <li>Match por <code>ISO_A2</code> / <code>ISO_A2_EH</code> + diccionario ES→ISO.</li>
+            <li>Densidad = escala de color por cuantiles de visitantes (no lineal: top USA no apaga al resto).</li>
+            <li>Colombia resaltada como destino (borde gold), no como emisor.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Escala</h2>
+          <div class="legend" id="legend"></div>
+        </div>
+        <div class="card">
+          <h2>Top en serie</h2>
+          <ol class="rank" id="rank"></ol>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+/* Datos del pack compacto (snapshot Generar) — sustituir por fetch /api o data/open en producción */
+const SERIES = {
+  ytd2026: {
+    titulo: "MinCIT VNR · top países YTD 2026 (Medellín)",
+    fuente: "mincit_vnr.top_paises_2026",
+    metric: "visitantes",
+    rows: [
+      { pais: "Estados Unidos", iso: "US", visitantes: 180138 },
+      { pais: "México", iso: "MX", visitantes: 45910 },
+      { pais: "Costa Rica", iso: "CR", visitantes: 39224 },
+      { pais: "Ecuador", iso: "EC", visitantes: 30130 },
+      { pais: "Panamá", iso: "PA", visitantes: 29502 },
+      { pais: "República Dominicana", iso: "DO", visitantes: 27108 },
+      { pais: "Perú", iso: "PE", visitantes: 23980 },
+      { pais: "Puerto Rico", iso: "PR", visitantes: 23851 },
+      { pais: "Venezuela", iso: "VE", visitantes: 16908 },
+      { pais: "España", iso: "ES", visitantes: 12383 },
+      { pais: "Canadá", iso: "CA", visitantes: 12212 },
+      { pais: "Chile", iso: "CL", visitantes: 10676 }
+    ]
+  },
+  anual2025: {
+    titulo: "MinCIT VNR · top países 2025 (Medellín)",
+    fuente: "mincit_vnr.top_paises_2025",
+    metric: "visitantes",
+    rows: [
+      { pais: "Estados Unidos", iso: "US", visitantes: 378326 },
+      { pais: "México", iso: "MX", visitantes: 94288 },
+      { pais: "Costa Rica", iso: "CR", visitantes: 81319 },
+      { pais: "Panamá", iso: "PA", visitantes: 70848 },
+      { pais: "Ecuador", iso: "EC", visitantes: 60782 },
+      { pais: "República Dominicana", iso: "DO", visitantes: 59678 },
+      { pais: "Perú", iso: "PE", visitantes: 46641 },
+      { pais: "Puerto Rico", iso: "PR", visitantes: 45990 },
+      { pais: "Venezuela", iso: "VE", visitantes: 32373 },
+      { pais: "España", iso: "ES", visitantes: 26818 }
+    ]
+  },
+  evi: {
+    titulo: "EVI · residencia del visitante (ola publicada)",
+    fuente: "evi_ola.residencia",
+    metric: "peso",
+    rows: [
+      { pais: "Estados Unidos", iso: "US", visitantes: 200885, participacion: 36.1 },
+      { pais: "Panamá", iso: "PA", visitantes: 51589, participacion: 9.3 },
+      { pais: "República Dominicana", iso: "DO", visitantes: 41503, participacion: 7.4 },
+      { pais: "Perú", iso: "PE", visitantes: 41302, participacion: 7.4 },
+      { pais: "Costa Rica", iso: "CR", visitantes: 34460, participacion: 6.2 },
+      { pais: "México", iso: "MX", visitantes: 30735, participacion: 5.5 },
+      { pais: "España", iso: "ES", visitantes: 23601, participacion: 4.2 },
+      { pais: "Puerto Rico", iso: "PR", visitantes: 20064, participacion: 3.6 },
+      { pais: "Chile", iso: "CL", visitantes: 16601, participacion: 3.0 },
+      { pais: "Aruba", iso: "AW", visitantes: 10357, participacion: 1.9 }
+    ]
+  }
+};
+
+/* Diccionario de respaldo ES → ISO (cuando el pack no trae iso) */
+const ES_TO_ISO = {
+  "Estados Unidos": "US", "México": "MX", "Mexico": "MX", "Costa Rica": "CR",
+  "Ecuador": "EC", "Panamá": "PA", "Panama": "PA", "República Dominicana": "DO",
+  "Perú": "PE", "Peru": "PE", "Puerto Rico": "PR", "Venezuela": "VE",
+  "España": "ES", "Espana": "ES", "Colombia": "CO", "Brasil": "BR", "Argentina": "AR",
+  "Chile": "CL", "Canadá": "CA", "Canada": "CA", "Francia": "FR", "Alemania": "DE",
+  "Reino Unido": "GB", "Italia": "IT", "Aruba": "AW"
+};
+
+/* Centroides aprox. para territorios ausentes en NE 110m (PR, AW, …) */
+const ISO_CENTROID = {
+  PR: [18.22, -66.48],
+  AW: [12.52, -69.97]
+};
+
+const GEO_URLS = [
+  "assets/geo/ne_110m_admin_0_countries.geojson",
+  "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_0_countries.geojson"
+];
+/* Paleta densidad V7 (claro → intenso) */
+const COLORS = ["#1a2740", "#1e4d5c", "#108181", "#00AEAC", "#FBBB28", "#E9901E"];
+
+const statusEl = document.getElementById("status");
+const legendEl = document.getElementById("legend");
+const rankEl = document.getElementById("rank");
+let map, geoLayer, markerLayer, geojson, current = "ytd2026", breaks = [];
+
+function fmt(n) {
+  return Number(n || 0).toLocaleString("es-CO");
+}
+
+function isoOf(row) {
+  return String(row.iso || ES_TO_ISO[row.pais] || "").toUpperCase();
+}
+
+function buildIndex(serieKey) {
+  const serie = SERIES[serieKey];
+  const byIso = {};
+  serie.rows.forEach((r) => {
+    const iso = isoOf(r);
+    if (!iso) return;
+    byIso[iso] = {
+      pais: r.pais,
+      value: Number(r.visitantes) || 0,
+      participacion: r.participacion,
+      fuente: serie.fuente
+    };
+  });
+  return { serie, byIso };
+}
+
+function quantileBreaks(values, n) {
+  const v = values.slice().sort((a, b) => a - b);
+  if (!v.length) return [0, 1];
+  const out = [];
+  for (let i = 1; i < n; i++) {
+    const q = i / n;
+    const idx = (v.length - 1) * q;
+    const lo = Math.floor(idx);
+    const hi = Math.ceil(idx);
+    out.push(lo === hi ? v[lo] : v[lo] + (v[hi] - v[lo]) * (idx - lo));
+  }
+  return out;
+}
+
+function colorFor(val, br) {
+  if (val == null || !isFinite(val) || val <= 0) return "#151c2c";
+  let i = 0;
+  while (i < br.length && val > br[i]) i++;
+  return COLORS[Math.min(i, COLORS.length - 1)];
+}
+
+function renderLegend(br, max) {
+  const edges = [0].concat(br).concat([max]);
+  legendEl.innerHTML = edges.slice(0, -1).map((a, i) => {
+    const b = edges[i + 1];
+    const label = i === 0 && a === 0
+      ? "Sin dato / 0"
+      : fmt(Math.round(a)) + " – " + fmt(Math.round(b));
+    return '<div class="row"><i style="background:' + COLORS[i] + '"></i><span>' + label + "</span></div>";
+  }).join("");
+}
+
+function renderRank(serie) {
+  rankEl.innerHTML = serie.rows.slice(0, 8).map((r, i) =>
+    "<li><span class='n'>" + (i + 1) + "</span><span>" + r.pais + "</span><span class='v'>" + fmt(r.visitantes) + "</span></li>"
+  ).join("");
+}
+
+function featureIso(props) {
+  const raw = props.ISO_A2_EH || props.ISO_A2 || props.iso_a2 || "";
+  const iso = String(raw).toUpperCase();
+  if (!iso || iso === "-99") return "";
+  return iso;
+}
+
+function styleFeature(feature, byIso, br) {
+  const iso = featureIso(feature.properties || {});
+  const hit = byIso[iso];
+  const isCO = iso === "CO";
+  return {
+    fillColor: isCO ? "#172139" : colorFor(hit ? hit.value : 0, br),
+    weight: isCO ? 2.2 : 0.6,
+    color: isCO ? "#FBBB28" : "#0b1220",
+    fillOpacity: isCO ? 0.55 : hit ? 0.92 : 0.35
+  };
+}
+
+function onEachFeature(feature, layer, byIso, serie) {
+  const iso = featureIso(feature.properties || {});
+  const name = feature.properties.NAME || feature.properties.ADMIN || iso;
+  const hit = byIso[iso];
+  if (iso === "CO") {
+    layer.bindPopup("<b>Colombia (destino)</b><br>Resaltado; no es emisor en esta vista.");
+    return;
+  }
+  if (hit) {
+    const extra = hit.participacion != null ? "<br>Participación EVI: <b>" + String(hit.participacion).replace(".", ",") + "%</b>" : "";
+    layer.bindPopup(
+      "<b>" + hit.pais + "</b> (" + iso + ")<br>" +
+      "Visitantes / peso: <b>" + fmt(hit.value) + "</b>" + extra +
+      "<br><span style='color:#667'>Fuente: " + serie.fuente + "</span>"
+    );
+  } else {
+    layer.bindPopup("<b>" + name + "</b><br>Sin dato en el top del pack.");
+  }
+}
+
+function paint() {
+  const { serie, byIso } = buildIndex(current);
+  const values = Object.values(byIso).map((d) => d.value).filter((v) => v > 0);
+  breaks = quantileBreaks(values, COLORS.length - 1);
+  const max = Math.max(...values, 1);
+  renderLegend(breaks, max);
+  renderRank(serie);
+
+  if (geoLayer) map.removeLayer(geoLayer);
+  if (markerLayer) map.removeLayer(markerLayer);
+
+  const matched = new Set();
+  geoLayer = L.geoJSON(geojson, {
+    style: (f) => styleFeature(f, byIso, breaks),
+    onEachFeature: (f, layer) => {
+      const iso = featureIso(f.properties || {});
+      if (byIso[iso]) matched.add(iso);
+      onEachFeature(f, layer, byIso, serie);
+    }
+  }).addTo(map);
+
+  markerLayer = L.layerGroup();
+  Object.keys(byIso).forEach((iso) => {
+    if (matched.has(iso) || !ISO_CENTROID[iso]) return;
+    const hit = byIso[iso];
+    const [lat, lng] = ISO_CENTROID[iso];
+    const r = 8 + Math.min(18, Math.sqrt(hit.value) / 40);
+    const m = L.circleMarker([lat, lng], {
+      radius: r,
+      color: "#FBBB28",
+      weight: 1.5,
+      fillColor: colorFor(hit.value, breaks),
+      fillOpacity: 0.95
+    });
+    m.bindPopup(
+      "<b>" + hit.pais + "</b> (" + iso + ")<br>" +
+      "Visitantes / peso: <b>" + fmt(hit.value) + "</b>" +
+      (hit.participacion != null ? "<br>Participación EVI: <b>" + String(hit.participacion).replace(".", ",") + "%</b>" : "") +
+      "<br><span style='color:#667'>Territorio no en NE 110m · marcador</span>"
+    );
+    markerLayer.addLayer(m);
+  });
+  markerLayer.addTo(map);
+
+  const missing = Object.keys(byIso).filter((iso) => !matched.has(iso) && !ISO_CENTROID[iso]);
+  statusEl.textContent = serie.titulo + " · " + serie.rows.length + " emisores · " + serie.fuente +
+    (missing.length ? " · sin geometría: " + missing.join(", ") : "");
+  statusEl.className = "status";
+}
+
+document.getElementById("toggles").addEventListener("click", (ev) => {
+  const btn = ev.target.closest("button[data-serie]");
+  if (!btn) return;
+  current = btn.getAttribute("data-serie");
+  [...document.querySelectorAll("#toggles button")].forEach((b) => b.classList.toggle("active", b === btn));
+  if (geojson) paint();
+});
+
+map = L.map("map", {
+  worldCopyJump: true,
+  minZoom: 1,
+  maxZoom: 6,
+  zoomControl: true
+}).setView([10, -40], 2);
+
+/* Fondo neutro (sin tiles comerciales / sin API key) */
+L.rectangle([[-85, -180], [85, 180]], {
+  stroke: false,
+  fillColor: "#0b1220",
+  fillOpacity: 1,
+  interactive: false
+}).addTo(map);
+
+async function loadGeo() {
+  let lastErr;
+  for (const url of GEO_URLS) {
+    try {
+      const r = await fetch(url);
+      if (!r.ok) throw new Error("HTTP " + r.status + " @ " + url);
+      geojson = await r.json();
+      paint();
+      return;
+    } catch (err) {
+      lastErr = err;
+    }
+  }
+  statusEl.textContent = "No se pudo cargar Natural Earth: " + (lastErr && lastErr.message) + ".";
+  statusEl.className = "status err";
+}
+loadGeo();
+</script>
+</body>
+</html>
