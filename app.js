@@ -5,7 +5,7 @@
     tab: "mercados",
     anio: 2025,
     pais: "Todos",
-    vistaOwid: 'co',
+    vistaOwid: 'top',
     pronostico: "",
     ficha: null,
     volverFicha: "",
@@ -216,7 +216,7 @@
     var chart = Charts.multiLine([
       { name: "Observado", color: "#195855", points: hist.map(function (p) { return { x: etq(p.periodo), y: p.valor }; }) },
       { name: "Pronóstico", color: "#E9901E", points: ancla.concat(fut.map(function (p) { return { x: etq(p.periodo), y: p.valor }; })) }
-    ]);
+    ], { xLabel: "Mes", yLabel: s.unidad || "Valor" });
     var botones = series.map(function (item) {
       return '<button type="button" class="tab' + (item.id === s.id ? " active" : "") + '" data-pronostico="' + esc(item.id) + '">' + esc(etiquetas[item.id] || item.nombre) + "</button>";
     }).join("");
@@ -224,7 +224,14 @@
       return "<tr><td>" + esc(c.etiqueta) + (c.modelo === s.modelo ? " · publicado" : "") + "</td><td class=\"num\">" + num(c.mae, digMae(c.mae)) + "</td><td class=\"num\">" + (c.mape == null ? "—" : num(c.mape, 1) + " %") + "</td></tr>";
     }).join("");
     var ultimo = fut[fut.length - 1];
-    var notas = (s.notas || []).map(function (n) { return "<li>" + esc(n) + "</li>"; }).join("");
+    var notasRaw = s.notas || [];
+    var notasTitulos = ["Qué mide", "Modelo elegido", "Banda del ensayo", "Qué no mide"];
+    var notasCards = notasRaw.map(function (n, i) {
+      return '<article class="note-card"><b>' + esc(notasTitulos[i] || ("Nota " + (i + 1))) + "</b>" + esc(n) + "</article>";
+    }).join("");
+    var notesRail = notasRaw.length
+      ? '<div class="notes-rail" aria-label="Notas del modelo"><div class="notes-track">' + notasCards + notasCards + "</div></div>"
+      : "";
     var cierre = ultimo ? " a " + esc(ultimo.periodo) + ": " + fmt(ultimo.valor) + " (" + fmt(ultimo.bajo) + " a " + fmt(ultimo.alto) + ")" : "";
     return '<p class="aviso">' + esc((data.resumen || {}).frase || "") + "</p>" +
       '<div class="kpi-row">' +
@@ -236,8 +243,8 @@
       block(s.nombre, "Últimos 18 meses observados y 6 de pronóstico. La línea punteada no es una meta.",
         '<div class="tabs" role="tablist">' + botones + "</div>" + chart +
         "<p class=\"hint\">" + esc(s.nombre) + cierre + ". MAE en " + esc(s.unidad) + " sobre los últimos 6 meses. El MAPE de conteos bajos, como los homicidios, se infla y no elige el modelo.</p>" +
-        "<table class=\"table\"><tr><th>Modelo</th><th>MAE</th><th>MAPE</th></tr>" + filas + "</table>" +
-        "<ul>" + notas + "</ul>" +
+        "<table class=\"table\"><thead><tr><th>Modelo</th><th>MAE</th><th>MAPE</th></tr></thead><tbody>" + filas + "</tbody></table>" +
+        notesRail +
         "<p class=\"hint\">" + esc(data.fuera || "") + "</p>" +
         pie("ETL Bureau · ensayo de 6 meses sobre la serie observada, corte " + (s.corte || "") + extraido("bureauPronostico")));
   }
@@ -258,7 +265,7 @@
       totalL = MERCADOS.reduce(function (s, m) { return s + (llegadas[m] || 0); }, 0);
       movimiento = Charts.multiLine(MERCADOS.map(function (m) {
         return { name: m, color: COLOR[m], pais: PAIS_DE_MERCADO[m] || "", points: puntosMes(con, "pasajeros", m) };
-      }).filter(function (s) { return s.points.length; }));
+      }).filter(function (s) { return s.points.length; }), { xLabel: "Mes", yLabel: "Pasajeros" });
       titulo = "Pasajeros por mercado y mes";
       pista = "Aerocivil. Los cinco mercados de la lista. Un clic en el punto elige el país.";
     } else {
@@ -276,7 +283,7 @@
             { name: "Salidas", value: fila.salidas || 0, color: "#108181", pais: state.pais }
           ]
         };
-      }).filter(function (item) { return item.parts[0].value || item.parts[1].value; }));
+      }).filter(function (item) { return item.parts[0].value || item.parts[1].value; }), { xLabel: "Mes", yLabel: "Pasajeros" });
       titulo = "Llegadas y salidas";
       pista = "Aerocivil. " + etiquetaPais(state.pais) + (fichaPais.priorizado ? " · lista Bureau" + (fichaPais.mercado ? " · " + fichaPais.mercado : "") : " · fuera de la lista") + ".";
     }
@@ -302,8 +309,8 @@
       celda("span-12", bloqueConectividad()) +
       celda("span-12", bloqueOwid()) +
       celda("span-12", bloqueSit()));
+    html += grupo("Participación Aerocivil", celda("span-12", conversion()));
     html += grupo("Pronóstico", celda("span-12", bloquePronostico("mercados")));
-    html += grupo("Simulación", celda("span-12", conversion()));
     return html;
   }
 
@@ -326,9 +333,14 @@
     var suma = {};
     filas.forEach(function (row) { suma[row.aeropuerto] = (suma[row.aeropuerto] || 0) + row.llegadas; });
     var items = Object.keys(suma).map(function (k) {
-      return { label: k === "MDE" ? "Córdova" : "Olaya Herrera", value: suma[k], color: COLOR[k] || "#108181", text: num(suma[k]) };
+      return {
+        label: k === "MDE" ? "José María Córdova (MDE)" : "Enrique Olaya Herrera (EOH)",
+        value: suma[k],
+        color: COLOR[k] || "#108181",
+        text: num(suma[k])
+      };
     });
-    return block("Llegadas por aeropuerto", items.length ? "Año " + state.anio + "." : "Corte pendiente.", (items.length ? Charts.donut(items) : hueco("Sin corte", "Vuelva a correr el script de fuentes.")) + pie("Aerocivil gb6w-ynu4 · " + cobertura((DATA.conectividad || {}).serie) + extraido("conectividad")));
+    return block("Llegadas por aeropuerto", items.length ? "Año " + state.anio + ". Pasajeros desembarcados en cada terminal de Medellín." : "Corte pendiente.", (items.length ? Charts.donut(items) : hueco("Sin corte", "Vuelva a correr el script de fuentes.")) + pie("Aerocivil gb6w-ynu4 · " + cobertura((DATA.conectividad || {}).serie) + extraido("conectividad")));
   }
 
   function aerolineas() {
@@ -341,7 +353,12 @@
   function carga() {
     var filas = (DATA.conectividad.carga || []).filter(function (row) { return row.anio === state.anio; });
     var puntos = filas.map(function (row) { return { x: MESES[row.mes - 1], y: row.kg }; });
-    return block("Carga y correo", "Kilos en vuelos que tocan MDE o EOH.", (puntos.length ? Charts.line(puntos, "#195855") : hueco("Sin corte", "Vuelva a correr el script de fuentes.")) + pie("Aerocivil gb6w-ynu4 · " + cobertura((DATA.conectividad || {}).serie) + extraido("conectividad")));
+    return block(
+      "Carga y correo",
+      "Peso total (kg) de carga + correo en vuelos que aterrizan o despegan en José María Córdova (MDE) o Enrique Olaya Herrera (EOH). No son pasajeros: mide mercancía aérea del sistema Medellín.",
+      (puntos.length ? Charts.line(puntos, "#195855", { xLabel: "Mes", yLabel: "Kilogramos" }) : hueco("Sin corte", "Vuelva a correr el script de fuentes.")) +
+      pie("Aerocivil gb6w-ynu4 · " + cobertura((DATA.conectividad || {}).serie) + extraido("conectividad"))
+    );
   }
 
   function medataFigura() {
@@ -405,20 +422,28 @@
     var serie = data.serie || [];
     var cortes = data.cortes || {};
     if (!serie.length && !rnt.prestadores) return hueco("Oferta", "Corra scripts/alimentar_bureau.py para traer la oferta del ETL.");
-    var cats = (rnt.por_categoria || []).map(function (row, i) {
-      return { label: row.categoria, value: row.prestadores, text: num(row.prestadores), color: Charts.palette[i % Charts.palette.length] };
+    var cats = (rnt.por_categoria || []).slice(0, 10).map(function (row, i) {
+      var nombre = row.categoria || "";
+      if (nombre.length > 34) nombre = nombre.slice(0, 33) + "…";
+      return { label: nombre, value: row.prestadores, text: num(row.prestadores), color: Charts.palette[i % Charts.palette.length] };
+    });
+    var munis = (rnt.top_municipios || []).slice(0, 8).map(function (row, i) {
+      return { label: etiquetaPais(row.municipio), value: row.prestadores, text: num(row.prestadores), color: Charts.palette[i % Charts.palette.length] };
     });
     var porc = serie.filter(function (r) { return r.concepto === "Porcentaje de personas que realizaron turismo interno"; })
       .map(function (r) { return { x: r.trimestre, y: r.valor }; });
     var ultimo = porc.length ? porc[porc.length - 1] : null;
+    var medellin = ((rnt.top_municipios || []).find(function (m) { return fold(m.municipio) === "medellin"; }) || {}).prestadores;
+    var ambito = "Registro Nacional de Turismo (RNT) · prestadores con domicilio en municipios de Antioquia (corte ETL " + esc(cortes.rnt || rnt.corte || "—") + "). Medellín concentra " + (medellin != null ? num(medellin) : "—") + " de " + num(rnt.prestadores) + ". No es el inventario solo del Distrito ni el de todo el país.";
     return '<div class="kpi-row">' +
-      kpi("bureau-oferta", "Prestadores RNT", num(rnt.prestadores), "corte " + esc(cortes.rnt || data.ventana || "")) +
-      kpi("bureau-oferta", "Turismo interno", ultimo ? num(ultimo.y, 1) + "%" : "—", "corte " + esc(cortes.turismo_interno || "")) +
+      kpi("bureau-oferta", "Prestadores RNT", num(rnt.prestadores), "Antioquia · " + esc(cortes.rnt || data.ventana || "")) +
+      kpi("bureau-oferta", "Turismo interno", ultimo ? num(ultimo.y, 1) + "%" : "—", "EGIT nacional · " + esc(cortes.turismo_interno || "")) +
       "</div>" +
-      block("Oferta y territorio", "Cortes: RNT " + esc(cortes.rnt || "—") + " · turismo " + esc(cortes.turismo_interno || "—") + ".",
-      "<h3>Prestadores por categoría</h3>" + Charts.bars(cats, "#108181") +
-      "<h3>Turismo interno (%)</h3>" + Charts.line(porc, "#00AEAC") +
-      pie("ETL Bureau · RNT + DANE EGIT" + extraido("bureauOferta")));
+      block("Oferta y territorio", ambito,
+      "<h3>Prestadores por categoría (Antioquia)</h3>" + Charts.bars(cats, "#108181", { xLabel: "Prestadores" }) +
+      (munis.length ? "<h3>Top municipios</h3>" + Charts.bars(munis, "#00AEAC", { xLabel: "Prestadores" }) : "") +
+      "<h3>Turismo interno nacional (%)</h3>" + Charts.line(porc, "#00AEAC", { xLabel: "Trimestre", yLabel: "% personas" }) +
+      pie("ETL Bureau · RNT datos.gov.co + DANE EGIT" + extraido("bureauOferta")));
   }
 
   function bloqueSeguridad() {
@@ -435,23 +460,57 @@
       pie("ETL Bureau · SIEDCO Policía Nacional" + extraido("bureauSeguridad")));
   }
 
+  function promedioDiarioPm25(filas) {
+    var cubo = {};
+    (filas || []).forEach(function (row) {
+      var dia = String(row.fecha || "").slice(0, 10);
+      if (!dia) return;
+      if (!cubo[dia]) cubo[dia] = { suma: 0, n: 0 };
+      cubo[dia].suma += Number(row.pm2_5) || 0;
+      cubo[dia].n += 1;
+    });
+    return Object.keys(cubo).sort().map(function (dia) {
+      return { x: dia, y: cubo[dia].suma / cubo[dia].n };
+    });
+  }
+
   function bloqueClima() {
     var data = DATA.bureauClima || {};
     var serie = data.serie || [];
     var pm25 = data.pm25_serie || [];
     var sisaire = data.sisaire_pm25 || [];
     var pron = data.pronostico || [];
-    if (!serie.length && !pm25.length && !pron.length && !sisaire.length) return hueco("Clima", "Corra scripts/alimentar_bureau.py para traer el clima del ETL.");
-    var lluvia = serie.map(function (row) { return { x: row.periodo, y: row.mm_prom }; });
-    var aire = pm25.map(function (row) { return { x: row.fecha, y: row.pm2_5 }; });
+    if (!serie.length && !pm25.length && !pron.length && !sisaire.length) return "";
+    var lluviaUtil = serie.filter(function (row) { return Number(row.mm_prom) > 0; });
+    var aire = promedioDiarioPm25(pm25);
+    if (!aire.length) aire = pm25.map(function (row) { return { x: row.fecha, y: row.pm2_5 }; });
     var medido = sisaire.map(function (row) { return { x: row.fecha, y: row.pm2_5 }; });
     var futuro = pron.map(function (row) { return { x: row.date, y: row.prec_mean }; });
-    return block("Clima y calidad del aire", "Lluvia mensual, PM2.5 y pronóstico ensemble. " + esc(data.ventana || "") + ".",
-      "<h3>Lluvia mensual (mm prom.)</h3>" + Charts.line(lluvia, "#108181") +
-      "<h3>PM2.5 modelado</h3>" + Charts.line(aire, "#E9901E") +
-      (medido.length ? "<h3>PM2.5 medido (SISAIRE, AMVA)</h3>" + Charts.line(medido, "#172139") : "") +
-      "<h3>Pronóstico de precipitación media</h3>" + Charts.line(futuro, "#00AEAC") +
-      pie("ETL Bureau · IDEAM + Open-Meteo + SISAIRE" + extraido("bureauClima")));
+    if (!lluviaUtil.length && !aire.length && !medido.length && !futuro.length) return "";
+    var partes = [];
+    if (lluviaUtil.length) {
+      partes.push("<h3>Lluvia mensual (mm promedio)</h3>" + Charts.line(lluviaUtil.map(function (row) {
+        return { x: row.periodo, y: row.mm_prom };
+      }), "#108181", { xLabel: "Mes", yLabel: "mm" }));
+    } else {
+      partes.push(hueco("Lluvia IDEAM", "En la ventana " + esc(data.ventana || "") + " el agregado solo trae meses en 0 mm o sin serie útil. No se grafica una línea vacía."));
+    }
+    if (aire.length > 1) {
+      partes.push("<h3>PM2.5 modelado (promedio diario · Open-Meteo)</h3>" + Charts.line(aire, "#E9901E", { xLabel: "Día", yLabel: "µg/m³" }));
+    }
+    if (medido.length > 1) {
+      partes.push("<h3>PM2.5 medido (SISAIRE · AMVA)</h3>" + Charts.line(medido, "#B4C42C", { xLabel: "Día", yLabel: "µg/m³" }));
+    } else if (medido.length === 1) {
+      partes.push(hueco("PM2.5 medido", "SISAIRE solo trae un día en el corte; no alcanza para una serie."));
+    }
+    if (futuro.length) {
+      partes.push("<h3>Pronóstico de precipitación media (7 días)</h3>" + Charts.line(futuro, "#00AEAC", { xLabel: "Día", yLabel: "mm" }));
+    }
+    return block(
+      "Clima y calidad del aire",
+      "Series abiertas para Medellín / Valle de Aburrá. Ventana ETL: " + esc(data.ventana || "—") + ".",
+      partes.join("") + pie("ETL Bureau · IDEAM + Open-Meteo + SISAIRE" + extraido("bureauClima"))
+    );
   }
 
   function bloqueCalendario() {
@@ -479,8 +538,11 @@
       var items = porMes[k].map(function (f) {
         return '<li><span class="pastilla">' + esc(String(f.date).slice(8, 10)) + '</span> ' + esc(f.nombre) + '</li>';
       }).join('');
-      return '<div><h4>' + esc(titulo) + ' <span class="pastilla">' + porMes[k].length + '</span></h4><ul>' + items + '</ul></div>';
+      return '<article class="cal-card"><h4>' + esc(titulo) + ' <span class="pastilla">' + porMes[k].length + '</span></h4><ul>' + items + '</ul></article>';
     }).join('');
+    var rail = tarjetas
+      ? '<div class="notes-rail cal-rail" aria-label="Feriados por mes"><div class="notes-track">' + tarjetas + tarjetas + '</div></div>'
+      : '';
     var porPais = {};
     emisores.forEach(function (f) {
       var k = f.pais || "?";
@@ -497,11 +559,11 @@
       kpi('bureau-calendario', 'Estaciones IDEAM', num(est.total || 0), 'red con reporte') +
       kpi('bureau-calendario', 'Avisos de viaje', num(avisos.length), 'EE. UU., Canadá, Reino Unido') +
       '</div>' +
-      block('Calendario y contexto', 'Feriados nacionales, emisores y avisos de viaje. ' + esc(data.ventana || '') + '.',
-      '<h3>Feriados por mes</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;align-items:start;">' + tarjetas + '</div>' +
+      block('Calendario y contexto', 'Feriados nacionales de Colombia, recuento en mercados emisores y avisos de viaje. Ventana ' + esc(data.ventana || '') + '.',
+      '<h3>Feriados por mes</h3>' + rail +
       (paises ? "<h3>Feriados de mercados emisores</h3><ul class='lista'>" + paises + "</ul>" : "") +
       (listaAvisos ? "<h3>Avisos de viaje hacia Colombia</h3><ul class='lista'>" + listaAvisos + "</ul>" : "") +
-      '<h3>Estaciones por estado</h3>' + Charts.bars(barras, '#108181') +
+      '<h3>Estaciones IDEAM por estado</h3>' + Charts.bars(barras, '#108181', { xLabel: 'Estaciones' }) +
       pie('ETL Bureau · festivos CO + IDEAM + avisos de viaje' + extraido('bureauCalendario')));
   }
   function bloqueSit() {
@@ -520,8 +582,8 @@
       kpi("bureau-sit", "Mercados", num(serie.length), "corte " + esc(data.corte || "")) +
       "</div>" +
       block("Perfiles emisores SIT", "Llegadas 2025 por mercado auditado.",
-      "<h3>Llegadas</h3>" + Charts.bars(barras, "#00AEAC") +
-      "<h3>Cifras clave</h3><div style=\"overflow-x:auto\"><table style=\"width:100%;table-layout:fixed;word-break:break-word\"><tr><th>Mercado</th><th>Llegadas</th><th>YoY</th><th>Motivo top</th><th>Ticket COP</th></tr>" + filas + "</table></div>" +
+      "<h3>Llegadas</h3>" + Charts.bars(barras, "#00AEAC", { xLabel: "Llegadas", yLabel: "Mercado" }) +
+      "<h3>Cifras clave</h3><div class=\"table-wrap\"><table class=\"table table-sit\"><thead><tr><th>Mercado</th><th>Llegadas</th><th>YoY</th><th>Motivo top</th><th>Ticket COP</th></tr></thead><tbody>" + filas + "</tbody></table></div>" +
       pie("ETL Bureau · SIT Medellín perfiles de mercado" + extraido("bureauSit")));
   }
 
@@ -530,56 +592,29 @@
     var serie = data.serie || [];
     var col = data.colombia_serie || [];
     var cortes = data.cortes || {};
-    if (!serie.length && !col.length) return hueco('Benchmark mundial', 'Corra scripts/alimentar_bureau.py para traer el benchmark OWID del ETL.');
-    var vista = state.vistaOwid || 'co';
-    var tabs = [['co', 'Colombia 1995-2022'], ['top', 'Top 5'], ['reg', 'Regiones']].map(function (t) {
-      return '<button type="button" class="tab' + (vista === t[0] ? ' active' : '') + '" data-vistaowid="' + t[0] + '">' + t[1] + '</button>';
-    }).join('');
-    var cuerpo = '';
-    if (vista === 'top') cuerpo = owidBarras(serie.slice(0, 5).map(function (r) { return { label: r.pais, value: r.valor }; }));
-    else if (vista === 'reg') cuerpo = owidBarras((data.regiones || []).map(function (r) { return { label: r.region, value: r.valor }; }));
-    else cuerpo = owidLinea(col);
-    return kpi('bureau-owid', 'Top 1 mundial', serie.length ? serie[0].pais : '—', serie.length ? num(serie[0].valor) + ' · ' + serie[0].anio : '') +
-      block('Benchmark mundial (llegadas)', 'Top 25 ' + esc(cortes.mundial || data.ventana || '') + ' · Colombia ' + esc(cortes.colombia || '') + '.',
-      '<div class="vtabs" role="tablist">' + tabs + '</div>' + cuerpo +
-      pie('ETL Bureau · Our World in Data (UN Tourism)' + extraido('bureauOwid')));
-  }
-  function owidBarras(items) {
-    var max = 1, i;
-    for (i = 0; i < items.length; i++) if (items[i].value > max) max = items[i].value;
-    var s = '<svg class="chart" viewBox="0 0 640 ' + (items.length * 30 + 8) + '" role="img">';
-    for (i = 0; i < items.length; i++) {
-      var y = 6 + i * 30, w = Math.max(2, items[i].value / max * 360);
-      s += '<text x="0" y="' + (y + 13) + '" font-size="11" fill="#172139">' + esc(items[i].label) + '</text>';
-      s += '<g data-tip="' + esc(items[i].label + ': ' + num(items[i].value)) + '" tabindex="0"><rect x="150" y="' + y + '" width="' + w + '" height="16" rx="3" fill="' + Charts.palette[i % Charts.palette.length] + '"></rect>';
-      s += '<text x="' + (156 + w) + '" y="' + (y + 13) + '" font-size="11" fill="#3d4a5c">' + esc(num(items[i].value)) + '</text></g>';
-    }
-    return s + '</svg>';
-  }
-  function owidEje(v) {
-    if (v >= 1000000) return (Math.round(v / 100000) / 10).toString().replace('.', ',') + ' M';
-    return num(v);
-  }
-  function owidLinea(col) {
-    var W = 640, H = 220, L = 52, B = 28, top = 16;
-    var max = 1, i;
-    for (i = 0; i < col.length; i++) if (col[i].valor > max) max = col[i].valor;
-    function sx(k) { return L + k * ((W - L - 16) / Math.max(1, col.length - 1)); }
-    function sy(v) { return top + (H - B - top) * (1 - v / max); }
-    var s = '<svg class="chart" viewBox="0 0 ' + W + ' ' + H + '" role="img">';
-    [0, 0.5, 1].forEach(function (t) {
-      var y = top + (H - B - top) * (1 - t);
-      s += '<line x1="' + L + '" y1="' + y + '" x2="' + (W - 12) + '" y2="' + y + '" stroke="#e4ecec" stroke-width="1"></line>';
-      s += '<text x="' + (L - 6) + '" y="' + (y + 3) + '" font-size="10" fill="#6b7789" text-anchor="end">' + esc(owidEje(max * t)) + '</text>';
-    });
-    var d = [];
-    for (i = 0; i < col.length; i++) d.push(sx(i).toFixed(1) + ',' + sy(col[i].valor).toFixed(1));
-    s += '<polyline fill="none" stroke="#108181" stroke-width="2.5" points="' + d.join(' ') + '"></polyline>';
-    for (i = 0; i < col.length; i++) {
-      if (i % 2 && i !== col.length - 1) continue;
-      s += '<circle cx="' + sx(i) + '" cy="' + sy(col[i].valor) + '" r="4" fill="#00AEAC" tabindex="0" data-tip="' + esc(String(col[i].anio) + ': ' + num(col[i].valor)) + '"></circle>';
-    }
-    return s + '</svg>';
+    if (!serie.length && !col.length) return "";
+    // Vista por defecto: Top 5 del último año publicado (2024). Colombia OWID solo llega a 2022.
+    var vista = state.vistaOwid || "top";
+    var tabs = [["top", "Top 5 · 2024"], ["reg", "Regiones · 2024"], ["co", "Colombia · hasta 2022"]].map(function (t) {
+      return '<button type="button" class="tab' + (vista === t[0] ? " active" : "") + '" data-vistaowid="' + t[0] + '">' + t[1] + "</button>";
+    }).join("");
+    var cuerpo = "";
+    if (vista === "reg") cuerpo = Charts.bars((data.regiones || []).map(function (r) {
+      return { label: r.region, value: r.valor, text: num(r.valor) };
+    }), "#00AEAC", { xLabel: "Llegadas internacionales", yLabel: "Región" });
+    else if (vista === "co") {
+      if (!col.length) cuerpo = hueco("Colombia OWID", "La serie nacional de UN Tourism en OWID todavía no llega a 2024.");
+      else cuerpo = Charts.line(col.map(function (r) { return { x: String(r.anio), y: r.valor }; }), "#00AEAC", { xLabel: "Año", yLabel: "Llegadas internacionales" });
+    } else cuerpo = Charts.bars(serie.slice(0, 5).map(function (r) {
+      return { label: r.pais, value: r.valor, text: num(r.valor) };
+    }), "#E9901E", { xLabel: "Llegadas internacionales", yLabel: "País" });
+    return kpi("bureau-owid", "Top 1 mundial", serie.length ? serie[0].pais : "—", serie.length ? num(serie[0].valor) + " · " + serie[0].anio : "") +
+      block(
+        "Benchmark mundial (llegadas)",
+        "Comparativo OWID/UN Tourism. El top mundial y las regiones usan el corte " + esc(cortes.mundial || "2024") + ". La serie de Colombia en esa fuente solo llega a " + esc(cortes.colombia || "2022") + ".",
+        '<div class="vtabs" role="tablist">' + tabs + "</div>" + cuerpo +
+        pie("ETL Bureau · Our World in Data (UN Tourism)" + extraido("bureauOwid"))
+      );
   }
   function bloqueConectividad() {
     var data = DATA.bureauConectividad || {};
@@ -606,26 +641,30 @@
       kpi("bureau-conectividad", "TRM", ultimoTrm ? num(ultimoTrm.cop_per_usd, 0) : "—", ultimoTrm ? String(ultimoTrm.date).slice(0, 10) : "") +
       "</div>" +
       block("Conectividad", corteTxt + ".",
-      "<h3>Operaciones aéreas</h3>" + Charts.line(ops, "#108181") +
-      "<h3>Señal digital (vistas)</h3>" + Charts.line(dig, "#00AEAC") +
+      "<h3>Operaciones aéreas</h3>" + Charts.line(ops, "#108181", { xLabel: "Periodo", yLabel: "Operaciones" }) +
+      "<h3>Señal digital (vistas)</h3>" + Charts.line(dig, "#00AEAC", { xLabel: "Periodo", yLabel: "Vistas" }) +
       extra +
       pie("ETL Bureau · Aerocivil/Eurostat/Wikimedia/BTS" + extraido("bureauConectividad")));
   }
 
   function tarifas() {
     var ema = filasAnio(DATA.ema.serie, state.anio);
-    var linea = Charts.line(ema.map(function (row) { return { x: MESES[row.mes - 1], y: row.indice_100 }; }), "#108181", { mark: 100 });
     var ocup = DATA.ema && DATA.ema.ocupacion && DATA.ema.ocupacion.serie;
     var ocupAnio = filasAnio(ocup, state.anio);
-    var ocupacion = "";
+    var lineaTarifa = Charts.line(ema.map(function (row) { return { x: MESES[row.mes - 1], y: row.indice_100 }; }), "#108181", { mark: 100, xLabel: "Mes", yLabel: "Índice (100 = promedio)" });
+    var ocupacionClara = "";
     if (ocupAnio.length) {
-      ocupacion = Charts.multiLine([
+      ocupacionClara = Charts.multiLine([
         { name: "Antioquia", color: "#108181", points: ocupAnio.map(function (row) { return { x: MESES[row.mes - 1], y: row.antioquia }; }) },
         { name: "Bogotá", color: "#E9901E", points: ocupAnio.map(function (row) { return { x: MESES[row.mes - 1], y: row.bogota }; }) },
         { name: "Cartagena", color: "#FBBB28", points: ocupAnio.map(function (row) { return { x: MESES[row.mes - 1], y: row.cartagena }; }) }
-      ]);
+      ], { xLabel: "Mes", yLabel: "Ocupación hotelera %" });
     }
-    return block("Tarifa y ocupación", "La línea verde marca 100, el promedio regional del mes. La línea compara Antioquia, Bogotá y Cartagena.", linea + ocupacion + pie("DANE EMA · " + cobertura((DATA.ema || {}).serie) + extraido("ema")));
+    return block(
+      "Tarifa y ocupación",
+      "Arriba: índice de tarifa hotelera de Antioquia (EMA). La línea lima en 100 es el promedio regional del mes; por encima de 100 la tarifa está cara frente a ese promedio. Abajo: ocupación hotelera (%) de Antioquia, Bogotá y Cartagena en el mismo año.",
+      lineaTarifa + ocupacionClara + pie("DANE EMA · " + cobertura((DATA.ema || {}).serie) + extraido("ema"))
+    );
   }
 
   function regionesOcupacion() {
@@ -653,11 +692,22 @@
     var con = filasAnio(DATA.conectividad.serie, state.anio);
     var llegadas = sumaMercado(con, "llegadas");
     var total = MERCADOS.reduce(function (s, m) { return s + (llegadas[m] || 0); }, 0) || 1;
-    var items = MERCADOS.map(function (m) {
+    var items = MERCADOS.map(function (m, i) {
       var parte = (llegadas[m] || 0) / total * 100;
-      return { label: m, value: parte, text: num(parte, 1) + " %", sim: true, pais: PAIS_DE_MERCADO[m] || "" };
+      return {
+        label: m,
+        value: parte,
+        text: num(parte, 1) + " %",
+        color: Charts.palette[i % Charts.palette.length],
+        pais: PAIS_DE_MERCADO[m] || ""
+      };
     });
-    return block("Peso de llegadas entre mercados", pastilla("conversion"), Charts.bars(items, Charts.SIM) + notaSim("se reparte el peso de las llegadas Aerocivil de " + state.anio + " entre los cinco mercados. No es la tasa del CRM.") + pie("Aerocivil " + cobertura((DATA.conectividad || {}).serie) + extraido("conectividad") + " \u00b7 simulador"));
+    return block(
+      "Participación de llegadas por mercado",
+      "Dato Aerocivil (no CRM): porcentaje de las llegadas realizadas del año " + state.anio + " que aporta cada mercado priorizado sobre el total de los cinco. No es conversión comercial ni tasa del CRM.",
+      Charts.bars(items, "#00AEAC", { xLabel: "% de llegadas", yLabel: "Mercado" }) +
+      pie("Aerocivil gb6w-ynu4 · " + cobertura((DATA.conectividad || {}).serie) + extraido("conectividad") + " · derivado")
+    );
   }
 
   function vistaVisitante() {
@@ -676,10 +726,23 @@
     if (paquete.aviso || state.anio !== 2025) {
       html += '<p class="aviso">Ola mostrada en las composiciones: ' + esc(ola.ola) + ". " + esc(paquete.aviso) + "</p>";
     }
-    var meses = ((DATA.evi && DATA.evi.meses) || []).filter(function (row) { return row.anio === state.anio; });
-    var movimiento = meses.length ? Charts.line(meses.map(function (row) {
-      return { x: MESES[row.mes - 1], y: row.gasto_estadia_usd };
-    }), "#FBBB28") : hueco("Sin mes", "El agregado todavía no trae la serie mensual. Las composiciones usan la ola.");
+    var todosMeses = (DATA.evi && DATA.evi.meses) || [];
+    var meses = todosMeses.filter(function (row) { return row.anio === state.anio; });
+    var anioSerie = state.anio;
+    if (!meses.length && todosMeses.length) {
+      anioSerie = todosMeses[todosMeses.length - 1].anio;
+      meses = todosMeses.filter(function (row) { return row.anio === anioSerie; });
+    }
+    var pistaGasto = meses.length
+      ? (anioSerie === state.anio
+        ? "Promedio ponderado (EVI) del gasto de estadía en USD de no residentes encuestados en José María Córdova, por mes de " + anioSerie + "."
+        : "El filtro " + state.anio + " no tiene serie mensual EVI. Se muestra la última serie disponible (" + anioSerie + "). Las composiciones de abajo siguen la ola " + ola.ola + ".")
+      : "No hay serie mensual EVI en el agregado.";
+    var movimiento = meses.length
+      ? Charts.line(meses.map(function (row) {
+        return { x: MESES[row.mes - 1], y: row.gasto_estadia_usd };
+      }), "#FBBB28", { xLabel: "Mes", yLabel: "USD por persona" })
+      : hueco("Sin serie mensual", "La EVI publicada no trae gasto por mes para este corte.");
     html += '<div class="kpi-row">' +
       kpi("gasto", "Gasto de la estadía", usd(gasto), gastoMeta) +
       kpi("gasto", "Gasto diario", state.pais === "Todos" ? usd(ola.gasto_diario_usd) : "—", state.pais === "Todos" ? "por persona" : "el diario no está partido por país") +
@@ -687,21 +750,25 @@
       kpi("huella", "Huella estimada", huella && huella.kg_total != null ? num(huella.kg_total, 1) + " kg" : "—", "ida + alojamiento") +
       "</div>";
     html += grupo("Estadía",
-      celda("span-12", block("Gasto mensual de la estadía", "Promedio ponderado de los no residentes en José María Córdova. " + (meses.length ? state.anio + "." : "Sin serie mensual en " + state.anio + "; composiciones de la ola " + ola.ola + "."), movimiento + pie("EVI " + ola.ola + extraido("evi")))) +
+      celda("span-12", block("Gasto mensual de la estadía", pistaGasto, movimiento + pie("EVI · serie mensual " + anioSerie + extraido("evi")))) +
       celda("span-6", block("Grupo de viaje", "Ponderado con el factor de expansión. n de encuestas: " + num(ola.n) + ".", Charts.donut((ola.grupo || []).map(function (g, i) {
         return { label: g.nombre, value: g.participacion, color: Charts.palette[i], text: num(g.participacion, 1) + "%" };
       })) + pie("EVI " + ola.ola + extraido("evi")))) +
       celda("span-6", block("Motivo del viaje", "Ola completa.", Charts.donut((ola.motivos || []).map(function (g, i) {
         return { label: g.nombre, value: g.participacion, color: Charts.palette[i], text: num(g.participacion, 1) + "%" };
       })) + pie("EVI " + ola.ola + extraido("evi")))) +
-      celda("span-12", block("Residencia", "Países con al menos 0,5 % del peso de la ola. Un clic los selecciona.", Charts.bars((ola.residencia || []).map(function (g) {
-        var codigo = fold(g.nombre);
-        return { label: g.nombre, value: g.participacion, text: num(g.participacion, 1) + "%", pais: codigo, color: codigo === state.pais ? "#172139" : "#108181" };
-      }), "#108181") + pie("EVI " + ola.ola + extraido("evi")))));
-    html += grupo("Huella y escenario",
+      celda("span-12", block(
+        "Residencia del visitante",
+        "De dónde vienen los no residentes encuestados en José María Córdova en la ola " + ola.ola + ". La barra es el % del peso muestral (factor de expansión), no el % de pasajeros Aerocivil. Solo países con al menos 0,5 %. Un clic filtra el tablero.",
+        Charts.bars((ola.residencia || []).map(function (g) {
+          var codigo = fold(g.nombre);
+          return { label: g.nombre, value: g.participacion, text: num(g.participacion, 1) + "%", pais: codigo, color: codigo === state.pais ? "#E9901E" : "#108181" };
+        }), "#108181", { xLabel: "% del peso de la ola" }) + pie("EVI " + ola.ola + extraido("evi"))
+      )));
+    html += grupo("Huella y contexto",
       celda("span-6", compararOlas()) +
       celda("span-6", huellaBloque(huella, ola)) +
-      celda("span-12", npsSimulado()) +
+      celda("span-12", npsDestino()) +
       celda("span-12", bloqueOferta()) +
       celda("span-12", bloqueSeguridad()) +
       celda("span-12", bloqueClima()) +
@@ -710,24 +777,29 @@
     return html;
   }
 
-  function npsSimulado() {
-    var promotores = 46;
-    var pasivos = 34;
-    var detractores = 20;
-    var nps = promotores - detractores;
-    return block("Satisfacción y NPS", pastilla("nps"), Charts.columns([
-      { label: "Promotores", value: promotores, text: String(promotores), sim: true },
-      { label: "Pasivos", value: pasivos, text: String(pasivos), sim: true },
-      { label: "Detractores", value: detractores, text: String(detractores), sim: true }
-    ]) + "<p class='hint'>NPS del escenario: " + nps + ".</p>" + notaSim("46 promotores, 34 pasivos y 20 detractores de ejemplo. No usa el 4,9 de miembros ni la pregunta de recomendación de la EVI.") + pie("Simulador · ejemplo 46/34/20, no EVI/informe"));
+  function npsDestino() {
+    // No hay extracto de NPS de destino ni desglose promotores/detractores en EVI.
+    // No se simula. La satisfacción 4,9 del informe es de miembros, no de visitante.
+    return block(
+      "Satisfacción y NPS del destino",
+      pastilla("nps"),
+      hueco(
+        "Sin extracto",
+        "La EVI publicada no trae promotores, pasivos ni detractores. Tampoco hay microdato de la encuesta de destino del Bureau o del SIT. Por eso no se grafica un NPS inventado. La calificación 4,9 / 5 del informe de gestión está en el tablero Miembros y no se mezcla aquí."
+      ) + pie("Catálogo · NPS pendiente de extracto")
+    );
   }
 
   function compararOlas() {
     var olas = (DATA.evi && DATA.evi.olas) || [];
     if (olas.length < 2) return block("Olas", "Hace falta más de una ola para comparar.", "" + pie("EVI" + extraido("evi")));
-    return block("Gasto de las dos olas", "USD por persona. Cada barra es su propia ola, no un mes.", Charts.bars(olas.map(function (ola, i) {
-      return { label: ola.ola, value: ola.gasto_estadia_usd, text: usd(ola.gasto_estadia_usd), color: i ? "#FBBB28" : "#E9901E" };
-    })) + pie("EVI · por ola" + extraido("evi")));
+    return block(
+      "Gasto de las dos olas",
+      "Comparación del gasto medio de estadía (USD por persona) entre las dos olas EVI publicadas. Cada barra es el promedio de toda su ola, no un mes suelto.",
+      Charts.bars(olas.map(function (ola, i) {
+        return { label: ola.ola, value: ola.gasto_estadia_usd, text: usd(ola.gasto_estadia_usd), color: i ? "#FBBB28" : "#E9901E" };
+      }), "#E9901E", { xLabel: "USD por persona" }) + pie("EVI · por ola" + extraido("evi"))
+    );
   }
 
   function huellaBloque(huella, ola) {
@@ -735,13 +807,12 @@
       var estado = (DATA.huella && DATA.huella.estado) || "Sin factores.";
       return block("Huella", pastilla("huella"), hueco("Sin estimación", esc(estado) + " Las noches de la ola sí están en la tarjeta de estadía: " + num(ola.noches, 1) + ".") + pie("Huella Bureau · factores propios" + extraido("huella")));
     }
-    var aire = DATA.huella && DATA.huella.factores && DATA.huella.factores.aereo_kg_por_pasajero_km;
-    var hotel = DATA.huella && DATA.huella.factores && DATA.huella.factores.hotel_kg_por_noche;
-    var factores = aire && hotel ? " Factores: " + num(aire.factor, 5) + " kg por pasajero·km y " + num(hotel.factor, 1) + " kg por noche." : "";
-    return block("Huella de la ola", "Tramo de ida. " + num(huella.km_ida, 0) + " km medios." + factores, Charts.bars([
-      { label: "Vuelo", value: huella.kg_vuelo, text: num(huella.kg_vuelo, 1) + " kg" },
-      { label: "Alojamiento", value: huella.kg_alojamiento, text: num(huella.kg_alojamiento, 1) + " kg" }
-    ], "#195855") + pie("Huella Bureau · factores propios" + extraido("huella")));
+    var pista = "Estimación de CO₂ del visitante medio de la ola (solo ida + noches de alojamiento). Distancia media de vuelo: " +
+      num(huella.km_ida, 0) + " km. No incluye trayecto de regreso ni desplazamientos en ciudad.";
+    return block("Huella de carbono de la ola", pista, Charts.bars([
+      { label: "Vuelo (ida)", value: huella.kg_vuelo, text: num(huella.kg_vuelo, 1) + " kg CO₂" },
+      { label: "Alojamiento", value: huella.kg_alojamiento, text: num(huella.kg_alojamiento, 1) + " kg CO₂" }
+    ], "#195855", { xLabel: "kg CO₂ por visitante" }) + pie("Huella Bureau · factores propios" + extraido("huella")));
   }
 
   function vistaCaptacion() {
@@ -767,7 +838,7 @@
         { label: "Internacionales", value: inf.internacionales, color: "#108181", text: String(inf.internacionales) },
         { label: "Nacionales", value: inf.nacionales, color: "#E9901E", text: String(inf.nacionales) }
       ]) + pie("Informe gestión 2025 · corte 2025"))) +
-      celda("span-7", costoSimulado(aporteEvento)) +
+      celda("span-7", impactoPublicado(aporteEvento)) +
       celda("span-12", calculadoraInspeccion()));
     html += grupo("Después de la candidatura",
       celda("span-7", perdidas()) +
@@ -806,38 +877,61 @@
     return block("Prioridad de mercado", "Cada barra va de 0 a 100 dentro de su componente. El índice usa 40 % pasajeros, 30 % llegadas y 30 % gasto EVI. Colombia no tiene gasto en esa encuesta. No es el scoring de organizadores.", Charts.grouped(grupos) + pie("Aerocivil " + cobertura((DATA.conectividad || {}).serie) + extraido("conectividad") + " + EVI " + (paquete.ola ? paquete.ola.ola : "sin ola") + extraido("evi")));
   }
 
-  function costoSimulado(aporteEvento) {
-    var costo = 250000;
-    return block("Impacto y costo", pastilla("roi"), Charts.bars([
-      { label: "Impacto por evento", value: aporteEvento, text: usd(aporteEvento), color: "#108181" },
-      { label: "Costo supuesto", value: costo, text: "USD 250.000", sim: true }
-    ], "#108181") + notaSim("una barra de costo de USD 250.000 por evento captado, al lado del impacto publicado. Los dólares no se parten entre los 59 internacionales y los 44 nacionales.") + pie("Informe gestión 2025 · simulador"));
-  }
-
-  function ejemploInspeccion() {
-    return Charts.bars([
-      { label: "Inspecciones", value: 10, text: "10", sim: true },
-      { label: "Confirmaciones", value: 4, text: "4", sim: true }
-    ], Charts.SIM) + notaSim("10 inspecciones y 4 confirmaciones escritas en esta tarjeta. La calculadora de abajo sigue en blanco al recargar.");
+  function impactoPublicado(aporteEvento) {
+    var inf = window.INFORME;
+    var aporteAsistente = inf.impactoUsd / inf.asistentes;
+    return block(
+      "Impacto publicado",
+      pastilla("roi"),
+      "<p class=\"hint\">Cifras del informe de gestión 2025. El aporte por evento es el impacto estimado dividido entre los 103 captados. No hay costo de captación publicado, así que no se calcula ROI ni se inventa un costo.</p>" +
+      Charts.bars([
+        { label: "Impacto total", value: inf.impactoUsd, text: usd(inf.impactoUsd), color: "#00AEAC" },
+        { label: "Aporte por evento", value: aporteEvento, text: usd(aporteEvento), color: "#108181" },
+        { label: "Aporte por asistente", value: aporteAsistente, text: usd(aporteAsistente), color: "#FBBB28" }
+      ], "#108181", { xLabel: "USD" }) +
+      hueco("Sin costo de captación", "El informe no publica el costo por evento ni el presupuesto de captación. Sin ese extracto no hay barra de costo ni ROI.") +
+      pie("Informe gestión 2025 · corte 2025")
+    );
   }
 
   function calculadoraInspeccion() {
     var ins = Number(state.calc.inspecciones);
     var conf = Number(state.calc.confirmadas);
-    var tasa = ins > 0 && state.calc.confirmadas !== "" ? conf / ins : null;
-    return block("Visitas de inspección", pastilla("inspeccion") + ' <span class="pastilla usuario">Ejercicio del usuario</span>',
-      ejemploInspeccion() +
-      '<p class="hint">Candidaturas confirmadas después de la inspección, sobre inspecciones. El ejercicio no se guarda al recargar.</p>' +
+    var tieneIns = state.calc.inspecciones !== "" && !isNaN(ins) && ins >= 0;
+    var tieneConf = state.calc.confirmadas !== "" && !isNaN(conf) && conf >= 0;
+    var tasa = tieneIns && tieneConf && ins > 0 ? conf / ins : null;
+    var figura = (tieneIns && tieneConf)
+      ? Charts.bars([
+        { label: "Inspecciones", value: ins, text: num(ins), color: "#108181" },
+        { label: "Confirmaciones", value: conf, text: num(conf), color: "#00AEAC" }
+      ], "#108181", { xLabel: "Cantidad" }) +
+        '<p class="hint">Tasa del ejercicio: <strong>' + (tasa == null ? "—" : num(tasa * 100, 1) + " %") + '</strong>. Solo usa lo que usted digita; no se guarda al recargar.</p>'
+      : hueco(
+        "Sin registro publicado",
+        "No hay extracto del registro de inspecciones del Bureau. Los fam trips vacacionales de 2025 no son inspecciones de sede. Digite abajo solo si tiene el conteo real del Bureau."
+      );
+    return block(
+      "Visitas de inspección",
+      pastilla("inspeccion"),
+      figura +
       '<div class="calc"><label>Inspecciones<input data-calc="inspecciones" inputmode="numeric" value="' + esc(state.calc.inspecciones) + '"></label>' +
       '<label>Confirmadas<input data-calc="confirmadas" inputmode="numeric" value="' + esc(state.calc.confirmadas) + '"></label></div>' +
-      '<p class="mt"><strong>' + (tasa == null ? "Sin cálculo" : num(tasa * 100, 1) + " %") + "</strong></p>" + pie("Ejercicio del usuario · no se guarda"));
+      pie("Registro de inspecciones · pendiente de extracto")
+    );
   }
 
   function perdidas() {
     var motivos = ["Precio", "Fechas", "Recinto", "Conectividad", "Decisión de la asociación", "Otro"];
-    return block("Motivos de pérdida", pastilla("perdidas"), Charts.bars(motivos.map(function (m) {
-      return { label: m, value: 1, text: "parte igual", sim: true };
-    }), Charts.SIM) + notaSim("la taxonomía publicada se reparte en partes iguales. No hay conteo de candidaturas perdidas.") + pie("Taxonom\u00eda publicada \u00b7 simulador"));
+    return block(
+      "Motivos de pérdida",
+      pastilla("perdidas"),
+      hueco(
+        "Sin conteo en el CRM",
+        "El informe y las bases abiertas no traen candidaturas perdidas por motivo. No se reparte la taxonomía en partes iguales ni se inventa un ranking."
+      ) +
+      '<p class="hint">Categorías de referencia (sin frecuencias): ' + motivos.map(function (m) { return esc(m); }).join(" · ") + '.</p>' +
+      pie("CRM de candidaturas · pendiente de extracto")
+    );
   }
 
   function vistaMiembros() {
@@ -868,10 +962,10 @@
       ]) + pie("Informe gestión 2025 · corte 2025"))) +
       celda("span-6", block("Padrón", pastilla("retencion"), "<ul class='lista'><li><span>Activos al cierre</span><strong>" + inf.miembros + "</strong></li><li><span>Altas del año</span><strong>" + inf.altas + "</strong></li><li><span>Altas sobre el cierre</span><strong>" + num(altas * 100, 1) + " %</strong></li></ul><p class='hint'>23 / 200 no es la deserción. Falta el padrón de apertura.</p><p>Segmentos de las altas, sin conteo: " + esc(inf.segmentosAltas.join(", ")) + ".</p>" + pie("Informe gestión 2025 · corte 2025"))) +
       celda("span-6", block("Expectativa del año", "Dos denominadores publicados. No es el valor de vida.", "<ul class='lista'><li><span>Por cita</span><strong>" + pesos(porCita) + "</strong></li><li><span>Por quien fue a la rueda</span><strong>" + pesos(porRueda) + "</strong></li><li><span>Por activo</span><strong>" + pesos(porActivo) + "</strong></li></ul>" + pie("Informe gestión 2025 · corte 2025"))));
-    html += grupo("Ejercicio y simulación",
+    html += grupo("Padrón publicado y ejercicio",
+      celda("span-6", valorYDesercionPublicados()) +
       celda("span-6", calculadoraMiembros()) +
-      celda("span-6", vidaSimulada()) +
-      celda("span-12", confianzaSimulada()));
+      celda("span-12", satisfaccionPublicada()));
     return html;
   }
 
@@ -899,23 +993,35 @@
         }).join(""));
   }
 
-  function vidaSimulada() {
-    var apertura = 190;
-    var cuota = 2400000;
-    var anos = 4;
-    var bajas = apertura + window.INFORME.altas - window.INFORME.miembros;
-    var desercion = bajas / apertura * 100;
-    var vida = cuota * anos;
-    return block("Valor de vida y deserción", pastilla("valor"), Charts.bars([
-      { label: "Deserción del ejemplo", value: desercion, text: num(desercion, 1) + " %", sim: true }
-    ], Charts.SIM) + "<p class='hint'>Valor de vida del ejemplo: " + pesos(vida) + ".</p>" + notaSim("un padrón de apertura de 190, una cuota de $2.400.000 y 4 años. 23 sobre 200 no es la deserci\u00f3n.") + pie("Simulador \u00b7 ejemplo 190/2.4M/4a\u00f1os"));
+  function valorYDesercionPublicados() {
+    var inf = window.INFORME;
+    var altasSobreCierre = inf.altas / inf.miembros * 100;
+    return block(
+      "Valor de vida y deserción",
+      pastilla("valor") + " " + pastilla("retencion"),
+      Charts.bars([
+        { label: "Activos al cierre", value: inf.miembros, text: num(inf.miembros), color: "#00AEAC" },
+        { label: "Altas del año", value: inf.altas, text: num(inf.altas), color: "#108181" },
+        { label: "Altas / cierre", value: altasSobreCierre, text: num(altasSobreCierre, 1) + " %", color: "#FBBB28" }
+      ], "#108181", { xLabel: "Cifra publicada" }) +
+      '<p class="hint">23 / 200 es la participación de las altas en el cierre, no la deserción. La expectativa de la rueda es un flujo de un año y está en otra tarjeta.</p>' +
+      hueco("Sin deserción ni valor de vida", "Falta el padrón con el que abrió 2025, la cuota anual y los años de permanencia. Sin esos extractos no se calcula deserción ni LTV.") +
+      pie("Informe gestión 2025 · corte 2025")
+    );
   }
 
-  function confianzaSimulada() {
-    return block("Confianza", pastilla("satisfaccion"), Charts.columns([
-      { label: "Satisfacción", value: window.INFORME.satisfaccion, text: "4,9", color: "#108181" },
-      { label: "Confianza", value: 3.2, text: "3,2", sim: true }
-    ]) + notaSim("una segunda marca en 3,2 sobre la escala de 1 a 5. El 4,9 sigue como satisfacci\u00f3n publicada.") + pie("Informe 4,9 + simulador 3,2"));
+  function satisfaccionPublicada() {
+    var inf = window.INFORME;
+    return block(
+      "Satisfacción de la gestión",
+      pastilla("satisfaccion"),
+      Charts.columns([
+        { label: "Satisfacción", value: inf.satisfaccion, text: num(inf.satisfaccion, 1), color: "#108181" }
+      ], { yLabel: "Escala 1–5", xLabel: "Indicador", max: inf.satisfaccionEscala }) +
+      '<p class="hint">Calificación publicada: ' + num(inf.satisfaccion, 1) + " / " + inf.satisfaccionEscala + ". La n de respuestas no aparece en el informe.</p>" +
+      hueco("Sin escala de confianza", "El informe menciona la confianza y no le asigna número. No hay NPS ni segunda marca inventada.") +
+      pie("Informe gestión 2025 · corte 2025")
+    );
   }
 
   function calculadoraMiembros() {
