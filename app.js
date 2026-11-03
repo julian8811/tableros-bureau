@@ -17,7 +17,8 @@
     llmModes: null,
     llmChain: null,
     informeProvider: "cadena",
-    informeModel: ""
+    informeModel: "",
+    pieza: "infografia"
   };
 
   var PAIS_DE_MERCADO = { Colombia: "COLOMBIA", "Estados Unidos": "ESTADOS UNIDOS", "México": "MEXICO", Brasil: "BRASIL" };
@@ -134,6 +135,8 @@
     if (anio) state.anio = anio;
     if (q.get("pais")) state.pais = q.get("pais");
     if (q.get("serie")) state.pronostico = q.get("serie");
+    var piezas = ["infografia", "boletin", "informe"];
+    if (piezas.indexOf(q.get("pieza")) >= 0) state.pieza = q.get("pieza");
   }
 
   function escribirUrl() {
@@ -142,6 +145,7 @@
     q.set("anio", String(state.anio));
     q.set("pais", state.pais);
     if (state.pronostico) q.set("serie", state.pronostico);
+    if (state.tab === "informes") q.set("pieza", state.pieza || "infografia");
     var siguiente = "?" + q.toString();
     if (location.search !== siguiente) history.replaceState({ tab: state.tab, anio: state.anio, pais: state.pais }, "", siguiente);
   }
@@ -1486,7 +1490,46 @@
     }).join(" → ");
   }
 
-  function vistaInformes() {
+  function navPiezas() {
+    var items = [
+      ["infografia", "Infográficos"],
+      ["boletin", "Boletines"],
+      ["informe", "Informe TEC"]
+    ];
+    return '<div class="opts no-print pieza-nav" role="tablist" aria-label="Tipo de pieza">' +
+      items.map(function (it) {
+        var on = state.pieza === it[0];
+        return '<button type="button" class="tab pieza-tab' + (on ? " active" : "") + '" data-pieza="' + it[0] + '" role="tab" aria-selected="' + on + '">' + it[1] + "</button>";
+      }).join("") + "</div>";
+  }
+
+  function vistaInfografia() {
+    if (!window.Piezas) return hueco("Piezas", "Falta piezas.js");
+    var d = Piezas.datosEmisores(DATA, state.anio);
+    if (!d.top.length) {
+      return navPiezas() +
+        '<p class="aviso">Infografía A (Hero KPI) · opción implementada. Sin top_paises en el corte ' + esc(String(state.anio)) + ".</p>" +
+        hueco("Sin emisores", "Cargue Migración o MinCIT para el año seleccionado.");
+    }
+    return navPiezas() +
+      '<p class="aviso"><strong>Infografía A · Hero KPI</strong> implementada con datos vivos del pack (' + esc(String(state.anio)) +
+      "). Descargue HTML autónomo o PDF (diálogo de impresión).</p>" +
+      Piezas.botonesDescarga({ kind: "infografia" }) +
+      '<div class="pieza-live">' + Piezas.htmlInfografiaA(d) + "</div>" +
+      '<p class="hint no-print">Variantes B/C siguen en <a href="design-options/infografia-index.html">design-options/infografia-index.html</a>.</p>';
+  }
+
+  function vistaBoletin() {
+    if (!window.Piezas) return hueco("Piezas", "Falta piezas.js");
+    var d = Piezas.datosEmisores(DATA, state.anio);
+    return navPiezas() +
+      '<p class="aviso"><strong>Boletín A · email 600px</strong> con datos del pack. PDF vía impresión del navegador.</p>' +
+      Piezas.botonesDescarga({ kind: "boletin" }) +
+      '<div class="pieza-live">' + Piezas.htmlBoletinA(d) + "</div>" +
+      '<p class="hint no-print">Variante A4 en <a href="design-options/boletin-index.html">design-options/boletin-index.html</a>.</p>';
+  }
+
+  function vistaInformeTec() {
     var inf = DATA.informe;
     var llmSel = selectoresLlm();
     var genBtn = '<button class="btn btn-gen" type="button" data-action="generar-informe"' +
@@ -1509,12 +1552,13 @@
         (meta.mode === "cadena" ? " (modo cadena)" : "") +
         (((meta.banco) ? " · imágenes " + meta.banco : "")) +
         (cadenaTxt ? " · intentos: " + esc(cadenaTxt) : "") +
-        ". Descargue JSON o Imprimir/PDF.</p>";
+        ". Descargue HTML, PDF o JSON.</p>";
     }
     var barraLlm = '<div class="opts no-print"><span>LLM:</span> ' + llmSel + " " + genBtn + "</div>";
+    var shell = navPiezas() + genEstado + barraLlm;
     if (!inf || !inf.secciones || !inf.secciones.length) {
-      return '<p class="aviso">Año/País no aplican a este tablero. Generar usa todo data/open (agregados de Mercados, Visitante, Captación y Miembros).</p>' +
-        genEstado + barraLlm +
+      return shell +
+        '<p class="aviso">Generar usa todo data/open (agregados de Mercados, Visitante, Captación y Miembros).</p>' +
         hueco("Sin informe LLM", "Publique data/open/informe_llm.json o pulse Generar informe TEC.");
     }
     var secs = inf.secciones.filter(function (sec) {
@@ -1524,20 +1568,26 @@
       var on = !state.informesSel || state.informesSel.indexOf(sec.id) >= 0;
       return '<label class="check"><input type="checkbox" data-infsec="' + esc(sec.id) + '"' + (on ? " checked" : "") + "> " + esc(sec.titulo || sec.id) + "</label>";
     }).join("");
-    var descarga = DATA.informeLive
-      ? '<button class="btn" type="button" data-action="descargar-informe">Descargar JSON</button>'
-      : '<a class="btn" href="data/open/informe_llm.json" download="informe_' + esc(inf.corte || "llm") + '.json">Descargar JSON</a>';
-    return '<p class="aviso">Formato TEC-Bureau: hallazgos, análisis, insights, tablas y figuras. Corte ' + esc(inf.corte || "—") +
-      ". Generar arrastra <strong>toda</strong> la información del dashboard (agregada) + imágenes de banco.</p>" +
-      genEstado + barraLlm +
+    var descargaJson = DATA.informeLive
+      ? '<button class="btn" type="button" data-action="descargar-informe">JSON</button>'
+      : '<a class="btn" href="data/open/informe_llm.json" download="informe_' + esc(inf.corte || "llm") + '.json">JSON</a>';
+    return shell +
+      '<p class="aviso">Formato TEC-Bureau. Corte ' + esc(inf.corte || "—") + ".</p>" +
       '<div class="opts no-print"><span>Secciones:</span> ' + checks +
-      " " + descarga +
-      ' <button class="btn" type="button" data-action="imprimir">Imprimir / PDF</button>' +
+      " " + descargaJson +
+      ' <button class="btn" type="button" data-action="descargar-html" data-kind="informe">HTML</button>' +
+      ' <button class="btn" type="button" data-action="descargar-pdf" data-kind="informe">PDF</button>' +
       ' <button class="btn" type="button" data-ficha="informe-llm">Ficha</button></div>' +
-      '<div class="tec-doc">' +
+      '<div class="tec-doc" id="pieza-export">' +
       portadaInforme(inf) +
       secs.map(function (sec, i) { return cuerpoSeccionInforme(sec, i); }).join("") +
       "</div>";
+  }
+
+  function vistaInformes() {
+    if (state.pieza === "boletin") return vistaBoletin();
+    if (state.pieza === "informe") return vistaInformeTec();
+    return vistaInfografia();
   }
 
   function generarInformeOnDemand() {
@@ -1687,7 +1737,11 @@
       visitante: ["¿Quién llega, cuánto gasta, cuánto se queda y cómo evalúa el destino?", "Ola de la EVI en José María Córdova."],
       captacion: ["¿Qué organizadores avanzan, dónde se cae la candidatura y qué retorno deja cada segmento?", "Corte anual del informe de gestión 2025."],
       miembros: ["¿Cuánto vale, cuánto participa y cuánto se queda cada miembro?", "Rueda de Negocios y padrón publicados en 2025."],
-      informes: ["¿Qué dice el informe redactado por LLM sobre el corte?", "Narrativa verificada contra el warehouse, con fuente por hallazgo."]
+      informes: state.pieza === "infografia"
+        ? ["¿Cómo comunicar el top de emisores en una pieza social?", "Infografía A · Hero KPI con datos vivos Migración + MinCIT."]
+        : state.pieza === "boletin"
+          ? ["¿Qué resumen cabe en un boletín para stakeholders?", "Boletín A · email con KPIs y ranking corto."]
+          : ["¿Qué dice el informe redactado por LLM sobre el corte?", "Narrativa verificada contra el warehouse, con fuente por hallazgo."]
     };
     var anos = [];
     (DATA.conectividad.serie || []).forEach(function (row) {
@@ -1764,7 +1818,23 @@
     if (vista) { state.vistaOwid = vista.getAttribute('data-vistaowid'); render(); return; }
     var pron = event.target.closest("[data-pronostico]");
     if (pron) { state.pronostico = pron.getAttribute("data-pronostico"); render(); return; }
+    var piezaBtn = event.target.closest("[data-pieza]");
+    if (piezaBtn && piezaBtn.getAttribute("data-pieza")) {
+      state.pieza = piezaBtn.getAttribute("data-pieza");
+      state.ficha = null;
+      render();
+      return;
+    }
     if (event.target.closest("[data-action='imprimir']")) { window.print(); return; }
+    if (event.target.closest("[data-action='descargar-html']")) {
+      if (window.Piezas) Piezas.descargarHtml(event.target.getAttribute("data-kind") || state.pieza, state.anio);
+      return;
+    }
+    if (event.target.closest("[data-action='descargar-pdf']")) {
+      if (window.Piezas) Piezas.descargarPdf();
+      else window.print();
+      return;
+    }
     if (event.target.closest("[data-action='generar-informe']")) { generarInformeOnDemand(); return; }
     if (event.target.closest("[data-action='descargar-informe']")) { descargarInformeLive(); return; }
     if (event.target.closest("[data-action='cerrar']") || event.target.classList.contains("modal-back")) {

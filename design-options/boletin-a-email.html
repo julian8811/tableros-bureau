@@ -15,8 +15,13 @@
 </head>
 <body>
   <div class="stage-wrap">
-    <p class="stage-label">Mock · Boletín A · 600px email/web</p>
-    <article class="stage email" aria-label="Boletín email">
+    <p class="stage-label">Boletín A · 600px email/web</p>
+    <div class="dl-bar" style="display:flex;gap:8px;justify-content:center;margin-bottom:8px">
+      <button type="button" id="btn-html" style="border:0;border-radius:999px;padding:8px 14px;background:#108181;color:#fff;font:700 12px Montserrat,Arial;cursor:pointer">Descargar HTML</button>
+      <button type="button" id="btn-pdf" style="border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:8px 14px;background:rgba(14,22,38,.55);color:#fff;font:700 12px Montserrat,Arial;cursor:pointer">Descargar PDF</button>
+      <a href="../index.html?tab=informes&pieza=boletin&anio=2025" style="border-radius:999px;padding:8px 14px;background:rgba(0,174,172,.25);color:#fff;font:700 12px Montserrat,Arial;text-decoration:none">Ver en tablero</a>
+    </div>
+    <article class="stage email" id="pieza-export" aria-label="Boletín email">
       <div class="stage-bg" aria-hidden="true"></div>
       <div class="stage-inner">
         <header style="display:grid;gap:8px">
@@ -62,5 +67,22 @@
     </article>
     <p class="fuente"><a href="boletin-index.html" style="color:var(--teal-bright)">← Boletines</a></p>
   </div>
+<script>
+(function () {
+  document.getElementById("btn-html").onclick = function () {
+    fetch("brand-v7-shared.css").then(function (r) { return r.text(); }).then(function (css) {
+      var el = document.getElementById("pieza-export");
+      var doc = "<!DOCTYPE html><html lang=es><head><meta charset=utf-8><title>boletin_a.html</title><style>" + css +
+        "\nbody{margin:0;display:grid;place-items:center;min-height:100vh;padding:24px}</style></head><body>" +
+        el.outerHTML.replace(/src=\"\.\.\//g, "src=\"") + "</body></html>";
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([doc], { type: "text/html" }));
+      a.download = "boletin_a_2025.html";
+      a.click();
+    });
+  };
+  document.getElementById("btn-pdf").onclick = function () { window.print(); };
+})();
+</script>
 </body>
 </html>

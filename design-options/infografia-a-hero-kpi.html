@@ -10,16 +10,33 @@
   .hero-block{display:grid;gap:14px;align-content:start}
   .kpi-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
   .foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px}
+  .dl-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:8px}
+  .dl-bar button,.dl-bar a{
+    border:1px solid rgba(255,255,255,.28);background:rgba(16,129,129,.85);color:#fff;
+    border-radius:999px;padding:8px 14px;font:700 12px/1 Montserrat,Arial,sans-serif;cursor:pointer;text-decoration:none;
+  }
+  .dl-bar button.secondary{background:rgba(14,22,38,.55)}
   @media (max-width:640px){
     .stage.sq{aspect-ratio:auto;min-height:640px}
     .kpi-grid{grid-template-columns:1fr}
+  }
+  @media print{
+    .stage-label,.dl-bar,.back-link{display:none!important}
+    body{background:#0c1526!important}
+    .stage-wrap{padding:0;min-height:auto}
+    .stage{box-shadow:none!important;width:1080px;max-width:100%}
   }
 </style>
 </head>
 <body>
   <div class="stage-wrap">
-    <p class="stage-label">Mock · Infografía A · 1080×1080 · Hero KPI</p>
-    <article class="stage sq" aria-label="Infografía hero KPI">
+    <p class="stage-label">Infografía A · 1080×1080 · Hero KPI · implementada</p>
+    <div class="dl-bar no-print">
+      <button type="button" id="btn-html">Descargar HTML</button>
+      <button type="button" class="secondary" id="btn-pdf">Descargar PDF</button>
+      <a href="../index.html?tab=informes&pieza=infografia&anio=2025">Ver en tablero</a>
+    </div>
+    <article class="stage sq" id="pieza-export" aria-label="Infografía hero KPI">
       <div class="stage-bg" aria-hidden="true"></div>
       <div class="stage-inner">
         <header style="display:grid;gap:10px">
@@ -65,7 +82,27 @@
         </footer>
       </div>
     </article>
-    <p class="fuente"><a href="infografia-index.html" style="color:var(--teal-bright)">← Infografías</a></p>
+    <p class="fuente back-link"><a href="infografia-index.html" style="color:var(--teal-bright)">← Infografías</a></p>
   </div>
+<script>
+(function () {
+  function downloadHtml() {
+    fetch("brand-v7-shared.css").then(function (r) { return r.text(); }).then(function (css) {
+      var el = document.getElementById("pieza-export");
+      var doc = "<!DOCTYPE html><html lang=\"es\"><head><meta charset=\"utf-8\"><title>infografia_a_2025.html</title>" +
+        "<style>" + css + "\nbody{margin:0;display:grid;place-items:center;min-height:100vh;padding:24px}</style></head><body>" +
+        el.outerHTML.replace(/src=\"\.\.\//g, "src=\"") + "</body></html>";
+      var blob = new Blob([doc], { type: "text/html;charset=utf-8" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "infografia_a_2025.html";
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+  }
+  document.getElementById("btn-html").addEventListener("click", downloadHtml);
+  document.getElementById("btn-pdf").addEventListener("click", function () { window.print(); });
+})();
+</script>
 </body>
 </html>

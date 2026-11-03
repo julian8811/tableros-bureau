@@ -25,7 +25,8 @@
 
 *{box-sizing:border-box}
 html,body{margin:0}
-body{
+/* Fondo solo en .stage-wrap (mocks); no pisar el tablero. */
+.stage-wrap{
   font-family:var(--font);
   color:var(--text);
   background:
