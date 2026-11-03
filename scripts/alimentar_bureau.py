@@ -26,11 +26,11 @@ _PIEZAS_PROPIAS = ("bureau_marca_llm.json", "bureau_paises_2025_2026.json",
                     "bureau_prensa.json", "bureau_oferta.json",
                     "bureau_seguridad.json", "bureau_clima.json",
                     "bureau_conectividad.json", "bureau_calendario.json",
-                    "bureau_owid.json")
+                    "bureau_owid.json", "bureau_sit.json")
 _IDS_PROPIOS = ("marca-llm", "bureau-paises", "prensa-medios",
                   "bureau-oferta", "bureau-seguridad", "bureau-clima",
                   "bureau-conectividad", "bureau-calendario",
-                  "bureau-owid")
+                  "bureau-owid", "bureau-sit")
 
 
 def _es_pieza_propia(entrada):
@@ -281,6 +281,27 @@ def owid():
     print("owid ok")
 
 
+def sit():
+    try:
+        src = bajar("sit_emisores_2025_2026.json")
+    except Exception as exc:
+        ERRORES.append("sit: " + "".join(traceback.format_exception_only(type(exc), exc)).strip())
+        print("falla sit, se conserva el anterior")
+        return
+    guardar("bureau_sit.json", {
+        "id": "bureau-sit",
+        "titulo": "Perfiles emisores SIT (ETL Bureau)",
+        "fuente": "ETL Bureau, SIT Medellín perfiles de mercado " + str(src.get("ventana", "")),
+        "ventana": str(src.get("ventana", "")),
+        "url": BASE + "/sit_emisores_2025_2026.json",
+        "licencia": "Cifras citadas de informes SIT; agregados propios del ETL.",
+        "universo": "5 mercados emisores auditados (cifras clave 2025 + nulos honestos documentados).",
+        "serie": src.get("mercados", []),
+        "corte": "2025",
+    })
+    print("sit ok")
+
+
 def manifiesto():
     try:
         previo = json.loads((OUT / "manifiesto.json").read_text(encoding="utf-8"))
@@ -297,6 +318,7 @@ def manifiesto():
         ("bureau_conectividad.json", "bureau-conectividad", "serie"),
         ("bureau_calendario.json", "bureau-calendario", "serie"),
         ("bureau_owid.json", "bureau-owid", "serie"),
+        ("bureau_sit.json", "bureau-sit", "serie"),
     ):
         path = OUT / nombre
         if not path.exists():
@@ -325,4 +347,5 @@ if __name__ == "__main__":
     conectividad_bench()
     calendario()
     owid()
+    sit()
     manifiesto()

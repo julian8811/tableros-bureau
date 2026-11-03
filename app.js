@@ -244,7 +244,8 @@
       celda("span-12", medataFigura()) +
       celda("span-12", marcaLLM()) +
       celda("span-12", bloqueConectividad()) +
-      celda("span-12", bloqueOwid()));
+      celda("span-12", bloqueOwid()) +
+      celda("span-12", bloqueSit()));
     html += grupo("Simulación", celda("span-12", conversion()));
     return html;
   }
@@ -413,6 +414,27 @@
       "<h3>Feriados</h3><table><tr><th>Fecha</th><th>Nombre</th></tr>" + filas + "</table>" +
       "<h3>Estaciones por estado</h3>" + Charts.bars(barras, "#108181") +
       pie("ETL Bureau · festivos CO + IDEAM" + extraido("bureauCalendario")));
+  }
+
+  function bloqueSit() {
+    var data = DATA.bureauSit || {};
+    var serie = data.serie || [];
+    if (!serie.length) return hueco("Emisores SIT", "Corra scripts/alimentar_bureau.py para traer los perfiles SIT del ETL.");
+    var barras = serie.map(function (row, i) {
+      return { label: row.mercado, value: row.llegadas, text: num(row.llegadas), color: Charts.palette[i % Charts.palette.length] };
+    });
+    var filas = serie.map(function (row) {
+      return "<tr><td>" + esc(row.mercado) + "</td><td>" + num(row.llegadas) + "</td><td>" +
+        (row.yoy_pct == null ? "—" : num(row.yoy_pct, 1) + "%") + "</td><td>" + esc(row.motivo_top || "—") + "</td><td>" +
+        (row.ticket_prom_cop == null ? "—" : num(row.ticket_prom_cop)) + "</td></tr>";
+    }).join("");
+    return '<div class="kpi-row">' +
+      kpi("bureau-sit", "Mercados", num(serie.length), "corte " + esc(data.corte || "")) +
+      "</div>" +
+      block("Perfiles emisores SIT", "Llegadas 2025 por mercado auditado.",
+      "<h3>Llegadas</h3>" + Charts.bars(barras, "#00AEAC") +
+      "<h3>Cifras clave</h3><table><tr><th>Mercado</th><th>Llegadas</th><th>YoY</th><th>Motivo top</th><th>Ticket COP</th></tr>" + filas + "</table>" +
+      pie("ETL Bureau · SIT Medellín perfiles de mercado" + extraido("bureauSit")));
   }
 
   function bloqueOwid() {
@@ -1010,7 +1032,8 @@
     cargar("bureau_clima.json"),
     cargar("bureau_conectividad.json"),
     cargar("bureau_calendario.json"),
-    cargar("bureau_owid.json")
+    cargar("bureau_owid.json"),
+    cargar("bureau_sit.json")
   ]).then(function (piezas) {
     DATA.conectividad = piezas[0];
     DATA.bureauPrensa = piezas[1];
@@ -1029,6 +1052,7 @@
     DATA.bureauConectividad = piezas[14];
     DATA.bureauCalendario = piezas[15];
     DATA.bureauOwid = piezas[16];
+    DATA.bureauSit = piezas[17];
     leerUrl();
     if (!DATA.conectividad || !DATA.ema || !DATA.icca) {
       document.getElementById("app").innerHTML = hueco("Faltan agregados", "Abra esta carpeta con un servidor local después de correr scripts/preparar_fuentes.py.");

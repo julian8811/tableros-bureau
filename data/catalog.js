@@ -298,6 +298,17 @@ window.CATALOGO = [
     universo: "Llegadas internacionales por país 1995-2024; Colombia con corte 2022 en OWID.",
     licencia: "CC-BY Our World in Data; agregados propios del ETL.",
     noMide: "El turismo interno ni series sub-anuales."
+  },
+
+  {
+    id: "bureau-sit", tab: "mercados", nombre: "Perfiles emisores SIT (ETL Bureau)",
+    pastilla: "Bureau · ETL", clase: "proxy",
+    fuenteTipo: "Secundaria", fuente: "ETL Bureau: SIT Medellín perfiles de mercado, scripts/alimentar_bureau.py",
+    pedida: "Por corte", grano: "Mercado", unidad: "Llegadas y cifras",
+    formula: "Cifras clave extraídas de los 5 informes de mercado (nulos honestos documentados).",
+    universo: "USA, México, Panamá, Rep. Dominicana y Francia, corte 2025.",
+    licencia: "Cifras citadas de informes SIT; agregados propios del ETL.",
+    noMide: "Mercados no auditados por el SIT."
   }
 ];
 
