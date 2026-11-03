@@ -23,7 +23,7 @@ window.Charts = (function () {
     serieSvg += 1;
     var id = "trama" + serieSvg;
     var def = '<defs><pattern id="' + id + '" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(32)">' +
-      '<rect width="6" height="6" fill="#f4f0f8"></rect>' +
+      '<rect width="6" height="6" fill="#16233a"></rect>' +
       '<line x1="0" y1="0" x2="0" y2="6" stroke="' + SIM + '" stroke-width="2"></line></pattern></defs>';
     return { id: id, def: def };
   }
@@ -65,8 +65,8 @@ window.Charts = (function () {
     var marcas = [0, 0.5, 1];
     return marcas.map(function (t) {
       var y = top + plotH - t * plotH;
-      return '<line x1="' + padL + '" y1="' + y + '" x2="' + (width - 12) + '" y2="' + y + '" stroke="#e4ecec" stroke-width="1"></line>' +
-        '<text x="' + (padL - 6) + '" y="' + (y + 3) + '" font-size="10" fill="#6b7789" text-anchor="end">' + esc(eje(max * t)) + "</text>";
+      return '<line x1="' + padL + '" y1="' + y + '" x2="' + (width - 12) + '" y2="' + y + '" stroke="#2c3a55" stroke-width="1"></line>' +
+        '<text x="' + (padL - 6) + '" y="' + (y + 3) + '" font-size="10" fill="#8fa3a3" text-anchor="end">' + esc(eje(max * t)) + "</text>";
     }).join("");
   }
 
@@ -93,7 +93,7 @@ window.Charts = (function () {
       var x = padL + i * step;
       var etiqueta = String(p.x);
       var ancla = (x + etiqueta.length * 6 > width - 12) ? "end" : "middle";
-      return '<text x="' + x + '" y="' + (height - 8) + '" font-size="10" fill="#6b7789" text-anchor="' + ancla + '">' + esc(etiqueta) + "</text>";
+      return '<text x="' + x + '" y="' + (height - 8) + '" font-size="10" fill="#8fa3a3" text-anchor="' + ancla + '">' + esc(etiqueta) + "</text>";
     }).join("");
     var puntos = series.map(function (p, i) {
       var x = padL + i * step;
@@ -131,7 +131,7 @@ window.Charts = (function () {
       var x = padL + i * step;
       var etiqueta = String(label);
       var ancla = (x + etiqueta.length * 6 > width - 12) ? "end" : "middle";
-      return '<text x="' + x + '" y="' + (height - 8) + '" font-size="10" fill="#6b7789" text-anchor="' + ancla + '">' + esc(etiqueta) + "</text>";
+      return '<text x="' + x + '" y="' + (height - 8) + '" font-size="10" fill="#8fa3a3" text-anchor="' + ancla + '">' + esc(etiqueta) + "</text>";
     }).join("");
     var trazos = ["0", "7 4", "2 3", "9 3 2 3", "4 2"];
     var lineas = series.map(function (s, serie) {
@@ -167,9 +167,9 @@ window.Charts = (function () {
       var relleno = tinta(item, item.color || color || palette[i % palette.length], patron.id);
       var etiqueta = item.label || "";
       var visible = etiqueta.length > 26 ? etiqueta.slice(0, 25) + "…" : etiqueta;
-      return '<text x="0" y="' + (y + 14) + '" font-size="11" fill="#172139">' + esc(visible) + "</text>" +
+      return '<text x="0" y="' + (y + 14) + '" font-size="11" fill="#eef3f3">' + esc(visible) + "</text>" +
         '<rect x="' + labelW + '" y="' + y + '" width="' + w + '" height="16" rx="3" fill="' + relleno + '"' + marca(item) + "></rect>" +
-        '<text x="' + (labelW + 6 + w) + '" y="' + (y + 13) + '" font-size="11" fill="#3d4a5c">' + esc(textoValor) + "</text>";
+        '<text x="' + (labelW + 6 + w) + '" y="' + (y + 13) + '" font-size="11" fill="#c6d4d4">' + esc(textoValor) + "</text>";
     }).join("");
     return enmarcar('<svg class="chart" viewBox="0 0 ' + width + " " + height + '" role="img">' + patron.def + body + "</svg>", sim && items.every(function (item) { return item.sim; }));
   }
@@ -186,7 +186,7 @@ window.Charts = (function () {
       var y = yDe(item.value, max, height, padB);
       var x = padL + i * (col + gap);
       return '<rect x="' + x + '" y="' + y + '" width="' + col + '" height="' + Math.max(0, base - y) + '" rx="3" fill="' + tinta(item, palette[i % palette.length], patron.id) + '"' + marca(item) + "></rect>" +
-        '<text x="' + (x + col / 2) + '" y="' + (height - 8) + '" font-size="10" fill="#6b7789" text-anchor="middle">' + esc(item.label) + "</text>";
+        '<text x="' + (x + col / 2) + '" y="' + (height - 8) + '" font-size="10" fill="#8fa3a3" text-anchor="middle">' + esc(item.label) + "</text>";
     }).join("");
     return enmarcar('<svg class="chart" viewBox="0 0 ' + width + " " + height + '" role="img">' + patron.def + grilla(width, height, padL, padB, max) + body + "</svg>", sim);
   }
@@ -218,7 +218,7 @@ window.Charts = (function () {
         var pieza = { label: item.label + " · " + part.name, value: part.value, pais: part.pais || item.pais, sim: part.sim, tip: item.label + " · " + part.name + ": " + eje(part.value) };
         return '<rect x="' + x + '" y="' + y1 + '" width="' + col + '" height="' + Math.max(0, y0 - y1) + '" fill="' + tinta(part, part.color, patron.id) + '"' + marca(pieza) + "></rect>";
       }).join("");
-      return rects + '<text x="' + (x + col / 2) + '" y="' + (height - 8) + '" font-size="10" fill="#6b7789" text-anchor="middle">' + esc(item.label) + "</text>";
+      return rects + '<text x="' + (x + col / 2) + '" y="' + (height - 8) + '" font-size="10" fill="#8fa3a3" text-anchor="middle">' + esc(item.label) + "</text>";
     }).join("");
     return figura('<svg class="chart" viewBox="0 0 ' + width + " " + height + '" role="img">' + patron.def + grilla(width, height, padL, padB, max) + body + "</svg>", nombres);
   }
@@ -249,7 +249,7 @@ window.Charts = (function () {
         var pieza = { label: group.label + " · " + bar.name, value: bar.value, pais: bar.pais || group.pais, sim: bar.sim, text: bar.text, tip: group.label + " · " + bar.name + ": " + (bar.text || eje(bar.value)) };
         return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + Math.max(0, base - y) + '" rx="2" fill="' + tinta(bar, bar.color, patron.id) + '"' + marca(pieza) + "></rect>";
       }).join("");
-      return rects + '<text x="' + (x0 + slot / 2) + '" y="' + (height - 14) + '" font-size="10" fill="#6b7789" text-anchor="middle">' + esc(group.label) + "</text>";
+      return rects + '<text x="' + (x0 + slot / 2) + '" y="' + (height - 14) + '" font-size="10" fill="#8fa3a3" text-anchor="middle">' + esc(group.label) + "</text>";
     }).join("");
     return figura('<svg class="chart" viewBox="0 0 ' + width + " " + height + '" role="img">' + patron.def + grilla(width, height, padL, padB, max) + body + "</svg>", nombres);
   }
