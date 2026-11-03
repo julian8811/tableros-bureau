@@ -1516,7 +1516,10 @@
       "). Descargue HTML autónomo o PDF (diálogo de impresión).</p>" +
       Piezas.botonesDescarga({ kind: "infografia" }) +
       '<div class="pieza-live">' + Piezas.htmlInfografiaA(d) + "</div>" +
-      '<p class="hint no-print">Variantes B/C siguen en <a href="design-options/infografia-index.html">design-options/infografia-index.html</a>.</p>';
+      '<p class="aviso no-print"><a class="btn" href="design-options/infografia-index.html" target="_blank" rel="noopener">Abrir mocks de infográficos (A / B / C)</a> · ' +
+      '<a href="design-options/infografia-a-hero-kpi.html" target="_blank" rel="noopener">Solo A 1080×1080</a> · ' +
+      '<a href="design-options/infografia-b-ranking.html" target="_blank" rel="noopener">B Ranking</a> · ' +
+      '<a href="design-options/infografia-c-story.html" target="_blank" rel="noopener">C Story</a></p>';
   }
 
   function vistaBoletin() {
