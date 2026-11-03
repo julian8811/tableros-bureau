@@ -61,11 +61,24 @@ function waitPort(port, ms) {
   const live = await page.evaluate(function () {
     const slides = document.querySelectorAll("#pieza-export .slide");
     const photos = document.querySelectorAll("#pieza-export .photo-img");
-    const charts = document.querySelectorAll("#pieza-export .chart-svg, #pieza-export .chart-box svg");
+    const charts = document.querySelectorAll("#pieza-export .chart-svg");
     const cover = document.querySelector("#pieza-export .slide.cover");
     const divider = document.querySelectorAll("#pieza-export .slide.divider");
     const insight = document.querySelectorAll("#pieza-export .slide.insight");
     const chartPage = document.querySelectorAll("#pieza-export .slide.chart-page");
+    const kpi = document.querySelectorAll("#pieza-export .slide.kpi-photo");
+    const tables = document.querySelectorAll("#pieza-export .slide.table-page");
+    const resumen = Array.prototype.some.call(slides, function (s) {
+      return /Resumen/i.test((s.querySelector(".slide-label") || {}).textContent || "") ||
+        /Resumen ejecutivo/i.test(s.textContent || "");
+    });
+    const rects = document.querySelectorAll("#pieza-export .chart-svg rect");
+    let fatBars = 0;
+    rects.forEach(function (r) {
+      const w = Number(r.getAttribute("width") || 0);
+      const h = Number(r.getAttribute("height") || 0);
+      if (w >= 12 || h >= 8) fatBars += 1;
+    });
     const loaded = Array.prototype.slice.call(photos).filter(function (img) {
       return img.complete && img.naturalWidth > 40;
     }).length;
@@ -82,10 +95,18 @@ function waitPort(port, ms) {
       dividers: divider.length,
       insights: insight.length,
       chartPages: chartPage.length,
+      kpi: kpi.length,
+      tables: tables.length,
+      resumen: resumen,
+      fatBars: fatBars,
       hasDeck: !!document.querySelector(".tec-deck, .deck#pieza-export, #pieza-export.deck")
     };
   });
   console.log("live", JSON.stringify(live, null, 2));
+  fs.mkdirSync(path.join(ROOT, "design-options", "qa-piezas"), { recursive: true });
+  await page.locator("#pieza-export .slide.chart-page").first().screenshot({
+    path: path.join(ROOT, "design-options", "qa-piezas", "informe-deck-chart.png")
+  }).catch(function () {});
   await page.screenshot({
     path: path.join(ROOT, "design-options", "qa-piezas", "informe-deck-live.png"),
     fullPage: false
@@ -100,8 +121,12 @@ function waitPort(port, ms) {
     slides: (html.match(/class="slide /g) || []).length,
     photos: (html.match(/colombia-photos/g) || []).length,
     charts: (html.match(/chart-svg/g) || []).length,
+    kpi: (html.match(/kpi-photo/g) || []).length,
+    tables: (html.match(/table-page/g) || []).length,
+    resumen: /Resumen ejecutivo/i.test(html),
     hasDeckCss: /aspect-ratio:\s*16\/9/.test(html) || /--slide-w/.test(html),
-    unsplash: (html.match(/unsplash/g) || []).length
+    unsplash: (html.match(/unsplash/g) || []).length,
+    tinyBars: (html.match(/width="4"/g) || []).length
   };
   console.log("export", JSON.stringify(exp, null, 2));
 
@@ -109,16 +134,19 @@ function waitPort(port, ms) {
   kid.kill();
 
   const ok =
-    live.slides >= 15 &&
+    live.slides >= 20 &&
     live.cover &&
-    live.charts >= 3 &&
+    live.charts >= 8 &&
+    live.fatBars >= 12 &&
     live.commons >= 8 &&
     live.loaded >= 5 &&
-    exp.charts >= 3 &&
+    live.resumen &&
+    exp.charts >= 8 &&
     exp.hasDeckCss &&
-    exp.unsplash === 0;
+    exp.unsplash === 0 &&
+    exp.tinyBars === 0;
   if (!ok) {
-    console.error("FAIL parity");
+    console.error("FAIL parity", { live: live, exp: exp });
     process.exit(1);
   }
   console.log("qa_informe_deck OK");

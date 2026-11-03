@@ -84,18 +84,27 @@ window.InformeDeck = (function () {
   }
 
   function svgBars(bars) {
-    bars = bars || [];
+    bars = (bars || []).filter(function (b) { return b && !isNaN(Number(b.value)); });
+    if (!bars.length) {
+      return '<svg class="chart-svg" viewBox="0 0 520 260"><text x="260" y="130" text-anchor="middle" fill="#7a8799" font-size="14">Sin serie</text></svg>';
+    }
     var id = nextId("bf");
-    var max = Math.max.apply(null, bars.map(function (b) { return Number(b.value) || 0; }).concat([1]));
+    var max = Math.max.apply(null, bars.map(function (b) { return Math.abs(Number(b.value)) || 0; }).concat([1]));
     var base = 220;
     var top = 28;
     var scale = (base - top) / max;
     var n = Math.max(bars.length, 1);
-    var gap = n > 6 ? 18 : 36;
-    var barW = Math.min(52, Math.floor((420 - gap * (n - 1)) / n));
+    var gap = n > 6 ? 14 : 28;
+    var barW = Math.max(28, Math.min(56, Math.floor((420 - gap * (n - 1)) / n)));
     var startX = 70;
+    var ticks = [0, 0.25, 0.5, 0.75, 1].map(function (t) {
+      var y = base - max * t * scale;
+      return '<line x1="48" y1="' + y + '" x2="500" y2="' + y + '" stroke="#cfd8e6"/>' +
+        '<text x="42" y="' + (y + 4) + '" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial">' +
+        esc(num(max * t, max >= 100 ? 0 : 1)) + "</text>";
+    }).join("");
     var rects = bars.map(function (b, i) {
-      var h = Math.max(2, (Number(b.value) || 0) * scale);
+      var h = Math.max(8, Math.abs(Number(b.value) || 0) * scale);
       var x = startX + i * (barW + gap);
       var y = base - h;
       var fill = b.highlight ? "#FBBB28" : "url(#" + id + ")";
@@ -103,34 +112,37 @@ window.InformeDeck = (function () {
         '<text x="' + (x + barW / 2) + '" y="' + (y - 6) + '" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial">' +
         esc(b.display != null ? b.display : b.value) + "</text>" +
         '<text x="' + (x + barW / 2) + '" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial">' +
-        esc(shortLabel(b.label, 11)) + "</text>";
+        esc(shortLabel(b.label, 12)) + "</text>";
     }).join("");
     return (
       '<svg class="chart-svg" viewBox="0 0 520 260" role="img">' +
       '<defs><linearGradient id="' + id + '" x1="0" y1="0" x2="0" y2="1">' +
       '<stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>' +
-      rects +
+      ticks + rects +
       '<line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>' +
       "</svg>"
     );
   }
 
   function svgHBars(bars) {
-    bars = bars || [];
+    bars = (bars || []).filter(function (b) { return b && !isNaN(Number(b.value)); });
+    if (!bars.length) {
+      return '<svg class="chart-svg" viewBox="0 0 520 260"><text x="260" y="130" text-anchor="middle" fill="#7a8799" font-size="14">Sin serie</text></svg>';
+    }
     var id = nextId("hb");
-    var max = Math.max.apply(null, bars.map(function (b) { return Number(b.value) || 0; }).concat([1]));
+    var max = Math.max.apply(null, bars.map(function (b) { return Math.abs(Number(b.value)) || 0; }).concat([1]));
     var left = 128;
     var right = 500;
     var top = 18;
     var rowH = Math.min(36, Math.floor(220 / Math.max(bars.length, 1)));
     var rows = bars.map(function (b, i) {
       var y = top + i * rowH;
-      var w = ((Number(b.value) || 0) / max) * (right - left - 8);
+      var w = Math.max(12, ((Math.abs(Number(b.value)) || 0) / max) * (right - left - 8));
       var fill = b.highlight ? "#FBBB28" : "url(#" + id + ")";
       return '<text x="120" y="' + (y + 14) + '" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial">' +
         esc(shortLabel(b.label, 16)) + "</text>" +
-        '<rect x="' + left + '" y="' + (y + 2) + '" width="' + Math.max(4, w) + '" height="16" fill="' + fill + '" rx="3"/>' +
-        '<text x="' + (left + Math.max(4, w) + 6) + '" y="' + (y + 14) + '" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial">' +
+        '<rect x="' + left + '" y="' + (y + 2) + '" width="' + w + '" height="16" fill="' + fill + '" rx="3"/>' +
+        '<text x="' + (left + w + 6) + '" y="' + (y + 14) + '" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial">' +
         esc(b.display != null ? b.display : b.value) + "</text>";
     }).join("");
     return (
@@ -241,51 +253,259 @@ window.InformeDeck = (function () {
     );
   }
 
+  function fmtBar(v, unidad) {
+    var n0 = Number(v);
+    if (isNaN(n0)) return "—";
+    var u = String(unidad || "");
+    if (/mixto|%|ocup/i.test(u) && Math.abs(n0) <= 100) {
+      var p = Math.abs(n0) <= 1 ? n0 * 100 : n0;
+      return p.toFixed(1).replace(".", ",") + (/cop|usd|tarifa/i.test(u) && Math.abs(n0) > 100 ? "" : "%");
+    }
+    if (/usd/i.test(u)) return "USD " + num(n0, Math.abs(n0) >= 100 ? 0 : 1);
+    if (/cop|tarifa/i.test(u) || Math.abs(n0) >= 1000) return num(n0, 0);
+    return num(n0, Math.abs(n0) >= 100 ? 0 : 1);
+  }
+
   function barsFromGrafico(g) {
     if (!g || !g.labels || !g.values) return [];
     return g.labels.map(function (lab, i) {
       var v = Number(g.values[i]);
       if (isNaN(v)) v = 0;
-      var mixto = /mixto|%/i.test(String(g.unidad || ""));
-      var display = mixto && Math.abs(v) <= 100
-        ? (Math.abs(v) <= 1 ? (v * 100).toFixed(1) : v.toFixed(1)).replace(".", ",") + (String(g.unidad).indexOf("%") >= 0 || Math.abs(v) <= 100 ? "" : "")
-        : num(v, Math.abs(v) >= 100 ? 0 : 1);
-      return { label: lab, value: Math.abs(v), display: display, highlight: i === 0 };
+      return {
+        label: lab,
+        value: Math.abs(v),
+        raw: v,
+        display: fmtBar(v, g.unidad),
+        highlight: i === 0
+      };
     });
   }
 
-  function slideChart(sec, label) {
-    var g = sec.grafico;
-    if (!g || !g.labels || !g.labels.length) return "";
-    var bars = barsFromGrafico(g);
-    var mixto = /mixto/i.test(String(g.unidad || ""));
-    var many = bars.length >= 4;
-    var svg = many || /rank|país|pais|motivo/i.test(String(g.titulo || ""))
-      ? svgHBars(bars)
-      : svgBars(bars);
-    if (mixto && bars.length >= 2) {
-      /* dos escalas: mostrar barras horizontales para legibilidad */
-      svg = svgHBars(bars);
+  /** Si hay escalas incompatibles (p. ej. 67 % vs 442k COP), partir en grupos. */
+  function splitScaleGroups(bars) {
+    if (!bars || bars.length < 2) return [bars || []];
+    var vals = bars.map(function (b) { return Math.abs(Number(b.value)) || 0; }).filter(function (v) { return v > 0; });
+    if (vals.length < 2) return [bars];
+    var max = Math.max.apply(null, vals);
+    var min = Math.min.apply(null, vals);
+    if (max / min < 25) return [bars];
+    var low = [];
+    var high = [];
+    bars.forEach(function (b) {
+      var v = Math.abs(Number(b.value)) || 0;
+      if (v <= 0) return;
+      if (v / max < 0.05 || v < max / 25) low.push(b);
+      else high.push(b);
+    });
+    if (!low.length || !high.length) return [bars];
+    return [high, low];
+  }
+
+  function preferHBar(g, bars) {
+    if (!bars) return false;
+    if (bars.length >= 4) return true;
+    var t = String((g && g.titulo) || "");
+    return /rank|país|pais|motivo|emisor|destino|aerol|ruta|ciudad/i.test(t);
+  }
+
+  /** Series del pack abierto cuando el LLM manda mixto ilegible o vacío. */
+  function packBarsFor(secId, data) {
+    data = data || window.DATA || {};
+    var anio = String((data.informe && data.informe.corte || "2025").slice(0, 4));
+    function topRows(obj, keyAnio, mapFn) {
+      var rows = (obj && obj[keyAnio]) || (obj && obj[anio]) || [];
+      if (!rows.length && obj) {
+        var keys = Object.keys(obj);
+        if (keys.length) rows = obj[keys[keys.length - 1]] || [];
+      }
+      return (rows || []).slice(0, 6).map(mapFn);
     }
+    if (secId === "emisores" || secId === "salidas") {
+      var mig = (data.migracion && data.migracion.top_paises) || {};
+      var bars = topRows(mig, anio, function (r, i) {
+        return {
+          label: r.pais,
+          value: Number(r.entradas || r.visitantes) || 0,
+          display: num(r.entradas || r.visitantes),
+          highlight: i === 0
+        };
+      });
+      if (bars.length) return { titulo: "Top emisores Migración " + anio, bars: bars, kind: "hbar", fuente: "migracion.top_paises" };
+    }
+    if (secId === "receptivo" || secId === "destinos") {
+      var min = (data.mincitVnr && data.mincitVnr.top_paises) || {};
+      var barsM = topRows(min, anio, function (r, i) {
+        return {
+          label: r.pais,
+          value: Number(r.visitantes) || 0,
+          display: num(r.visitantes),
+          highlight: i === 0
+        };
+      });
+      if (barsM.length) return { titulo: "Top MinCIT VNR Medellín " + anio, bars: barsM, kind: "hbar", fuente: "mincit_vnr.top_paises" };
+    }
+    if (secId === "conectividad" || secId === "aereo") {
+      var aero = ((data.conectividad && data.conectividad.aerolineas) || []).filter(function (r) {
+        return String(r.anio) === anio;
+      }).slice(0, 6);
+      if (aero.length) {
+        return {
+          titulo: "Pasajeros por aerolínea " + anio,
+          bars: aero.map(function (r, i) {
+            return {
+              label: r.aerolinea || r.nombre || "—",
+              value: Number(r.pasajeros || r.valor) || 0,
+              display: num(r.pasajeros || r.valor),
+              highlight: i === 0
+            };
+          }),
+          kind: "hbar",
+          fuente: "conectividad.aerolineas"
+        };
+      }
+    }
+    if (secId === "visitante") {
+      var ola = (data.evi && data.evi.olas && data.evi.olas[0]) || data.evi || {};
+      var motivos = ola.motivos || [];
+      if (motivos.length) {
+        return {
+          titulo: "Motivos EVI (% participación)",
+          bars: motivos.slice(0, 5).map(function (m, i) {
+            var p = Number(m.participacion);
+            if (p <= 1) p = p * 100;
+            return {
+              label: m.nombre,
+              value: p,
+              display: p.toFixed(1).replace(".", ",") + "%",
+              highlight: i === 0
+            };
+          }),
+          kind: "hbar",
+          fuente: "evi_ola.motivos"
+        };
+      }
+    }
+    return null;
+  }
+
+  function chartBox(title, svg) {
+    return '<div class="chart-box"><h3>' + esc(title) + "</h3>" + svg + "</div>";
+  }
+
+  function slideChart(sec, label, data) {
+    var g = sec.grafico;
     var bullets = (sec.bullets || []).slice(0, 4).map(function (b) {
       return "<li>" + esc(textoBullet(b)) + "</li>";
     }).join("");
+    var packs = packBarsFor(sec.id, data);
+    var groups = [];
+    var titulo = (g && g.titulo) || (sec.titulo + " · figura") || "Gráfico";
+    var fuente = "Figura informe · " + (sec.id || "");
+
+    if (g && g.labels && g.labels.length) {
+      var bars = barsFromGrafico(g);
+      var mixto = /mixto/i.test(String(g.unidad || ""));
+      var parts = (mixto || bars.length >= 2) ? splitScaleGroups(bars) : [bars];
+      if (parts.length > 1) {
+        parts.forEach(function (grp, i) {
+          groups.push({
+            title: titulo + (i === 0 ? " · escala A" : " · escala B"),
+            svg: preferHBar(g, grp) ? svgHBars(grp) : svgBars(grp)
+          });
+        });
+      } else {
+        var useH = preferHBar(g, bars) || mixto;
+        groups.push({
+          title: titulo + (g.unidad ? " · " + g.unidad : ""),
+          svg: useH ? svgHBars(bars) : svgBars(bars)
+        });
+      }
+      /* Si mixto dejó una escala casi vacía, sumar serie del pack */
+      if (mixto && packs && packs.bars && packs.bars.length) {
+        groups.push({
+          title: packs.titulo,
+          svg: packs.kind === "hbar" ? svgHBars(packs.bars) : svgBars(packs.bars)
+        });
+        fuente += " + " + packs.fuente;
+      }
+    } else if (packs && packs.bars && packs.bars.length) {
+      groups.push({
+        title: packs.titulo,
+        svg: packs.kind === "hbar" ? svgHBars(packs.bars) : svgBars(packs.bars)
+      });
+      fuente = packs.fuente;
+      titulo = packs.titulo;
+    } else {
+      return "";
+    }
+
+    var figure = groups.length === 1
+      ? chartBox(groups[0].title, groups[0].svg)
+      : '<div class="chart-stack">' + groups.map(function (gr) {
+        return chartBox(gr.title, gr.svg);
+      }).join("") + "</div>";
+
     return (
-      '<section class="slide chart-page" aria-label="' + esc(label) + '">' +
+      '<section class="slide chart-page' + (groups.length > 1 ? " chart-page-multi" : "") + '" aria-label="' + esc(label) + '">' +
       '<span class="slide-label">' + esc(label) + "</span>" +
-      '<div class="head"><h2>' + esc(g.titulo || sec.titulo || "Gráfico") + "</h2>" + logos("light") + "</div>" +
+      '<div class="head"><h2>' + esc(titulo) + "</h2>" + logos("light") + "</div>" +
       '<div class="chart-body">' +
       "<ul>" + (bullets || "<li>Serie del pack dashboard.</li>") + "</ul>" +
-      '<div class="chart-box"><h3>' + esc(g.titulo || "Figura") +
-      (g.unidad ? " · " + esc(g.unidad) : "") + "</h3>" + svg + "</div></div>" +
-      '<p class="fuente">Figura dashboard · ' + esc(sec.id) + "</p>" +
+      figure +
+      "</div>" +
+      '<p class="fuente">' + esc(fuente) + "</p>" +
+      '<div class="bar-maroon"></div></section>'
+    );
+  }
+
+  function slideKpi(sec, label, slot) {
+    var cards = [];
+    (sec.bullets || []).slice(0, 4).forEach(function (b) {
+      var t = textoBullet(b);
+      var m = t.match(/([\d.,]+)\s*(%|USD|COP|M|k)?/i);
+      if (!m) return;
+      cards.push({
+        label: shortLabel(t.replace(m[0], "").replace(/^[,:\s]+/, "") || sec.titulo, 42),
+        value: m[1] + (m[2] ? " " + m[2] : ""),
+        note: b.fuente || ""
+      });
+    });
+    if (cards.length < 2) return "";
+    var cardsHtml = cards.map(function (c) {
+      return '<article class="kpi-card text-box light">' +
+        '<p class="kpi-label">' + esc(c.label) + "</p>" +
+        '<p class="kpi-value">' + esc(c.value) + "</p>" +
+        (c.note ? '<p class="kpi-note">' + esc(c.note) + "</p>" : "") +
+        "</article>";
+    }).join("");
+    return (
+      '<section class="slide kpi-photo" aria-label="' + esc(label) + '">' +
+      '<span class="slide-label">' + esc(label) + "</span>" +
+      '<div class="kpi-photo-stage">' + photoFrame(slot, sec.titulo) +
+      '<div class="kpi-overlay">' +
+      '<div class="text-box dark kpi-head">' + logos("dark") +
+      "<h2>" + esc(sec.titulo || "Indicadores") + "</h2></div>" +
+      '<div class="kpi-grid">' + cardsHtml + "</div>" +
+      '<p class="fuente on-photo">KPIs de la sección · Commons</p>' +
+      "</div></div>" +
       '<div class="bar-maroon"></div></section>'
     );
   }
 
   function slideTable(sec, label) {
     var t = sec.tabla;
-    if (!t || !t.columnas || !t.filas || !t.filas.length) return "";
+    if (!t || !t.columnas || !t.filas || !t.filas.length) {
+      /* Tabla sintética desde gráfico si no hay tabla LLM */
+      var g = sec.grafico;
+      if (!g || !g.labels || !g.labels.length) return "";
+      t = {
+        titulo: (g.titulo || sec.titulo) + " · datos",
+        columnas: ["Categoría", "Valor"],
+        filas: g.labels.map(function (lab, i) {
+          return [lab, fmtBar(g.values[i], g.unidad)];
+        })
+      };
+    }
     var head = t.columnas.map(function (c) { return "<th>" + esc(c) + "</th>"; }).join("");
     var body = t.filas.slice(0, 12).map(function (fila) {
       return "<tr>" + (fila || []).map(function (cel) {
@@ -304,9 +524,23 @@ window.InformeDeck = (function () {
       "</tr></thead><tbody>" + body + "</tbody></table></div>" +
       '<div class="side text-box light"><h3>Lectura</h3><ul>' +
       (side || "<li>Ver hallazgos de la sección.</li>") + "</ul></div></div>" +
-      '<p class="fuente">Tabla dashboard · ' + esc(sec.id) + "</p>" +
+      '<p class="fuente">Tabla · ' + esc(sec.id) + "</p>" +
       '<div class="bar-maroon"></div></section>'
     );
+  }
+
+  function ensureResumen(inf, secs) {
+    if (inf.resumen_ejecutivo && inf.resumen_ejecutivo.length) return inf;
+    var bullets = [];
+    (secs || []).slice(0, 6).forEach(function (sec) {
+      var b = (sec.insights && sec.insights[0]) || (sec.bullets && sec.bullets[0]);
+      if (b) bullets.push(textoBullet(b));
+    });
+    if (!bullets.length) return inf;
+    var clone = {};
+    Object.keys(inf).forEach(function (k) { clone[k] = inf[k]; });
+    clone.resumen_ejecutivo = bullets;
+    return clone;
   }
 
   /** Render completo del deck (mismo markup que el mock de Generar). */
@@ -314,7 +548,9 @@ window.InformeDeck = (function () {
     opts = opts || {};
     if (!inf) return "";
     chartUid = 0;
+    var data = opts.data || window.DATA || {};
     var secs = opts.secciones || inf.secciones || [];
+    inf = ensureResumen(inf, secs);
     var parts = [];
     var n = 1;
     function lab(txt) {
@@ -327,13 +563,17 @@ window.InformeDeck = (function () {
     parts.push(slideToc(inf, secs));
     n = 3;
     var res = slideResumen(inf);
-    if (res) parts.push(res);
-    secs.forEach(function (sec, i) {
+    if (res) {
+      parts.push(res);
+    }
+    secs.forEach(function (sec) {
       var slot = slotFor(sec.id);
       var titulo = sec.titulo || sec.id;
-      parts.push(slideDivider(titulo, slot, lab("Divisor")));
+      parts.push(slideDivider(titulo, slot, lab("Divisor " + (sec.id || ""))));
       parts.push(slideInsight(sec, lab("Insight"), slot));
-      var ch = slideChart(sec, lab("Gráfico"));
+      var kpi = slideKpi(sec, lab("KPI"), slot);
+      if (kpi) parts.push(kpi);
+      var ch = slideChart(sec, lab("Gráfico"), data);
       if (ch) parts.push(ch);
       var tb = slideTable(sec, lab("Tabla"));
       if (tb) parts.push(tb);

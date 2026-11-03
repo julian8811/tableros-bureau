@@ -1684,7 +1684,7 @@
       ? '<button class="btn" type="button" data-action="descargar-informe">JSON</button>'
       : '<a class="btn" href="data/open/informe_llm.json" download="informe_' + esc(inf.corte || "llm") + '.json">JSON</a>';
     var deck = window.InformeDeck
-      ? InformeDeck.render(inf, { secciones: secs })
+      ? InformeDeck.render(inf, { secciones: secs, data: DATA })
       : ('<div class="tec-doc" id="pieza-export">' + portadaInforme(inf) +
         secs.map(function (sec, i) { return cuerpoSeccionInforme(sec, i); }).join("") + "</div>");
     return shell +
