@@ -242,7 +242,8 @@
       celda("span-8", vozDigital()) +
       celda("span-4", icca()) +
       celda("span-12", medataFigura()) +
-      celda("span-12", marcaLLM()));
+      celda("span-12", marcaLLM()) +
+      celda("span-12", bloqueConectividad()));
     html += grupo("Simulación", celda("span-12", conversion()));
     return html;
   }
@@ -339,6 +340,77 @@
       pie("ETL Bureau · Google News RSS + Reddit · sem " + ventana + " · extraído " + (data.descarga || "")));
   }
 
+  function bloqueOferta() {
+    var data = DATA.bureauOferta || {};
+    var rnt = data.rnt || {};
+    var serie = data.serie || [];
+    var cats = rnt.por_categoria || [];
+    if (!serie.length && !rnt.prestadores && !cats.length) return hueco("Oferta", "Corra scripts/alimentar_bureau.py para traer la oferta del ETL.");
+    var uplift = serie.filter(function (row) { return row.uplift_pp != null; }).map(function (row, i) {
+      return { label: row.evento, value: row.uplift_pp, text: num(row.uplift_pp, 1) + " pp", color: Charts.palette[i % Charts.palette.length] };
+    });
+    var categorias = cats.map(function (row, i) {
+      return { label: row.categoria, value: row.prestadores, text: num(row.prestadores), color: Charts.palette[i % Charts.palette.length] };
+    });
+    return '<div class="kpi-row">' +
+      kpi("bureau-oferta", "Prestadores RNT", num(rnt.prestadores), esc(data.ventana || "ventana corriente")) +
+      kpi("bureau-oferta", "Habitaciones", num(rnt.habitaciones), "RNT") +
+      kpi("bureau-oferta", "Camas", num(rnt.camas), "RNT") +
+      "</div>" +
+      block("Uplift de ocupación por temporada", "Puntos porcentuales sobre la base. " + esc(data.ventana || "") + ".",
+        Charts.bars(uplift, "#00AEAC") + pie("ETL Bureau · RNT + MEData + DANE EGIT" + extraido("bureauOferta"))) +
+      block("Prestadores por categoría", "Registro Nacional de Turismo.",
+        (categorias.length ? Charts.bars(categorias, "#108181") : hueco("Sin categorías", "El agregado no trae el desglose por categoría.")) + pie("ETL Bureau · RNT" + extraido("bureauOferta")));
+  }
+
+  function bloqueSeguridad() {
+    var data = DATA.bureauSeguridad || {};
+    var serie = data.serie || [];
+    if (!serie.length) return hueco("Seguridad", "Corra scripts/alimentar_bureau.py para traer la serie de seguridad del ETL.");
+    var puntos = serie.map(function (row) { return { x: row.periodo, y: row.homicidios }; });
+    var mods = (data.top_modalidades || []).map(function (row, i) {
+      return { label: row.modalidad, value: row.n, text: num(row.n), color: Charts.palette[i % Charts.palette.length] };
+    });
+    return block("Seguridad ciudadana", "Homicidios por mes (" + esc(data.ventana || "ventana corriente") + "). Los hurtos no traen desagregación por zona (null, no 0).",
+      Charts.line(puntos, "#108181") +
+      "<h3>Modalidades con más casos</h3>" + Charts.bars(mods, "#E9901E") +
+      pie("ETL Bureau · SIEDCO Policía Nacional" + extraido("bureauSeguridad")));
+  }
+
+  function bloqueClima() {
+    var data = DATA.bureauClima || {};
+    var serie = data.serie || [];
+    var pm25 = data.pm25_serie || [];
+    var pron = data.pronostico || [];
+    if (!serie.length && !pm25.length && !pron.length) return hueco("Clima", "Corra scripts/alimentar_bureau.py para traer el clima del ETL.");
+    var lluvia = serie.map(function (row) { return { x: row.periodo, y: row.mm_prom }; });
+    var aire = pm25.map(function (row) { return { x: row.fecha, y: row.pm2_5 }; });
+    var futuro = pron.map(function (row) { return { x: row.date, y: row.prec_mean }; });
+    return block("Clima y calidad del aire", "Lluvia mensual, PM2.5 y pronóstico ensemble. " + esc(data.ventana || "") + ".",
+      "<h3>Lluvia mensual (mm prom.)</h3>" + Charts.line(lluvia, "#108181") +
+      "<h3>PM2.5</h3>" + Charts.line(aire, "#E9901E") +
+      "<h3>Pronóstico de precipitación media</h3>" + Charts.line(futuro, "#00AEAC") +
+      pie("ETL Bureau · IDEAM + Open-Meteo + aire_med" + extraido("bureauClima")));
+  }
+
+  function bloqueConectividad() {
+    var data = DATA.bureauConectividad || {};
+    var serie = data.serie || [];
+    var metro = data.metro_serie || [];
+    var rutas = ((data.oferta_aerea || {}).top_rutas || []);
+    if (!serie.length && !rutas.length) return hueco("Conectividad ampliada", "Corra scripts/alimentar_bureau.py para traer la conectividad del ETL.");
+    var ops = serie.map(function (row) { return { x: row.periodo, y: row.operaciones }; });
+    var metroPts = metro.map(function (row) { return { x: row.periodo, y: row.valor }; });
+    var barras = rutas.map(function (row, i) {
+      return { label: row.ruta, value: row.sillas, text: num(row.sillas), color: Charts.palette[i % Charts.palette.length] };
+    });
+    return block("Conectividad ampliada", "Operaciones, metro como proxy terrestre y oferta aérea por ruta. " + esc(data.ventana || "") + ".",
+      "<h3>Operaciones</h3>" + Charts.line(ops, "#108181") +
+      "<h3>Metro (proxy terrestre)</h3>" + Charts.line(metroPts, "#195855") +
+      "<h3>Top rutas por sillas</h3>" + Charts.bars(barras, "#00AEAC") +
+      pie("ETL Bureau · Aerocivil/terminales/DANE/Eurostat/WB/Wikimedia" + extraido("bureauConectividad")));
+  }
+
   function tarifas() {
     var ema = filasAnio(DATA.ema.serie, state.anio);
     var linea = Charts.line(ema.map(function (row) { return { x: MESES[row.mes - 1], y: row.indice_100 }; }), "#108181", { mark: 100 });
@@ -428,7 +500,10 @@
     html += grupo("Huella y escenario",
       celda("span-6", compararOlas()) +
       celda("span-6", huellaBloque(huella, ola)) +
-      celda("span-12", npsSimulado()));
+      celda("span-12", npsSimulado()) +
+      celda("span-12", bloqueOferta()) +
+      celda("span-12", bloqueSeguridad()) +
+      celda("span-12", bloqueClima()));
     return html;
   }
 
@@ -880,7 +955,11 @@
     cargar("manifiesto.json"),
     cargar("bureau_marca_llm.json"),
     cargar("bureau_paises_2025_2026.json"),
-    cargar("informe_llm.json")
+    cargar("informe_llm.json"),
+    cargar("bureau_oferta.json"),
+    cargar("bureau_seguridad.json"),
+    cargar("bureau_clima.json"),
+    cargar("bureau_conectividad.json")
   ]).then(function (piezas) {
     DATA.conectividad = piezas[0];
     DATA.bureauPrensa = piezas[1];
@@ -893,6 +972,10 @@
     DATA.bureauMarca = piezas[8];
     DATA.bureauPaises = piezas[9];
     DATA.informe = piezas[10];
+    DATA.bureauOferta = piezas[11];
+    DATA.bureauSeguridad = piezas[12];
+    DATA.bureauClima = piezas[13];
+    DATA.bureauConectividad = piezas[14];
     leerUrl();
     if (!DATA.conectividad || !DATA.ema || !DATA.icca) {
       document.getElementById("app").innerHTML = hueco("Faltan agregados", "Abra esta carpeta con un servidor local después de correr scripts/preparar_fuentes.py.");

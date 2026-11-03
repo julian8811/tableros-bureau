@@ -224,6 +224,50 @@ window.CATALOGO = [
   },
 
   {
+    id: "bureau-conectividad", tab: "mercados", nombre: "Conectividad ampliada y benchmarks (ETL Bureau)",
+    pastilla: "Bureau", clase: "proxy",
+    fuenteTipo: "Secundaria", fuente: "ETL Bureau, Aerocivil/terminales/DANE/Eurostat/WB/Wikimedia 2011-01..2026-11",
+    pedida: "Mensual", grano: "Mensual", unidad: "Operaciones y sillas",
+    formula: "Operaciones por periodo de la serie y sillas/vuelos por ruta de la oferta aérea.",
+    universo: "Oferta aérea (sillas/vuelos), operaciones, metro, TRM, costos, benchmarks EU/mundo, digital.",
+    licencia: "Agregados propios del ETL; fuentes primarias datos.gov.co / Eurostat / Banco Mundial.",
+    noMide: "Reservas futuras ni frecuencias vigentes por aerolínea."
+  },
+
+  {
+    id: "bureau-oferta", tab: "visitante", nombre: "Oferta y territorio (ETL Bureau)",
+    pastilla: "Bureau", clase: "proxy",
+    fuenteTipo: "Secundaria", fuente: "ETL Bureau, RNT + MEData + DANE EGIT 2025-2026",
+    pedida: "Por corte", grano: "Temporada y categoría", unidad: "Prestadores y puntos de uplift",
+    formula: "Uplift de ocupación por temporada en puntos porcentuales sobre la base y conteo RNT por categoría.",
+    universo: "Prestadores RNT, tarifa y ocupación por zona, uplift de 6 temporadas, turismo interno.",
+    licencia: "Agregados propios del ETL; fuentes primarias datos.gov.co / DANE / MEData.",
+    noMide: "La tarifa vigente de un hotel ni la ocupación de un mes fuera de la ventana."
+  },
+
+  {
+    id: "bureau-seguridad", tab: "visitante", nombre: "Seguridad ciudadana Medellín (ETL Bureau)",
+    pastilla: "Bureau", clase: "proxy",
+    fuenteTipo: "Secundaria", fuente: "ETL Bureau, SIEDCO Policía Nacional 2018-07 a 2026-09",
+    pedida: "Mensual", grano: "Mensual", unidad: "Casos",
+    formula: "Homicidios por periodo de la serie mensual y conteo por modalidad.",
+    universo: "Homicidios y hurtos ciudad; hurtos sin desagregación por zona (null, no 0).",
+    licencia: "Datos abiertos SIEDCO; agregados propios del ETL.",
+    noMide: "El hurto por zona: la fuente no lo desagrega y el ETL lo deja en null, no en 0."
+  },
+
+  {
+    id: "bureau-clima", tab: "visitante", nombre: "Clima y calidad del aire (ETL Bureau)",
+    pastilla: "Bureau", clase: "proxy",
+    fuenteTipo: "Secundaria", fuente: "ETL Bureau, IDEAM + Open-Meteo + aire_med 2026-08..2026-11-08",
+    pedida: "Diaria", grano: "Mensual, horario y día", unidad: "mm, µg/m³ y °C",
+    formula: "Lluvia mensual agregada, PM2.5 por hora y pronóstico ensemble de 7 días.",
+    universo: "Lluvia mensual agregada, PM2.5 diario, pronóstico ensemble 7 días.",
+    licencia: "Datos abiertos IDEAM/Open-Meteo; agregados propios del ETL.",
+    noMide: "El microclima por comuna ni alertas en tiempo real."
+  },
+
+  {
     id: "informe-llm", tab: "informes", nombre: "Informe narrativo redactado por LLM",
     pastilla: "Bureau · LLM", clase: "proxy",
     fuenteTipo: "Secundaria", fuente: "ETL Bureau: warehouse PROC redactado con LLM (Groq), report/redactar_informe.py",
