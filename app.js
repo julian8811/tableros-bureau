@@ -1889,13 +1889,18 @@
       return;
     }
     if (event.target.closest("[data-action='imprimir']")) { window.print(); return; }
-    if (event.target.closest("[data-action='descargar-html']")) {
-      if (window.Piezas) Piezas.descargarHtml(event.target.getAttribute("data-kind") || state.pieza, state.anio);
+    var btnHtml = event.target.closest("[data-action='descargar-html']");
+    if (btnHtml) {
+      if (window.Piezas) {
+        Piezas.descargarHtml(btnHtml.getAttribute("data-kind") || state.pieza, state.anio);
+      }
       return;
     }
-    if (event.target.closest("[data-action='descargar-pdf']")) {
-      if (window.Piezas) Piezas.descargarPdf();
-      else window.print();
+    var btnPdf = event.target.closest("[data-action='descargar-pdf']");
+    if (btnPdf) {
+      if (window.Piezas) {
+        Piezas.descargarPdf(btnPdf.getAttribute("data-kind") || state.pieza, state.anio);
+      }
       return;
     }
     if (event.target.closest("[data-action='generar-informe']")) { generarInformeOnDemand(); return; }

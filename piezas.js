@@ -122,6 +122,12 @@ window.Piezas = (function () {
       '<div class="kpi glass"><p class="label">3.º ' + esc(nombreCorto(t2.pais)) + '</p><p class="value v-sm">' + esc(num(t2.valor)) + '</p><p class="meta">' + esc(pct(t2.valor, d.total)) + "</p></div>" +
       '<div class="kpi glass"><p class="label">Medellín VNR</p><p class="value v-sm">' + esc(cortoMillones(d.medellin)) + '</p><p class="meta">' + esc(shareTxt) + "</p></div>" +
       "</div>" +
+      (top.length > 3
+        ? '<p class="note-uni"><b>También en el top:</b> ' +
+          top.slice(3).map(function (r, i) {
+            return esc(nombreCorto(r.pais)) + " (" + esc(num(r.valor)) + ")";
+          }).join(" · ") + "</p>"
+        : "") +
       '<footer class="foot">' +
       '<p class="fuente"><b>Fuente:</b> ' + esc(d.fuenteMig) + " · " + esc(d.fuenteMincit) + " · sin CRM</p>" +
       '<p class="fuente">Bureau Medellín · Colmayor V7</p>' +
@@ -265,10 +271,14 @@ window.Piezas = (function () {
   function htmlBoletinA(d) {
     d = d || {};
     var top = d.top || [];
-    var rows = top.slice(0, 3).map(function (r, i) {
+    var shareTxt = d.shareColombia != null
+      ? "Share Colombia " + (d.shareColombia * 100).toFixed(1).replace(".", ",") + " %"
+      : "MinCIT VNR";
+    var rows = top.slice(0, 5).map(function (r, i) {
       return "<li><span class='n'>" + (i + 1) + "</span><span class='pais'>" + esc(nombreCorto(r.pais)) +
         "</span><span class='val'>" + esc(num(r.valor)) + "</span></li>";
     }).join("");
+    var t0 = top[0] || { pais: "—", valor: 0 };
     return (
       '<article class="pieza-stage stage email" id="pieza-export" data-export="boletin-a">' +
       '<div class="stage-bg" aria-hidden="true"></div><div class="stage-inner">' +
@@ -278,13 +288,17 @@ window.Piezas = (function () {
       '</div><div class="gold-bar"></div>' +
       '<p class="kicker">Boletín de inteligencia · ' + esc(d.anio) + "</p>" +
       '<h1 class="h-title">Emisores y receptivo Medellín · corte anual</h1>' +
-      '<p class="lead">Resumen para stakeholders. Cifras del pack abierto. Sin CRM.</p></header>' +
+      '<p class="lead">Resumen para stakeholders del Bureau. Cifras del pack abierto (Migración + MinCIT VNR). Sin CRM.</p></header>' +
       '<div class="kpi-grid kpi-2">' +
-      '<div class="kpi glass"><p class="label">Entradas CO · top</p><p class="value v-sm">' + esc(cortoMillones(top[0] && top[0].valor)) + '</p><p class="meta">' + esc(nombreCorto(top[0] && top[0].pais)) + "</p></div>" +
-      '<div class="kpi glass"><p class="label">Medellín VNR</p><p class="value v-sm">' + esc(cortoMillones(d.medellin)) + '</p><p class="meta">MinCIT</p></div>' +
+      '<div class="kpi glass"><p class="label">Entradas CO · ' + esc(codigoPais(t0.pais)) + '</p><p class="value v-sm">' + esc(cortoMillones(t0.valor)) + '</p><p class="meta">' + esc(nombreCorto(t0.pais)) + " · " + esc(pct(t0.valor, d.total)) + "</p></div>" +
+      '<div class="kpi glass"><p class="label">Medellín VNR</p><p class="value v-sm">' + esc(cortoMillones(d.medellin)) + '</p><p class="meta">' + esc(shareTxt) + "</p></div>" +
       "</div>" +
+      '<p class="kicker" style="margin:0">Top emisores (Migración)</p>' +
       "<ol class='rank'>" + rows + "</ol>" +
-      '<p class="fuente"><b>Fuentes:</b> ' + esc(d.fuenteMig) + " · " + esc(d.fuenteMincit) + "</p>" +
+      '<p class="insight">El top emisor nacional (<b class="gold">' + esc(nombreCorto(t0.pais)) +
+      "</b>) no sustituye el ranking MinCIT de destino Medellín. Usar ambos universos con etiqueta clara; no sumar Migración + MinCIT + Aerocivil.</p>" +
+      '<a class="cta" href="index.html?tab=mercados">Abrir tableros</a>' +
+      '<p class="fuente"><b>Fuentes:</b> ' + esc(d.fuenteMig) + " · " + esc(d.fuenteMincit) + " · Bureau · Colmayor V7</p>" +
       "</div></article>"
     );
   }
@@ -325,6 +339,7 @@ window.Piezas = (function () {
       "<p>Cruces de entrada de extranjeros (Migración). Lectura de origen nacional, no de ciudad destino.</p>" +
       barrasMiniSvg(top, "Top Migración CO " + d.anio, ["#E9901E", "#FBBB28", "#00AEAC"]) +
       "</section></div>" +
+      '<p class="insight" style="font-size:12px">No sumar receptivo MinCIT con emisores Migración ni con Aerocivil: son universos distintos (ciudad destino vs entradas nacionales vs pasajeros aéreos).</p>' +
       '<footer class="foot">' +
       '<p class="fuente"><b>Fuentes:</b> ' + esc(d.fuenteMincit) + " · " + esc(d.fuenteMig) + "</p>" +
       '<p class="fuente">Greater Medellín CVB · Colmayor Manual V7</p>' +
@@ -353,7 +368,7 @@ window.Piezas = (function () {
     document.body.appendChild(a);
     a.click();
     a.remove();
-    setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2500);
   }
 
   function fetchText(url) {
@@ -363,39 +378,136 @@ window.Piezas = (function () {
     }).catch(function () { return ""; });
   }
 
-  /** Empaqueta #pieza-export (o .tec-doc) como HTML autónomo */
-  function descargarHtml(kind, anio) {
+  function absUrl(rel) {
+    try { return new URL(rel, window.location.href).href; }
+    catch (e) { return rel; }
+  }
+
+  /** Convierte src relativos de assets a absolutos (imprescindible en blob/print). */
+  function absolutizarHtml(html) {
+    return String(html || "")
+      .replace(/\bsrc=(["'])(?!https?:|data:|blob:)([^"']+)\1/gi, function (_, q, src) {
+        return "src=" + q + absUrl(src) + q;
+      })
+      .replace(/url\((["']?)(?!https?:|data:|blob:)([^"')]+)\1\)/gi, function (_, q, u) {
+        return "url(" + q + absUrl(u.trim()) + q + ")";
+      })
+      .replace(/background-image:\s*url\((['"])(?!https?:|data:|blob:)([^'"]+)\1\)/gi, function (_, q, u) {
+        return "background-image:url(" + q + absUrl(u) + q + ")";
+      });
+  }
+
+  function cssExportExtras(kind) {
+    var common =
+      "html,body{margin:0;background:#0c1526!important;color:#eef3f3!important}" +
+      ".no-print,.pieza-dl,.opts,.site,.mando,.footer-doc,.skip,#tip,.modal-back{display:none!important}" +
+      ".stage-wrap{padding:24px;display:grid;place-items:center;min-height:100vh;box-sizing:border-box}" +
+      ".export-informe{padding:24px;max-width:1100px;margin:0 auto;box-sizing:border-box;background:#0c1526!important;color:#eef3f3!important}" +
+      ".export-informe .tec-doc{display:grid;gap:18px}" +
+      ".export-informe .tec-resumen,.export-informe .tec-toc,.export-informe .tec-sec{" +
+      "background:rgba(14,22,38,.92)!important;color:#eef3f3!important;border:1px solid rgba(255,255,255,.14)!important}" +
+      ".export-informe .tec-sec-head h3,.export-informe .block h3,.export-informe .kpi .label{color:#FBBB28!important}" +
+      ".export-informe .src,.export-informe .hint,.export-informe .pie,.export-informe .lista{color:#c5d0d8!important}" +
+      "@media print{" +
+      "  @page{margin:10mm}" +
+      "  html,body,.export-informe,.stage-wrap{background:#0c1526!important;color:#eef3f3!important;" +
+      "-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}" +
+      "  .stage-wrap,.export-informe{padding:0!important;min-height:0!important;max-width:none!important}" +
+      "  .tec-resumen,.tec-toc,.tec-sec,.block,.kpi{" +
+      "background:rgba(14,22,38,.96)!important;color:#eef3f3!important;border-color:rgba(255,255,255,.16)!important}" +
+      "  .tec-portada-copy h2,.tec-kicker,.tec-period{color:#fff!important}" +
+      "  .stage,.pieza-stage,.tec-portada,.tec-sec,.tec-resumen,.tec-toc{break-inside:avoid;page-break-inside:avoid}" +
+      "  .tec-portada{break-after:page;page-break-after:always}" +
+      "  .tec-sec{break-before:page;page-break-before:always}" +
+      "}";
+    if (kind === "informe") return common;
+    return common +
+      ".stage.sq{width:min(100%,1080px);aspect-ratio:1/1}" +
+      ".stage.story{width:min(100%,420px);aspect-ratio:9/16}" +
+      ".stage.email{width:min(100%,600px)}" +
+      ".stage.a4{width:min(100%,794px);aspect-ratio:210/297}";
+  }
+
+  function tituloExport(kind, anio) {
+    var map = {
+      infografia_a: "Infografia_A_Hero_KPI",
+      infografia_b: "Infografia_B_Ranking",
+      infografia_c: "Infografia_C_Story",
+      boletin_a: "Boletin_A_Email",
+      boletin_b: "Boletin_B_A4",
+      boletin: "Boletin",
+      informe: "Informe_TEC_Bureau"
+    };
+    return (map[kind] || kind || "Pieza_Bureau") + "_" + (anio || "corte");
+  }
+
+  /** Construye HTML autónomo de la pieza/informe visible */
+  function buildExportDoc(kind, anio) {
     var el = document.getElementById("pieza-export") || document.querySelector(".tec-doc");
-    if (!el) {
-      window.alert("No hay pieza visible para descargar.");
-      return;
-    }
-    var nombre = (kind || "pieza") + "_" + (anio || "corte") + ".html";
-    Promise.all([
+    if (!el) return Promise.reject(new Error("No hay pieza visible para descargar."));
+    var baseName = tituloExport(kind, anio);
+    return Promise.all([
       fetchText("design-options/brand-v7-shared.css"),
       fetchText("styles.css")
     ]).then(function (cssArr) {
-      var brand = cssArr[0] || "";
-      var appCss = cssArr[1] || "";
-      var css = brand + "\n" + (kind === "informe" ? appCss : "");
-      /* Reescribir rutas de fuentes/assets para archivo local */
-      css = css.replace(/\.\.\/assets\//g, "assets/").replace(/url\("assets\//g, 'url("assets/');
+      var brand = absolutizarHtml(cssArr[0] || "");
+      var appCss = absolutizarHtml(cssArr[1] || "");
+      var css = brand + "\n" + (kind === "informe" ? appCss : "") + "\n" + cssExportExtras(kind);
       var bodyClass = kind === "informe" ? "export-informe" : "export-pieza stage-wrap";
-      var doc =
+      var markup = absolutizarHtml(el.outerHTML);
+      var html =
         "<!DOCTYPE html><html lang=\"es\"><head><meta charset=\"utf-8\">" +
         "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
-        "<title>" + esc(nombre) + "</title>" +
-        "<style>" + css + "\n.stage-wrap{padding:24px;display:grid;place-items:center;min-height:100vh}" +
-        ".no-print{display:none!important}</style></head>" +
-        "<body class=\"" + bodyClass + "\">" + el.outerHTML + "</body></html>";
-      blobDownload(nombre, doc, "text/html;charset=utf-8");
+        "<title>" + esc(baseName) + "</title>" +
+        "<style>" + css + "</style></head>" +
+        "<body class=\"" + bodyClass + "\">" + markup + "</body></html>";
+      return { html: html, baseName: baseName, filename: baseName + ".html" };
     });
   }
 
-  function descargarPdf() {
-    document.body.classList.add("print-pieza");
-    window.print();
-    setTimeout(function () { document.body.classList.remove("print-pieza"); }, 500);
+  function descargarHtml(kind, anio) {
+    buildExportDoc(kind, anio).then(function (doc) {
+      blobDownload(doc.filename, doc.html, "text/html;charset=utf-8");
+    }).catch(function (err) {
+      window.alert(err && err.message ? err.message : "No se pudo generar el HTML.");
+    });
+  }
+
+  /**
+   * PDF real de la pieza: iframe aislado (no imprime el tablero ni el título
+   * "Tableros estadísticos…"). El diálogo de impresión usa el <title> TEC/pieza.
+   */
+  function descargarPdf(kind, anio) {
+    buildExportDoc(kind, anio).then(function (doc) {
+      var iframe = document.createElement("iframe");
+      iframe.setAttribute("title", "export-print");
+      iframe.style.cssText = "position:fixed;right:0;bottom:0;width:0;height:0;border:0;opacity:0;pointer-events:none";
+      document.body.appendChild(iframe);
+      var idoc = iframe.contentDocument || iframe.contentWindow.document;
+      idoc.open();
+      idoc.write(doc.html);
+      idoc.close();
+      function cleanup() {
+        try { iframe.remove(); } catch (e) {}
+      }
+      function doPrint() {
+        try {
+          iframe.contentWindow.focus();
+          iframe.contentWindow.print();
+        } catch (e) {
+          window.alert("No se pudo abrir la impresión. Pruebe Descargar HTML.");
+        }
+        /* Dar tiempo a guardar PDF; no quitar estilos del tablero */
+        setTimeout(cleanup, 120000);
+        if (iframe.contentWindow) {
+          iframe.contentWindow.onafterprint = cleanup;
+        }
+      }
+      /* Esperar imágenes/CSS del origen */
+      setTimeout(doPrint, 700);
+    }).catch(function (err) {
+      window.alert(err && err.message ? err.message : "No se pudo generar el PDF.");
+    });
   }
 
   return {
@@ -408,6 +520,7 @@ window.Piezas = (function () {
     botonesDescarga: botonesDescarga,
     descargarHtml: descargarHtml,
     descargarPdf: descargarPdf,
+    buildExportDoc: buildExportDoc,
     blobDownload: blobDownload
   };
 }());
