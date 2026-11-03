@@ -118,23 +118,38 @@ function insight(label, photoUrl, h2, bullets, fuente, creditSlot) {
 </section>`;
 }
 
-function chartPage(label, h2, bullets, chartTitle, bars, fuente) {
-  const max = Math.max(...bars.map((b) => b.value), 1);
+let chartUid = 0;
+function nextChartId(prefix) {
+  chartUid += 1;
+  return prefix + chartUid;
+}
+
+function shortLabel(s, n) {
+  const t = String(s || "");
+  return t.length > n ? t.slice(0, n - 1) + "…" : t;
+}
+
+/** Barras verticales */
+function svgBars(bars, opts) {
+  const o = opts || {};
+  const id = nextChartId("bf");
+  const max = Math.max(...bars.map((b) => Number(b.value) || 0), 1);
   const base = 220;
-  const top = 30;
+  const top = 28;
   const scale = (base - top) / max;
-  const barW = 48;
-  const gap = 40;
-  const startX = 78;
+  const n = Math.max(bars.length, 1);
+  const gap = n > 6 ? 18 : 36;
+  const barW = Math.min(52, Math.floor((420 - gap * (n - 1)) / n));
+  const startX = 70;
   let rects = "";
   bars.forEach((b, i) => {
-    const h = b.value * scale;
+    const h = Math.max(2, (Number(b.value) || 0) * scale);
     const x = startX + i * (barW + gap);
     const y = base - h;
-    const fill = b.highlight ? "#FBBB28" : "url(#barFill)";
+    const fill = b.highlight ? "#FBBB28" : "url(#" + id + ")";
     rects += `<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="${fill}" rx="2"/>
-      <text x="${x + barW / 2}" y="${y - 6}" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">${b.display || b.value}</text>
-      <text x="${x + barW / 2}" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">${b.label}</text>`;
+      <text x="${x + barW / 2}" y="${y - 6}" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">${b.display != null ? b.display : b.value}</text>
+      <text x="${x + barW / 2}" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">${shortLabel(b.label, o.labelLen || 11)}</text>`;
   });
   const ticks = [0, 0.25, 0.5, 0.75, 1]
     .map((t) => {
@@ -144,6 +159,90 @@ function chartPage(label, h2, bullets, chartTitle, bars, fuente) {
       <text x="42" y="${y + 4}" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">${val}</text>`;
     })
     .join("");
+  return `<svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="${o.title || "Gráfico de barras"}">
+  <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>
+  ${ticks}${rects}
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
+</svg>`;
+}
+
+/** Barras horizontales (rankings) */
+function svgHBars(bars, opts) {
+  const o = opts || {};
+  const id = nextChartId("hb");
+  const max = Math.max(...bars.map((b) => Number(b.value) || 0), 1);
+  const left = 128;
+  const right = 500;
+  const top = 18;
+  const rowH = Math.min(36, Math.floor(220 / Math.max(bars.length, 1)));
+  let rows = "";
+  bars.forEach((b, i) => {
+    const y = top + i * rowH;
+    const w = ((Number(b.value) || 0) / max) * (right - left - 8);
+    const fill = b.highlight ? "#FBBB28" : "url(#" + id + ")";
+    rows += `<text x="120" y="${y + 14}" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">${shortLabel(b.label, 16)}</text>
+      <rect x="${left}" y="${y + 2}" width="${Math.max(4, w)}" height="16" fill="${fill}" rx="3"/>
+      <text x="${left + Math.max(4, w) + 6}" y="${y + 14}" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">${b.display != null ? b.display : b.value}</text>`;
+  });
+  return `<svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="${o.title || "Ranking"}">
+  <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#108181"/><stop offset="100%" stop-color="#00AEAC"/></linearGradient></defs>
+  ${rows}
+</svg>`;
+}
+
+/** Línea simple */
+function svgLine(points, opts) {
+  const o = opts || {};
+  const vals = points.map((p) => Number(p.value) || 0);
+  const max = Math.max(...vals, 1);
+  const min = Math.min(...vals, 0);
+  const span = Math.max(max - min, 1);
+  const left = 56;
+  const right = 500;
+  const top = 28;
+  const base = 220;
+  const step = points.length > 1 ? (right - left) / (points.length - 1) : 0;
+  const coords = points.map((p, i) => {
+    const x = left + i * step;
+    const y = base - ((Number(p.value) || 0) - min) / span * (base - top);
+    return { x, y, label: p.label, value: p.value, display: p.display };
+  });
+  const path = coords.map((c, i) => (i ? "L" : "M") + c.x.toFixed(1) + "," + c.y.toFixed(1)).join(" ");
+  const dots = coords
+    .map(
+      (c) =>
+        `<circle cx="${c.x}" cy="${c.y}" r="4" fill="#FBBB28" stroke="#172139" stroke-width="1.2"/>
+      <text x="${c.x}" y="${c.y - 10}" text-anchor="middle" fill="#172139" font-size="10" font-weight="700" font-family="Montserrat,Arial,sans-serif">${c.display != null ? c.display : c.value}</text>
+      <text x="${c.x}" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">${shortLabel(c.label, 10)}</text>`
+    )
+    .join("");
+  const ticks = [0, 0.5, 1]
+    .map((t) => {
+      const y = base - t * (base - top);
+      const val = Math.round(min + span * t);
+      return `<line x1="48" y1="${y}" x2="500" y2="${y}" stroke="#cfd8e6"/>
+      <text x="42" y="${y + 4}" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">${val}</text>`;
+    })
+    .join("");
+  return `<svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="${o.title || "Serie"}">
+  ${ticks}
+  <path d="${path}" fill="none" stroke="#00AEAC" stroke-width="3" stroke-linejoin="round"/>
+  ${dots}
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
+</svg>`;
+}
+
+function chartPage(label, h2, bullets, chartTitle, barsOrSvg, fuente, kind) {
+  let svg;
+  if (typeof barsOrSvg === "string") {
+    svg = barsOrSvg;
+  } else if (kind === "hbar") {
+    svg = svgHBars(barsOrSvg, { title: chartTitle });
+  } else if (kind === "line") {
+    svg = svgLine(barsOrSvg, { title: chartTitle });
+  } else {
+    svg = svgBars(barsOrSvg, { title: chartTitle });
+  }
   return `<section class="slide chart-page" aria-label="${label}">
   <span class="slide-label">${label}</span>
   <div class="head"><h2>${h2}</h2>${logosLight}</div>
@@ -151,12 +250,7 @@ function chartPage(label, h2, bullets, chartTitle, bars, fuente) {
     <ul>${bullets.map((b) => "<li>" + b + "</li>").join("")}</ul>
     <div class="chart-box">
       <h3>${chartTitle}</h3>
-      <svg viewBox="0 0 520 260" role="img">
-        <defs><linearGradient id="barFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>
-        ${ticks}
-        ${rects}
-        <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
-      </svg>
+      ${svg}
     </div>
   </div>
   <p class="fuente">${fuente}</p>
@@ -279,6 +373,7 @@ function extractStyle() {
   .insight .copy{gap:12px;padding:22px 28px 40px}
   .insight .body-box{flex:1;display:flex;flex-direction:column;min-height:0}
   .chart-body{grid-template-columns:1fr 1.15fr;gap:20px}
+  .chart-box .chart-svg{width:100%;height:auto;min-height:200px;display:block}
   .table-page{display:grid;grid-template-rows:auto 1fr auto;gap:10px}
   .table-grid{grid-template-columns:1.3fr .85fr;gap:16px;align-items:stretch;min-height:0}
   .table-wrap{overflow:auto;min-height:0}
@@ -530,30 +625,35 @@ body += chartPage(
 );
 
 body += divider("2.1 EMISORES INTERNACIONALES", fotos.emisores, next("Divisor emisores"), "emisores");
-const emRows = top2026.slice(0, 6).map((p) => {
-  const share = total2026 ? p.visitantes / total2026 : 0;
-  return [p.pais, fmt(p.visitantes), pct01(share)];
-});
 const top5share = top2026.slice(0, 5).reduce((a, b) => a + (b.visitantes || 0), 0) / (total2026 || 1);
-body += tablePage(
-  next("Tabla emisores YTD 2026"),
+const emBars = top2026.slice(0, 6).map((p, i) => ({
+  label: p.pais,
+  value: p.visitantes || 0,
+  display: fmt(p.visitantes),
+  highlight: i === 0
+}));
+body += chartPage(
+  next("Emisores YTD 2026"),
   usa ? usa.pais + " lidera con <strong>" + fmt(usa.visitantes) + "</strong> llegadas YTD 2026" : "Emisores YTD 2026",
-  ["País emisor", "YTD 2026", "% part. top"],
-  emRows,
-  ["Top 5", "—", pct01(top5share)],
-  "Lectura",
   [
     usa ? "<strong>" + usa.pais + "</strong> concentra la mayor cuota del top publicado." : "Ver top MinCIT.",
     "El top 5 concentra <strong>" + pct01(top5share) + "</strong> del set de países en pack.",
     top2026[1] ? "<strong>" + top2026[1].pais + "</strong> es el segundo mercado (" + fmt(top2026[1].visitantes) + ")." : ""
   ].filter(Boolean),
-  "Fuente: mincit_vnr.top_paises_2026"
+  "Top emisores YTD 2026 (llegadas)",
+  emBars,
+  "Fuente: mincit_vnr.top_paises_2026",
+  "hbar"
 );
 
 body += divider("2.2 DESTINOS / CIUDADES", fotos.destinos, next("Divisor destinos"), "destinos");
-body += insight(
+const shareColBars = shares.slice(-4).map((s) => ({
+  label: String(s.anio),
+  value: Math.round((s.share_colombia || 0) * 1000) / 10,
+  display: pct01(s.share_colombia)
+}));
+body += chartPage(
   next("Share ciudad vs país"),
-  fotos.destinosB,
   share2025
     ? "Share Medellín/Colombia en " +
       share2025.anio +
@@ -565,22 +665,19 @@ body += insight(
     : "Destinos MinCIT",
   [
     share2025 ? "Volumen ciudad: <strong>" + fmt(share2025.medellin) + "</strong> VNR." : "",
-    "Comparar trayectoria 2023–" + (share2025 ? share2025.anio : "") + " en shares_anual del pack.",
-    "Competitividad relativa vs otros destinos: cruzar con tablero MinCIT cuando el pack lo amplíe."
+    "Serie de share Medellín/Colombia en shares_anual del pack.",
+    "Competitividad relativa: cruzar con tablero MinCIT cuando el pack lo amplíe."
   ].filter(Boolean),
-  "Fuente: mincit_vnr.shares_anual",
-  "extra_salento"
+  "Share Medellín / Colombia (%)",
+  shareColBars,
+  "Fuente: mincit_vnr.shares_anual"
 );
 
 body += divider("2.3 REUNIONES Y NEGOCIOS", fotos.reuniones, next("Divisor ICCA"), "reuniones");
 const iccaCities = icca.ciudades || [];
-body += tablePage(
+body += chartPage(
   next("ICCA ciudades"),
-  "Ranking ICCA " + (icca.anio || "") + " · referencia de reuniones internacionales",
-  ["Ciudad", "Puesto", "Reuniones"],
-  iccaCities.map((c) => [c.ciudad, fmt(c.puesto), fmt(c.reuniones)]),
-  null,
-  "Lectura",
+  "Ranking ICCA " + (icca.anio || "") + " · reuniones internacionales",
   [
     iccaCities[0]
       ? "<strong>" + iccaCities[0].ciudad + "</strong> lidera el set local con puesto <strong>" + iccaCities[0].puesto + "</strong>."
@@ -588,14 +685,20 @@ body += tablePage(
     "Usar ICCA como proxy de agenda MICE, no como flujo vacacional.",
     "Cruzar con captación Bureau (gestión 2025) en la sección 7."
   ],
+  "Reuniones ICCA por ciudad",
+  iccaCities.map((c, i) => ({
+    label: c.ciudad,
+    value: c.reuniones || 0,
+    display: fmt(c.reuniones),
+    highlight: i === 0
+  })),
   "Fuente: icca · anio " + (icca.anio || "—")
 );
 
 body += divider("3. PERFIL DEL VISITANTE (EVI)", fotos.visitante, next("Divisor visitante"), "visitante");
 const motivos = evi.motivos || [];
-body += insight(
+body += chartPage(
   next("EVI gasto y motivos"),
-  fotos.visitanteB,
   "EVI " +
     (evi.ola || "") +
     " · n=<strong>" +
@@ -609,51 +712,57 @@ body += insight(
       "</strong> · noches media <strong>" +
       (evi.noches != null ? Number(evi.noches).toFixed(1).replace(".", ",") : "—") +
       "</strong>.",
-    ...motivos.slice(0, 3).map((m) => "<strong>" + m.nombre + "</strong>: " + pctAlready(m.participacion) + " de participación."),
+    ...motivos.slice(0, 2).map((m) => "<strong>" + m.nombre + "</strong>: " + pctAlready(m.participacion) + "."),
     evi.residencia && evi.residencia[0]
-      ? "Residencia top: <strong>" +
-        evi.residencia[0].nombre +
-        "</strong> (" +
-        pctAlready(evi.residencia[0].participacion) +
-        ")."
+      ? "Residencia top: <strong>" + evi.residencia[0].nombre + "</strong> (" + pctAlready(evi.residencia[0].participacion) + ")."
       : ""
   ].filter(Boolean),
-  "Fuente: evi_ola · huella (factores GEI Reino Unido)",
-  "extra_tayrona"
+  "Motivos de viaje EVI (% participación)",
+  motivos.slice(0, 5).map((m, i) => ({
+    label: m.nombre,
+    value: m.participacion || 0,
+    display: pctAlready(m.participacion),
+    highlight: i === 0
+  })),
+  "Fuente: evi_ola · huella",
+  "hbar"
 );
 
 body += divider("3.1 OFERTA TURÍSTICA", fotos.oferta, next("Divisor oferta"), "oferta");
-body += tablePage(
+body += chartPage(
   next("Oferta en tablero"),
   "El tablero registra <strong>" + fmt(pack.oferta_n) + "</strong> elementos de oferta turística",
-  ["Indicador", "Valor"],
-  [
-    ["Registros de oferta (pack)", fmt(pack.oferta_n)],
-    ["Uso", "Cruzar con receptivo y conectividad"]
-  ],
-  null,
-  "Lectura",
   [
     "Inventario compacto; no inventar tipologías fuera del pack.",
-    "Útil para narrativa de capacidad frente a picos de demanda."
+    "Útil para narrativa de capacidad frente a picos de demanda.",
+    "Prensa en pack: <strong>" + fmt(pack.prensa_n) + "</strong> piezas (referencia de conversación)."
   ],
-  "Fuente: oferta_n"
+  "Oferta vs prensa (conteos del pack)",
+  [
+    { label: "Oferta", value: pack.oferta_n || 0, display: fmt(pack.oferta_n), highlight: true },
+    { label: "Prensa", value: pack.prensa_n || 0, display: fmt(pack.prensa_n) }
+  ],
+  "Fuente: oferta_n, prensa_n"
 );
 
 body += divider("4. CONECTIVIDAD AÉREA", fotos.conectividad, next("Divisor conectividad"), "conectividad");
-body += tablePage(
+body += chartPage(
   next("Aerocivil / mercados 2025"),
   "Top mercados por llegadas 2025 (serie conectividad)",
-  ["Mercado", "Llegadas", "Salidas", "Pasajeros"],
-  conn2025.map((c) => [c.mercado, fmt(c.llegadas), fmt(c.salidas), fmt(c.pasajeros)]),
-  null,
-  "Lectura",
   [
     conn2025[0] ? "<strong>" + conn2025[0].mercado + "</strong> concentra el mayor volumen de llegadas en 2025." : "",
     "Separar doméstico vs internacional al comunicar capacidad aérea.",
     "Serie anual disponible en conectividad_anual del pack."
   ].filter(Boolean),
-  "Fuente: conectividad_anual · anio 2025"
+  "Llegadas 2025 por mercado (miles)",
+  conn2025.map((c, i) => ({
+    label: c.mercado,
+    value: Math.round((c.llegadas || 0) / 1000),
+    display: fmt(Math.round((c.llegadas || 0) / 1000)),
+    highlight: i === 0
+  })),
+  "Fuente: conectividad_anual · anio 2025",
+  "hbar"
 );
 
 body += divider("5. MARCA Y CONVERSACIÓN", fotos.marca, next("Divisor marca"), "marca");
@@ -697,83 +806,71 @@ body += chartPage(
 );
 
 body += divider("6. TERRITORIO, CLIMA Y SEGURIDAD", fotos.territorio, next("Divisor territorio"), "territorio");
-body += kpiOnPhoto(
+const segLine = seg.slice(-8).map((s) => ({
+  label: String(s.periodo || "").slice(2),
+  value: s.hurtos || 0,
+  display: fmt(s.hurtos)
+}));
+body += chartPage(
   next("Seguridad + clima"),
-  null,
-  null,
-  "Señales territoriales del pack",
+  "Señales territoriales del pack (muestra seguridad)",
   [
-    {
-      label: "Seguridad (muestra)",
-      value: seg.length ? fmt(seg.length) + " periodos" : "—",
-      note: seg.length
-        ? "Hurtos " + fmt(seg[seg.length - 1].hurtos) + " · " + seg[seg.length - 1].periodo + " · no extrapolar fuera de la muestra"
-        : "Sin muestra en pack"
-    },
-    {
-      label: "Clima",
-      value:
-        clima.resumen && clima.resumen[0]
-          ? String(clima.resumen[0].periodo)
-          : "—",
-      note:
-        clima.resumen && clima.resumen[0]
-          ? "mm_prom " + fmt(clima.resumen[0].mm_prom) + " · estaciones " + fmt(clima.resumen[0].n_estaciones)
-          : "Clima en pack"
-    },
-    {
-      label: "Lectura",
-      value: "Cautela territorial",
-      note: "Usar solo la muestra publicada; cruzar con tablero Seguridad/Clima."
-    }
-  ],
-  "Fuente: seguridad_muestra, clima"
+    seg.length
+      ? "Muestra: <strong>" + fmt(seg.length) + "</strong> periodos · último hurtos <strong>" + fmt(seg[seg.length - 1].hurtos) + "</strong> (" + seg[seg.length - 1].periodo + ")."
+      : "Sin muestra seguridad.",
+    clima.resumen && clima.resumen[0]
+      ? "Clima <strong>" + clima.resumen[0].periodo + "</strong> · mm_prom " + fmt(clima.resumen[0].mm_prom) + " · est. " + fmt(clima.resumen[0].n_estaciones) + "."
+      : "Clima en pack.",
+    "No extrapolar seguridad fuera de la muestra publicada."
+  ].filter(Boolean),
+  "Hurtos en muestra de seguridad (serie)",
+  segLine.length ? segLine : [{ label: "—", value: 0, display: "0" }],
+  "Fuente: seguridad_muestra, clima",
+  "line"
 );
 
 body += divider("7. GESTIÓN BUREAU", fotos.gestion, next("Divisor gestión"), "gestion");
 const flujo = gest.flujo || [];
-body += tablePage(
+body += chartPage(
   next("Informe de gestión 2025"),
   "Captación 2025: <strong>" +
     fmt(gest.captados) +
     "</strong> eventos · impacto <strong>USD " +
     fmt(gest.impactoUsd) +
     "</strong>",
-  ["Indicador", "Valor"],
   [
-    ["Eventos captados/apoyados", fmt(gest.captados)],
-    ["Internacionales", fmt(gest.internacionales)],
-    ["Nacionales", fmt(gest.nacionales)],
-    ["Asistentes", fmt(gest.asistentes)],
-    ["Cuartos-noche", fmt(gest.cuartosNoche)],
-    ["Impacto USD", fmt(gest.impactoUsd)],
-    ...flujo.map((f) => [f.etiqueta, String(f.valor)])
-  ],
-  null,
-  "Lectura",
+    "Internacionales <strong>" + fmt(gest.internacionales) + "</strong> · nacionales <strong>" + fmt(gest.nacionales) + "</strong>.",
+    "Asistentes <strong>" + fmt(gest.asistentes) + "</strong> · cuartos-noche <strong>" + fmt(gest.cuartosNoche) + "</strong>.",
+    flujo[0] ? flujo[0].etiqueta + ": <strong>" + String(flujo[0].valor) + "</strong>." : "Fuente: Informe de gestión 2025 CVB."
+  ].filter(Boolean),
+  "Eventos captados 2025 (conteo)",
   [
-    "Fuente institucional: Informe de gestión 2025 Greater Medellín CVB.",
-    "Separar captados vs realizados al comunicar derrama.",
-    "Cruzar con ICCA (sección 2.3) para narrativa MICE."
+    { label: "Total", value: gest.captados || 0, display: fmt(gest.captados), highlight: true },
+    { label: "Internac.", value: gest.internacionales || 0, display: fmt(gest.internacionales) },
+    { label: "Nacional", value: gest.nacionales || 0, display: fmt(gest.nacionales) }
   ],
   "Fuente: informe_gestion_2025"
 );
 
 body += divider("8. PRONÓSTICO", fotos.pronostico, next("Divisor pronóstico"), "pronostico");
 const series = pron.series || [];
-body += tablePage(
+body += chartPage(
   next("Modelos de pronóstico"),
   "Pronóstico generado <strong>" + (pron.generado || "—") + "</strong> · series del tablero",
-  ["Serie", "Modelo", "MAPE"],
-  series.map((s) => [s.id, s.modelo, s.mape != null ? String(s.mape).replace(".", ",") + "%" : "—"]),
-  null,
-  "Lectura",
   [
     "MAPE bajo no garantiza acierto fuera de muestra; usar como rango de planeación.",
     series[0] ? "Ejemplo: <strong>" + series[0].id + "</strong> · " + series[0].modelo + " · MAPE " + series[0].mape + "%." : "",
     "Horizonte y holdout están en el objeto pronostico del pack."
   ].filter(Boolean),
-  "Fuente: pronostico"
+  "MAPE por serie de pronóstico (%)",
+  series.map((s, i) => ({
+    label: String(s.id || "").replace(/^llegadas_/, "").replace(/_/g, " "),
+    value: s.mape || 0,
+    display: s.mape != null ? String(s.mape).replace(".", ",") : "—",
+    highlight: i === 0
+  })),
+  "Fuente: pronostico",
+  "hbar"
 );
 
 const style = extractStyle();

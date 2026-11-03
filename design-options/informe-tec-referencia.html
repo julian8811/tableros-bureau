@@ -385,6 +385,98 @@
   @media (max-width:900px){
     .toc ol,.insight-cols,.table-grid,.kpi-grid{grid-template-columns:1fr}
   }
+
+  /* Foto completa en contenedor (sin crop) + cajas de texto encima */
+  .photo-frame{
+    position:relative;background:#0b1220;display:grid;place-items:center;
+    overflow:hidden;min-height:0;height:100%;width:100%;
+  }
+  .photo-img{
+    width:100%;height:100%;object-fit:contain;object-position:center;display:block;
+  }
+  .photo-credit{
+    position:absolute;left:0;right:0;bottom:0;z-index:3;margin:0;padding:6px 10px;
+    font-size:9px;line-height:1.3;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.75));
+  }
+  .text-box{border-radius:10px}
+  .text-box.dark{background:rgba(23,33,57,.88);padding:14px 16px;backdrop-filter:blur(6px)}
+  .text-box.gold{background:var(--tec-gold);color:var(--tec-navy);padding:14px 18px;font-weight:800}
+  .text-box.light{background:rgba(255,255,255,.96);padding:14px 16px;box-shadow:0 8px 24px rgba(23,33,57,.12)}
+  .cover{
+    background:#0b1220 !important;background-image:none !important;
+    display:grid;grid-template-rows:1fr;position:relative;
+  }
+  .cover-stage{position:absolute;inset:0;z-index:0}
+  .cover-stage .photo-img{object-fit:contain}
+  .cover .top,.cover .center{position:relative;z-index:2}
+  .cover .top{inset:auto;padding:28px 36px 0;display:flex;justify-content:flex-start}
+  .cover .top .text-box{display:inline-flex}
+  .cover .center{
+    left:50%;top:50%;transform:translate(-50%,-50%);position:absolute;
+    text-align:center;width:min(92%,860px);
+  }
+  .cover .center h1{
+    display:inline-block;background:rgba(23,33,57,.82);padding:14px 22px;border-radius:12px;
+    backdrop-filter:blur(6px);margin:0 0 14px;
+  }
+  .cover .photo-credit{z-index:4}
+  .toc .panel{padding:24px 28px 40px;display:flex;flex-direction:column}
+  .toc ol{gap:6px;grid-template-columns:1fr 1fr;display:grid}
+  .toc li{grid-template-columns:40px 1px 1fr;gap:10px}
+  .toc .n{font-size:15px}
+  .toc .t{font-size:12.5px;line-height:1.2}
+  .toc .v{height:22px}
+  .toc h2{margin:14px 0 6px;font-size:28px}
+  .kicker-sec{margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tec-teal)}
+  .col-label{margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tec-gold)}
+  .insight-cols{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;flex:1;min-height:0}
+  .insight-cols ul{margin:0;padding-left:16px;display:grid;gap:8px}
+  .insight-cols li{font-size:12.5px;line-height:1.4}
+  .analisis{border-left:3px solid var(--tec-gold);padding-left:14px}
+  .analisis-text{margin:0;font-size:12.5px;line-height:1.45;color:#333}
+  .insight h2{font-size:clamp(16px,1.7vw,22px);max-width:42ch}
+  .insight .copy{gap:12px;padding:22px 28px 40px}
+  .insight .body-box{flex:1;display:flex;flex-direction:column;min-height:0}
+  .chart-body{grid-template-columns:1fr 1.15fr;gap:20px}
+  .chart-box .chart-svg{width:100%;height:auto;min-height:200px;display:block}
+  .table-page{display:grid;grid-template-rows:auto 1fr auto;gap:10px}
+  .table-grid{grid-template-columns:1.3fr .85fr;gap:16px;align-items:stretch;min-height:0}
+  .table-wrap{overflow:auto;min-height:0}
+  .table-page table{font-size:13px}
+  .table-page tbody td{padding:10px 12px;vertical-align:top}
+  .table-page .side h3{margin:0 0 10px;font-size:14px;color:var(--tec-navy)}
+  .table-page .side ul{gap:12px}
+  .table-page .side li{font-size:13.5px;line-height:1.45}
+  .table-sparse .table-grid{grid-template-columns:1fr 1fr;align-content:center}
+  .table-sparse table{font-size:15px}
+  .table-sparse tbody td{padding:16px 14px}
+  .divider .top-block,.divider .mid-block,.divider .bot-block{display:flex;align-items:center}
+  .divider .top-block{justify-content:center;padding:22px}
+  .divider .mid-block{padding:16px 22px;background:transparent !important;font-size:clamp(18px,2.1vw,28px)}
+  .divider .mid-block .text-box.gold{width:100%;font-size:inherit;letter-spacing:.02em}
+  .kpi-photo{padding:0;overflow:hidden}
+  .kpi-photo-stage{position:relative;height:100%;background:#0b1220}
+  .kpi-photo-stage .photo-frame{position:absolute;inset:0}
+  .kpi-fallback{
+    background:
+      radial-gradient(ellipse at 30% 20%,rgba(0,174,172,.28),transparent 55%),
+      linear-gradient(160deg,#172139 0%,#195855 55%,#0b1220 100%) !important;
+  }
+  .kpi-overlay{
+    position:relative;z-index:2;height:100%;padding:28px 32px 40px;
+    display:grid;grid-template-rows:auto 1fr auto;gap:16px;box-sizing:border-box;
+  }
+  .kpi-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+  .kpi-head h2{margin:0;color:#fff;font-size:clamp(16px,1.8vw,22px);max-width:40ch;line-height:1.25}
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;align-content:center}
+  .kpi-card{min-height:120px;display:grid;align-content:center;gap:6px}
+  .kpi-label{margin:0;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tec-teal)}
+  .kpi-value{margin:0;font-size:clamp(18px,2vw,26px);font-weight:800;color:var(--tec-navy);line-height:1.2}
+  .kpi-note{margin:0;font-size:12px;color:#445;line-height:1.4}
+  .fuente.on-photo{color:#e8eef8;background:rgba(0,0,0,.45);padding:8px 10px;border-radius:8px;width:fit-content}
+  @media (max-width:900px){
+    .toc ol,.insight-cols,.table-grid,.kpi-grid{grid-template-columns:1fr}
+  }
 </style>
 </head>
 <body>
@@ -489,27 +581,26 @@
     <ul><li>Último índice Antioquia <strong>162</strong> (índice 100 = <strong>106</strong>).</li><li>TRM promedio <strong>3.199</strong> COP/USD en 2026-10 (22 días).</li><li>Medata tarifas por zona (ej. CENTRO, LAURELES, POBLADO).</li><li>OWID: Spain lidera llegadas de referencia (93.759.300, 2024).</li></ul>
     <div class="chart-box">
       <h3>Índice EMA Antioquia (últimos meses)</h3>
-      <svg viewBox="0 0 520 260" role="img">
-        <defs><linearGradient id="barFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>
-        <line x1="48" y1="220" x2="500" y2="220" stroke="#cfd8e6"/>
-      <text x="42" y="224" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">0</text><line x1="48" y1="172.5" x2="500" y2="172.5" stroke="#cfd8e6"/>
-      <text x="42" y="176.5" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">41</text><line x1="48" y1="124.99999999999999" x2="500" y2="124.99999999999999" stroke="#cfd8e6"/>
-      <text x="42" y="129" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">83</text><line x1="48" y1="77.5" x2="500" y2="77.5" stroke="#cfd8e6"/>
-      <text x="42" y="81.5" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">124</text><line x1="48" y1="29.99999999999997" x2="500" y2="29.99999999999997" stroke="#cfd8e6"/>
-      <text x="42" y="33.99999999999997" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">165</text>
-        <rect x="78" y="34.606060606060595" width="48" height="185.3939393939394" fill="url(#barFill)" rx="2"/>
-      <text x="102" y="28.606060606060595" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">161</text>
-      <text x="102" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026-04</text><rect x="166" y="34.606060606060595" width="48" height="185.3939393939394" fill="url(#barFill)" rx="2"/>
-      <text x="190" y="28.606060606060595" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">161</text>
-      <text x="190" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026-05</text><rect x="254" y="35.75757575757575" width="48" height="184.24242424242425" fill="url(#barFill)" rx="2"/>
-      <text x="278" y="29.75757575757575" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">160</text>
-      <text x="278" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026-06</text><rect x="342" y="29.99999999999997" width="48" height="190.00000000000003" fill="url(#barFill)" rx="2"/>
-      <text x="366" y="23.99999999999997" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">165</text>
-      <text x="366" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026-07</text><rect x="430" y="33.45454545454544" width="48" height="186.54545454545456" fill="url(#barFill)" rx="2"/>
-      <text x="454" y="27.45454545454544" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">162</text>
-      <text x="454" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026-08</text>
-        <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
-      </svg>
+      <svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="Índice EMA Antioquia (últimos meses)">
+  <defs><linearGradient id="bf1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#cfd8e6"/>
+      <text x="42" y="224" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">0</text><line x1="48" y1="172" x2="500" y2="172" stroke="#cfd8e6"/>
+      <text x="42" y="176" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">41</text><line x1="48" y1="124" x2="500" y2="124" stroke="#cfd8e6"/>
+      <text x="42" y="128" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">83</text><line x1="48" y1="76" x2="500" y2="76" stroke="#cfd8e6"/>
+      <text x="42" y="80" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">124</text><line x1="48" y1="28" x2="500" y2="28" stroke="#cfd8e6"/>
+      <text x="42" y="32" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">165</text><rect x="70" y="32.654545454545456" width="52" height="187.34545454545454" fill="url(#bf1)" rx="2"/>
+      <text x="96" y="26.654545454545456" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">161</text>
+      <text x="96" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026-04</text><rect x="158" y="32.654545454545456" width="52" height="187.34545454545454" fill="url(#bf1)" rx="2"/>
+      <text x="184" y="26.654545454545456" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">161</text>
+      <text x="184" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026-05</text><rect x="246" y="33.81818181818181" width="52" height="186.1818181818182" fill="url(#bf1)" rx="2"/>
+      <text x="272" y="27.818181818181813" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">160</text>
+      <text x="272" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026-06</text><rect x="334" y="28" width="52" height="192" fill="url(#bf1)" rx="2"/>
+      <text x="360" y="22" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">165</text>
+      <text x="360" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026-07</text><rect x="422" y="31.4909090909091" width="52" height="188.5090909090909" fill="url(#bf1)" rx="2"/>
+      <text x="448" y="25.4909090909091" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">162</text>
+      <text x="448" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026-08</text>
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
+</svg>
     </div>
   </div>
   <p class="fuente">Fuente: ema_ult6, trm_ultimo, medata_zonas, owid_top</p>
@@ -541,25 +632,24 @@
     <ul><li>En <strong>2024</strong>: Medellín <strong>1.048.471</strong> · Antioquia <strong>1.125.506</strong> · Colombia <strong>4.504.530</strong>.</li><li>En <strong>2025</strong>: Medellín <strong>1.143.678</strong> · Antioquia <strong>1.224.985</strong> · Colombia <strong>4.677.578</strong>.</li><li>En <strong>2026</strong>: Medellín <strong>551.226</strong> · Antioquia <strong>581.983</strong> · Colombia <strong>2.223.471</strong>.</li></ul>
     <div class="chart-box">
       <h3>Llegadas Medellín VNR (miles)</h3>
-      <svg viewBox="0 0 520 260" role="img">
-        <defs><linearGradient id="barFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>
-        <line x1="48" y1="220" x2="500" y2="220" stroke="#cfd8e6"/>
-      <text x="42" y="224" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">0</text><line x1="48" y1="172.5" x2="500" y2="172.5" stroke="#cfd8e6"/>
-      <text x="42" y="176.5" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">286</text><line x1="48" y1="125" x2="500" y2="125" stroke="#cfd8e6"/>
-      <text x="42" y="129" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">572</text><line x1="48" y1="77.5" x2="500" y2="77.5" stroke="#cfd8e6"/>
-      <text x="42" y="81.5" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">858</text><line x1="48" y1="30" x2="500" y2="30" stroke="#cfd8e6"/>
-      <text x="42" y="34" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">1144</text>
-        <rect x="78" y="88.7937062937063" width="48" height="131.2062937062937" fill="url(#barFill)" rx="2"/>
-      <text x="102" y="82.7937062937063" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">790</text>
-      <text x="102" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2023</text><rect x="166" y="45.94405594405595" width="48" height="174.05594405594405" fill="url(#barFill)" rx="2"/>
-      <text x="190" y="39.94405594405595" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">1.048</text>
-      <text x="190" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2024</text><rect x="254" y="30" width="48" height="190" fill="url(#barFill)" rx="2"/>
-      <text x="278" y="24" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">1.144</text>
-      <text x="278" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2025</text><rect x="342" y="128.48776223776224" width="48" height="91.51223776223777" fill="url(#barFill)" rx="2"/>
-      <text x="366" y="122.48776223776224" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">551</text>
-      <text x="366" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026</text>
-        <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
-      </svg>
+      <svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="Llegadas Medellín VNR (miles)">
+  <defs><linearGradient id="bf2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#cfd8e6"/>
+      <text x="42" y="224" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">0</text><line x1="48" y1="172" x2="500" y2="172" stroke="#cfd8e6"/>
+      <text x="42" y="176" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">286</text><line x1="48" y1="124" x2="500" y2="124" stroke="#cfd8e6"/>
+      <text x="42" y="128" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">572</text><line x1="48" y1="76" x2="500" y2="76" stroke="#cfd8e6"/>
+      <text x="42" y="80" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">858</text><line x1="48" y1="28" x2="500" y2="28" stroke="#cfd8e6"/>
+      <text x="42" y="32" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">1144</text><rect x="70" y="87.41258741258741" width="52" height="132.5874125874126" fill="url(#bf2)" rx="2"/>
+      <text x="96" y="81.41258741258741" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">790</text>
+      <text x="96" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2023</text><rect x="158" y="44.111888111888106" width="52" height="175.8881118881119" fill="url(#bf2)" rx="2"/>
+      <text x="184" y="38.111888111888106" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">1.048</text>
+      <text x="184" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2024</text><rect x="246" y="28" width="52" height="192" fill="url(#bf2)" rx="2"/>
+      <text x="272" y="22" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">1.144</text>
+      <text x="272" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2025</text><rect x="334" y="127.52447552447552" width="52" height="92.47552447552448" fill="url(#bf2)" rx="2"/>
+      <text x="360" y="121.52447552447552" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">551</text>
+      <text x="360" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026</text>
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
+</svg>
     </div>
   </div>
   <p class="fuente">Fuente: mincit_vnr.shares_anual</p>
@@ -581,19 +671,32 @@
     </div>
   </div>
   <div class="bar-maroon"></div>
-</section><section class="slide table-page" aria-label="9 · Tabla emisores YTD 2026">
-  <span class="slide-label">9 · Tabla emisores YTD 2026</span>
+</section><section class="slide chart-page" aria-label="9 · Emisores YTD 2026">
+  <span class="slide-label">9 · Emisores YTD 2026</span>
   <div class="head"><h2>Estados Unidos lidera con <strong>180.138</strong> llegadas YTD 2026</h2><div class="logos on-light compact">
   <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
   <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
 </div></div>
-  <div class="table-grid">
-    <div class="table-wrap text-box light">
-      <table><thead><tr><th>País emisor</th><th>YTD 2026</th><th>% part. top</th></tr></thead><tbody><tr><td>Estados Unidos</td><td>180.138</td><td>42,0%</td></tr><tr><td>México</td><td>45.910</td><td>10,7%</td></tr><tr><td>Costa Rica</td><td>39.224</td><td>9,1%</td></tr><tr><td>Ecuador</td><td>30.130</td><td>7,0%</td></tr><tr><td>Panamá</td><td>29.502</td><td>6,9%</td></tr><tr><td>República Dominicana</td><td>27.108</td><td>6,3%</td></tr></tbody><tfoot><tr><td>Top 5</td><td>—</td><td>75,7%</td></tr></tfoot></table>
-    </div>
-    <div class="side text-box light">
-      <h3>Lectura</h3>
-      <ul><li><strong>Estados Unidos</strong> concentra la mayor cuota del top publicado.</li><li>El top 5 concentra <strong>75,7%</strong> del set de países en pack.</li><li><strong>México</strong> es el segundo mercado (45.910).</li></ul>
+  <div class="chart-body">
+    <ul><li><strong>Estados Unidos</strong> concentra la mayor cuota del top publicado.</li><li>El top 5 concentra <strong>75,7%</strong> del set de países en pack.</li><li><strong>México</strong> es el segundo mercado (45.910).</li></ul>
+    <div class="chart-box">
+      <h3>Top emisores YTD 2026 (llegadas)</h3>
+      <svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="Top emisores YTD 2026 (llegadas)">
+  <defs><linearGradient id="hb3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#108181"/><stop offset="100%" stop-color="#00AEAC"/></linearGradient></defs>
+  <text x="120" y="32" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">Estados Unidos</text>
+      <rect x="128" y="20" width="364" height="16" fill="#FBBB28" rx="3"/>
+      <text x="498" y="32" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">180.138</text><text x="120" y="68" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">México</text>
+      <rect x="128" y="56" width="92.76909924613351" height="16" fill="url(#hb3)" rx="3"/>
+      <text x="226.76909924613352" y="68" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">45.910</text><text x="120" y="104" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">Costa Rica</text>
+      <rect x="128" y="92" width="79.25887930364499" height="16" fill="url(#hb3)" rx="3"/>
+      <text x="213.258879303645" y="104" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">39.224</text><text x="120" y="140" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">Ecuador</text>
+      <rect x="128" y="128" width="60.882878681899435" height="16" fill="url(#hb3)" rx="3"/>
+      <text x="194.88287868189943" y="140" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">30.130</text><text x="120" y="176" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">Panamá</text>
+      <rect x="128" y="164" width="59.61389601305665" height="16" fill="url(#hb3)" rx="3"/>
+      <text x="193.61389601305666" y="176" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">29.502</text><text x="120" y="212" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">República Domin…</text>
+      <rect x="128" y="200" width="54.77640475635346" height="16" fill="url(#hb3)" rx="3"/>
+      <text x="188.77640475635346" y="212" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">27.108</text>
+</svg>
     </div>
   </div>
   <p class="fuente">Fuente: mincit_vnr.top_paises_2026</p>
@@ -615,36 +718,38 @@
     </div>
   </div>
   <div class="bar-maroon"></div>
-</section><section class="slide insight" aria-label="11 · Share ciudad vs país">
+</section><section class="slide chart-page" aria-label="11 · Share ciudad vs país">
   <span class="slide-label">11 · Share ciudad vs país</span>
-  <div class="split">
-    <div class="photo-frame">
-  <img class="photo-img" src="assets/colombia-photos/extra_salento.jpg" alt="Colombia" loading="eager" decoding="async">
-  <p class="photo-credit">Foto: Bernard Gagnon · CC BY-SA 4.0</p>
-</div>
-    <div class="copy panel white">
-      <div class="text-box light logos-box"><div class="logos on-light compact">
+  <div class="head"><h2>Share Medellín/Colombia en 2025: <strong>24,0%</strong> · vs Antioquia <strong>93,0%</strong></h2><div class="logos on-light compact">
   <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
   <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
 </div></div>
-      <div class="text-box light body-box">
-        <p class="kicker-sec">Hallazgo</p>
-        <h2>Share Medellín/Colombia en 2025: <strong>24,0%</strong> · vs Antioquia <strong>93,0%</strong></h2>
-        <div class="insight-cols">
-          <div>
-            <p class="col-label">Datos</p>
-            <ul><li>Volumen ciudad: <strong>1.143.678</strong> VNR.</li><li>Comparar trayectoria 2023–2025 en shares_anual del pack.</li><li>Competitividad relativa vs otros destinos: cruzar con tablero MinCIT cuando el pack lo amplíe.</li></ul>
-          </div>
-          <div class="analisis">
-            <p class="col-label">Lectura</p>
-            <p class="analisis-text">Priorizar este hallazgo en la narrativa de destino y contrastarlo con el resto del pack.</p>
-          </div>
-        </div>
-        <p class="fuente">Fuente: mincit_vnr.shares_anual</p>
-      </div>
-      <div class="bar-maroon"></div>
+  <div class="chart-body">
+    <ul><li>Volumen ciudad: <strong>1.143.678</strong> VNR.</li><li>Serie de share Medellín/Colombia en shares_anual del pack.</li><li>Competitividad relativa: cruzar con tablero MinCIT cuando el pack lo amplíe.</li></ul>
+    <div class="chart-box">
+      <h3>Share Medellín / Colombia (%)</h3>
+      <svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="Share Medellín / Colombia (%)">
+  <defs><linearGradient id="bf4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#cfd8e6"/>
+      <text x="42" y="224" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">0</text><line x1="48" y1="172" x2="500" y2="172" stroke="#cfd8e6"/>
+      <text x="42" y="176" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">6</text><line x1="48" y1="124" x2="500" y2="124" stroke="#cfd8e6"/>
+      <text x="42" y="128" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">13</text><line x1="48" y1="76" x2="500" y2="76" stroke="#cfd8e6"/>
+      <text x="42" y="80" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">19</text><line x1="48" y1="28" x2="500" y2="28" stroke="#cfd8e6"/>
+      <text x="42" y="32" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">25</text><rect x="70" y="74.08000000000001" width="52" height="145.92" fill="url(#bf4)" rx="2"/>
+      <text x="96" y="68.08000000000001" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">19,0%</text>
+      <text x="96" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2023</text><rect x="158" y="43.360000000000014" width="52" height="176.64" fill="url(#bf4)" rx="2"/>
+      <text x="184" y="37.360000000000014" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">23,0%</text>
+      <text x="184" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2024</text><rect x="246" y="35.68000000000001" width="52" height="184.32" fill="url(#bf4)" rx="2"/>
+      <text x="272" y="29.680000000000007" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">24,0%</text>
+      <text x="272" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2025</text><rect x="334" y="28" width="52" height="192" fill="url(#bf4)" rx="2"/>
+      <text x="360" y="22" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">25,0%</text>
+      <text x="360" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">2026</text>
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
+</svg>
     </div>
   </div>
+  <p class="fuente">Fuente: mincit_vnr.shares_anual</p>
+  <div class="bar-maroon"></div>
 </section><section class="slide divider" aria-label="Divisor 2.3 REUNIONES Y NEGOCIOS">
   <span class="slide-label">12 · Divisor ICCA</span>
   <div class="split">
@@ -662,19 +767,32 @@
     </div>
   </div>
   <div class="bar-maroon"></div>
-</section><section class="slide table-page table-sparse" aria-label="13 · ICCA ciudades">
+</section><section class="slide chart-page" aria-label="13 · ICCA ciudades">
   <span class="slide-label">13 · ICCA ciudades</span>
-  <div class="head"><h2>Ranking ICCA 2025 · referencia de reuniones internacionales</h2><div class="logos on-light compact">
+  <div class="head"><h2>Ranking ICCA 2025 · reuniones internacionales</h2><div class="logos on-light compact">
   <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
   <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
 </div></div>
-  <div class="table-grid">
-    <div class="table-wrap text-box light">
-      <table><thead><tr><th>Ciudad</th><th>Puesto</th><th>Reuniones</th></tr></thead><tbody><tr><td>Bogotá</td><td>36</td><td>63</td></tr><tr><td>Cartagena</td><td>77</td><td>36</td></tr><tr><td>Medellín</td><td>103</td><td>26</td></tr></tbody></table>
-    </div>
-    <div class="side text-box light">
-      <h3>Lectura</h3>
-      <ul><li><strong>Bogotá</strong> lidera el set local con puesto <strong>36</strong>.</li><li>Usar ICCA como proxy de agenda MICE, no como flujo vacacional.</li><li>Cruzar con captación Bureau (gestión 2025) en la sección 7.</li></ul>
+  <div class="chart-body">
+    <ul><li><strong>Bogotá</strong> lidera el set local con puesto <strong>36</strong>.</li><li>Usar ICCA como proxy de agenda MICE, no como flujo vacacional.</li><li>Cruzar con captación Bureau (gestión 2025) en la sección 7.</li></ul>
+    <div class="chart-box">
+      <h3>Reuniones ICCA por ciudad</h3>
+      <svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="Reuniones ICCA por ciudad">
+  <defs><linearGradient id="bf5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#cfd8e6"/>
+      <text x="42" y="224" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">0</text><line x1="48" y1="172" x2="500" y2="172" stroke="#cfd8e6"/>
+      <text x="42" y="176" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">16</text><line x1="48" y1="124" x2="500" y2="124" stroke="#cfd8e6"/>
+      <text x="42" y="128" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">32</text><line x1="48" y1="76" x2="500" y2="76" stroke="#cfd8e6"/>
+      <text x="42" y="80" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">47</text><line x1="48" y1="28" x2="500" y2="28" stroke="#cfd8e6"/>
+      <text x="42" y="32" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">63</text><rect x="70" y="28" width="52" height="192" fill="#FBBB28" rx="2"/>
+      <text x="96" y="22" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">63</text>
+      <text x="96" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">Bogotá</text><rect x="158" y="110.28571428571429" width="52" height="109.71428571428571" fill="url(#bf5)" rx="2"/>
+      <text x="184" y="104.28571428571429" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">36</text>
+      <text x="184" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">Cartagena</text><rect x="246" y="140.76190476190476" width="52" height="79.23809523809524" fill="url(#bf5)" rx="2"/>
+      <text x="272" y="134.76190476190476" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">26</text>
+      <text x="272" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">Medellín</text>
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
+</svg>
     </div>
   </div>
   <p class="fuente">Fuente: icca · anio 2025</p>
@@ -696,36 +814,34 @@
     </div>
   </div>
   <div class="bar-maroon"></div>
-</section><section class="slide insight" aria-label="15 · EVI gasto y motivos">
+</section><section class="slide chart-page" aria-label="15 · EVI gasto y motivos">
   <span class="slide-label">15 · EVI gasto y motivos</span>
-  <div class="split">
-    <div class="photo-frame">
-  <img class="photo-img" src="assets/colombia-photos/extra_tayrona.jpg" alt="Colombia" loading="eager" decoding="async">
-  <p class="photo-credit">Foto: David Shankbone · CC BY-SA 3.0</p>
-</div>
-    <div class="copy panel white">
-      <div class="text-box light logos-box"><div class="logos on-light compact">
+  <div class="head"><h2>EVI Agosto 2023 – julio 2024 · n=<strong>13.308</strong> · gasto diario <strong>USD 176</strong></h2><div class="logos on-light compact">
   <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
   <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
 </div></div>
-      <div class="text-box light body-box">
-        <p class="kicker-sec">Hallazgo</p>
-        <h2>EVI Agosto 2023 – julio 2024 · n=<strong>13.308</strong> · gasto diario <strong>USD 176</strong></h2>
-        <div class="insight-cols">
-          <div>
-            <p class="col-label">Datos</p>
-            <ul><li>Gasto por estadía <strong>USD 1.115</strong> · noches media <strong>8,9</strong>.</li><li><strong>Vacaciones</strong>: 63,7% de participación.</li><li><strong>Visita a fam/ami</strong>: 23,1% de participación.</li><li><strong>Negocios origen</strong>: 6,8% de participación.</li><li>Residencia top: <strong>Estados Unidos</strong> (36,1%).</li></ul>
-          </div>
-          <div class="analisis">
-            <p class="col-label">Lectura</p>
-            <p class="analisis-text">Priorizar este hallazgo en la narrativa de destino y contrastarlo con el resto del pack.</p>
-          </div>
-        </div>
-        <p class="fuente">Fuente: evi_ola · huella (factores GEI Reino Unido)</p>
-      </div>
-      <div class="bar-maroon"></div>
+  <div class="chart-body">
+    <ul><li>Gasto por estadía <strong>USD 1.115</strong> · noches media <strong>8,9</strong>.</li><li><strong>Vacaciones</strong>: 63,7%.</li><li><strong>Visita a fam/ami</strong>: 23,1%.</li><li>Residencia top: <strong>Estados Unidos</strong> (36,1%).</li></ul>
+    <div class="chart-box">
+      <h3>Motivos de viaje EVI (% participación)</h3>
+      <svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="Motivos de viaje EVI (% participación)">
+  <defs><linearGradient id="hb6" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#108181"/><stop offset="100%" stop-color="#00AEAC"/></linearGradient></defs>
+  <text x="120" y="32" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">Vacaciones</text>
+      <rect x="128" y="20" width="364" height="16" fill="#FBBB28" rx="3"/>
+      <text x="498" y="32" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">63,7%</text><text x="120" y="68" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">Visita a fam/ami</text>
+      <rect x="128" y="56" width="132" height="16" fill="url(#hb6)" rx="3"/>
+      <text x="266" y="68" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">23,1%</text><text x="120" y="104" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">Negocios origen</text>
+      <rect x="128" y="92" width="38.857142857142854" height="16" fill="url(#hb6)" rx="3"/>
+      <text x="172.85714285714286" y="104" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">6,8%</text><text x="120" y="140" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">Trat. Médicos</text>
+      <rect x="128" y="128" width="14.285714285714286" height="16" fill="url(#hb6)" rx="3"/>
+      <text x="148.28571428571428" y="140" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">2,5%</text><text x="120" y="176" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">Congresos</text>
+      <rect x="128" y="164" width="9.714285714285714" height="16" fill="url(#hb6)" rx="3"/>
+      <text x="143.71428571428572" y="176" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">1,7%</text>
+</svg>
     </div>
   </div>
+  <p class="fuente">Fuente: evi_ola · huella</p>
+  <div class="bar-maroon"></div>
 </section><section class="slide divider" aria-label="Divisor 3.1 OFERTA TURÍSTICA">
   <span class="slide-label">16 · Divisor oferta</span>
   <div class="split">
@@ -743,22 +859,33 @@
     </div>
   </div>
   <div class="bar-maroon"></div>
-</section><section class="slide table-page table-sparse" aria-label="17 · Oferta en tablero">
+</section><section class="slide chart-page" aria-label="17 · Oferta en tablero">
   <span class="slide-label">17 · Oferta en tablero</span>
   <div class="head"><h2>El tablero registra <strong>78</strong> elementos de oferta turística</h2><div class="logos on-light compact">
   <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
   <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
 </div></div>
-  <div class="table-grid">
-    <div class="table-wrap text-box light">
-      <table><thead><tr><th>Indicador</th><th>Valor</th></tr></thead><tbody><tr><td>Registros de oferta (pack)</td><td>78</td></tr><tr><td>Uso</td><td>Cruzar con receptivo y conectividad</td></tr></tbody></table>
-    </div>
-    <div class="side text-box light">
-      <h3>Lectura</h3>
-      <ul><li>Inventario compacto; no inventar tipologías fuera del pack.</li><li>Útil para narrativa de capacidad frente a picos de demanda.</li></ul>
+  <div class="chart-body">
+    <ul><li>Inventario compacto; no inventar tipologías fuera del pack.</li><li>Útil para narrativa de capacidad frente a picos de demanda.</li><li>Prensa en pack: <strong>26</strong> piezas (referencia de conversación).</li></ul>
+    <div class="chart-box">
+      <h3>Oferta vs prensa (conteos del pack)</h3>
+      <svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="Oferta vs prensa (conteos del pack)">
+  <defs><linearGradient id="bf7" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#cfd8e6"/>
+      <text x="42" y="224" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">0</text><line x1="48" y1="172" x2="500" y2="172" stroke="#cfd8e6"/>
+      <text x="42" y="176" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">20</text><line x1="48" y1="124" x2="500" y2="124" stroke="#cfd8e6"/>
+      <text x="42" y="128" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">39</text><line x1="48" y1="76" x2="500" y2="76" stroke="#cfd8e6"/>
+      <text x="42" y="80" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">59</text><line x1="48" y1="28" x2="500" y2="28" stroke="#cfd8e6"/>
+      <text x="42" y="32" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">78</text><rect x="70" y="28" width="52" height="192" fill="#FBBB28" rx="2"/>
+      <text x="96" y="22" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">78</text>
+      <text x="96" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">Oferta</text><rect x="158" y="156" width="52" height="64" fill="url(#bf7)" rx="2"/>
+      <text x="184" y="150" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">26</text>
+      <text x="184" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">Prensa</text>
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
+</svg>
     </div>
   </div>
-  <p class="fuente">Fuente: oferta_n</p>
+  <p class="fuente">Fuente: oferta_n, prensa_n</p>
   <div class="bar-maroon"></div>
 </section><section class="slide divider" aria-label="Divisor 4. CONECTIVIDAD AÉREA">
   <span class="slide-label">18 · Divisor conectividad</span>
@@ -777,19 +904,30 @@
     </div>
   </div>
   <div class="bar-maroon"></div>
-</section><section class="slide table-page" aria-label="19 · Aerocivil / mercados 2025">
+</section><section class="slide chart-page" aria-label="19 · Aerocivil / mercados 2025">
   <span class="slide-label">19 · Aerocivil / mercados 2025</span>
   <div class="head"><h2>Top mercados por llegadas 2025 (serie conectividad)</h2><div class="logos on-light compact">
   <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
   <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
 </div></div>
-  <div class="table-grid">
-    <div class="table-wrap text-box light">
-      <table><thead><tr><th>Mercado</th><th>Llegadas</th><th>Salidas</th><th>Pasajeros</th></tr></thead><tbody><tr><td>Colombia</td><td>5.094.485</td><td>5.193.153</td><td>10.287.638</td></tr><tr><td>Estados Unidos</td><td>674.259</td><td>715.582</td><td>1.389.841</td></tr><tr><td>México</td><td>192.420</td><td>200.370</td><td>392.790</td></tr><tr><td>Europa</td><td>142.202</td><td>179.564</td><td>321.766</td></tr><tr><td>Brasil</td><td>18.148</td><td>32.270</td><td>50.418</td></tr></tbody></table>
-    </div>
-    <div class="side text-box light">
-      <h3>Lectura</h3>
-      <ul><li><strong>Colombia</strong> concentra el mayor volumen de llegadas en 2025.</li><li>Separar doméstico vs internacional al comunicar capacidad aérea.</li><li>Serie anual disponible en conectividad_anual del pack.</li></ul>
+  <div class="chart-body">
+    <ul><li><strong>Colombia</strong> concentra el mayor volumen de llegadas en 2025.</li><li>Separar doméstico vs internacional al comunicar capacidad aérea.</li><li>Serie anual disponible en conectividad_anual del pack.</li></ul>
+    <div class="chart-box">
+      <h3>Llegadas 2025 por mercado (miles)</h3>
+      <svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="Llegadas 2025 por mercado (miles)">
+  <defs><linearGradient id="hb8" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#108181"/><stop offset="100%" stop-color="#00AEAC"/></linearGradient></defs>
+  <text x="120" y="32" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">Colombia</text>
+      <rect x="128" y="20" width="364" height="16" fill="#FBBB28" rx="3"/>
+      <text x="498" y="32" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">5.094</text><text x="120" y="68" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">Estados Unidos</text>
+      <rect x="128" y="56" width="48.16175893207696" height="16" fill="url(#hb8)" rx="3"/>
+      <text x="182.16175893207696" y="68" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">674</text><text x="120" y="104" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">México</text>
+      <rect x="128" y="92" width="13.719670200235571" height="16" fill="url(#hb8)" rx="3"/>
+      <text x="147.71967020023558" y="104" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">192</text><text x="120" y="140" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">Europa</text>
+      <rect x="128" y="128" width="10.146839418924225" height="16" fill="url(#hb8)" rx="3"/>
+      <text x="144.14683941892423" y="140" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">142</text><text x="120" y="176" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">Brasil</text>
+      <rect x="128" y="164" width="4" height="16" fill="url(#hb8)" rx="3"/>
+      <text x="138" y="176" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">18</text>
+</svg>
     </div>
   </div>
   <p class="fuente">Fuente: conectividad_anual · anio 2025</p>
@@ -821,27 +959,26 @@
     <ul><li>Ventana <strong>2026-10 a 2026-11</strong>.</li><li>Prensa Bureau en pack: <strong>26</strong> piezas.</li><li>SIT ejemplo: <strong>Francia</strong> · llegadas 9.088 (2025).</li><li><strong>vacacional</strong>: n=180 · share 43,0% · sent_net 0.57</li><li><strong>otro</strong>: n=71 · share 17,0% · sent_net 0.21</li></ul>
     <div class="chart-box">
       <h3>Piezas por categoría (Marca LLM)</h3>
-      <svg viewBox="0 0 520 260" role="img">
-        <defs><linearGradient id="barFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>
-        <line x1="48" y1="220" x2="500" y2="220" stroke="#cfd8e6"/>
-      <text x="42" y="224" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">0</text><line x1="48" y1="172.5" x2="500" y2="172.5" stroke="#cfd8e6"/>
-      <text x="42" y="176.5" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">45</text><line x1="48" y1="125" x2="500" y2="125" stroke="#cfd8e6"/>
-      <text x="42" y="129" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">90</text><line x1="48" y1="77.5" x2="500" y2="77.5" stroke="#cfd8e6"/>
-      <text x="42" y="81.5" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">135</text><line x1="48" y1="30" x2="500" y2="30" stroke="#cfd8e6"/>
-      <text x="42" y="34" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">180</text>
-        <rect x="78" y="30" width="48" height="190" fill="url(#barFill)" rx="2"/>
-      <text x="102" y="24" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">180</text>
-      <text x="102" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">vacacional</text><rect x="166" y="145.05555555555554" width="48" height="74.94444444444444" fill="url(#barFill)" rx="2"/>
-      <text x="190" y="139.05555555555554" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">71</text>
-      <text x="190" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">otro</text><rect x="254" y="171.44444444444446" width="48" height="48.55555555555556" fill="url(#barFill)" rx="2"/>
-      <text x="278" y="165.44444444444446" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">46</text>
-      <text x="278" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">marca</text><rect x="342" y="171.44444444444446" width="48" height="48.55555555555556" fill="url(#barFill)" rx="2"/>
-      <text x="366" y="165.44444444444446" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">46</text>
-      <text x="366" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">mice</text><rect x="430" y="177.77777777777777" width="48" height="42.22222222222222" fill="url(#barFill)" rx="2"/>
-      <text x="454" y="171.77777777777777" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">40</text>
-      <text x="454" y="238" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">seguridad</text>
-        <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
-      </svg>
+      <svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="Piezas por categoría (Marca LLM)">
+  <defs><linearGradient id="bf9" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#cfd8e6"/>
+      <text x="42" y="224" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">0</text><line x1="48" y1="172" x2="500" y2="172" stroke="#cfd8e6"/>
+      <text x="42" y="176" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">45</text><line x1="48" y1="124" x2="500" y2="124" stroke="#cfd8e6"/>
+      <text x="42" y="128" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">90</text><line x1="48" y1="76" x2="500" y2="76" stroke="#cfd8e6"/>
+      <text x="42" y="80" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">135</text><line x1="48" y1="28" x2="500" y2="28" stroke="#cfd8e6"/>
+      <text x="42" y="32" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">180</text><rect x="70" y="28" width="52" height="192" fill="url(#bf9)" rx="2"/>
+      <text x="96" y="22" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">180</text>
+      <text x="96" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">vacacional</text><rect x="158" y="144.26666666666665" width="52" height="75.73333333333333" fill="url(#bf9)" rx="2"/>
+      <text x="184" y="138.26666666666665" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">71</text>
+      <text x="184" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">otro</text><rect x="246" y="170.93333333333334" width="52" height="49.06666666666666" fill="url(#bf9)" rx="2"/>
+      <text x="272" y="164.93333333333334" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">46</text>
+      <text x="272" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">marca</text><rect x="334" y="170.93333333333334" width="52" height="49.06666666666666" fill="url(#bf9)" rx="2"/>
+      <text x="360" y="164.93333333333334" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">46</text>
+      <text x="360" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">mice</text><rect x="422" y="177.33333333333334" width="52" height="42.666666666666664" fill="url(#bf9)" rx="2"/>
+      <text x="448" y="171.33333333333334" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">40</text>
+      <text x="448" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">seguridad</text>
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
+</svg>
     </div>
   </div>
   <p class="fuente">Fuente: marca_llm, prensa_n, sit</p>
@@ -863,31 +1000,44 @@
     </div>
   </div>
   <div class="bar-maroon"></div>
-</section><section class="slide kpi-photo" aria-label="23 · Seguridad + clima">
+</section><section class="slide chart-page" aria-label="23 · Seguridad + clima">
   <span class="slide-label">23 · Seguridad + clima</span>
-  <div class="kpi-photo-stage">
-    <div class="photo-frame kpi-fallback" aria-hidden="true"></div>
-    <div class="kpi-overlay">
-      <div class="text-box dark kpi-head"><div class="logos on-dark compact">
+  <div class="head"><h2>Señales territoriales del pack (muestra seguridad)</h2><div class="logos on-light compact">
   <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
-  <img class="logo-colmayor" src="assets/logo_colmayor_blanco.png?v=5" alt="Colmayor">
-</div><h2>Señales territoriales del pack</h2></div>
-      <div class="kpi-grid"><article class="kpi-card text-box light">
-      <p class="kpi-label">Seguridad (muestra)</p>
-      <p class="kpi-value">8 periodos</p>
-      <p class="kpi-note">Hurtos 1.834 · 2019-02 · no extrapolar fuera de la muestra</p>
-    </article><article class="kpi-card text-box light">
-      <p class="kpi-label">Clima</p>
-      <p class="kpi-value">2026-08</p>
-      <p class="kpi-note">mm_prom 0 · estaciones 2</p>
-    </article><article class="kpi-card text-box light">
-      <p class="kpi-label">Lectura</p>
-      <p class="kpi-value">Cautela territorial</p>
-      <p class="kpi-note">Usar solo la muestra publicada; cruzar con tablero Seguridad/Clima.</p>
-    </article></div>
-      <p class="fuente on-photo">Fuente: seguridad_muestra, clima</p>
+  <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
+</div></div>
+  <div class="chart-body">
+    <ul><li>Muestra: <strong>8</strong> periodos · último hurtos <strong>1.834</strong> (2019-02).</li><li>Clima <strong>2026-08</strong> · mm_prom 0 · est. 2.</li><li>No extrapolar seguridad fuera de la muestra publicada.</li></ul>
+    <div class="chart-box">
+      <h3>Hurtos en muestra de seguridad (serie)</h3>
+      <svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="Hurtos en muestra de seguridad (serie)">
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#cfd8e6"/>
+      <text x="42" y="224" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">0</text><line x1="48" y1="124" x2="500" y2="124" stroke="#cfd8e6"/>
+      <text x="42" y="128" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">1172</text><line x1="48" y1="28" x2="500" y2="28" stroke="#cfd8e6"/>
+      <text x="42" y="32" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">2343</text>
+  <path d="M56.0,137.6 L119.4,28.0 L182.9,61.4 L246.3,54.8 L309.7,66.3 L373.1,74.0 L436.6,79.6 L500.0,69.7" fill="none" stroke="#00AEAC" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="56" cy="137.6440460947503" r="4" fill="#FBBB28" stroke="#172139" stroke-width="1.2"/>
+      <text x="56" y="127.64404609475031" text-anchor="middle" fill="#172139" font-size="10" font-weight="700" font-family="Montserrat,Arial,sans-serif">1.005</text>
+      <text x="56" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">18-07</text><circle cx="119.42857142857143" cy="28" r="4" fill="#FBBB28" stroke="#172139" stroke-width="1.2"/>
+      <text x="119.42857142857143" y="18" text-anchor="middle" fill="#172139" font-size="10" font-weight="700" font-family="Montserrat,Arial,sans-serif">2.343</text>
+      <text x="119.42857142857143" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">18-08</text><circle cx="182.85714285714286" cy="61.43405889884764" r="4" fill="#FBBB28" stroke="#172139" stroke-width="1.2"/>
+      <text x="182.85714285714286" y="51.43405889884764" text-anchor="middle" fill="#172139" font-size="10" font-weight="700" font-family="Montserrat,Arial,sans-serif">1.935</text>
+      <text x="182.85714285714286" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">18-09</text><circle cx="246.28571428571428" cy="54.79641485275289" r="4" fill="#FBBB28" stroke="#172139" stroke-width="1.2"/>
+      <text x="246.28571428571428" y="44.79641485275289" text-anchor="middle" fill="#172139" font-size="10" font-weight="700" font-family="Montserrat,Arial,sans-serif">2.016</text>
+      <text x="246.28571428571428" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">18-10</text><circle cx="309.7142857142857" cy="66.26888604353394" r="4" fill="#FBBB28" stroke="#172139" stroke-width="1.2"/>
+      <text x="309.7142857142857" y="56.26888604353394" text-anchor="middle" fill="#172139" font-size="10" font-weight="700" font-family="Montserrat,Arial,sans-serif">1.876</text>
+      <text x="309.7142857142857" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">18-11</text><circle cx="373.14285714285717" cy="73.97183098591549" r="4" fill="#FBBB28" stroke="#172139" stroke-width="1.2"/>
+      <text x="373.14285714285717" y="63.97183098591549" text-anchor="middle" fill="#172139" font-size="10" font-weight="700" font-family="Montserrat,Arial,sans-serif">1.782</text>
+      <text x="373.14285714285717" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">18-12</text><circle cx="436.57142857142856" cy="79.62612035851473" r="4" fill="#FBBB28" stroke="#172139" stroke-width="1.2"/>
+      <text x="436.57142857142856" y="69.62612035851473" text-anchor="middle" fill="#172139" font-size="10" font-weight="700" font-family="Montserrat,Arial,sans-serif">1.713</text>
+      <text x="436.57142857142856" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">19-01</text><circle cx="500" cy="69.71062740076826" r="4" fill="#FBBB28" stroke="#172139" stroke-width="1.2"/>
+      <text x="500" y="59.71062740076826" text-anchor="middle" fill="#172139" font-size="10" font-weight="700" font-family="Montserrat,Arial,sans-serif">1.834</text>
+      <text x="500" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">19-02</text>
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
+</svg>
     </div>
   </div>
+  <p class="fuente">Fuente: seguridad_muestra, clima</p>
   <div class="bar-maroon"></div>
 </section><section class="slide divider" aria-label="Divisor 7. GESTIÓN BUREAU">
   <span class="slide-label">24 · Divisor gestión</span>
@@ -906,19 +1056,32 @@
     </div>
   </div>
   <div class="bar-maroon"></div>
-</section><section class="slide table-page" aria-label="25 · Informe de gestión 2025">
+</section><section class="slide chart-page" aria-label="25 · Informe de gestión 2025">
   <span class="slide-label">25 · Informe de gestión 2025</span>
   <div class="head"><h2>Captación 2025: <strong>103</strong> eventos · impacto <strong>USD 156.168.654</strong></h2><div class="logos on-light compact">
   <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
   <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
 </div></div>
-  <div class="table-grid">
-    <div class="table-wrap text-box light">
-      <table><thead><tr><th>Indicador</th><th>Valor</th></tr></thead><tbody><tr><td>Eventos captados/apoyados</td><td>103</td></tr><tr><td>Internacionales</td><td>59</td></tr><tr><td>Nacionales</td><td>44</td></tr><tr><td>Asistentes</td><td>242.019</td></tr><tr><td>Cuartos-noche</td><td>752.214</td></tr><tr><td>Impacto USD</td><td>156.168.654</td></tr><tr><td>Eventos investigados</td><td>más de 370</td></tr><tr><td>Candidaturas presentadas</td><td>30</td></tr><tr><td>Eventos captados y apoyados</td><td>103</td></tr></tbody></table>
-    </div>
-    <div class="side text-box light">
-      <h3>Lectura</h3>
-      <ul><li>Fuente institucional: Informe de gestión 2025 Greater Medellín CVB.</li><li>Separar captados vs realizados al comunicar derrama.</li><li>Cruzar con ICCA (sección 2.3) para narrativa MICE.</li></ul>
+  <div class="chart-body">
+    <ul><li>Internacionales <strong>59</strong> · nacionales <strong>44</strong>.</li><li>Asistentes <strong>242.019</strong> · cuartos-noche <strong>752.214</strong>.</li><li>Eventos investigados: <strong>más de 370</strong>.</li></ul>
+    <div class="chart-box">
+      <h3>Eventos captados 2025 (conteo)</h3>
+      <svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="Eventos captados 2025 (conteo)">
+  <defs><linearGradient id="bf10" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00AEAC"/><stop offset="100%" stop-color="#108181"/></linearGradient></defs>
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#cfd8e6"/>
+      <text x="42" y="224" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">0</text><line x1="48" y1="172" x2="500" y2="172" stroke="#cfd8e6"/>
+      <text x="42" y="176" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">26</text><line x1="48" y1="124" x2="500" y2="124" stroke="#cfd8e6"/>
+      <text x="42" y="128" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">52</text><line x1="48" y1="76" x2="500" y2="76" stroke="#cfd8e6"/>
+      <text x="42" y="80" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">77</text><line x1="48" y1="28" x2="500" y2="28" stroke="#cfd8e6"/>
+      <text x="42" y="32" text-anchor="end" fill="#7a8799" font-size="10" font-family="Montserrat,Arial,sans-serif">103</text><rect x="70" y="28" width="52" height="192" fill="#FBBB28" rx="2"/>
+      <text x="96" y="22" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">103</text>
+      <text x="96" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">Total</text><rect x="158" y="110.01941747572815" width="52" height="109.98058252427185" fill="url(#bf10)" rx="2"/>
+      <text x="184" y="104.01941747572815" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">59</text>
+      <text x="184" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">Internac.</text><rect x="246" y="137.98058252427182" width="52" height="82.01941747572816" fill="url(#bf10)" rx="2"/>
+      <text x="272" y="131.98058252427182" text-anchor="middle" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">44</text>
+      <text x="272" y="242" text-anchor="middle" fill="#222" font-size="10" font-weight="600" font-family="Montserrat,Arial,sans-serif">Nacional</text>
+  <line x1="48" y1="220" x2="500" y2="220" stroke="#172139" stroke-width="1.5"/>
+</svg>
     </div>
   </div>
   <p class="fuente">Fuente: informe_gestion_2025</p>
@@ -940,19 +1103,32 @@
     </div>
   </div>
   <div class="bar-maroon"></div>
-</section><section class="slide table-page" aria-label="27 · Modelos de pronóstico">
+</section><section class="slide chart-page" aria-label="27 · Modelos de pronóstico">
   <span class="slide-label">27 · Modelos de pronóstico</span>
   <div class="head"><h2>Pronóstico generado <strong>2026-10</strong> · series del tablero</h2><div class="logos on-light compact">
   <img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau Medellín">
   <img class="logo-colmayor" src="assets/logo_colmayor_light.png?v=5" alt="Colmayor">
 </div></div>
-  <div class="table-grid">
-    <div class="table-wrap text-box light">
-      <table><thead><tr><th>Serie</th><th>Modelo</th><th>MAPE</th></tr></thead><tbody><tr><td>llegadas_colombia</td><td>holt_winters</td><td>4,5%</td></tr><tr><td>llegadas_estados_unidos</td><td>sarima</td><td>8,9%</td></tr><tr><td>llegadas_mexico</td><td>sarima</td><td>7,3%</td></tr><tr><td>llegadas_brasil</td><td>sarima</td><td>47,8%</td></tr><tr><td>llegadas_europa</td><td>gradiente</td><td>5,6%</td></tr><tr><td>llegadas_cinco</td><td>holt_winters</td><td>5,9%</td></tr></tbody></table>
-    </div>
-    <div class="side text-box light">
-      <h3>Lectura</h3>
-      <ul><li>MAPE bajo no garantiza acierto fuera de muestra; usar como rango de planeación.</li><li>Ejemplo: <strong>llegadas_colombia</strong> · holt_winters · MAPE 4.5%.</li><li>Horizonte y holdout están en el objeto pronostico del pack.</li></ul>
+  <div class="chart-body">
+    <ul><li>MAPE bajo no garantiza acierto fuera de muestra; usar como rango de planeación.</li><li>Ejemplo: <strong>llegadas_colombia</strong> · holt_winters · MAPE 4.5%.</li><li>Horizonte y holdout están en el objeto pronostico del pack.</li></ul>
+    <div class="chart-box">
+      <h3>MAPE por serie de pronóstico (%)</h3>
+      <svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="MAPE por serie de pronóstico (%)">
+  <defs><linearGradient id="hb11" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#108181"/><stop offset="100%" stop-color="#00AEAC"/></linearGradient></defs>
+  <text x="120" y="32" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">colombia</text>
+      <rect x="128" y="20" width="34.26778242677825" height="16" fill="#FBBB28" rx="3"/>
+      <text x="168.26778242677824" y="32" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">4,5</text><text x="120" y="68" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">estados unidos</text>
+      <rect x="128" y="56" width="67.77405857740587" height="16" fill="url(#hb11)" rx="3"/>
+      <text x="201.77405857740587" y="68" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">8,9</text><text x="120" y="104" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">mexico</text>
+      <rect x="128" y="92" width="55.58995815899582" height="16" fill="url(#hb11)" rx="3"/>
+      <text x="189.5899581589958" y="104" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">7,3</text><text x="120" y="140" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">brasil</text>
+      <rect x="128" y="128" width="364" height="16" fill="url(#hb11)" rx="3"/>
+      <text x="498" y="140" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">47,8</text><text x="120" y="176" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">europa</text>
+      <rect x="128" y="164" width="42.64435146443515" height="16" fill="url(#hb11)" rx="3"/>
+      <text x="176.64435146443515" y="176" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">5,6</text><text x="120" y="212" text-anchor="end" fill="#172139" font-size="11" font-weight="600" font-family="Montserrat,Arial,sans-serif">cinco</text>
+      <rect x="128" y="200" width="44.928870292887034" height="16" fill="url(#hb11)" rx="3"/>
+      <text x="178.92887029288704" y="212" fill="#172139" font-size="11" font-weight="700" font-family="Montserrat,Arial,sans-serif">5,9</text>
+</svg>
     </div>
   </div>
   <p class="fuente">Fuente: pronostico</p>
