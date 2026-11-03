@@ -433,7 +433,7 @@
       "</div>" +
       block("Perfiles emisores SIT", "Llegadas 2025 por mercado auditado.",
       "<h3>Llegadas</h3>" + Charts.bars(barras, "#00AEAC") +
-      "<h3>Cifras clave</h3><div style=\"overflow-x:auto\"><table><tr><th>Mercado</th><th>Llegadas</th><th>YoY</th><th>Motivo top</th><th>Ticket COP</th></tr>" + filas + "</table></div>" +
+      "<h3>Cifras clave</h3><div style=\"overflow-x:auto\"><table style=\"width:100%;table-layout:fixed;word-break:break-word\"><tr><th>Mercado</th><th>Llegadas</th><th>YoY</th><th>Motivo top</th><th>Ticket COP</th></tr>" + filas + "</table></div>" +
       pie("ETL Bureau · SIT Medellín perfiles de mercado" + extraido("bureauSit")));
   }
 
