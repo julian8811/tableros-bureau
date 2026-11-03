@@ -1,0 +1,800 @@
+{
+  "id": "mincit-vnr",
+  "fuente": "MinCIT · operación Visitantes no residentes (VNR / Citur), dataset Extranjeros No Residentes",
+  "url": "https://www.datos.gov.co/Comercio-Industria-y-Turismo/Extranjeros-No-Residentes/7wm8-w5ad",
+  "licencia": "Datos abiertos del Estado colombiano (datos.gov.co).",
+  "descarga": "2026-11-03",
+  "universo": "Extranjeros no residentes con ciudad de destino Medellín según la VNR del MinCIT. No son pasajeros Aerocivil, ni entradas por puesto migratorio, ni colombianos residentes en el exterior, ni cruceros. Rionegro (José María Córdova) es otra ciudad en la misma base y no se suma aquí.",
+  "grano": "mensual y anual",
+  "ciudad": "Medellín",
+  "serie": [
+    {
+      "anio": 2022,
+      "mes": 1,
+      "visitantes": 34973,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2022,
+      "mes": 2,
+      "visitantes": 38018,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2022,
+      "mes": 3,
+      "visitantes": 45148,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2022,
+      "mes": 4,
+      "visitantes": 50970,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2022,
+      "mes": 5,
+      "visitantes": 47589,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2022,
+      "mes": 6,
+      "visitantes": 50045,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2022,
+      "mes": 7,
+      "visitantes": 63443,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2022,
+      "mes": 8,
+      "visitantes": 64956,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2022,
+      "mes": 9,
+      "visitantes": 56860,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2022,
+      "mes": 10,
+      "visitantes": 55738,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2022,
+      "mes": 11,
+      "visitantes": 64008,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2022,
+      "mes": 12,
+      "visitantes": 70288,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2023,
+      "mes": 1,
+      "visitantes": 64878,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2023,
+      "mes": 2,
+      "visitantes": 65093,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2023,
+      "mes": 3,
+      "visitantes": 61807,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2023,
+      "mes": 4,
+      "visitantes": 63622,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2023,
+      "mes": 5,
+      "visitantes": 62473,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2023,
+      "mes": 6,
+      "visitantes": 63307,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2023,
+      "mes": 7,
+      "visitantes": 82835,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2023,
+      "mes": 8,
+      "visitantes": 61979,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2023,
+      "mes": 9,
+      "visitantes": 52446,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2023,
+      "mes": 10,
+      "visitantes": 47587,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2023,
+      "mes": 11,
+      "visitantes": 81743,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2023,
+      "mes": 12,
+      "visitantes": 82365,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2024,
+      "mes": 1,
+      "visitantes": 81070,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2024,
+      "mes": 2,
+      "visitantes": 84179,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2024,
+      "mes": 3,
+      "visitantes": 81633,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2024,
+      "mes": 4,
+      "visitantes": 75877,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2024,
+      "mes": 5,
+      "visitantes": 85851,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2024,
+      "mes": 6,
+      "visitantes": 79998,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2024,
+      "mes": 7,
+      "visitantes": 103007,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2024,
+      "mes": 8,
+      "visitantes": 102456,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2024,
+      "mes": 9,
+      "visitantes": 80260,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2024,
+      "mes": 10,
+      "visitantes": 79132,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2024,
+      "mes": 11,
+      "visitantes": 91228,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2024,
+      "mes": 12,
+      "visitantes": 103780,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2025,
+      "mes": 1,
+      "visitantes": 98304,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2025,
+      "mes": 2,
+      "visitantes": 92872,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2025,
+      "mes": 3,
+      "visitantes": 88833,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2025,
+      "mes": 4,
+      "visitantes": 90137,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2025,
+      "mes": 5,
+      "visitantes": 87514,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2025,
+      "mes": 6,
+      "visitantes": 88383,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2025,
+      "mes": 7,
+      "visitantes": 114573,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2025,
+      "mes": 8,
+      "visitantes": 107447,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2025,
+      "mes": 9,
+      "visitantes": 83470,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2025,
+      "mes": 10,
+      "visitantes": 89062,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2025,
+      "mes": 11,
+      "visitantes": 96378,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2025,
+      "mes": 12,
+      "visitantes": 106705,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2026,
+      "mes": 1,
+      "visitantes": 108273,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2026,
+      "mes": 2,
+      "visitantes": 96048,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2026,
+      "mes": 3,
+      "visitantes": 99574,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2026,
+      "mes": 4,
+      "visitantes": 85002,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2026,
+      "mes": 5,
+      "visitantes": 83335,
+      "ciudad": "Medellín"
+    },
+    {
+      "anio": 2026,
+      "mes": 6,
+      "visitantes": 78994,
+      "ciudad": "Medellín"
+    }
+  ],
+  "anual": [
+    {
+      "anio": 2022,
+      "visitantes": 642036
+    },
+    {
+      "anio": 2023,
+      "visitantes": 790135
+    },
+    {
+      "anio": 2024,
+      "visitantes": 1048471
+    },
+    {
+      "anio": 2025,
+      "visitantes": 1143678
+    },
+    {
+      "anio": 2026,
+      "visitantes": 551226
+    }
+  ],
+  "mercados": {
+    "2022": [
+      {
+        "mercado": "Estados Unidos",
+        "visitantes": 242636
+      },
+      {
+        "mercado": "México",
+        "visitantes": 53502
+      },
+      {
+        "mercado": "Brasil",
+        "visitantes": 8762
+      },
+      {
+        "mercado": "Europa",
+        "visitantes": 71656
+      },
+      {
+        "mercado": "Otros",
+        "visitantes": 265480
+      }
+    ],
+    "2023": [
+      {
+        "mercado": "Estados Unidos",
+        "visitantes": 268638
+      },
+      {
+        "mercado": "México",
+        "visitantes": 62424
+      },
+      {
+        "mercado": "Brasil",
+        "visitantes": 9685
+      },
+      {
+        "mercado": "Europa",
+        "visitantes": 87103
+      },
+      {
+        "mercado": "Otros",
+        "visitantes": 362285
+      }
+    ],
+    "2024": [
+      {
+        "mercado": "Estados Unidos",
+        "visitantes": 351358
+      },
+      {
+        "mercado": "México",
+        "visitantes": 86864
+      },
+      {
+        "mercado": "Brasil",
+        "visitantes": 10823
+      },
+      {
+        "mercado": "Europa",
+        "visitantes": 103814
+      },
+      {
+        "mercado": "Otros",
+        "visitantes": 495612
+      }
+    ],
+    "2025": [
+      {
+        "mercado": "Estados Unidos",
+        "visitantes": 378326
+      },
+      {
+        "mercado": "México",
+        "visitantes": 94288
+      },
+      {
+        "mercado": "Brasil",
+        "visitantes": 14149
+      },
+      {
+        "mercado": "Europa",
+        "visitantes": 112309
+      },
+      {
+        "mercado": "Otros",
+        "visitantes": 544606
+      }
+    ],
+    "2026": [
+      {
+        "mercado": "Estados Unidos",
+        "visitantes": 180138
+      },
+      {
+        "mercado": "México",
+        "visitantes": 45910
+      },
+      {
+        "mercado": "Brasil",
+        "visitantes": 7749
+      },
+      {
+        "mercado": "Europa",
+        "visitantes": 55237
+      },
+      {
+        "mercado": "Otros",
+        "visitantes": 262192
+      }
+    ]
+  },
+  "top_paises": {
+    "2022": [
+      {
+        "pais": "Estados Unidos",
+        "visitantes": 242636
+      },
+      {
+        "pais": "México",
+        "visitantes": 53502
+      },
+      {
+        "pais": "Panamá",
+        "visitantes": 50097
+      },
+      {
+        "pais": "Perú",
+        "visitantes": 32940
+      },
+      {
+        "pais": "República Dominicana",
+        "visitantes": 30801
+      },
+      {
+        "pais": "Ecuador",
+        "visitantes": 27637
+      },
+      {
+        "pais": "Venezuela",
+        "visitantes": 24818
+      },
+      {
+        "pais": "Costa Rica",
+        "visitantes": 22049
+      },
+      {
+        "pais": "España",
+        "visitantes": 14878
+      },
+      {
+        "pais": "Países Bajos",
+        "visitantes": 14671
+      },
+      {
+        "pais": "Canadá",
+        "visitantes": 13263
+      },
+      {
+        "pais": "Chile",
+        "visitantes": 12046
+      }
+    ],
+    "2023": [
+      {
+        "pais": "Estados Unidos",
+        "visitantes": 268638
+      },
+      {
+        "pais": "Panamá",
+        "visitantes": 67340
+      },
+      {
+        "pais": "México",
+        "visitantes": 62424
+      },
+      {
+        "pais": "Ecuador",
+        "visitantes": 51838
+      },
+      {
+        "pais": "República Dominicana",
+        "visitantes": 44499
+      },
+      {
+        "pais": "Costa Rica",
+        "visitantes": 44318
+      },
+      {
+        "pais": "Perú",
+        "visitantes": 26564
+      },
+      {
+        "pais": "Venezuela",
+        "visitantes": 24595
+      },
+      {
+        "pais": "Países Bajos",
+        "visitantes": 18955
+      },
+      {
+        "pais": "España",
+        "visitantes": 18166
+      },
+      {
+        "pais": "Canadá",
+        "visitantes": 17080
+      },
+      {
+        "pais": "Puerto Rico",
+        "visitantes": 16019
+      }
+    ],
+    "2024": [
+      {
+        "pais": "Estados Unidos",
+        "visitantes": 351358
+      },
+      {
+        "pais": "México",
+        "visitantes": 86864
+      },
+      {
+        "pais": "Costa Rica",
+        "visitantes": 84546
+      },
+      {
+        "pais": "Panamá",
+        "visitantes": 68782
+      },
+      {
+        "pais": "República Dominicana",
+        "visitantes": 61981
+      },
+      {
+        "pais": "Ecuador",
+        "visitantes": 60154
+      },
+      {
+        "pais": "Perú",
+        "visitantes": 37699
+      },
+      {
+        "pais": "Venezuela",
+        "visitantes": 33659
+      },
+      {
+        "pais": "Puerto Rico",
+        "visitantes": 26064
+      },
+      {
+        "pais": "España",
+        "visitantes": 24910
+      },
+      {
+        "pais": "Canadá",
+        "visitantes": 21590
+      },
+      {
+        "pais": "Chile",
+        "visitantes": 20492
+      }
+    ],
+    "2025": [
+      {
+        "pais": "Estados Unidos",
+        "visitantes": 378326
+      },
+      {
+        "pais": "México",
+        "visitantes": 94288
+      },
+      {
+        "pais": "Costa Rica",
+        "visitantes": 81319
+      },
+      {
+        "pais": "Panamá",
+        "visitantes": 70848
+      },
+      {
+        "pais": "Ecuador",
+        "visitantes": 60782
+      },
+      {
+        "pais": "República Dominicana",
+        "visitantes": 59678
+      },
+      {
+        "pais": "Perú",
+        "visitantes": 46641
+      },
+      {
+        "pais": "Puerto Rico",
+        "visitantes": 45990
+      },
+      {
+        "pais": "Venezuela",
+        "visitantes": 32373
+      },
+      {
+        "pais": "España",
+        "visitantes": 26818
+      },
+      {
+        "pais": "Canadá",
+        "visitantes": 22116
+      },
+      {
+        "pais": "Países Bajos",
+        "visitantes": 20561
+      }
+    ],
+    "2026": [
+      {
+        "pais": "Estados Unidos",
+        "visitantes": 180138
+      },
+      {
+        "pais": "México",
+        "visitantes": 45910
+      },
+      {
+        "pais": "Costa Rica",
+        "visitantes": 39224
+      },
+      {
+        "pais": "Ecuador",
+        "visitantes": 30130
+      },
+      {
+        "pais": "Panamá",
+        "visitantes": 29502
+      },
+      {
+        "pais": "República Dominicana",
+        "visitantes": 27108
+      },
+      {
+        "pais": "Perú",
+        "visitantes": 23980
+      },
+      {
+        "pais": "Puerto Rico",
+        "visitantes": 23851
+      },
+      {
+        "pais": "Venezuela",
+        "visitantes": 16908
+      },
+      {
+        "pais": "España",
+        "visitantes": 12383
+      },
+      {
+        "pais": "Canadá",
+        "visitantes": 12212
+      },
+      {
+        "pais": "Chile",
+        "visitantes": 10676
+      }
+    ]
+  },
+  "comparables": [
+    {
+      "ciudad": "Bogotá",
+      "anio": 2022,
+      "visitantes": 1296576
+    },
+    {
+      "ciudad": "Cartagena",
+      "anio": 2022,
+      "visitantes": 544377
+    },
+    {
+      "ciudad": "Medellín",
+      "anio": 2022,
+      "visitantes": 642036
+    },
+    {
+      "ciudad": "Bogotá",
+      "anio": 2023,
+      "visitantes": 1598339
+    },
+    {
+      "ciudad": "Cartagena",
+      "anio": 2023,
+      "visitantes": 742146
+    },
+    {
+      "ciudad": "Medellín",
+      "anio": 2023,
+      "visitantes": 790135
+    },
+    {
+      "ciudad": "Bogotá",
+      "anio": 2024,
+      "visitantes": 1673115
+    },
+    {
+      "ciudad": "Cartagena",
+      "anio": 2024,
+      "visitantes": 851087
+    },
+    {
+      "ciudad": "Medellín",
+      "anio": 2024,
+      "visitantes": 1048471
+    },
+    {
+      "ciudad": "Bogotá",
+      "anio": 2025,
+      "visitantes": 1675036
+    },
+    {
+      "ciudad": "Cartagena",
+      "anio": 2025,
+      "visitantes": 853789
+    },
+    {
+      "ciudad": "Medellín",
+      "anio": 2025,
+      "visitantes": 1143678
+    },
+    {
+      "ciudad": "Bogotá",
+      "anio": 2026,
+      "visitantes": 760345
+    },
+    {
+      "ciudad": "Cartagena",
+      "anio": 2026,
+      "visitantes": 441151
+    },
+    {
+      "ciudad": "Medellín",
+      "anio": 2026,
+      "visitantes": 551226
+    }
+  ],
+  "nota_migracion": "El dataset local de ingreso por el aeropuerto José María Córdova en datos.gov.co respondió 403 al corte. Cuando haya acceso estable se podrá contrastar con esta serie MinCIT."
+}

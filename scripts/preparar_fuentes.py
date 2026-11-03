@@ -73,8 +73,8 @@ def get(url, timeout=120, headers=None):
         return resp.read(), resp.headers.get("Content-Type", "")
 
 
-def soda(params):
-    url = "https://www.datos.gov.co/resource/gb6w-ynu4.json?" + urllib.parse.urlencode(params)
+def soda(params, dataset="gb6w-ynu4"):
+    url = f"https://www.datos.gov.co/resource/{dataset}.json?" + urllib.parse.urlencode(params)
     raw, _ = get(url, timeout=180, headers={"Accept": "application/json"})
     return json.loads(raw.decode("utf-8"))
 
@@ -242,57 +242,118 @@ def cortes_aerocivil():
     return {"aeropuertos": aeropuertos, "aerolineas": aerolineas, "carga": carga}
 
 
-def wikipedia():
-    articulos = {
-        "Medellín": ["es.wikipedia", "Medellín", "en.wikipedia", "Medellín"],
-        "Bogotá": ["es.wikipedia", "Bogotá", "en.wikipedia", "Bogotá"],
-        "Cartagena": ["es.wikipedia", "Cartagena_de_Indias", "en.wikipedia", "Cartagena,_Colombia"],
-        "Ciudad de México": ["es.wikipedia", "Ciudad_de_México", "en.wikipedia", "Mexico_City"],
-        "São Paulo": ["es.wikipedia", "São_Paulo", "en.wikipedia", "São_Paulo"],
-        "Lima": ["es.wikipedia", "Lima", "en.wikipedia", "Lima"],
-        "Ciudad de Panamá": ["es.wikipedia", "Ciudad_de_Panamá", "en.wikipedia", "Panama_City"],
-        "Santo Domingo": ["es.wikipedia", "Santo_Domingo", "en.wikipedia", "Santo_Domingo"],
-        "Quito": ["es.wikipedia", "Quito", "en.wikipedia", "Quito"],
-        "Buenos Aires": ["es.wikipedia", "Buenos_Aires", "en.wikipedia", "Buenos_Aires"],
-        "Santiago": ["es.wikipedia", "Santiago_de_Chile", "en.wikipedia", "Santiago,_Chile"],
-        "Madrid": ["es.wikipedia", "Madrid", "en.wikipedia", "Madrid"],
+def mincit_vnr():
+    """Visitantes extranjeros no residentes (MinCIT / Citur) con ciudad de destino Medellín."""
+    mes_abrev = {
+        "ENE": 1, "FEB": 2, "MAR": 3, "ABR": 4, "MAY": 5, "JUN": 6,
+        "JUL": 7, "AGO": 8, "SEP": 9, "OCT": 10, "NOV": 11, "DIC": 12,
     }
+    anios = ["2022", "2023", "2024", "2025", "2026"]
+    where = "ciudad='Medellín' AND a_o in(" + ",".join(f"'{a}'" for a in anios) + ")"
+    mensuales = soda({
+        "$select": "a_o,mes,sum(cant_extranjeros_no_residentes) as visitantes",
+        "$where": where,
+        "$group": "a_o,mes",
+        "$limit": "500",
+    }, dataset="7wm8-w5ad")
     serie = []
-    usados = []
-    for destino, partes in articulos.items():
-        for i in range(0, 4, 2):
-            proyecto, titulo = partes[i], partes[i + 1]
-            path = urllib.parse.quote(titulo, safe="")
-            url = (
-                "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/"
-                f"{proyecto}/all-access/user/{path}/monthly/20220101/20261001"
-            )
-            try:
-                raw, _ = get(url, headers={"Accept": "application/json", "Api-User-Agent": UA})
-                items = json.loads(raw.decode("utf-8")).get("items", [])
-            except Exception:
+    for row in mensuales:
+        mes = mes_abrev.get(fold(row.get("mes") or "")[:3])
+        if not mes:
+            continue
+        serie.append({
+            "anio": int(row["a_o"]),
+            "mes": mes,
+            "visitantes": int(float(row.get("visitantes") or 0)),
+            "ciudad": "Medellín",
+        })
+    serie.sort(key=lambda r: (r["anio"], r["mes"]))
+
+    anuales = soda({
+        "$select": "a_o,sum(cant_extranjeros_no_residentes) as visitantes",
+        "$where": where,
+        "$group": "a_o",
+        "$order": "a_o",
+        "$limit": "20",
+    }, dataset="7wm8-w5ad")
+    anual = [{"anio": int(r["a_o"]), "visitantes": int(float(r.get("visitantes") or 0))} for r in anuales]
+
+    mercados_anio = {}
+    top_paises = {}
+    for anio in anios:
+        filas = soda({
+            "$select": "paisoeeresidencia,sum(cant_extranjeros_no_residentes) as visitantes",
+            "$where": f"ciudad='Medellín' AND a_o='{anio}'",
+            "$group": "paisoeeresidencia",
+            "$order": "visitantes DESC",
+            "$limit": "300",
+        }, dataset="7wm8-w5ad")
+        cubo = {m: 0 for m in MERCADOS if m != "Colombia"}
+        otros = 0
+        tops = []
+        for row in filas:
+            pais = row.get("paisoeeresidencia") or ""
+            n = int(float(row.get("visitantes") or 0))
+            if n <= 0:
                 continue
-            usados.append(f"{proyecto}:{titulo}")
-            for item in items:
-                stamp = str(item["timestamp"])[:6]
-                serie.append({
-                    "anio": int(stamp[:4]),
-                    "mes": int(stamp[4:6]),
-                    "destino": destino,
-                    "vistas": int(item["views"]),
-                })
+            tops.append({"pais": pais, "visitantes": n})
+            mercado = mercado_de(pais)
+            if mercado and mercado != "Colombia" and mercado in cubo:
+                cubo[mercado] += n
+            else:
+                otros += n
+        mercados_anio[anio] = [{"mercado": m, "visitantes": cubo[m]} for m in cubo] + [
+            {"mercado": "Otros", "visitantes": otros}
+        ]
+        top_paises[anio] = tops[:12]
+
+    peers = soda({
+        "$select": "ciudad,a_o,sum(cant_extranjeros_no_residentes) as visitantes",
+        "$where": "ciudad in('Medellín','Bogotá, D.C.','Cartagena') AND a_o in(" + ",".join(f"'{a}'" for a in anios) + ")",
+        "$group": "ciudad,a_o",
+        "$order": "a_o,ciudad",
+        "$limit": "50",
+    }, dataset="7wm8-w5ad")
+    comparables = [{
+        "ciudad": "Bogotá" if "BOGOTA" in fold(r.get("ciudad") or "") else (r.get("ciudad") or ""),
+        "anio": int(r["a_o"]),
+        "visitantes": int(float(r.get("visitantes") or 0)),
+    } for r in peers]
+
     return {
-        "id": "wikipedia",
-        "fuente": "Wikimedia Pageviews API, proyectos es y en, agente user",
-        "url": "https://doc.wikimedia.org/generated-data-platform/aqs/analytics-api/",
-        "licencia": "CC0 1.0",
+        "id": "mincit-vnr",
+        "fuente": "MinCIT · operación Visitantes no residentes (VNR / Citur), dataset Extranjeros No Residentes",
+        "url": "https://www.datos.gov.co/Comercio-Industria-y-Turismo/Extranjeros-No-Residentes/7wm8-w5ad",
+        "licencia": "Datos abiertos del Estado colombiano (datos.gov.co).",
         "descarga": HOY,
-        "universo": "Vistas mensuales de los artículos de ciudad. Proxy de interés digital, no de búsquedas en Google.",
-        "grano": "mensual, el tablero lo suma al trimestre",
-        "articulos": usados,
-        "destinos": list(articulos.keys()),
+        "universo": (
+            "Extranjeros no residentes con ciudad de destino Medellín según la VNR del MinCIT. "
+            "No son pasajeros Aerocivil, ni entradas por puesto migratorio, ni colombianos residentes en el exterior, ni cruceros. "
+            "Rionegro (José María Córdova) es otra ciudad en la misma base y no se suma aquí."
+        ),
+        "grano": "mensual y anual",
+        "ciudad": "Medellín",
         "serie": serie,
+        "anual": anual,
+        "mercados": mercados_anio,
+        "top_paises": top_paises,
+        "comparables": comparables,
+        "nota_migracion": (
+            "El dataset local de ingreso por el aeropuerto José María Córdova en datos.gov.co respondió 403 al corte. "
+            "Cuando haya acceso estable se podrá contrastar con esta serie MinCIT."
+        ),
     }
+
+
+def tendencias_google():
+    """Google Trends solo con cuota/API estable. Sin clave no se inventa serie."""
+    import os
+    if not os.environ.get("TRENDS_API_KEY") and not os.environ.get("SERPAPI_KEY"):
+        raise RuntimeError(
+            "Google Trends pendiente de cuota estable (defina TRENDS_API_KEY o SERPAPI_KEY). "
+            "No se publica una serie inventada."
+        )
+    raise RuntimeError("Conector Google Trends aún no cableado; la cuota está reservada para el reintento.")
 
 
 def gdelt():
@@ -961,8 +1022,7 @@ def main():
     piezas = []
     for nombre, fn in (
         ("conectividad.json", aerocivil),
-        ("wikipedia.json", wikipedia),
-        ("gdelt.json", gdelt),
+        ("mincit_vnr.json", mincit_vnr),
         ("ema.json", ema),
         ("medata_tarifas.json", medata),
         ("icca.json", icca),
@@ -976,6 +1036,28 @@ def main():
             errores.append(f"{nombre}: {detalle}")
             print("fallo", nombre)
             print(detalle)
+    # GDELT y Trends: solo cuando la cuota responde; si fallan, se deja el JSON previo.
+    for nombre, fn in (("gdelt.json", gdelt), ("tendencias.json", tendencias_google)):
+        try:
+            payload = fn()
+            piezas.append({"archivo": write(nombre, payload), "id": payload.get("id"), "estado": "ok", "n": len(payload.get("serie") or [])})
+            print("ok", nombre, piezas[-1]["n"])
+        except Exception:
+            detalle = traceback.format_exc(limit=2)
+            errores.append(f"{nombre}: {detalle}")
+            print("pendiente cuota", nombre)
+            print(detalle)
+            if (OUT / nombre).exists():
+                try:
+                    prev = json.loads((OUT / nombre).read_text(encoding="utf-8"))
+                    piezas.append({
+                        "archivo": "data/open/" + nombre,
+                        "id": prev.get("id") or nombre.replace(".json", ""),
+                        "estado": "cuota",
+                        "n": len(prev.get("serie") or []),
+                    })
+                except Exception:
+                    pass
     evi, huella = evi_y_huella(errores)
     piezas.append({"archivo": write("evi.json", evi), "id": "evi", "estado": evi.get("estado", "ok"), "n": len(evi.get("olas") or [])})
     piezas.append({"archivo": write("huella.json", huella), "id": "huella", "estado": huella.get("estado", "ok"), "n": len(huella.get("serie") or [])})

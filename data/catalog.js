@@ -13,12 +13,22 @@ window.CATALOGO = [
   {
     id: "busqueda", tab: "mercados", nombre: "Intención de búsqueda y share of voice digital",
     pastilla: "Proxy", clase: "proxy",
-    fuenteTipo: "Secundaria", fuente: "Google News RSS y Reddit, vía ETL Bureau",
+    fuenteTipo: "Secundaria", fuente: "Google News RSS y Reddit, vía ETL Bureau; GDELT DOC o Google Trends cuando la cuota sea estable",
     pedida: "Trimestral", grano: "Mensual, sumado al trimestre", unidad: "Índice y participación",
     formula: "Titulares de la ventana y conteo semanal. La participación es sobre las menciones de esa ventana.",
-    universo: "RSS de Google News y Reddit que lee el ETL. data/open/wikipedia.json queda en el repo y esta pantalla no lo lee.",
+    universo: "RSS de Google News y Reddit que lee el ETL. GDELT/Trends se reintentan solo con cuota estable.",
     licencia: "Agregados propios del ETL. Los titulares siguen siendo de sus medios.",
-    noMide: "Búsquedas de Google ni el universo de GDELT. El DOC API responde 429 y salió de esta ficha."
+    noMide: "Wikipedia pageviews (fuera de política). Sin cuota, GDELT 429 o Trends no publican serie inventada."
+  },
+  {
+    id: "mincit-vnr", tab: "mercados", nombre: "Visitantes no residentes MinCIT (contexto)",
+    pastilla: "Dato abierto", clase: "abierto",
+    fuenteTipo: "Secundaria", fuente: "MinCIT · VNR / Citur, Extranjeros No Residentes en datos.gov.co 7wm8-w5ad",
+    pedida: "Mensual", grano: "Mensual y anual", unidad: "Visitantes",
+    formula: "Suma de extranjeros no residentes con ciudad de destino Medellín, por mes y por país de residencia.",
+    universo: "Operación VNR del MinCIT. Destino declarado Medellín. No es Aerocivil, ni puesto migratorio, ni colombianos en el exterior, ni cruceros. Rionegro no se suma.",
+    licencia: "Datos abiertos del Estado colombiano.",
+    noMide: "Pasajeros de MDE/EOH ni el CRM del Bureau."
   },
   {
     id: "reservas", tab: "mercados", nombre: "Reservas hacia Medellín",
@@ -52,13 +62,13 @@ window.CATALOGO = [
   },
   {
     id: "conversion", tab: "mercados", nombre: "Tasa de conversión de mercados priorizados",
-    pastilla: "Fuente primaria", clase: "primaria",
+    pastilla: "Fuera de alcance", clase: "primaria",
     fuenteTipo: "Primaria", fuente: "CRM de captación del Bureau",
-    pedida: "Trimestral o semestral", grano: "Pendiente de extracto", unidad: "Tasa",
+    pedida: "Trimestral o semestral", grano: "Fuera de alcance", unidad: "Tasa",
     formula: "Confirmados del mercado divididos por oportunidades de ese mercado.",
     universo: "Oportunidades del mercado priorizado en el CRM.",
-    licencia: "Extracto del Bureau, cuando exista.",
-    noMide: "El informe de gestión 2025 no parte la captación por mercado."
+    licencia: "No disponible: el CRM no se consulta ni se vulnera desde este tablero.",
+    noMide: "Cualquier tasa de conversión inventada. El informe 2025 no parte la captación por mercado."
   },
   {
     id: "gasto", tab: "visitante", nombre: "Gasto promedio por visitante",
@@ -128,8 +138,8 @@ window.CATALOGO = [
     pedida: "Mensual o por evento", grano: "Pendiente de extracto", unidad: "Tasa",
     formula: "Candidaturas confirmadas después de la inspección divididas por inspecciones realizadas.",
     universo: "Visitas de inspección de sede. Los fam trips vacacionales de 2025 no se usan aquí.",
-    licencia: "Pendiente.",
-    noMide: "Una serie publicada. La calculadora de esta pantalla no se guarda."
+    licencia: "No disponible: el CRM/registro del Bureau no se consulta ni se vulnera desde este tablero.",
+    noMide: "Una serie inventada. La calculadora solo usa lo que el usuario digita y no se guarda."
   },
   {
     id: "roi", tab: "captacion", nombre: "Aporte estimado de los eventos captados",
@@ -158,8 +168,8 @@ window.CATALOGO = [
     pedida: "Semestral o por evento", grano: "Pendiente de extracto", unidad: "Participación",
     formula: "Candidaturas no confirmadas por motivo, sobre el total de candidaturas no confirmadas.",
     universo: "Candidaturas perdidas.",
-    licencia: "Pendiente.",
-    noMide: "El tono de la prensa ni una hipótesis de motivos."
+    licencia: "No disponible: el CRM del Bureau no se consulta ni se vulnera desde este tablero.",
+    noMide: "Repartos en partes iguales ni hipótesis de motivos."
   },
   {
     id: "valor", tab: "miembros", nombre: "Valor de vida del miembro",

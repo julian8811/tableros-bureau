@@ -1,138 +1,139 @@
 {
- "generado": "2026-10-24",
- "piezas": [
-  {
-   "archivo": "data/open/conectividad.json",
-   "id": "conectividad",
-   "estado": "ok",
-   "n": 270
-  },
-  {
-   "archivo": "data/open/wikipedia.json",
-   "id": "wikipedia",
-   "estado": "ok",
-   "n": 1392
-  },
-  {
-   "archivo": "data/open/ema.json",
-   "id": "ema",
-   "estado": "ok",
-   "n": 56
-  },
-  {
-   "archivo": "data/open/medata_tarifas.json",
-   "id": "medata_tarifas",
-   "estado": "ok",
-   "n": 360
-  },
-  {
-   "archivo": "data/open/icca.json",
-   "id": "icca",
-   "estado": "ok",
-   "n": 3
-  },
-  {
-   "archivo": "data/open/evi.json",
-   "id": "evi",
-   "estado": "ok",
-   "n": 2
-  },
-  {
-   "archivo": "data/open/huella.json",
-   "id": "huella",
-   "estado": "ok",
-   "n": 2
-  },
-  {
-   "archivo": "data/open/bureau_marca_llm.json",
-   "id": "marca-llm",
-   "estado": "ok",
-   "n": 6
-  },
-  {
-   "archivo": "data/open/bureau_paises_2025_2026.json",
-   "id": "bureau-paises",
-   "estado": "ok",
-   "n": 788
-  },
-  {
-   "archivo": "data/open/bureau_prensa.json",
-   "id": "prensa-medios",
-   "estado": "ok",
-   "n": 26
-  },
-  {
-   "archivo": "data/open/bureau_oferta.json",
-   "id": "bureau-oferta",
-   "estado": "ok",
-   "n": 78
-  },
-  {
-   "archivo": "data/open/bureau_seguridad.json",
-   "id": "bureau-seguridad",
-   "estado": "ok",
-   "n": 99
-  },
-  {
-   "archivo": "data/open/bureau_clima.json",
-   "id": "bureau-clima",
-   "estado": "ok",
-   "n": 1
-  },
-  {
-   "archivo": "data/open/bureau_conectividad.json",
-   "id": "bureau-conectividad",
-   "estado": "ok",
-   "n": 19
-  },
-  {
-   "archivo": "data/open/bureau_calendario.json",
-   "id": "bureau-calendario",
-   "estado": "ok",
-   "n": 37
-  },
-  {
-   "archivo": "data/open/bureau_owid.json",
-   "id": "bureau-owid",
-   "estado": "ok",
-   "n": 25
-  },
-  {
-   "archivo": "data/open/bureau_sit.json",
-   "id": "bureau-sit",
-   "estado": "ok",
-   "n": 5
-  },
-  {
-   "archivo": "data/open/bureau_pronostico.json",
-   "id": "bureau-pronostico",
-   "estado": "ok",
-   "n": 13
-  }
- ],
- "errores": [
-  "gdelt: RuntimeError: GDELT respondió 429 Too Many Requests. No se inventan menciones.",
-  "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
-  "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
-  "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
-  "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
-  "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
-  "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found"
- ],
- "mercados": [
-  "Colombia",
-  "Estados Unidos",
-  "México",
-  "Brasil",
-  "Europa"
- ],
- "destinos_comparables": [
-  "Medellín",
-  "Bogotá",
-  "Cartagena",
-  "Ciudad de México",
-  "São Paulo",
-  "Lima"
- ],
- "nota": "Agregados para el tablero. Sin filas de encuesta y sin XLSX crudos. Las simulaciones del navegador no entran aquí."
+  "generado": "2026-11-03",
+  "piezas": [
+    {
+      "archivo": "data/open/conectividad.json",
+      "id": "conectividad",
+      "estado": "ok",
+      "n": 270
+    },
+    {
+      "archivo": "data/open/ema.json",
+      "id": "ema",
+      "estado": "ok",
+      "n": 56
+    },
+    {
+      "archivo": "data/open/medata_tarifas.json",
+      "id": "medata_tarifas",
+      "estado": "ok",
+      "n": 360
+    },
+    {
+      "archivo": "data/open/icca.json",
+      "id": "icca",
+      "estado": "ok",
+      "n": 3
+    },
+    {
+      "archivo": "data/open/evi.json",
+      "id": "evi",
+      "estado": "ok",
+      "n": 2
+    },
+    {
+      "archivo": "data/open/huella.json",
+      "id": "huella",
+      "estado": "ok",
+      "n": 2
+    },
+    {
+      "archivo": "data/open/bureau_marca_llm.json",
+      "id": "marca-llm",
+      "estado": "ok",
+      "n": 6
+    },
+    {
+      "archivo": "data/open/bureau_paises_2025_2026.json",
+      "id": "bureau-paises",
+      "estado": "ok",
+      "n": 788
+    },
+    {
+      "archivo": "data/open/bureau_prensa.json",
+      "id": "prensa-medios",
+      "estado": "ok",
+      "n": 26
+    },
+    {
+      "archivo": "data/open/bureau_oferta.json",
+      "id": "bureau-oferta",
+      "estado": "ok",
+      "n": 78
+    },
+    {
+      "archivo": "data/open/bureau_seguridad.json",
+      "id": "bureau-seguridad",
+      "estado": "ok",
+      "n": 99
+    },
+    {
+      "archivo": "data/open/bureau_clima.json",
+      "id": "bureau-clima",
+      "estado": "ok",
+      "n": 1
+    },
+    {
+      "archivo": "data/open/bureau_conectividad.json",
+      "id": "bureau-conectividad",
+      "estado": "ok",
+      "n": 19
+    },
+    {
+      "archivo": "data/open/bureau_calendario.json",
+      "id": "bureau-calendario",
+      "estado": "ok",
+      "n": 37
+    },
+    {
+      "archivo": "data/open/bureau_owid.json",
+      "id": "bureau-owid",
+      "estado": "ok",
+      "n": 25
+    },
+    {
+      "archivo": "data/open/bureau_sit.json",
+      "id": "bureau-sit",
+      "estado": "ok",
+      "n": 5
+    },
+    {
+      "archivo": "data/open/bureau_pronostico.json",
+      "id": "bureau-pronostico",
+      "estado": "ok",
+      "n": 13
+    },
+    {
+      "archivo": "data/open/mincit_vnr.json",
+      "id": "mincit-vnr",
+      "estado": "ok",
+      "n": 54
+    }
+  ],
+  "errores": [
+    "gdelt: RuntimeError: GDELT respondió 429 Too Many Requests. No se inventan menciones.",
+    "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
+    "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
+    "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
+    "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
+    "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
+    "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
+    "gdelt/tendencias: reintento solo con cuota estable"
+  ],
+  "mercados": [
+    "Colombia",
+    "Estados Unidos",
+    "México",
+    "Brasil",
+    "Europa"
+  ],
+  "destinos_comparables": [
+    "Medellín",
+    "Bogotá",
+    "Cartagena",
+    "Ciudad de México",
+    "São Paulo",
+    "Lima"
+  ],
+  "nota": "Agregados para el tablero. Sin Wikipedia. Sin CRM. Sin filas de encuesta ni XLSX crudos."
 }

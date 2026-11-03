@@ -309,9 +309,63 @@
       celda("span-12", bloqueConectividad()) +
       celda("span-12", bloqueOwid()) +
       celda("span-12", bloqueSit()));
+    html += grupo("Contexto MinCIT · visitantes no residentes", celda("span-12", bloqueMincitVnr()));
     html += grupo("Participación Aerocivil", celda("span-12", conversion()));
     html += grupo("Pronóstico", celda("span-12", bloquePronostico("mercados")));
     return html;
+  }
+
+  function bloqueMincitVnr() {
+    var data = DATA.mincitVnr || {};
+    var serie = (data.serie || []).filter(function (row) { return row.anio === state.anio; });
+    var anual = ((data.anual || []).find(function (row) { return row.anio === state.anio; }) || {}).visitantes;
+    var mercados = (data.mercados && data.mercados[String(state.anio)]) || [];
+    var tops = (data.top_paises && data.top_paises[String(state.anio)]) || [];
+    var peers = (data.comparables || []).filter(function (row) { return row.anio === state.anio; });
+    if (!serie.length && anual == null) {
+      return hueco(
+        "Sin corte MinCIT",
+        "Corra scripts/ampliar_fuentes.py o la extracción MinCIT VNR. El dataset de Migración por José María Córdova sigue sin acceso estable (403)."
+      );
+    }
+    var puntos = serie
+      .slice()
+      .sort(function (a, b) { return a.mes - b.mes; })
+      .map(function (row) { return { x: MESES[row.mes - 1], y: row.visitantes }; });
+    var barrasMercado = Charts.bars(mercados.map(function (row) {
+      return {
+        label: row.mercado,
+        value: row.visitantes,
+        text: num(row.visitantes),
+        color: row.mercado === "Otros" ? "#195855" : (COLOR[row.mercado] || "#108181")
+      };
+    }), "#108181", { xLabel: "Visitantes" });
+    var barrasPais = tops.length ? Charts.bars(tops.map(function (row) {
+      return { label: etiquetaPais(row.pais), value: row.visitantes, text: num(row.visitantes), color: "#00AEAC" };
+    }), "#00AEAC", { xLabel: "Visitantes" }) : "";
+    var barrasPeer = peers.length ? Charts.bars(peers.map(function (row) {
+      return {
+        label: row.ciudad,
+        value: row.visitantes,
+        text: num(row.visitantes),
+        color: fold(row.ciudad) === "MEDELLIN" ? "#E9901E" : "#195855"
+      };
+    }), "#E9901E", { xLabel: "Visitantes" }) : "";
+    var universo = data.universo || "Extranjeros no residentes con destino Medellín (MinCIT VNR).";
+    return block(
+      "Visitantes no residentes · MinCIT",
+      pastilla("mincit-vnr"),
+      '<p class="hint">' + esc(universo) + "</p>" +
+      '<div class="kpi-row" style="margin-bottom:12px">' +
+        kpi("mincit-vnr", "Medellín " + state.anio, anual != null ? num(anual) : "—", "extranjeros no residentes") +
+      "</div>" +
+      (puntos.length ? Charts.line(puntos, "#00AEAC", { xLabel: "Mes", yLabel: "Visitantes" }) : hueco("Sin meses", "Este año no trae serie mensual en el agregado.")) +
+      "<h3 class='mt'>Mercados priorizados vs otros</h3>" + barrasMercado +
+      (barrasPais ? "<h3 class='mt'>Países de residencia con más visitantes</h3>" + barrasPais : "") +
+      (barrasPeer ? "<h3 class='mt'>Misma operación · ciudades comparables</h3>" + barrasPeer : "") +
+      (data.nota_migracion ? '<p class="hint">' + esc(data.nota_migracion) + "</p>" : "") +
+      pie((data.fuente || "MinCIT VNR") + " · " + (data.descarga || "") + " · dataset 7wm8-w5ad")
+    );
   }
 
   function otrosOrigenes() {
@@ -403,17 +457,38 @@
   function vozDigital() {
     var data = DATA.bureauPrensa || {};
     var serie = data.serie || [];
-    if (!serie.length) return hueco("Menciones en prensa", "Corra scripts/alimentar_bureau.py para traer las menciones del ETL.");
-    var puntos = serie.map(function (row) { return { x: row.semana, y: row.n }; });
-    var filas = (data.titulares || []).map(function (t) {
-      return "<tr><td>" + esc(t.fecha) + "</td><td>" + esc(t.titulo) + "</td><td>" + esc(t.medio) + "</td></tr>";
-    }).join("");
-    var ventana = (data.ventana_serie || []).join(" a ");
-    var sentTxt = (data.sentimiento_neto == null) ? "sin dato" : ((data.sentimiento_neto >= 0 ? "+" : "") + num(data.sentimiento_neto, 3));
-    return block("Menciones en prensa", "Google News RSS + Reddit, sin login. Sentimiento neto de los titulares: " + sentTxt + ".",
-      Charts.line(puntos, "#108181") +
-      "<h3>Últimos titulares</h3><table><tr><th>Fecha</th><th>Titular</th><th>Búsqueda</th></tr>" + filas + "</table>" +
-      pie("ETL Bureau · Google News RSS + Reddit · sem " + ventana + " · extraído " + (data.descarga || "")));
+    var gdelt = DATA.gdelt || {};
+    var gdeltSerie = (gdelt.serie || []).filter(function (row) {
+      return row.anio === state.anio && fold(row.destino) === "MEDELLIN";
+    });
+    var cuerpoPrensa = "";
+    if (serie.length) {
+      var puntos = serie.map(function (row) { return { x: row.semana, y: row.n }; });
+      var filas = (data.titulares || []).map(function (t) {
+        return "<tr><td>" + esc(t.fecha) + "</td><td>" + esc(t.titulo) + "</td><td>" + esc(t.medio) + "</td></tr>";
+      }).join("");
+      var ventana = (data.ventana_serie || []).join(" a ");
+      var sentTxt = (data.sentimiento_neto == null) ? "sin dato" : ((data.sentimiento_neto >= 0 ? "+" : "") + num(data.sentimiento_neto, 3));
+      cuerpoPrensa = Charts.line(puntos, "#108181") +
+        "<h3>Últimos titulares</h3><table><tr><th>Fecha</th><th>Titular</th><th>Búsqueda</th></tr>" + filas + "</table>" +
+        pie("ETL Bureau · Google News RSS + Reddit · sem " + ventana + " · extraído " + (data.descarga || ""));
+    } else {
+      cuerpoPrensa = hueco("Menciones en prensa", "Corra scripts/alimentar_bureau.py para traer las menciones del ETL.");
+    }
+    var cuerpoGdelt = gdeltSerie.length
+      ? "<h3 class='mt'>GDELT · menciones Medellín " + state.anio + "</h3>" +
+        '<p class="hint">' + esc(gdelt.universo || "Proxy de medios GDELT. No es búsqueda ni Wikipedia.") + "</p>" +
+        Charts.line(gdeltSerie.sort(function (a, b) { return a.mes - b.mes; }).map(function (row) {
+          return { x: MESES[row.mes - 1], y: row.menciones };
+        }), "#E9901E", { xLabel: "Mes", yLabel: "Menciones" }) +
+        pie((gdelt.fuente || "GDELT") + " · " + (gdelt.descarga || ""))
+      : "<h3 class='mt'>GDELT / Trends</h3>" +
+        hueco("Cuota pendiente", "GDELT o Google Trends se reintentan cuando la cuota sea estable. No se publica una serie inventada.");
+    return block(
+      "Voz digital de contexto",
+      pastilla("busqueda") + " Google News RSS + Reddit, sin login. GDELT/Trends solo con cuota estable.",
+      cuerpoPrensa + cuerpoGdelt
+    );
   }
 
   function bloqueOferta() {
@@ -1276,7 +1351,9 @@
     cargar("bureau_calendario.json"),
     cargar("bureau_owid.json"),
     cargar("bureau_sit.json"),
-    cargar("bureau_pronostico.json")
+    cargar("bureau_pronostico.json"),
+    cargar("mincit_vnr.json"),
+    cargar("gdelt.json")
   ]).then(function (piezas) {
     DATA.conectividad = piezas[0];
     DATA.bureauPrensa = piezas[1];
@@ -1297,6 +1374,8 @@
     DATA.bureauOwid = piezas[16];
     DATA.bureauSit = piezas[17];
     DATA.bureauPronostico = piezas[18];
+    DATA.mincitVnr = piezas[19];
+    DATA.gdelt = piezas[20];
     leerUrl();
     if (!DATA.conectividad || !DATA.ema || !DATA.icca) {
       document.getElementById("app").innerHTML = hueco("Faltan agregados", "Abra esta carpeta con un servidor local después de correr scripts/preparar_fuentes.py.");

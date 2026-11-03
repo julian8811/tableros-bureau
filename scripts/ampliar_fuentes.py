@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Agrega cortes nuevos sin repetir Wikipedia, ICCA ni la huella ya calculada."""
+"""Agrega cortes nuevos. Wikipedia queda fuera. GDELT/Trends solo con cuota estable."""
 import json
 import traceback
 from pathlib import Path
@@ -9,15 +9,14 @@ import preparar_fuentes as p
 OUT = Path(__file__).resolve().parents[1] / "data" / "open"
 
 
-def guardar_manifiesto(error_gdelt):
+def guardar_manifiesto(errores_extra):
     piezas = []
-    errores = []
-    if error_gdelt:
-        errores.append("gdelt.json: " + error_gdelt)
+    errores = list(errores_extra or [])
     for nombre, clave in (
         ("conectividad.json", "serie"),
-        ("wikipedia.json", "serie"),
+        ("mincit_vnr.json", "serie"),
         ("gdelt.json", "serie"),
+        ("tendencias.json", "serie"),
         ("ema.json", "serie"),
         ("medata_tarifas.json", "serie"),
         ("icca.json", "ciudades"),
@@ -26,7 +25,10 @@ def guardar_manifiesto(error_gdelt):
     ):
         path = OUT / nombre
         if not path.exists():
-            errores.append(nombre + ": no está en disco")
+            if nombre in ("gdelt.json", "tendencias.json"):
+                errores.append(nombre + ": pendiente de cuota estable")
+            else:
+                errores.append(nombre + ": no está en disco")
             continue
         payload = json.loads(path.read_text(encoding="utf-8"))
         piezas.append({
@@ -41,18 +43,28 @@ def guardar_manifiesto(error_gdelt):
         "errores": errores,
         "mercados": p.MERCADOS,
         "destinos_comparables": p.DESTINOS,
-        "nota": "Agregados para el tablero. Sin filas de encuesta y sin XLSX crudos.",
+        "nota": "Agregados para el tablero. Sin Wikipedia. Sin CRM. Sin filas de encuesta ni XLSX crudos.",
     }
     (OUT / "manifiesto.json").write_text(json.dumps(doc, ensure_ascii=False, indent=2), encoding="utf-8")
     print("manifiesto", [(x["id"], x["n"]) for x in piezas])
 
 
 if __name__ == "__main__":
+    errores = []
+
     cortes = p.cortes_aerocivil()
     con = json.loads((OUT / "conectividad.json").read_text(encoding="utf-8"))
     con.update(cortes)
     p.write("conectividad.json", con)
     print("aero", len(cortes["aeropuertos"]), len(cortes["aerolineas"]), len(cortes["carga"]))
+
+    try:
+        vnr = p.mincit_vnr()
+        p.write("mincit_vnr.json", vnr)
+        print("mincit_vnr", len(vnr.get("serie") or []))
+    except Exception:
+        errores.append("mincit_vnr.json: " + traceback.format_exc(limit=2))
+        print("mincit_vnr fallo")
 
     evi = p.agregar_evi()
     for ola in evi.get("olas") or []:
@@ -64,13 +76,13 @@ if __name__ == "__main__":
     p.write("ema.json", ema)
     print("ocupacion", len((ema.get("ocupacion") or {}).get("serie") or []))
 
-    error = None
-    try:
-        gd = p.gdelt()
-        p.write("gdelt.json", gd)
-        print("gdelt", len(gd["serie"]))
-    except Exception:
-        error = traceback.format_exc(limit=2)
-        print("gdelt fallo")
-        print(error)
-    guardar_manifiesto(error)
+    for nombre, fn in (("gdelt.json", p.gdelt), ("tendencias.json", p.tendencias_google)):
+        try:
+            payload = fn()
+            p.write(nombre, payload)
+            print(nombre, len(payload.get("serie") or []))
+        except Exception:
+            errores.append(nombre + ": " + traceback.format_exc(limit=2))
+            print("pendiente cuota", nombre)
+
+    guardar_manifiesto(errores)
