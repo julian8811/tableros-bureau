@@ -63,7 +63,7 @@ function waitPort(port, ms) {
     ["infografia_c", "?tab=informes&pieza=infografia&ivar=c&anio=2025", ".insight", 1],
     ["boletin_a", "?tab=informes&pieza=boletin&bvar=a&anio=2025", ".rank li", 5],
     ["boletin_b", "?tab=informes&pieza=boletin&bvar=b&anio=2025", ".secs .sec", 2],
-    ["informe", "?tab=informes&pieza=informe&anio=2025", ".tec-doc", 1]
+    ["informe", "?tab=informes&pieza=informe&anio=2025", "#pieza-export .slide, .tec-doc", 10]
   ];
   const out = [];
   for (const [name, q, sel, min] of cases) {

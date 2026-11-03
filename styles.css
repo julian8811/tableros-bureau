@@ -114,18 +114,18 @@ button{cursor:pointer}
 }
 
 .filters{align-items:end;margin:0}
-.filter{display:flex;flex-direction:column;gap:3px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text-3)}
+.filter{display:flex;flex-direction:column;gap:3px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text-2)!important}
 .filter select,.llm-sel select,.calc select{
   appearance:none;-webkit-appearance:none;-moz-appearance:none;
   border:1px solid var(--glass-border);
   background-color:var(--select-bg);
   background-image:
     linear-gradient(165deg,rgba(255,255,255,.08),rgba(255,255,255,.02)),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath stroke='%239db3b3' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round' d='M1.5 1.8 6 6.2l4.5-4.4'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath stroke='%23eef3f3' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round' d='M1.5 1.8 6 6.2l4.5-4.4'/%3E%3C/svg%3E");
   background-repeat:no-repeat,no-repeat;
   background-position:0 0,right 10px center;
   background-size:auto,12px 8px;
-  border-radius:8px;padding:7px 32px 7px 10px;color:var(--text);font-size:12px;font-weight:600;text-transform:none;letter-spacing:0;
+  border-radius:8px;padding:7px 32px 7px 10px;color:#eef3f3!important;font-size:12px;font-weight:600;text-transform:none;letter-spacing:0;
   color-scheme:dark;
 }
 .filter select:hover,.llm-sel select:hover,.calc select:hover{border-color:rgba(0,174,172,.55)}
@@ -157,8 +157,8 @@ button{cursor:pointer}
   -webkit-backdrop-filter:blur(var(--blur)) saturate(1.5);
   box-shadow:0 8px 28px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.16);
 }
-.qbox strong{display:block;font-size:17px;line-height:1.35;max-width:65ch}
-.qbox span{display:block;margin-top:6px;color:var(--text-2);font-size:13px;max-width:65ch}
+.qbox strong{display:block;font-size:17px;line-height:1.35;max-width:65ch;color:#eef3f3!important}
+.qbox span{display:block;margin-top:6px;color:var(--text-2)!important;font-size:13px;max-width:65ch}
 
 .kpi-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:10px}
 .kpi,.block{
@@ -199,7 +199,7 @@ body[data-tablero="miembros"] .kpi .value{color:var(--teal-bright)}
 .grupo{margin-top:28px}
 .grupo h2{
   margin:0 0 12px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--text-3);display:flex;align-items:center;gap:12px;
+  color:var(--text-2)!important;display:flex;align-items:center;gap:12px;
 }
 .grupo h2::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--stroke),transparent)}
 .lienzo{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px;align-items:start}
@@ -211,8 +211,37 @@ body[data-tablero="miembros"] .kpi .value{color:var(--teal-bright)}
 .span-4{grid-column:span 4}
 .stack{display:grid;gap:10px}
 .mt{margin-top:10px}
-.block h3{margin:0 0 4px;font-size:15px;font-weight:700;line-height:1.3}
-.hint{display:block;color:var(--text-2);font-size:12px;line-height:1.45;margin-bottom:12px;max-width:65ch}
+.block h3{margin:0 0 4px;font-size:15px;font-weight:700;line-height:1.3;color:#eef3f3!important}
+/* Defensa: el CSS del deck TEC no debe pintar títulos/tablas del dashboard */
+body{color:var(--text)}
+#app,.site,.mando,.kpi,.block,.qbox,.hueco,.glass-panel,.mapa-emisores{color:var(--text)}
+.opts,.opts span,.check,.aviso,.hint,.lead,.kicker,.grupo-title,.mando,.tab{
+  color:inherit;
+}
+.opts{color:var(--text)!important}
+.qbox strong,
+.block h3,
+.hueco strong,
+.qbox h3,
+.mapa-shell h3,
+.glass-panel h3,
+.mapa-emisores-head h3{color:#eef3f3!important}
+.grupo h2{color:var(--text-2)!important}
+.kpi .label{color:var(--text-2)!important}
+.kpi .value{color:var(--text)!important}
+.hint,.qbox span,.lead{color:var(--text-2)!important}
+.hint{display:block;font-size:12px;line-height:1.45;margin-bottom:12px;max-width:65ch}
+/* Anular zebra del deck fuera de láminas TEC */
+#app table tbody tr:nth-child(even),
+.mapa-rank-table tbody tr:nth-child(even),
+.table tbody tr:nth-child(even){
+  background:transparent!important;
+  background-color:transparent!important;
+}
+#app .deck table tbody tr:nth-child(even),
+#app .deck .table-page tbody tr:nth-child(even){
+  background:#f5f7fb!important;
+}
 
 .chart{width:100%;height:auto;display:block;filter:drop-shadow(0 0 10px rgba(0,174,172,.08))}
 .block .marco{border:0;padding:0;background:transparent}
@@ -238,7 +267,7 @@ body[data-tablero="miembros"] .kpi .value{color:var(--teal-bright)}
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   box-shadow:0 0 16px rgba(0,174,172,.25), inset 0 1px 0 rgba(255,255,255,.1);
 }
-.corte{margin-left:auto;font-size:12px;color:var(--text-3);align-self:center}
+.corte{margin-left:auto;font-size:12px;color:var(--text-2)!important;align-self:center}
 .chart.donut{max-width:220px;margin:0 auto}
 .figura{display:grid;gap:8px}
 .donut-frame{display:grid;grid-template-columns:minmax(140px,180px) 1fr;gap:14px;align-items:center}
@@ -248,7 +277,7 @@ body[data-tablero="miembros"] .kpi .value{color:var(--teal-bright)}
 .wide{margin-top:10px}
 .table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;overflow:hidden;border-radius:12px;border:1px solid var(--glass-border);background:rgba(255,255,255,.03)}
 .table th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--gold);padding:10px 12px;background:rgba(251,187,40,.08);border-bottom:1px solid var(--glass-border);font-weight:700}
-.table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);color:var(--text-2);vertical-align:middle}
+.table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);color:#c5d4d4!important;vertical-align:middle}
 .table tr:last-child td{border-bottom:0}
 .table tbody tr:hover td{background:rgba(0,174,172,.08);color:var(--text)}
 .table .num{text-align:right;font-weight:700;color:var(--text);white-space:nowrap}
@@ -309,6 +338,7 @@ body[data-tablero="miembros"] .kpi .value{color:var(--teal-bright)}
   display:flex;justify-content:space-between;gap:8px;padding:7px 9px;border-radius:8px;
   background:rgba(255,255,255,.04);border:1px solid var(--glass-border);
   backdrop-filter:blur(14px) saturate(1.35);-webkit-backdrop-filter:blur(14px) saturate(1.35);
+  color:var(--text)!important;
 }
 .footer-doc{max-width:1280px;margin:0 auto 24px;padding:0 24px 16px;color:var(--text-3);font-size:12px;line-height:1.5}
 .modal-back{position:fixed;inset:0;background:rgba(11,18,32,.4);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:18px;z-index:30}
@@ -626,7 +656,8 @@ body.print-pieza .informe-deck-live .slide{
 .mapa-emisores-head{
   display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:flex-start;margin-bottom:10px;
 }
-.mapa-emisores-head h3{margin:0;font-size:15px}
+.mapa-emisores-head h3{margin:0;font-size:15px;color:#eef3f3!important}
+.mapa-emisores-head p,.mapa-emisores-legend,.mapa-emisores-legend span{color:var(--text-2)!important}
 .mapa-emisores-legend{
   display:flex;flex-wrap:wrap;gap:6px 10px;max-width:420px;justify-content:flex-end;
 }
@@ -667,12 +698,13 @@ body.print-pieza .informe-deck-live .slide{
   padding:6px 4px;border-bottom:1px solid rgba(255,255,255,.16);position:sticky;top:0;
   background:rgba(14,22,38,.92);
 }
-.mapa-rank-table td{padding:7px 4px;border-bottom:1px solid rgba(255,255,255,.08);color:var(--text-2);vertical-align:middle}
-.mapa-rank-table tr:hover td{background:rgba(0,174,172,.08);color:var(--text)}
-.mapa-rank-table .n{width:28px;color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums}
-.mapa-rank-table .val,.mapa-rank-table .pct{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#fff}
-.mapa-rank-table .pct{width:52px;color:var(--teal-bright)!important;font-weight:600}
-.mapa-rank-table .pais{display:table-cell}
+.mapa-rank-table td{padding:7px 4px;border-bottom:1px solid rgba(255,255,255,.08);color:#eef3f3!important;vertical-align:middle}
+.mapa-rank-table tr:hover td{background:rgba(0,174,172,.08);color:#eef3f3!important}
+.mapa-rank-table .n{width:28px;color:var(--gold)!important;font-weight:700;font-variant-numeric:tabular-nums}
+.mapa-rank-table .val{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#fff!important}
+.mapa-rank-table .pct{width:52px;text-align:right;font-variant-numeric:tabular-nums;color:var(--teal-bright)!important;font-weight:600}
+.mapa-rank-table .pais{display:table-cell;color:#eef3f3!important}
+.mapa-rank-table th{color:var(--text-2)!important}
 .mapa-rank-table .pais i{
   display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;
   border:1px solid rgba(255,255,255,.25);vertical-align:middle;

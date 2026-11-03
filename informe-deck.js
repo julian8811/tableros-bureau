@@ -385,6 +385,44 @@ window.InformeDeck = (function () {
         };
       }
     }
+    if (secId === "tendencias") {
+      var serie = (data.ema && data.ema.serie) || [];
+      var last = serie.slice(-5);
+      if (last.length) {
+        return {
+          titulo: "Índice EMA Antioquia (últimos meses)",
+          bars: last.map(function (r, i) {
+            return {
+              label: String(r.anio) + "-" + String(r.mes || "").padStart(2, "0").slice(-2),
+              value: Number(r.indice_antioquia) || 0,
+              display: String(r.indice_antioquia != null ? r.indice_antioquia : "—"),
+              highlight: i === last.length - 1
+            };
+          }),
+          kind: "bars",
+          fuente: "ema.serie"
+        };
+      }
+    }
+    if (secId === "marca") {
+      var marca = data.bureauMarca || {};
+      var cats = marca.categorias || marca.top || [];
+      if (cats.length) {
+        return {
+          titulo: "Share menciones marca",
+          bars: cats.slice(0, 5).map(function (c, i) {
+            return {
+              label: c.nombre || c.categoria || c.label || "—",
+              value: Number(c.valor || c.share || c.pct) || 0,
+              display: num(c.valor || c.share || c.pct, 1),
+              highlight: i === 0
+            };
+          }),
+          kind: "hbar",
+          fuente: "bureauMarca"
+        };
+      }
+    }
     return null;
   }
 
@@ -406,6 +444,45 @@ window.InformeDeck = (function () {
       var bars = barsFromGrafico(g);
       var mixto = /mixto/i.test(String(g.unidad || ""));
       var parts = (mixto || bars.length >= 2) ? splitScaleGroups(bars) : [bars];
+      var sparse = parts.length > 1 && parts.every(function (p) { return p.length <= 1; });
+      if (sparse) {
+        /* Un punto por escala: mejor KPI cards + serie del pack si existe */
+        var cards = bars.map(function (b) {
+          return '<article class="kpi-card text-box light">' +
+            '<p class="kpi-label">' + esc(b.label) + "</p>" +
+            '<p class="kpi-value">' + esc(b.display) + "</p></article>";
+        }).join("");
+        if (packs && packs.bars && packs.bars.length >= 2) {
+          groups.push({
+            title: packs.titulo,
+            svg: packs.kind === "hbar" ? svgHBars(packs.bars) : svgBars(packs.bars)
+          });
+          fuente = packs.fuente + " · KPIs LLM";
+          titulo = packs.titulo;
+          var figurePack = chartBox(groups[0].title, groups[0].svg);
+          return (
+            '<section class="slide chart-page" aria-label="' + esc(label) + '">' +
+            '<span class="slide-label">' + esc(label) + "</span>" +
+            '<div class="head"><h2>' + esc(titulo) + "</h2>" + logos("light") + "</div>" +
+            '<div class="chart-body">' +
+            '<div><ul>' + (bullets || "") + '</ul><div class="kpi-grid" style="margin-top:12px">' + cards + "</div></div>" +
+            figurePack +
+            "</div>" +
+            '<p class="fuente">' + esc(fuente) + "</p>" +
+            '<div class="bar-maroon"></div></section>'
+          );
+        }
+        return (
+          '<section class="slide kpi-photo" aria-label="' + esc(label) + '">' +
+          '<span class="slide-label">' + esc(label) + "</span>" +
+          '<div class="kpi-photo-stage">' + photoFrame(slotFor(sec.id), titulo) +
+          '<div class="kpi-overlay">' +
+          '<div class="text-box dark kpi-head">' + logos("dark") + "<h2>" + esc(titulo) + "</h2></div>" +
+          '<div class="kpi-grid">' + cards + "</div>" +
+          '<p class="fuente on-photo">Indicadores mixtos · sin forzar una sola escala</p>' +
+          "</div></div><div class=\"bar-maroon\"></div></section>"
+        );
+      }
       if (parts.length > 1) {
         parts.forEach(function (grp, i) {
           groups.push({
@@ -414,19 +491,19 @@ window.InformeDeck = (function () {
           });
         });
       } else {
-        var useH = preferHBar(g, bars) || mixto;
+        var useH = preferHBar(g, bars) || (mixto && bars.length >= 3);
         groups.push({
           title: titulo + (g.unidad ? " · " + g.unidad : ""),
           svg: useH ? svgHBars(bars) : svgBars(bars)
         });
       }
-      /* Si mixto dejó una escala casi vacía, sumar serie del pack */
-      if (mixto && packs && packs.bars && packs.bars.length) {
-        groups.push({
+      if (mixto && packs && packs.bars && packs.bars.length >= 3 && groups.length <= 2) {
+        groups = [{
           title: packs.titulo,
           svg: packs.kind === "hbar" ? svgHBars(packs.bars) : svgBars(packs.bars)
-        });
-        fuente += " + " + packs.fuente;
+        }];
+        fuente = packs.fuente;
+        titulo = packs.titulo;
       }
     } else if (packs && packs.bars && packs.bars.length) {
       groups.push({
