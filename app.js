@@ -403,15 +403,28 @@
     var barras = Object.keys(porEstado).map(function (k, i) {
       return { label: k, value: porEstado[k], text: num(porEstado[k]), color: Charts.palette[i % Charts.palette.length] };
     });
-    var filas = festivos.map(function (f) {
-      return "<tr><td>" + esc(f.date) + "</td><td>" + esc(f.nombre) + "</td></tr>";
+    var MESES = {"01": "ene", "02": "feb", "03": "mar", "04": "abr", "05": "may", "06": "jun", "07": "jul", "08": "ago", "09": "sep", "10": "oct", "11": "nov", "12": "dic"};
+    var porMes = {};
+    festivos.forEach(function (f) {
+      var k = String(f.date || "").slice(0, 7);
+      if (!k) return;
+      if (!porMes[k]) porMes[k] = [];
+      porMes[k].push(f);
+    });
+    var tarjetas = Object.keys(porMes).sort().map(function (k) {
+      var partes = k.split("-");
+      var titulo = (MESES[partes[1]] || partes[1]) + " " + partes[0];
+      var items = porMes[k].map(function (f) {
+        return "<li>" + esc(String(f.date).slice(8, 10)) + " · " + esc(f.nombre) + "</li>";
+      }).join("");
+      return "<div class=\"block\"><h3>" + esc(titulo) + "</h3><ul>" + items + "</ul></div>";
     }).join("");
     return '<div class="kpi-row">' +
       kpi("bureau-calendario", "Feriados", num(festivos.length), esc(data.ventana || "")) +
       kpi("bureau-calendario", "Estaciones IDEAM", num(est.total || 0), "red con reporte") +
       "</div>" +
       block("Calendario y contexto", "Feriados nacionales y red IDEAM. " + esc(data.ventana || "") + ".",
-      "<h3>Feriados</h3><table><tr><th>Fecha</th><th>Nombre</th></tr>" + filas + "</table>" +
+      "<h3>Feriados por mes</h3><div class=\"g3\">" + tarjetas + "</div>" +
       "<h3>Estaciones por estado</h3>" + Charts.bars(barras, "#108181") +
       pie("ETL Bureau · festivos CO + IDEAM" + extraido("bureauCalendario")));
   }
