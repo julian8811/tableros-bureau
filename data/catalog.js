@@ -13,12 +13,12 @@ window.CATALOGO = [
   {
     id: "busqueda", tab: "mercados", nombre: "Intención de búsqueda y share of voice digital",
     pastilla: "Proxy", clase: "proxy",
-    fuenteTipo: "Secundaria", fuente: "Wikimedia Pageviews (CC0) y GDELT DOC 2.0",
+    fuenteTipo: "Secundaria", fuente: "Google News RSS y Reddit, vía ETL Bureau",
     pedida: "Trimestral", grano: "Mensual, sumado al trimestre", unidad: "Índice y participación",
-    formula: "Vistas o menciones de Medellín divididas por la suma del set de destinos.",
-    universo: "Artículos de Wikipedia en español e inglés, y menciones del nombre de la ciudad en medios de GDELT.",
-    licencia: "CC0 para Wikimedia. GDELT exige cita a https://www.gdeltproject.org/",
-    noMide: "Búsquedas de Google. La API de Trends sigue en alfa cerrada y no se usa."
+    formula: "Titulares de la ventana y conteo semanal. La participación es sobre las menciones de esa ventana.",
+    universo: "RSS de Google News y Reddit que lee el ETL. data/open/wikipedia.json queda en el repo y esta pantalla no lo lee.",
+    licencia: "Agregados propios del ETL. Los titulares siguen siendo de sus medios.",
+    noMide: "Búsquedas de Google ni el universo de GDELT. El DOC API responde 429 y salió de esta ficha."
   },
   {
     id: "reservas", tab: "mercados", nombre: "Reservas hacia Medellín",
@@ -259,10 +259,10 @@ window.CATALOGO = [
   {
     id: "bureau-clima", tab: "visitante", nombre: "Clima y calidad del aire (ETL Bureau)",
     pastilla: "Bureau", clase: "proxy",
-    fuenteTipo: "Secundaria", fuente: "ETL Bureau, IDEAM + Open-Meteo + aire_med 2026-08..2026-11-08",
+    fuenteTipo: "Secundaria", fuente: "ETL Bureau, IDEAM + Open-Meteo + SISAIRE (AMVA)",
     pedida: "Diaria", grano: "Mensual, horario y día", unidad: "mm, µg/m³ y °C",
-    formula: "Lluvia mensual agregada, PM2.5 por hora y pronóstico ensemble de 7 días.",
-    universo: "Lluvia mensual agregada, PM2.5 diario, pronóstico ensemble 7 días.",
+    formula: "Lluvia mensual agregada, PM2.5 modelado, PM2.5 medido en estaciones AMVA y pronóstico ensemble de 7 días.",
+    universo: "Lluvia mensual, PM2.5 modelado, PM2.5 de SISAIRE y pronóstico de 7 días.",
     licencia: "Datos abiertos IDEAM/Open-Meteo; agregados propios del ETL.",
     noMide: "El microclima por comuna ni alertas en tiempo real."
   },
@@ -281,7 +281,7 @@ window.CATALOGO = [
   {
     id: "bureau-calendario", tab: "visitante", nombre: "Calendario y contexto (ETL Bureau)",
     pastilla: "Bureau · ETL", clase: "proxy",
-    fuenteTipo: "Secundaria", fuente: "ETL Bureau: festivos CO + IDEAM, scripts/alimentar_bureau.py",
+    fuenteTipo: "Secundaria", fuente: "ETL Bureau: festivos CO y emisores, avisos de viaje US/CA/UK, IDEAM",
     pedida: "Por corte", grano: "Fecha (feriados) + inventario (estaciones)", unidad: "Fechas y conteos",
     formula: "Lista de feriados del corte y conteo de estaciones por estado/categoría/municipio.",
     universo: "Feriados nacionales y red de estaciones IDEAM con reporte en Medellín.",

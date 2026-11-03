@@ -981,9 +981,19 @@ def main():
     piezas.append({"archivo": write("huella.json", huella), "id": "huella", "estado": huella.get("estado", "ok"), "n": len(huella.get("serie") or [])})
     print("evi", piezas[-2])
     print("huella", piezas[-1])
+    previas = []
+    if (OUT / "manifiesto.json").exists():
+        try:
+            anterior = json.loads((OUT / "manifiesto.json").read_text(encoding="utf-8"))
+            previas = [
+                p for p in anterior.get("piezas", [])
+                if str(p.get("id") or "").startswith(("bureau", "marca", "prensa", "informe"))
+            ]
+        except Exception:
+            previas = []
     manifiesto = {
         "generado": HOY,
-        "piezas": piezas,
+        "piezas": piezas + previas,
         "errores": errores,
         "mercados": MERCADOS,
         "destinos_comparables": DESTINOS,

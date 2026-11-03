@@ -204,6 +204,7 @@ def clima():
         "universo": "Lluvia mensual agregada, PM2.5 diario, pronóstico ensemble 7 días.",
         "serie": src.get("lluvia_mensual", []),
         "pm25_serie": src.get("pm25_serie", []),
+        "sisaire_pm25": src.get("sisaire_pm25", []),
         "pronostico": src.get("pronostico", []),
         "corte": max([r.get("periodo", "") for r in src.get("lluvia_mensual", [])] or [""]),
     })
@@ -227,6 +228,8 @@ def conectividad_bench():
         "universo": "Operaciones aéreas, TRM, benchmarks UE y señal digital. Sin fuentes descontinuadas.",
         "serie": src.get("operaciones_serie", []),
         "trm_serie": src.get("trm_serie", []),
+        "bts_colombia": src.get("bts_colombia", []),
+        "ipc_colombia": src.get("ipc_colombia", []),
         "benchmark_eu": src.get("benchmark_eu", []),
         "wikimedia_serie": src.get("wikimedia_serie", []),
         "cortes": src.get("cortes", {}),
@@ -252,6 +255,8 @@ def calendario():
         "licencia": "Datos abiertos; agregados propios del ETL.",
         "universo": "Feriados nacionales y red de estaciones IDEAM con reporte en Medellín.",
         "serie": src.get("festivos", []),
+        "festivos_emisores": src.get("festivos_emisores", []),
+        "avisos_viaje": src.get("avisos_viaje", []),
         "estaciones": src.get("estaciones", {}),
         "corte": max([r.get("date", "") for r in src.get("festivos", [])] or [""]),
     })

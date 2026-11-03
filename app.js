@@ -383,23 +383,28 @@
     var data = DATA.bureauClima || {};
     var serie = data.serie || [];
     var pm25 = data.pm25_serie || [];
+    var sisaire = data.sisaire_pm25 || [];
     var pron = data.pronostico || [];
-    if (!serie.length && !pm25.length && !pron.length) return hueco("Clima", "Corra scripts/alimentar_bureau.py para traer el clima del ETL.");
+    if (!serie.length && !pm25.length && !pron.length && !sisaire.length) return hueco("Clima", "Corra scripts/alimentar_bureau.py para traer el clima del ETL.");
     var lluvia = serie.map(function (row) { return { x: row.periodo, y: row.mm_prom }; });
     var aire = pm25.map(function (row) { return { x: row.fecha, y: row.pm2_5 }; });
+    var medido = sisaire.map(function (row) { return { x: row.fecha, y: row.pm2_5 }; });
     var futuro = pron.map(function (row) { return { x: row.date, y: row.prec_mean }; });
     return block("Clima y calidad del aire", "Lluvia mensual, PM2.5 y pronóstico ensemble. " + esc(data.ventana || "") + ".",
       "<h3>Lluvia mensual (mm prom.)</h3>" + Charts.line(lluvia, "#108181") +
-      "<h3>PM2.5</h3>" + Charts.line(aire, "#E9901E") +
+      "<h3>PM2.5 modelado</h3>" + Charts.line(aire, "#E9901E") +
+      (medido.length ? "<h3>PM2.5 medido (SISAIRE, AMVA)</h3>" + Charts.line(medido, "#172139") : "") +
       "<h3>Pronóstico de precipitación media</h3>" + Charts.line(futuro, "#00AEAC") +
-      pie("ETL Bureau · IDEAM + Open-Meteo + aire_med" + extraido("bureauClima")));
+      pie("ETL Bureau · IDEAM + Open-Meteo + SISAIRE" + extraido("bureauClima")));
   }
 
   function bloqueCalendario() {
     var data = DATA.bureauCalendario || {};
     var festivos = data.serie || [];
     var est = data.estaciones || {};
-    if (!festivos.length && !est.total) return hueco('Calendario', 'Corra scripts/alimentar_bureau.py para traer el calendario del ETL.');
+    var avisos = data.avisos_viaje || [];
+    var emisores = data.festivos_emisores || [];
+    if (!festivos.length && !est.total && !avisos.length && !emisores.length) return hueco('Calendario', 'Corra scripts/alimentar_bureau.py para traer el calendario del ETL.');
     var porEstado = est.por_estado || {};
     var barras = Object.keys(porEstado).map(function (k, i) {
       return { label: k, value: porEstado[k], text: num(porEstado[k]), color: Charts.palette[i % Charts.palette.length] };
@@ -420,14 +425,28 @@
       }).join('');
       return '<div><h4>' + esc(titulo) + ' <span class="pastilla">' + porMes[k].length + '</span></h4><ul>' + items + '</ul></div>';
     }).join('');
+    var porPais = {};
+    emisores.forEach(function (f) {
+      var k = f.pais || "?";
+      porPais[k] = (porPais[k] || 0) + 1;
+    });
+    var paises = Object.keys(porPais).sort().map(function (k) {
+      return "<li><span>" + esc(k) + "</span><strong>" + num(porPais[k]) + "</strong></li>";
+    }).join("");
+    var listaAvisos = avisos.map(function (a) {
+      return "<li><span>" + esc(a.pais) + "</span><strong>" + esc(a.nivel || a.titulo) + "</strong><p class='hint'>" + esc(a.resumen || "") + "</p></li>";
+    }).join("");
     return '<div class="kpi-row">' +
       kpi('bureau-calendario', 'Feriados', num(festivos.length), esc(data.ventana || '')) +
       kpi('bureau-calendario', 'Estaciones IDEAM', num(est.total || 0), 'red con reporte') +
+      kpi('bureau-calendario', 'Avisos de viaje', num(avisos.length), 'EE. UU., Canadá, Reino Unido') +
       '</div>' +
-      block('Calendario y contexto', 'Feriados nacionales y red IDEAM. ' + esc(data.ventana || '') + '.',
+      block('Calendario y contexto', 'Feriados nacionales, emisores y avisos de viaje. ' + esc(data.ventana || '') + '.',
       '<h3>Feriados por mes</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;align-items:start;">' + tarjetas + '</div>' +
+      (paises ? "<h3>Feriados de mercados emisores</h3><ul class='lista'>" + paises + "</ul>" : "") +
+      (listaAvisos ? "<h3>Avisos de viaje hacia Colombia</h3><ul class='lista'>" + listaAvisos + "</ul>" : "") +
       '<h3>Estaciones por estado</h3>' + Charts.bars(barras, '#108181') +
-      pie('ETL Bureau · festivos CO + IDEAM' + extraido('bureauCalendario')));
+      pie('ETL Bureau · festivos CO + IDEAM + avisos de viaje' + extraido('bureauCalendario')));
   }
   function bloqueSit() {
     var data = DATA.bureauSit || {};
@@ -517,8 +536,15 @@
     var ultimoOp = ops.length ? ops[ops.length - 1] : null;
     var ultimoTrm = trm.length ? trm[trm.length - 1] : null;
     var dig = wiki.map(function (row) { return { x: row.periodo, y: row.views }; });
+    var bts = data.bts_colombia || [];
+    var ipc = data.ipc_colombia || [];
+    var ultimoBts = bts.length ? bts[bts.length - 1] : null;
+    var ultimoIpc = ipc.length ? ipc[ipc.length - 1] : null;
     var corteTxt = "operaciones " + esc(cortes.operaciones || "—") + " · TRM " + esc(cortes.trm || "—") +
       " · UE " + esc(cortes.benchmark_eu || "—") + " · digital " + esc(cortes.wikimedia || "—");
+    var extra = "";
+    if (ultimoBts) extra += "<p class='hint'>EE. UU.–Colombia " + esc(ultimoBts.year) + (ultimoBts.mes ? "-" + esc(ultimoBts.mes) : "") + ": " + num(ultimoBts.llegadas_sillas) + " sillas de llegada y " + num(ultimoBts.llegadas_pax) + " pasajeros (BTS T-100, país, no el aeropuerto).</p>";
+    if (ultimoIpc) extra += "<p class='hint'>IPC nacional " + esc(ultimoIpc.anio) + "-" + esc(ultimoIpc.mes) + ": " + num(ultimoIpc.indice, 2) + ". Es el total del país, no la tarifa de Medellín.</p>";
     return '<div class="kpi-row">' +
       kpi("bureau-conectividad", "Operaciones", ultimoOp ? num(ultimoOp.y) : "—", ultimoOp ? ultimoOp.x : "") +
       kpi("bureau-conectividad", "TRM", ultimoTrm ? num(ultimoTrm.cop_per_usd, 0) : "—", ultimoTrm ? String(ultimoTrm.date).slice(0, 10) : "") +
@@ -526,7 +552,8 @@
       block("Conectividad", corteTxt + ".",
       "<h3>Operaciones aéreas</h3>" + Charts.line(ops, "#108181") +
       "<h3>Señal digital (vistas)</h3>" + Charts.line(dig, "#00AEAC") +
-      pie("ETL Bureau · Aerocivil/Eurostat/Wikimedia" + extraido("bureauConectividad")));
+      extra +
+      pie("ETL Bureau · Aerocivil/Eurostat/Wikimedia/BTS" + extraido("bureauConectividad")));
   }
 
   function tarifas() {
