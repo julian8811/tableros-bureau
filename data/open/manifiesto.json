@@ -84,10 +84,17 @@
    "id": "bureau-conectividad",
    "estado": "ok",
    "n": 67
+  },
+  {
+   "archivo": "data/open/bureau_calendario.json",
+   "id": "bureau-calendario",
+   "estado": "ok",
+   "n": 37
   }
  ],
  "errores": [
   "gdelt: RuntimeError: GDELT respondió 429 Too Many Requests. No se inventan menciones.",
+  "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found",
   "prensa: urllib.error.HTTPError: HTTP Error 404: Not Found"
  ],
  "mercados": [

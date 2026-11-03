@@ -25,10 +25,10 @@ ERRORES = []
 _PIEZAS_PROPIAS = ("bureau_marca_llm.json", "bureau_paises_2025_2026.json",
                     "bureau_prensa.json", "bureau_oferta.json",
                     "bureau_seguridad.json", "bureau_clima.json",
-                    "bureau_conectividad.json")
+                    "bureau_conectividad.json", "bureau_calendario.json")
 _IDS_PROPIOS = ("marca-llm", "bureau-paises", "prensa-medios",
                   "bureau-oferta", "bureau-seguridad", "bureau-clima",
-                  "bureau-conectividad")
+                  "bureau-conectividad", "bureau-calendario")
 
 
 def _es_pieza_propia(entrada):
@@ -228,6 +228,27 @@ def conectividad_bench():
     print("conectividad_bench ok")
 
 
+def calendario():
+    try:
+        src = bajar("calendario_contexto_2025_2026.json")
+    except Exception as exc:
+        ERRORES.append("calendario: " + "".join(traceback.format_exception_only(type(exc), exc)).strip())
+        print("falla calendario, se conserva el anterior")
+        return
+    guardar("bureau_calendario.json", {
+        "id": "bureau-calendario",
+        "titulo": "Calendario y contexto (ETL Bureau)",
+        "fuente": "ETL Bureau, festivos CO + IDEAM " + str(src.get("ventana", "")),
+        "ventana": str(src.get("ventana", "")),
+        "url": BASE + "/calendario_contexto_2025_2026.json",
+        "licencia": "Datos abiertos; agregados propios del ETL.",
+        "universo": "Feriados nacionales y red de estaciones IDEAM con reporte en Medellín.",
+        "serie": src.get("festivos", []),
+        "estaciones": src.get("estaciones", {}),
+    })
+    print("calendario ok")
+
+
 def manifiesto():
     try:
         previo = json.loads((OUT / "manifiesto.json").read_text(encoding="utf-8"))
@@ -242,6 +263,7 @@ def manifiesto():
         ("bureau_seguridad.json", "bureau-seguridad", "serie"),
         ("bureau_clima.json", "bureau-clima", "serie"),
         ("bureau_conectividad.json", "bureau-conectividad", "serie"),
+        ("bureau_calendario.json", "bureau-calendario", "serie"),
     ):
         path = OUT / nombre
         if not path.exists():
@@ -268,4 +290,5 @@ if __name__ == "__main__":
     seguridad()
     clima()
     conectividad_bench()
+    calendario()
     manifiesto()
