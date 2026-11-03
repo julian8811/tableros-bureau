@@ -114,7 +114,7 @@ button{cursor:pointer}
 }
 
 .filters{align-items:end;margin:0}
-.filter{display:flex;flex-direction:column;gap:3px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text-2)!important}
+.filter{display:flex;flex-direction:column;gap:3px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#c5d4d4!important}
 .filter select,.llm-sel select,.calc select{
   appearance:none;-webkit-appearance:none;-moz-appearance:none;
   border:1px solid var(--glass-border);
