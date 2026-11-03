@@ -5,6 +5,7 @@
     tab: "mercados",
     anio: 2025,
     pais: "Todos",
+    vistaOwid: 'co',
     ficha: null,
     volverFicha: "",
     calc: { inspecciones: "", confirmadas: "", stockInicial: "", cuota: "", anos: "" }
@@ -454,22 +455,57 @@
     var serie = data.serie || [];
     var col = data.colombia_serie || [];
     var cortes = data.cortes || {};
-    if (!serie.length) return hueco("Benchmark mundial", "Corra scripts/alimentar_bureau.py para traer el benchmark OWID del ETL.");
-    var barras = serie.map(function (row, i) {
-      return { label: row.pais, value: row.valor, text: num(row.valor), color: Charts.palette[i % Charts.palette.length] };
-    });
-    var linea = col.map(function (row) { return { x: String(row.anio), y: row.valor }; });
-    var ultimoCol = col.length ? col[col.length - 1] : null;
-    return '<div class="kpi-row">' +
-      kpi("bureau-owid", "Top 1 mundial", serie.length ? serie[0].pais : "—", serie.length ? num(serie[0].valor) + " · " + serie[0].anio : "") +
-      kpi("bureau-owid", "Colombia", ultimoCol ? num(ultimoCol.valor) : "—", ultimoCol ? String(ultimoCol.anio) : "") +
-      "</div>" +
-      block("Benchmark mundial (llegadas)", "Top 25 " + esc(cortes.mundial || data.ventana || "") + " · Colombia " + esc(cortes.colombia || "") + ".",
-      "<h3>Top 25 destinos</h3>" + Charts.bars(barras, "#00AEAC") +
-      "<h3>Colombia</h3>" + Charts.line(linea, "#108181") +
-      pie("ETL Bureau · Our World in Data (UN Tourism)" + extraido("bureauOwid")));
+    if (!serie.length && !col.length) return hueco('Benchmark mundial', 'Corra scripts/alimentar_bureau.py para traer el benchmark OWID del ETL.');
+    var vista = state.vistaOwid || 'co';
+    var tabs = [['co', 'Colombia 1995-2022'], ['top', 'Top 5'], ['reg', 'Regiones']].map(function (t) {
+      return '<button type="button" class="tab' + (vista === t[0] ? ' active' : '') + '" data-vistaowid="' + t[0] + '">' + t[1] + '</button>';
+    }).join('');
+    var cuerpo = '';
+    if (vista === 'top') cuerpo = owidBarras(serie.slice(0, 5).map(function (r) { return { label: r.pais, value: r.valor }; }));
+    else if (vista === 'reg') cuerpo = owidBarras((data.regiones || []).map(function (r) { return { label: r.region, value: r.valor }; }));
+    else cuerpo = owidLinea(col);
+    return kpi('bureau-owid', 'Top 1 mundial', serie.length ? serie[0].pais : '—', serie.length ? num(serie[0].valor) + ' · ' + serie[0].anio : '') +
+      block('Benchmark mundial (llegadas)', 'Top 25 ' + esc(cortes.mundial || data.ventana || '') + ' · Colombia ' + esc(cortes.colombia || '') + '.',
+      '<div class="vtabs" role="tablist">' + tabs + '</div>' + cuerpo +
+      pie('ETL Bureau · Our World in Data (UN Tourism)' + extraido('bureauOwid')));
   }
-
+  function owidBarras(items) {
+    var max = 1, i;
+    for (i = 0; i < items.length; i++) if (items[i].value > max) max = items[i].value;
+    var s = '<svg class="chart" viewBox="0 0 640 ' + (items.length * 30 + 8) + '" role="img">';
+    for (i = 0; i < items.length; i++) {
+      var y = 6 + i * 30, w = Math.max(2, items[i].value / max * 360);
+      s += '<text x="0" y="' + (y + 13) + '" font-size="11" fill="#172139">' + esc(items[i].label) + '</text>';
+      s += '<g data-tip="' + esc(items[i].label + ': ' + num(items[i].value)) + '" tabindex="0"><rect x="150" y="' + y + '" width="' + w + '" height="16" rx="3" fill="' + Charts.palette[i % Charts.palette.length] + '"></rect>';
+      s += '<text x="' + (156 + w) + '" y="' + (y + 13) + '" font-size="11" fill="#3d4a5c">' + esc(num(items[i].value)) + '</text></g>';
+    }
+    return s + '</svg>';
+  }
+  function owidEje(v) {
+    if (v >= 1000000) return (Math.round(v / 100000) / 10).toString().replace('.', ',') + ' M';
+    return num(v);
+  }
+  function owidLinea(col) {
+    var W = 640, H = 220, L = 52, B = 28, top = 16;
+    var max = 1, i;
+    for (i = 0; i < col.length; i++) if (col[i].valor > max) max = col[i].valor;
+    function sx(k) { return L + k * ((W - L - 16) / Math.max(1, col.length - 1)); }
+    function sy(v) { return top + (H - B - top) * (1 - v / max); }
+    var s = '<svg class="chart" viewBox="0 0 ' + W + ' ' + H + '" role="img">';
+    [0, 0.5, 1].forEach(function (t) {
+      var y = top + (H - B - top) * (1 - t);
+      s += '<line x1="' + L + '" y1="' + y + '" x2="' + (W - 12) + '" y2="' + y + '" stroke="#e4ecec" stroke-width="1"></line>';
+      s += '<text x="' + (L - 6) + '" y="' + (y + 3) + '" font-size="10" fill="#6b7789" text-anchor="end">' + esc(owidEje(max * t)) + '</text>';
+    });
+    var d = '';
+    for (i = 0; i < col.length; i++) d += (i ? 'L' : 'M') + sx(i).toFixed(1) + ' ' + sy(col[i].valor).toFixed(1) + ' ';
+    s += '<polyline fill="none" stroke="#108181" stroke-width="2.5" points="' + d + '"></polyline>';
+    for (i = 0; i < col.length; i++) {
+      if (i % 2 && i !== col.length - 1) continue;
+      s += '<circle cx="' + sx(i) + '" cy="' + sy(col[i].valor) + '" r="4" fill="#00AEAC" tabindex="0" data-tip="' + esc(String(col[i].anio) + ': ' + num(col[i].valor)) + '"></circle>';
+    }
+    return s + '</svg>';
+  }
   function bloqueConectividad() {
     var data = DATA.bureauConectividad || {};
     var serie = data.serie || [];
@@ -905,6 +941,8 @@
       render();
       return;
     }
+    var vista = event.target.closest('[data-vistaowid]');
+    if (vista) { state.vistaOwid = vista.getAttribute('data-vistaowid'); render(); return; }
     if (event.target.closest("[data-action='imprimir']")) { window.print(); return; }
     if (event.target.closest("[data-action='cerrar']") || event.target.classList.contains("modal-back")) {
       state.volverFicha = state.ficha || "";
