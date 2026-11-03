@@ -140,17 +140,24 @@ def oferta():
         print("falla oferta, se conserva el anterior")
         return
     s = src.get("serie", {})
+    ti = s.get("turismo_interno", {})
+    tserie = ti.get("serie", {})
+    plano = [{"concepto": c, "trimestre": r.get("trimestre"), "valor": r.get("valor")}
+             for c, filas in tserie.items() for r in (filas or [])]
     guardar("bureau_oferta.json", {
         "id": "bureau-oferta",
         "titulo": "Oferta y territorio (ETL Bureau)",
-        "fuente": "ETL Bureau, RNT + MEData + DANE EGIT " + str(src.get("ventana", "")),
+        "fuente": "ETL Bureau, RNT + DANE EGIT " + str(src.get("ventana", "")),
         "ventana": str(src.get("ventana", "")),
         "url": BASE + "/oferta_territorio_2025_2026.json",
-        "licencia": "Agregados propios del ETL; fuentes primarias datos.gov.co / DANE / MEData.",
-        "universo": "Prestadores RNT, tarifa y ocupación por zona, uplift de 6 temporadas, turismo interno.",
-        "serie": s.get("temporadas", []) + s.get("tarifa_zona", []) + s.get("ocupacion_zonas", []),
+        "licencia": "Agregados propios del ETL; fuentes primarias datos.gov.co / DANE.",
+        "universo": "Prestadores RNT y turismo interno trimestral. Sin fuentes descontinuadas.",
+        "serie": plano,
         "rnt": s.get("rnt", {}),
-        "turismo_interno": s.get("turismo_interno", {}),
+        "turismo_conceptos": ti.get("conceptos", []),
+        "corte": src.get("cortes", {}).get("turismo_interno", ""),
+        "cortes": src.get("cortes", {}),
+        "retiradas": src.get("retiradas", []),
     })
     print("oferta ok")
 
@@ -173,6 +180,7 @@ def seguridad():
         "serie": src.get("serie_mensual", []),
         "top_zonas": src.get("top_zonas", []),
         "top_modalidades": src.get("top_modalidades", []),
+        "corte": max([r.get("periodo", "") for r in src.get("serie_mensual", [])] or [""]),
     })
     print("seguridad ok")
 
@@ -195,6 +203,7 @@ def clima():
         "serie": src.get("lluvia_mensual", []),
         "pm25_serie": src.get("pm25_serie", []),
         "pronostico": src.get("pronostico", []),
+        "corte": max([r.get("periodo", "") for r in src.get("lluvia_mensual", [])] or [""]),
     })
     print("clima ok")
 
@@ -209,20 +218,17 @@ def conectividad_bench():
     guardar("bureau_conectividad.json", {
         "id": "bureau-conectividad",
         "titulo": "Conectividad ampliada y benchmarks (ETL Bureau)",
-        "fuente": "ETL Bureau, Aerocivil/terminales/DANE/Eurostat/WB/Wikimedia " + str(src.get("ventana", "")),
+        "fuente": "ETL Bureau, Aerocivil/Eurostat/Wikimedia " + str(src.get("ventana", "")),
         "ventana": str(src.get("ventana", "")),
         "url": BASE + "/conectividad_benchmark_2025_2026.json",
-        "licencia": "Agregados propios del ETL; fuentes primarias datos.gov.co / Eurostat / Banco Mundial.",
-        "universo": "Oferta aérea (sillas/vuelos), operaciones, terrestre, metro, TRM, costos, benchmarks EU/mundo, digital.",
-        "serie": src.get("operaciones_serie", []) + src.get("terrestre_serie", []),
-        "oferta_aerea": src.get("oferta_aerea", {}),
-        "metro_serie": src.get("metro_serie", []),
+        "licencia": "Agregados propios del ETL; fuentes primarias datos.gov.co / Eurostat.",
+        "universo": "Operaciones aéreas, TRM, benchmarks UE y señal digital. Sin fuentes descontinuadas.",
+        "serie": src.get("operaciones_serie", []),
         "trm_serie": src.get("trm_serie", []),
-        "costos_destino": src.get("costos_destino", []),
         "benchmark_eu": src.get("benchmark_eu", []),
-        "benchmark_mundo": src.get("benchmark_mundo", []),
         "wikimedia_serie": src.get("wikimedia_serie", []),
-        "travel_metrics": src.get("travel_metrics", []),
+        "cortes": src.get("cortes", {}),
+        "retiradas": src.get("retiradas", []),
         "skips": src.get("skips", []),
     })
     print("conectividad_bench ok")
@@ -245,6 +251,7 @@ def calendario():
         "universo": "Feriados nacionales y red de estaciones IDEAM con reporte en Medellín.",
         "serie": src.get("festivos", []),
         "estaciones": src.get("estaciones", {}),
+        "corte": max([r.get("date", "") for r in src.get("festivos", [])] or [""]),
     })
     print("calendario ok")
 
