@@ -15,13 +15,30 @@
     padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.14);
     background:rgba(0,174,172,.08);
   }
+  .dl-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:8px}
+  .dl-bar button,.dl-bar a{
+    border:1px solid rgba(255,255,255,.28);background:rgba(16,129,129,.85);color:#fff;
+    border-radius:999px;padding:8px 14px;font:700 12px/1 Montserrat,Arial,sans-serif;cursor:pointer;text-decoration:none;
+  }
+  .dl-bar button.secondary{background:rgba(14,22,38,.55)}
   @media (max-width:640px){.stage.sq{aspect-ratio:auto;min-height:720px}}
+  @media print{
+    .stage-label,.dl-bar,.back-link{display:none!important}
+    body{background:#0c1526!important}
+    .stage-wrap{padding:0}
+    .stage{box-shadow:none!important;width:1080px;max-width:100%}
+  }
 </style>
 </head>
 <body>
   <div class="stage-wrap">
-    <p class="stage-label">Mock · Infografía B · 1080×1080 · Ranking</p>
-    <article class="stage sq" aria-label="Infografía ranking emisores">
+    <p class="stage-label">Infografía B · 1080×1080 · Ranking · implementada</p>
+    <div class="dl-bar">
+      <button type="button" id="btn-html">Descargar HTML</button>
+      <button type="button" class="secondary" id="btn-pdf">Descargar PDF</button>
+      <a href="../index.html?tab=informes&pieza=infografia&ivar=b&anio=2025">Ver en tablero</a>
+    </div>
+    <article class="stage sq" id="pieza-export" aria-label="Infografía ranking emisores">
       <div class="stage-bg" aria-hidden="true"></div>
       <div class="stage-inner">
         <header style="display:grid;gap:8px">
@@ -40,35 +57,34 @@
               <span class="n">1</span>
               <span class="pais">Estados Unidos</span>
               <span class="val">1.232.329</span>
-              <span class="bar"><i style="width:100%"></i></span>
+              <span class="bar"><i style="width:100%;background:#FBBB28"></i></span>
             </li>
             <li>
               <span class="n">2</span>
               <span class="pais">Venezuela</span>
               <span class="val">658.669</span>
-              <span class="bar"><i style="width:53%"></i></span>
+              <span class="bar"><i style="width:53%;background:#E9901E"></i></span>
             </li>
             <li>
               <span class="n">3</span>
               <span class="pais">México</span>
               <span class="val">414.249</span>
-              <span class="bar"><i style="width:34%"></i></span>
+              <span class="bar"><i style="width:34%;background:#00AEAC"></i></span>
             </li>
             <li>
               <span class="n">4</span>
               <span class="pais">Ecuador</span>
               <span class="val">323.597</span>
-              <span class="bar"><i style="width:26%"></i></span>
+              <span class="bar"><i style="width:26%;background:#108181"></i></span>
             </li>
             <li>
               <span class="n">5</span>
               <span class="pais">Perú</span>
               <span class="val">250.098</span>
-              <span class="bar"><i style="width:20%"></i></span>
+              <span class="bar"><i style="width:20%;background:#B4C42C"></i></span>
             </li>
           </ol>
           <p class="note-uni"><b style="color:var(--gold)">Universo:</b> Entradas de extranjeros a Colombia (Migración). No es destino Medellín ni pasajeros Aerocivil. Para ciudad usar MinCIT VNR.</p>
-          <!-- Barras SVG resumen -->
           <svg viewBox="0 0 640 72" role="img" aria-label="Barras top 5" style="width:100%;height:auto">
             <text x="0" y="14" fill="#9db3b3" font-size="11" font-family="Montserrat,Arial">Participación relativa del top 5</text>
             <rect x="0" y="28" width="640" height="14" rx="7" fill="rgba(255,255,255,.08)"/>
@@ -83,11 +99,31 @@
 
         <footer style="display:grid;gap:6px">
           <p class="fuente"><b>Fuente:</b> migracion.top_paises[2025] · dataset 96sh-4v8d</p>
-          <p class="fuente">Bureau Medellín · Colmayor Manual V7 · mock diagramación</p>
+          <p class="fuente">Bureau Medellín · Colmayor Manual V7</p>
         </footer>
       </div>
     </article>
-    <p class="fuente"><a href="infografia-index.html" style="color:var(--teal-bright)">← Infografías</a></p>
+    <p class="fuente back-link"><a href="infografia-index.html" style="color:var(--teal-bright)">← Infografías</a></p>
   </div>
+<script>
+(function () {
+  document.getElementById("btn-html").onclick = function () {
+    fetch("brand-v7-shared.css").then(function (r) { return r.text(); }).then(function (css) {
+      var el = document.getElementById("pieza-export");
+      var doc = "<!DOCTYPE html><html lang=es><head><meta charset=utf-8><title>infografia_b_2025.html</title><style>" + css +
+        "\nbody{margin:0;display:grid;place-items:center;min-height:100vh;padding:24px}" +
+        ".rank li{display:grid;grid-template-columns:28px 1fr auto;grid-template-rows:auto auto;gap:8px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12)}" +
+        ".rank{list-style:none;margin:0;padding:0;display:grid;gap:8px}.rank .n{grid-row:1/3;color:#FBBB28;font-weight:800}" +
+        ".rank .bar{grid-column:2/-1;height:6px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}.rank .bar i{display:block;height:100%;border-radius:99px}" +
+        "</style></head><body>" + el.outerHTML.replace(/src=\"\.\.\//g, "src=\"") + "</body></html>";
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([doc], { type: "text/html" }));
+      a.download = "infografia_b_2025.html";
+      a.click();
+    });
+  };
+  document.getElementById("btn-pdf").onclick = function () { window.print(); };
+})();
+</script>
 </body>
 </html>

@@ -64,6 +64,25 @@ window.Piezas = (function () {
     return s;
   }
 
+  function codigoPais(pais) {
+    var s = String(pais || "");
+    if (/Estados Unidos/i.test(s)) return "US";
+    if (/Venezuela/i.test(s)) return "VE";
+    if (/M[eé]xico/i.test(s)) return "MX";
+    if (/Ecuador/i.test(s)) return "EC";
+    if (/Per[uú]/i.test(s)) return "PE";
+    if (/Espa[nñ]a/i.test(s)) return "ES";
+    if (/Brasil/i.test(s)) return "BR";
+    if (/Chile/i.test(s)) return "CL";
+    if (/Panam/i.test(s)) return "PA";
+    if (/Costa Rica/i.test(s)) return "CR";
+    if (/Argentina/i.test(s)) return "AR";
+    if (/Canad/i.test(s)) return "CA";
+    return (s.slice(0, 2) || "??").toUpperCase();
+  }
+
+  var STACK_COLORS = ["#FBBB28", "#E9901E", "#00AEAC", "#108181", "#B4C42C"];
+
   /** Infografía A · Hero KPI 1080×1080 (opción implementada) */
   function htmlInfografiaA(d) {
     d = d || {};
@@ -75,7 +94,7 @@ window.Piezas = (function () {
       ? "Share CO " + (d.shareColombia * 100).toFixed(1).replace(".", ",") + " %"
       : "MinCIT VNR";
     return (
-      '<article class="pieza-stage stage sq" id="pieza-export" data-pieza="infografia-a">' +
+      '<article class="pieza-stage stage sq" id="pieza-export" data-export="infografia-a">' +
       '<div class="stage-bg" aria-hidden="true"></div>' +
       '<div class="stage-inner">' +
       '<header class="pieza-head">' +
@@ -106,6 +125,61 @@ window.Piezas = (function () {
     );
   }
 
+  /** Infografía B · Ranking top 5 1080×1080 */
+  function htmlInfografiaB(d) {
+    d = d || {};
+    var top = (d.top || []).slice(0, 5);
+    var max = (top[0] && top[0].valor) || 1;
+    var sumTop = top.reduce(function (s, r) { return s + (r.valor || 0); }, 0) || 1;
+    var list = top.map(function (r, i) {
+      var w = Math.max(4, Math.round((r.valor / max) * 100));
+      return (
+        "<li>" +
+        '<span class="n">' + (i + 1) + "</span>" +
+        '<span class="pais">' + esc(nombreCorto(r.pais)) + "</span>" +
+        '<span class="val">' + esc(num(r.valor)) + "</span>" +
+        '<span class="bar"><i style="width:' + w + '%;background:' + STACK_COLORS[i % STACK_COLORS.length] + '"></i></span>' +
+        "</li>"
+      );
+    }).join("");
+    var x = 0;
+    var segs = top.map(function (r, i) {
+      var w = Math.max(2, Math.round((r.valor / sumTop) * 640));
+      if (i === top.length - 1) w = Math.max(2, 640 - x);
+      var rect = '<rect x="' + x + '" y="28" width="' + w + '" height="14" rx="0" fill="' + STACK_COLORS[i % STACK_COLORS.length] + '"/>';
+      x += w;
+      return rect;
+    }).join("");
+    var codes = top.map(function (r) { return codigoPais(r.pais); }).join(" · ");
+    return (
+      '<article class="pieza-stage stage sq stage-rank" id="pieza-export" data-export="infografia-b">' +
+      '<div class="stage-bg" aria-hidden="true"></div>' +
+      '<div class="stage-inner stage-inner-rank">' +
+      '<header class="pieza-head">' +
+      '<div class="logos dark">' +
+      '<img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau">' +
+      '<img class="logo-colmayor" src="assets/logo_colmayor_blanco.png" alt="Colmayor">' +
+      "</div>" +
+      '<div class="gold-bar"></div>' +
+      '<p class="kicker">Emisores internacionales · ' + esc(d.anio) + "</p>" +
+      '<h1 class="h-title h-rank">Top 5 países que generan tráfico a Colombia</h1>' +
+      "</header>" +
+      '<div class="rank-body">' +
+      '<ol class="rank rank-bars">' + list + "</ol>" +
+      '<p class="note-uni"><b>Universo:</b> Entradas de extranjeros a Colombia (Migración). No es destino Medellín ni pasajeros Aerocivil. Para ciudad usar MinCIT VNR.</p>' +
+      '<svg class="stack-svg" viewBox="0 0 640 72" role="img" aria-label="Participación relativa del top 5">' +
+      '<text x="0" y="14" fill="#9db3b3" font-size="11" font-family="Montserrat,Arial">Participación relativa del top 5</text>' +
+      '<rect x="0" y="28" width="640" height="14" rx="7" fill="rgba(255,255,255,.08)"/>' +
+      segs +
+      '<text x="0" y="62" fill="#eef3f3" font-size="10" font-family="Montserrat,Arial" font-weight="600">' + esc(codes) + "</text>" +
+      "</svg></div>" +
+      '<footer class="foot">' +
+      '<p class="fuente"><b>Fuente:</b> ' + esc(d.fuenteMig) + " · dataset 96sh-4v8d</p>" +
+      '<p class="fuente">Bureau Medellín · Colmayor Manual V7</p>' +
+      "</footer></div></article>"
+    );
+  }
+
   function htmlBoletinA(d) {
     d = d || {};
     var top = d.top || [];
@@ -114,7 +188,7 @@ window.Piezas = (function () {
         "</span><span class='val'>" + esc(num(r.valor)) + "</span></li>";
     }).join("");
     return (
-      '<article class="pieza-stage stage email" id="pieza-export" data-pieza="boletin-a">' +
+      '<article class="pieza-stage stage email" id="pieza-export" data-export="boletin-a">' +
       '<div class="stage-bg" aria-hidden="true"></div><div class="stage-inner">' +
       '<header class="pieza-head"><div class="logos dark">' +
       '<img class="logo-bureau" src="assets/logo_bureau.svg" alt="Bureau">' +
@@ -199,6 +273,7 @@ window.Piezas = (function () {
   return {
     datosEmisores: datosEmisores,
     htmlInfografiaA: htmlInfografiaA,
+    htmlInfografiaB: htmlInfografiaB,
     htmlBoletinA: htmlBoletinA,
     botonesDescarga: botonesDescarga,
     descargarHtml: descargarHtml,

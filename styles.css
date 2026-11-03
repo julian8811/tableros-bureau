@@ -449,6 +449,21 @@ body[data-tablero="miembros"] .kpi .value{color:var(--teal-bright)}
 .pieza-live .rank{margin:0;padding:0;list-style:none;display:grid;gap:6px}
 .pieza-live .rank li{display:grid;grid-template-columns:28px 1fr auto;gap:8px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);font-size:12px}
 .pieza-live .rank .n{color:var(--gold);font-weight:800}
+.pieza-live .rank-bars li{grid-template-columns:28px 1fr auto;grid-template-rows:auto auto}
+.pieza-live .rank-bars .n{grid-row:1 / 3;align-self:center}
+.pieza-live .rank-bars .bar{
+  grid-column:2 / -1;height:6px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;
+}
+.pieza-live .rank-bars .bar i{display:block;height:100%;border-radius:99px}
+.pieza-live .stage-inner-rank{grid-template-rows:auto 1fr auto}
+.pieza-live .h-rank{font-size:clamp(18px,2.8vw,28px)!important;max-width:22ch}
+.pieza-live .rank-body{display:grid;gap:10px;align-content:start;min-height:0}
+.pieza-live .note-uni{
+  margin:0;font-size:11px;color:var(--text-2);line-height:1.4;padding:10px 12px;border-radius:10px;
+  border:1px solid rgba(255,255,255,.14);background:rgba(0,174,172,.08);
+}
+.pieza-live .note-uni b{color:var(--gold)}
+.pieza-live .stack-svg{width:100%;height:auto;display:block}
 .pieza-dl .btn{min-width:88px}
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){

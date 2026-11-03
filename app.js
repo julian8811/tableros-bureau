@@ -18,7 +18,8 @@
     llmChain: null,
     informeProvider: "cadena",
     informeModel: "",
-    pieza: "infografia"
+    pieza: "infografia",
+    infografiaVar: "b"
   };
 
   var PAIS_DE_MERCADO = { Colombia: "COLOMBIA", "Estados Unidos": "ESTADOS UNIDOS", "México": "MEXICO", Brasil: "BRASIL" };
@@ -137,6 +138,7 @@
     if (q.get("serie")) state.pronostico = q.get("serie");
     var piezas = ["infografia", "boletin", "informe"];
     if (piezas.indexOf(q.get("pieza")) >= 0) state.pieza = q.get("pieza");
+    if (q.get("ivar") === "a" || q.get("ivar") === "b") state.infografiaVar = q.get("ivar");
   }
 
   function escribirUrl() {
@@ -145,7 +147,10 @@
     q.set("anio", String(state.anio));
     q.set("pais", state.pais);
     if (state.pronostico) q.set("serie", state.pronostico);
-    if (state.tab === "informes") q.set("pieza", state.pieza || "infografia");
+    if (state.tab === "informes") {
+      q.set("pieza", state.pieza || "infografia");
+      if (state.pieza === "infografia") q.set("ivar", state.infografiaVar || "a");
+    }
     var siguiente = "?" + q.toString();
     if (location.search !== siguiente) history.replaceState({ tab: state.tab, anio: state.anio, pais: state.pais }, "", siguiente);
   }
@@ -1503,23 +1508,38 @@
       }).join("") + "</div>";
   }
 
+  function navInfografiaVar() {
+    var vars = [["a", "A · Hero KPI"], ["b", "B · Ranking"]];
+    return '<div class="opts no-print" role="tablist" aria-label="Variante infografía">' +
+      '<span>Variante:</span> ' +
+      vars.map(function (it) {
+        var on = (state.infografiaVar || "a") === it[0];
+        return '<button type="button" class="tab pieza-tab' + (on ? " active" : "") + '" data-ivar="' + it[0] + '" role="tab" aria-selected="' + on + '">' + it[1] + "</button>";
+      }).join("") +
+      ' <span class="hint" style="margin:0">C Story aún en mock</span></div>';
+  }
+
   function vistaInfografia() {
     if (!window.Piezas) return hueco("Piezas", "Falta piezas.js");
     var d = Piezas.datosEmisores(DATA, state.anio);
+    var varId = state.infografiaVar === "b" ? "b" : "a";
     if (!d.top.length) {
-      return navPiezas() +
-        '<p class="aviso">Infografía A (Hero KPI) · opción implementada. Sin top_paises en el corte ' + esc(String(state.anio)) + ".</p>" +
-        hueco("Sin emisores", "Cargue Migración o MinCIT para el año seleccionado.");
+      return navPiezas() + navInfografiaVar() +
+        hueco("Sin emisores", "Cargue Migración o MinCIT para el año " + esc(String(state.anio)) + ".");
     }
-    return navPiezas() +
-      '<p class="aviso"><strong>Infografía A · Hero KPI</strong> implementada con datos vivos del pack (' + esc(String(state.anio)) +
-      "). Descargue HTML autónomo o PDF (diálogo de impresión).</p>" +
-      Piezas.botonesDescarga({ kind: "infografia" }) +
-      '<div class="pieza-live">' + Piezas.htmlInfografiaA(d) + "</div>" +
-      '<p class="aviso no-print"><a class="btn" href="design-options/infografia-index.html" target="_blank" rel="noopener">Abrir mocks de infográficos (A / B / C)</a> · ' +
-      '<a href="design-options/infografia-a-hero-kpi.html" target="_blank" rel="noopener">Solo A 1080×1080</a> · ' +
-      '<a href="design-options/infografia-b-ranking.html" target="_blank" rel="noopener">B Ranking</a> · ' +
-      '<a href="design-options/infografia-c-story.html" target="_blank" rel="noopener">C Story</a></p>';
+    var titulo = varId === "b"
+      ? "<strong>Infografía B · Ranking</strong> implementada con datos vivos (" + esc(String(state.anio)) + ")."
+      : "<strong>Infografía A · Hero KPI</strong> implementada con datos vivos (" + esc(String(state.anio)) + ").";
+    var cuerpo = varId === "b" ? Piezas.htmlInfografiaB(d) : Piezas.htmlInfografiaA(d);
+    var kind = varId === "b" ? "infografia_b" : "infografia_a";
+    return navPiezas() + navInfografiaVar() +
+      '<p class="aviso">' + titulo + " Descargue HTML o PDF.</p>" +
+      Piezas.botonesDescarga({ kind: kind }) +
+      '<div class="pieza-live">' + cuerpo + "</div>" +
+      '<p class="aviso no-print"><a class="btn" href="design-options/infografia-index.html" target="_blank" rel="noopener">Mocks A / B / C</a> · ' +
+      '<a href="design-options/infografia-a-hero-kpi.html" target="_blank" rel="noopener">Mock A</a> · ' +
+      '<a href="design-options/infografia-b-ranking.html" target="_blank" rel="noopener">Mock B</a> · ' +
+      '<a href="design-options/infografia-c-story.html" target="_blank" rel="noopener">Mock C</a></p>';
   }
 
   function vistaBoletin() {
@@ -1741,7 +1761,9 @@
       captacion: ["¿Qué organizadores avanzan, dónde se cae la candidatura y qué retorno deja cada segmento?", "Corte anual del informe de gestión 2025."],
       miembros: ["¿Cuánto vale, cuánto participa y cuánto se queda cada miembro?", "Rueda de Negocios y padrón publicados en 2025."],
       informes: state.pieza === "infografia"
-        ? ["¿Cómo comunicar el top de emisores en una pieza social?", "Infografía A · Hero KPI con datos vivos Migración + MinCIT."]
+        ? (state.infografiaVar === "b"
+          ? ["¿Quiénes son los 5 mercados que más tráfico generan a Colombia?", "Infografía B · Ranking con barras y universo Migración."]
+          : ["¿Cómo comunicar el top de emisores en una pieza social?", "Infografía A · Hero KPI con datos vivos Migración + MinCIT."])
         : state.pieza === "boletin"
           ? ["¿Qué resumen cabe en un boletín para stakeholders?", "Boletín A · email con KPIs y ranking corto."]
           : ["¿Qué dice el informe redactado por LLM sobre el corte?", "Narrativa verificada contra el warehouse, con fuente por hallazgo."]
@@ -1821,7 +1843,15 @@
     if (vista) { state.vistaOwid = vista.getAttribute('data-vistaowid'); render(); return; }
     var pron = event.target.closest("[data-pronostico]");
     if (pron) { state.pronostico = pron.getAttribute("data-pronostico"); render(); return; }
-    var piezaBtn = event.target.closest("[data-pieza]");
+    var ivarBtn = event.target.closest("[data-ivar]");
+    if (ivarBtn && ivarBtn.getAttribute("data-ivar")) {
+      state.infografiaVar = ivarBtn.getAttribute("data-ivar");
+      state.pieza = "infografia";
+      state.ficha = null;
+      render();
+      return;
+    }
+    var piezaBtn = event.target.closest(".pieza-nav [data-pieza]");
     if (piezaBtn && piezaBtn.getAttribute("data-pieza")) {
       state.pieza = piezaBtn.getAttribute("data-pieza");
       state.ficha = null;
