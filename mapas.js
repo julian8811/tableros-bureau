@@ -149,17 +149,50 @@ window.Mapas = (function () {
     opts = opts || {};
     var id = opts.id || ("mapa-" + Math.random().toString(36).slice(2, 8));
     var h = opts.height || 420;
+    var showRank = opts.ranking !== false;
     return (
-      '<div class="mapa-emisores glass-panel" data-mapa-id="' + esc(id) + '">' +
+      '<div class="mapa-emisores glass-panel' + (showRank ? " has-rank" : "") + '" data-mapa-id="' + esc(id) + '">' +
       '<div class="mapa-emisores-head">' +
       "<div><h3>" + esc(opts.titulo || "Mapa mundi · densidad de emisores") + "</h3>" +
       '<p class="hint">' + esc(opts.pista || "Países de origen con tráfico hacia Colombia / Medellín. Coropleta Natural Earth + Leaflet.") + "</p></div>" +
       '<div class="mapa-emisores-legend" data-mapa-legend="' + esc(id) + '"></div>' +
       "</div>" +
+      '<div class="mapa-emisores-body">' +
+      '<div class="mapa-emisores-main">' +
       '<div class="mapa-emisores-canvas" id="' + esc(id) + '" style="height:' + h + 'px" role="img" aria-label="Mapa de densidad de emisores"></div>' +
       '<p class="mapa-emisores-status" data-mapa-status="' + esc(id) + '">Cargando mapa mundi…</p>' +
-      "</div>"
+      "</div>" +
+      (showRank
+        ? '<aside class="mapa-emisores-rank glass-inset" aria-label="Ranking de países emisores">' +
+          "<h4>Ranking emisores</h4>" +
+          '<div class="mapa-rank-scroll"><table class="mapa-rank-table"><thead><tr><th>#</th><th>País</th><th>Tráfico</th><th>%</th></tr></thead>' +
+          '<tbody data-mapa-rank="' + esc(id) + '"><tr><td colspan="4">Cargando…</td></tr></tbody></table></div>' +
+          "</aside>"
+        : "") +
+      "</div></div>"
     );
+  }
+
+  function renderRank(id, byIso, breaks) {
+    var tbody = document.querySelector('[data-mapa-rank="' + id + '"]');
+    if (!tbody) return;
+    var rows = Object.keys(byIso).map(function (k) { return byIso[k]; })
+      .sort(function (a, b) { return b.value - a.value; });
+    var total = rows.reduce(function (s, r) { return s + (r.value || 0); }, 0) || 1;
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="4">Sin emisores en el corte</td></tr>';
+      return;
+    }
+    tbody.innerHTML = rows.map(function (r, i) {
+      var pct = (r.value / total) * 100;
+      var swatch = colorFor(r.value, breaks || []);
+      return "<tr>" +
+        '<td class="n">' + (i + 1) + "</td>" +
+        '<td class="pais"><i style="background:' + swatch + '"></i>' + esc(r.pais) + "</td>" +
+        '<td class="val">' + fmt(r.value) + "</td>" +
+        '<td class="pct">' + pct.toFixed(1).replace(".", ",") + "%</td>" +
+        "</tr>";
+    }).join("");
   }
 
   function destroy(id) {
@@ -192,6 +225,7 @@ window.Mapas = (function () {
         return '<span class="mapa-leg-row"><i style="background:' + COLORS[i] + '"></i>' + esc(label) + "</span>";
       }).join("");
     }
+    renderRank(id, byIso, breaks);
 
     var map = L.map(el, {
       worldCopyJump: true,
