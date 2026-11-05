@@ -28,11 +28,12 @@ _PIEZAS_PROPIAS = ("bureau_marca_llm.json", "bureau_paises_2025_2026.json",
                     "bureau_seguridad.json", "bureau_clima.json",
                     "bureau_conectividad.json", "bureau_calendario.json",
                     "bureau_owid.json", "bureau_sit.json",
+                    "bureau_consumo.json",
                     "bureau_pronostico.json", "informe_llm.json")
 _IDS_PROPIOS = ("marca-llm", "bureau-paises", "prensa-medios",
                   "bureau-oferta", "bureau-seguridad", "bureau-clima",
                   "bureau-conectividad", "bureau-calendario",
-                  "bureau-owid", "bureau-sit", "bureau-pronostico",
+                  "bureau-owid", "bureau-sit", "bureau-consumo", "bureau-pronostico",
                   "informe-llm")
 
 
@@ -310,6 +311,30 @@ def sit():
     print("sit ok")
 
 
+def consumo():
+    try:
+        src = bajar("consumo_2025_2026.json")
+    except Exception as exc:
+        ERRORES.append("consumo: " + "".join(traceback.format_exception_only(type(exc), exc)).strip())
+        print("falla consumo, se conserva el anterior")
+        return
+    guardar("bureau_consumo.json", {
+        "id": "bureau-consumo",
+        "titulo": "Consumo turistico (ETL Bureau)",
+        "fuente": "ETL Bureau, " + str(src.get("fuente", "DANE CST + SIT + SITE")),
+        "ventana": str(src.get("ventana", "")),
+        "url": BASE + "/consumo_2025_2026.json",
+        "licencia": str(src.get("licencia", "Agregados propios del ETL.")),
+        "universo": str(src.get("universo", "")),
+        "serie": src.get("serie_mercados", []),
+        "gasto_extranjero_co": src.get("gasto_extranjero_co", {}),
+        "gasto_medellin": src.get("gasto_medellin", {}),
+        "series_disponibles": src.get("series_disponibles", []),
+        "notas": src.get("notas", []),
+    })
+    print("consumo ok")
+
+
 def pronostico():
     try:
         src = bajar("pronosticos.json")
@@ -359,6 +384,7 @@ def manifiesto():
         ("bureau_calendario.json", "bureau-calendario", "serie"),
         ("bureau_owid.json", "bureau-owid", "serie"),
         ("bureau_sit.json", "bureau-sit", "serie"),
+        ("bureau_consumo.json", "bureau-consumo", "serie"),
         ("bureau_pronostico.json", "bureau-pronostico", "series"),
         ("informe_llm.json", "informe-llm", "secciones"),
     ):
@@ -391,6 +417,7 @@ if __name__ == "__main__":
     calendario()
     owid()
     sit()
+    consumo()
     pronostico()
     informe_llm()
     manifiesto()

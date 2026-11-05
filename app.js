@@ -327,7 +327,8 @@
       celda("span-12", marcaLLM()) +
       celda("span-12", bloqueConectividad()) +
       celda("span-12", bloqueOwid()) +
-      celda("span-12", bloqueSit()));
+      celda("span-12", bloqueSit()) +
+      celda("span-12", bloqueConsumo()));
     html += grupo("Contexto MinCIT · visitantes no residentes", celda("span-12", bloqueMincitVnr()));
     html += grupo("Contexto Migración Colombia", celda("span-12", bloqueMigracion()));
     html += grupo("Contexto cambiario", celda("span-12", bloqueTrm()));
@@ -857,6 +858,39 @@
       "<h3>Llegadas</h3>" + Charts.bars(barras, "#00AEAC", { xLabel: "Llegadas", yLabel: "Mercado" }) +
       "<h3>Cifras clave</h3><div class=\"table-wrap\"><table class=\"table table-sit\"><thead><tr><th>Mercado</th><th>Llegadas</th><th>YoY</th><th>Motivo top</th><th>Ticket COP</th></tr></thead><tbody>" + filas + "</tbody></table></div>" +
       pie("ETL Bureau · SIT Medellín perfiles de mercado" + extraido("bureauSit")));
+  }
+
+  function bloqueConsumo() {
+    var data = DATA.bureauConsumo || {};
+    var serie = data.serie || [];
+    var gex = data.gasto_extranjero_co || {};
+    var gmed = data.gasto_medellin || {};
+    if (!serie.length && !gex.total) return hueco("Consumo turistico", "Corra scripts/alimentar_bureau.py para traer consumo_2025_2026.json del ETL.");
+    var anio = state.anio;
+    var filasPais = serie.filter(function (row) { return row.anio === anio; });
+    if (state.pais !== "Todos") {
+      var nom = { "Estados Unidos": "USA", "Mexico": "Mexico", "Panama": "Panama" };
+      var clave = nom[state.pais] || state.pais;
+      filasPais = filasPais.filter(function (row) { return row.pais === state.pais || row.pais === clave; });
+    }
+    var total = (gex.total || {})[String(anio)];
+    var barras = filasPais.map(function (row, i) {
+      return { label: row.pais, value: row.gasto_estimado_cop || 0, text: row.gasto_estimado_cop == null ? "sin ticket" : num(row.gasto_estimado_cop), color: Charts.palette[i % Charts.palette.length] };
+    }).filter(function (b) { return b.value; });
+    var filas = filasPais.map(function (row) {
+      return "<tr><td>" + esc(row.pais) + "</td><td>" + num(row.llegadas) + "</td><td>" +
+        (row.ticket_prom_cop == null ? "—" : num(row.ticket_prom_cop)) + "</td><td>" +
+        (row.gasto_estimado_cop == null ? "—" : num(row.gasto_estimado_cop)) + "</td></tr>";
+    }).join("");
+    return '<div class="kpi-row">' +
+      kpi("bureau-consumo", "Gasto extranjero en CO " + anio, total == null ? "—" : num(total) + " mil M", total == null ? "DANE CST" : "DANE CST · " + esc((gex.estado || {})[String(anio)] || "")) +
+      kpi("bureau-consumo", "Gasto Medellin tarjeta 2025", gmed.gasto_tarjeta_medible == null ? "—" : num(gmed.gasto_tarjeta_medible), "16M tx · SITE+Credibanco") +
+      kpi("bureau-consumo", "Ticket USA 2025", (function () { var u = filasPais.filter(function (r) { return r.pais === "USA"; })[0]; return u && u.ticket_prom_cop != null ? num(u.ticket_prom_cop) : "—"; })(), "COP por transaccion SIT") +
+      '</div>' +
+      block("Consumo turistico", "Gasto extranjero DANE CST + ticket SIT + tarjeta SITE. Estimado = llegadas x ticket donde hay ambos; si falta uno queda —.",
+      (barras.length ? "<h3>Gasto estimado por mercado (COP)</h3>" + Charts.bars(barras, "#00AEAC", { xLabel: "COP" }) : hueco("Sin ticket", "El corte no trae ticket SIT para este filtro.")) +
+      (filas ? "<h3>Cifras</h3><div class=\"table-wrap\"><table class=\"table\"><thead><tr><th>Mercado</th><th>Llegadas</th><th>Ticket COP</th><th>Gasto estimado COP</th></tr></thead><tbody>" + filas + "</tbody></table></div>" : "") +
+      pie("ETL Bureau · DANE CST + SIT + SITE/Credibanco" + extraido("bureauConsumo")));
   }
 
   function bloqueOwid() {
@@ -2108,7 +2142,8 @@
     cargar("mincit_vnr.json"),
     cargar("gdelt.json"),
     cargar("migracion_entradas.json"),
-    cargar("trm_banrep.json")
+    cargar("trm_banrep.json"),
+    cargar("bureau_consumo.json")
   ]).then(function (piezas) {
     DATA.conectividad = piezas[0];
     DATA.bureauPrensa = piezas[1];
@@ -2133,6 +2168,7 @@
     DATA.gdelt = piezas[20];
     DATA.migracion = piezas[21];
     DATA.trm = piezas[22];
+    DATA.bureauConsumo = piezas[23];
     leerUrl();
     if (!DATA.conectividad || !DATA.ema || !DATA.icca) {
       document.getElementById("app").innerHTML = hueco("Faltan agregados", "Abra esta carpeta con un servidor local después de correr scripts/preparar_fuentes.py.");

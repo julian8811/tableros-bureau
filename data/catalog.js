@@ -342,6 +342,17 @@ window.CATALOGO = [
   },
 
   {
+    id: "bureau-consumo", tab: "mercados", nombre: "Consumo turistico (ETL Bureau)",
+    pastilla: "Bureau · ETL", clase: "proxy",
+    fuenteTipo: "Secundaria", fuente: "ETL Bureau: DANE CST + SIT + SITE/Credibanco, scripts/alimentar_bureau.py",
+    pedida: "Por corte", grano: "Anual y mercado", unidad: "COP",
+    formula: "Gasto extranjero = DANE CST receptor. Gasto estimado por mercado = llegadas SIT x ticket POS; si falta uno queda nulo, no cero.",
+    universo: "Extranjeros en Colombia (CST) + 5 mercados SIT + tarjeta en Medellin (SITE, 16M tx).",
+    licencia: "Agregados propios del ETL; fuentes primarias DANE / SIT / Alcaldia-SITE.",
+    noMide: "Movimientos individuales (reserva bancaria) ni efectivo fuera de tarjeta."
+  },
+
+  {
     id: "bureau-pronostico", tab: "mercados", nombre: "Pronóstico a 6 meses",
     pastilla: "Modelo", clase: "proxy",
     fuenteTipo: "Derivada", fuente: "ETL Bureau: Aerocivil, EMA, SIEDCO y TRM mensual, models/pronosticar.py",
