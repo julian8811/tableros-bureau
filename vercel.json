@@ -4,6 +4,13 @@
     "api/generar-informe.js": {
       "maxDuration": 120,
       "includeFiles": "data/open/**,api/evidencia.js,api/llm-client.js"
+    },
+    "api/datos.js": {
+      "maxDuration": 30,
+      "includeFiles": "data/**"
     }
-  }
+  },
+  "rewrites": [
+    { "source": "/data/:path*", "destination": "/api/datos?f=data/:path*" }
+  ]
 }
