@@ -3,11 +3,11 @@
   "functions": {
     "api/generar-informe.js": {
       "maxDuration": 120,
-      "includeFiles": "data/open/**,api/evidencia.js,api/llm-client.js"
+      "includeFiles": "api/_data/open/**,api/evidencia.js,api/llm-client.js,api/auth-check.js"
     },
     "api/datos.js": {
       "maxDuration": 30,
-      "includeFiles": "data/**"
+      "includeFiles": "api/_data/**"
     }
   },
   "rewrites": [

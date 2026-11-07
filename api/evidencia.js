@@ -7,6 +7,8 @@ const path = require("path");
 
 function openDir() {
   const candidates = [
+    path.join(process.cwd(), "api", "_data", "open"),
+    path.join(__dirname, "_data", "open"),
     path.join(process.cwd(), "data", "open"),
     path.join(__dirname, "..", "data", "open")
   ];
