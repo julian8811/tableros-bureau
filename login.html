@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Acceso restringido a los tableros estadísticos del Bureau de Medellín. Solo entra con aprobación del administrador.">
+<title>Entrar | Tableros estadísticos Colmayor y Bureau</title>
+<link rel="icon" href="assets/favicon-32.png?v=20261103b" sizes="32x32">
+<link rel="icon" href="assets/favicon.ico?v=20261103b" sizes="16x16 32x32 48x48">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=20261103b">
+<link rel="stylesheet" href="design-options/brand-v7-shared.css?v=20261103g">
+<link rel="stylesheet" href="styles.css?v=20261103v28">
+<style>
+  .login-wrap{max-width:460px;margin:clamp(20px,5dvh,56px) auto 28px;padding:0 16px}
+  .login-card{padding:clamp(20px,4vw,32px);border-radius:18px}
+  .login-card h2{margin:0 0 4px;font-size:1.35rem;letter-spacing:-.01em;text-wrap:balance}
+  .login-card .sub{margin:0 0 18px;max-width:65ch;line-height:1.55}
+  .login-field{display:block;margin:14px 0}
+  .login-field span{display:block;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+  .login-field input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--glass-border);background:var(--glass);color:var(--text);font:inherit;transition:border-color .2s,box-shadow .2s,background .2s}
+  .login-field input::placeholder{color:var(--text-2)}
+  .login-field input:hover{border-color:var(--text-3)}
+  .login-field input:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-color:var(--gold)}
+  .login-field input[name="totp"]{font-variant-numeric:tabular-nums;letter-spacing:.35em;text-align:center}
+  .login-btn{width:100%;margin-top:18px;transition:transform .15s,filter .2s,opacity .2s}
+  .login-btn:hover{filter:brightness(1.08)}
+  .login-btn:active{transform:scale(.98)}
+  .login-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .login-btn[disabled]{opacity:.65;cursor:wait}
+  .login-error{display:none;margin-top:14px;padding:10px 12px;border-radius:10px;border-left:4px solid var(--orange);background:var(--glass);line-height:1.5}
+  .login-error.ver{display:block}
+  .login-alt{margin-top:14px;text-align:center;font-size:.9rem}
+  @media (prefers-reduced-motion:reduce){.login-btn,.login-field input{transition:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#app">Saltar al acceso</a>
+<header class="site">
+  <div class="inner">
+    <img src="assets/logo_colmayor_blanco.png" alt="Institución Universitaria Colegio Mayor de Antioquia">
+    <div>
+      <h1>Tableros estadísticos del Bureau</h1>
+      <p>Unidad de inteligencia · Colmayor y Greater Medellín Convention &amp; Visitors Bureau</p>
+    </div>
+    <div class="corte-pill" aria-hidden="true"><span class="live"></span>Acceso restringido</div>
+  </div>
+</header>
+<main id="app" tabindex="-1">
+  <div class="login-wrap">
+    <section class="glass-panel login-card" aria-labelledby="t-entrar">
+      <h2 id="t-entrar">Entrar</h2>
+      <p class="sub">Acceso institucional e invitados. Sin aprobación del administrador no se puede entrar.</p>
+      <form id="f" novalidate>
+        <label class="login-field"><span>Correo institucional</span>
+          <input name="email" type="email" required autocomplete="username" placeholder="nombre@colmayor.edu.co"></label>
+        <label class="login-field"><span>Contraseña</span>
+          <input name="password" type="password" required minlength="12" autocomplete="current-password" placeholder="Mínimo 12 caracteres"></label>
+        <label class="login-field"><span>Código de verificación</span>
+          <input name="totp" type="text" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="••••••"></label>
+        <button class="btn login-btn" type="submit">Entrar</button>
+      </form>
+      <p id="error" class="login-error" role="alert"></p>
+      <p class="login-alt">¿Sin acceso? <a href="mailto:consultor.ceitto@colmayor.edu.co">Solicitar acceso</a></p>
+      <noscript><p class="login-error ver">Este acceso necesita JavaScript para verificar tu sesión.</p></noscript>
+    </section>
+  </div>
+</main>
+<p class="footer-doc">Línea gráfica del Manual de comunicaciones y mercadeo V7. Vigilada por el Ministerio de Educación Nacional.</p>
+<script>
+(function () {
+  "use strict";
+  var API = "https://bureau-api.onrender.com";
+  var f = document.getElementById("f");
+  var err = document.getElementById("error");
+  var btn = f.querySelector('button[type="submit"]');
+  var baseBtn = btn.textContent;
+  function msg(t) {
+    err.textContent = t;
+    err.classList.toggle("ver", !!t);
+  }
+  function ocupado(si) {
+    btn.disabled = si;
+    btn.setAttribute("aria-busy", si ? "true" : "false");
+    btn.textContent = si ? "Verificando…" : baseBtn;
+  }
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!f.reportValidity()) return;
+    msg("");
+    ocupado(true);
+    fetch(API + "/auth/csrf").then(function (r) { return r.json(); }).then(function (c) {
+      var fd = new URLSearchParams(new FormData(f));
+      fd.set("csrf_token", c.csrf_token);
+      return fetch(API + "/auth/login", { method: "POST", body: fd });
+    }).then(function (r) {
+      if (r.status === 403) throw new Error("Pendiente de aprobación o sin acceso.");
+      if (r.status === 429) throw new Error("Bloqueado temporalmente, probá más tarde.");
+      if (!r.ok) throw new Error("Credenciales inválidas.");
+      return r.json();
+    }).then(function (body) {
+      document.cookie = "bureau_token=" + encodeURIComponent(body.token) + "; Max-Age=604800; Path=/; Secure; SameSite=Lax";
+      window.location.href = "/";
+    }).catch(function (ex) {
+      ocupado(false);
+      msg((ex && ex.message) || "Error de red.");
+    });
+  });
+})();
+</script>
+</body>
+</html>
