@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrar | Tableros estadísticos Colmayor y Bureau</title>
+<link rel="icon" href="assets/favicon-32.png?v=20261103b" sizes="32x32">
+<link rel="icon" href="assets/favicon.ico?v=20261103b" sizes="16x16 32x32 48x48">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=20261103b">
+<link rel="stylesheet" href="design-options/brand-v7-shared.css?v=20261103g">
+<link rel="stylesheet" href="styles.css?v=20261103v28">
+</head>
+<body>
+<a class="skip" href="#app">Saltar al acceso</a>
+<header class="site">
+  <div class="inner">
+    <img src="assets/logo_colmayor_blanco.png" alt="Institución Universitaria Colegio Mayor de Antioquia">
+    <div>
+      <h1>Tableros estadísticos del Bureau</h1>
+      <p>Unidad de inteligencia · Colmayor y Greater Medellín Convention &amp; Visitors Bureau</p>
+    </div>
+    <div class="corte-pill" aria-hidden="true"><span class="live"></span>Acceso restringido</div>
+  </div>
+</header>
+<main id="app" tabindex="-1">
+  <div class="card">
+    <h2>Entrar</h2>
+    <form id="f">
+      <label>Correo institucional<br><input name="email" type="email" required autocomplete="username"></label>
+      <label>Contraseña<br><input name="password" type="password" required minlength="12" autocomplete="current-password"></label>
+      <label>Código de verificación<br><input name="totp" type="text" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6"></label>
+      <button type="submit">Entrar</button>
+    </form>
+    <p id="error" role="alert"></p>
+    <p>¿Sin acceso? <a href="mailto:consultor.ceitto@colmayor.edu.co">Solicitar acceso</a> (solo entra con aprobación del administrador).</p>
+  </div>
+</main>
+<p class="footer-doc">Línea gráfica del Manual de comunicaciones y mercadeo V7. Vigilada por el Ministerio de Educación Nacional.</p>
+<script>
+(function () {
+  "use strict";
+  var API = "https://bureau-api.onrender.com";
+  var f = document.getElementById("f");
+  var err = document.getElementById("error");
+  function msg(t) { err.textContent = t; }
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    msg("Verificando…");
+    fetch(API + "/auth/csrf").then(function (r) { return r.json(); }).then(function (c) {
+      var fd = new URLSearchParams(new FormData(f));
+      fd.set("csrf_token", c.csrf_token);
+      return fetch(API + "/auth/login", { method: "POST", body: fd });
+    }).then(function (r) {
+      if (r.status === 403) throw new Error("Pendiente de aprobación o sin acceso.");
+      if (r.status === 429) throw new Error("Bloqueado temporalmente, probá más tarde.");
+      if (!r.ok) throw new Error("Credenciales inválidas.");
+      return r.json();
+    }).then(function (body) {
+      document.cookie = "bureau_token=" + encodeURIComponent(body.token) + "; Max-Age=604800; Path=/; Secure; SameSite=Lax";
+      window.location.href = "/";
+    }).catch(function (ex) { msg((ex && ex.message) || "Error de red."); });
+  });
+})();
+</script>
+</body>
+</html>
