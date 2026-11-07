@@ -1,4 +1,5 @@
+import { NextResponse } from "next/server";
 export function middleware() {
-  return new Response("eco-resp", { status: 200, headers: { "Content-Type": "text/plain" } });
+  return NextResponse.next();
 }
 export const config = { matcher: ["/"] };
