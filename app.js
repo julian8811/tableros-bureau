@@ -1,6 +1,21 @@
 (function () {
   "use strict";
 
+  function bureauToken() {
+    var m = document.cookie.match(/(?:^|; )bureau_token=([^;]*)/);
+    return m ? decodeURIComponent(m[1]) : "";
+  }
+  function authHeaders(h) {
+    h = h || {};
+    var t = bureauToken();
+    if (t) h.Authorization = "Bearer " + t;
+    return h;
+  }
+  function si401(resp) {
+    if (resp && resp.status === 401) window.location.href = "/login.html";
+    return resp;
+  }
+
   var state = {
     tab: "mercados",
     anio: 2025,
@@ -1570,8 +1585,8 @@
   function cargarLlmProviders() {
     if (state.llmProviders || state._llmProvidersLoading) return;
     state._llmProvidersLoading = true;
-    fetch("/api/generar-informe", { method: "GET", headers: { Accept: "application/json" } })
-      .then(function (r) { return r.json(); })
+    fetch("/api/generar-informe", { method: "GET", headers: authHeaders({ Accept: "application/json" }) })
+      .then(function (r) { si401(r); return r.json(); })
       .then(function (body) {
         state.llmProviders = (body && body.providers) || [];
         state.llmModes = (body && body.modes) || null;
@@ -1744,13 +1759,14 @@
     var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 120000);
     fetch("/api/generar-informe", {
       method: "POST",
-      headers: { Accept: "application/json", "Content-Type": "application/json" },
+      headers: authHeaders({ Accept: "application/json", "Content-Type": "application/json" }),
       signal: ctrl ? ctrl.signal : undefined,
       body: JSON.stringify({
         provider: modoPedido,
         model: state.informeModel
       })
     }).then(function (resp) {
+      si401(resp);
       return resp.json().then(function (body) {
         return { ok: resp.ok, status: resp.status, body: body };
       }).catch(function () {
@@ -2114,6 +2130,7 @@
 
   function cargar(nombre) {
     return fetch("data/open/" + nombre).then(function (resp) {
+      si401(resp);
       if (!resp.ok) throw new Error(nombre);
       return resp.json();
     }).catch(function () { return null; });
