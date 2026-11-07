@@ -1,19 +1,23 @@
-// Edge gate de tableros-bureau: todo lo no público exige sesión válida.
+// Edge gate de tableros-bureau SIN dependencias (sin next/server).
+// Continuar = devolver undefined. Redirigir = Response.redirect.
 // 401/403 -> /login.html. Si la API no responde (cold start de Render),
 // se permite para no bloquear por disponibilidad (tradeoff documentado).
-import { NextResponse } from "next/server";
-
-var API = process.env.API_BASE_URL || "https://bureau-api.onrender.com";
+var API = "https://bureau-api.onrender.com";
 var PUBLICO = [/^\/login\.html$/, /^\/assets\//, /^\/favicon/, /^\/apple-touch-icon/, /\.css$/];
 
-export async function middleware(request) {
-  var pathname = request.nextUrl.pathname;
+function getCookie(header, name) {
+  var parts = ("; " + (header || "")).split("; " + name + "=");
+  if (parts.length < 2) return "";
+  return decodeURIComponent(parts[1].split(";")[0]);
+}
+
+async function handle(request) {
+  var pathname = new URL(request.url).pathname;
   for (var i = 0; i < PUBLICO.length; i++) {
-    if (PUBLICO[i].test(pathname)) return NextResponse.next();
+    if (PUBLICO[i].test(pathname)) return undefined;
   }
-  var cookie = request.cookies.get("bureau_token");
-  var token = cookie ? cookie.value : "";
-  if (!token) return NextResponse.redirect(new URL("/login.html", request.url));
+  var token = getCookie(request.headers.get("cookie"), "bureau_token");
+  if (!token) return Response.redirect(new URL("/login.html", request.url), 307);
   try {
     var ctrl = new AbortController();
     var timer = setTimeout(function () { ctrl.abort(); }, 9000);
@@ -22,17 +26,18 @@ export async function middleware(request) {
       signal: ctrl.signal
     });
     clearTimeout(timer);
-    if (r.ok) return NextResponse.next();
+    if (r.ok) return undefined;
     if (r.status === 401 || r.status === 403) {
-      var url = new URL("/login.html", request.url);
-      var resp = NextResponse.redirect(url);
-      resp.cookies.delete("bureau_token");
-      return resp;
+      return Response.redirect(new URL("/login.html", request.url), 307);
     }
-    return NextResponse.next();
+    return undefined;
   } catch (e) {
-    return NextResponse.next();
+    return undefined;
   }
+}
+
+export function middleware(request) {
+  return handle(request).catch(function () { return undefined; });
 }
 
 export const config = {
