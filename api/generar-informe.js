@@ -7,6 +7,7 @@
  *   FREELLM_BASE_URL / FREELLM_API_KEY / FREELLM_MODEL (opcional)
  */
 const { armarPaqueteDashboard } = require("./evidencia");
+const { getCookie, sesionValida } = require("./auth-check");
 const { listProviders, chatCompletions, describeChain } = require("./llm-client");
 
 /** Catálogo TEC-Bureau. Se emiten solo las que tengan evidencia en el pack. */
@@ -263,6 +264,12 @@ module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     res.statusCode = 405;
     res.end(JSON.stringify({ error: "Use GET (providers) o POST (generar)." }));
+    return;
+  }
+  // POST genera con LLM (costo): exige sesión. GET de providers queda abierto.
+  if (!(await sesionValida(getCookie(req.headers.cookie, "bureau_token")))) {
+    res.statusCode = 401;
+    res.end(JSON.stringify({ error: "sin sesión" }));
     return;
   }
 

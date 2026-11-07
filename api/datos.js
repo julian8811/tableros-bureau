@@ -8,8 +8,8 @@ const path = require("path");
 
 const API = process.env.API_BASE_URL || "https://bureau-api.onrender.com";
 const DIRS = [
-  path.join(process.cwd(), "data"),
-  path.join(__dirname, "..", "data")
+  path.join(process.cwd(), "api", "_data"),
+  path.join(__dirname, "_data")
 ];
 const TIPOS = {
   ".json": "application/json; charset=utf-8",
