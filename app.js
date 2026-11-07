@@ -2129,7 +2129,7 @@
   });
 
   function cargar(nombre) {
-    return fetch("data/open/" + nombre).then(function (resp) {
+    return fetch("/api/datos?f=data/open/" + encodeURIComponent(nombre)).then(function (resp) {
       si401(resp);
       if (!resp.ok) throw new Error(nombre);
       return resp.json();
