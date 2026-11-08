@@ -95,7 +95,8 @@
           <button class="btn login-btn" type="submit">Generar mi código</button>
         </form>
         <div id="paso2" style="display:none">
-          <p class="sub">Agregá esta clave en tu app autenticadora (Google/Microsoft Authenticator → agregar cuenta → clave manual):</p>
+          <p class="sub">Escaneá el QR con tu app autenticadora (Google/Microsoft Authenticator) o agregá la clave manual:</p>
+          <p style="text-align:center"><img id="qr" alt="QR para tu app autenticadora" style="max-width:220px;border-radius:12px;background:#fff;padding:8px"></p>
           <p id="secreto" class="login-ok ver" style="font-weight:700;letter-spacing:.15em;word-break:break-all"></p>
           <button type="button" class="btn" id="copiar" style="margin-top:8px">Copiar clave</button>
           <form id="f-conf">
@@ -220,11 +221,13 @@
     csrf().then(function (tok) {
       var fd = new URLSearchParams(new FormData(fa));
       fd.set("csrf_token", tok);
+      fd.set("qr", "1");
       return post("/auth/activar-mfa", fd);
     }).then(function (body) {
       listo();
       var sec = new URL(body.otpauth_uri).searchParams.get("secret");
       document.getElementById("secreto").textContent = sec;
+      if (body.qr_png) document.getElementById("qr").src = body.qr_png;
       document.querySelector('#f-conf input[name="email"]').value = new FormData(fa).get("email");
       document.getElementById("paso2").style.display = "block";
       fa.style.display = "none";
