@@ -29,12 +29,12 @@ _PIEZAS_PROPIAS = ("bureau_marca_llm.json", "bureau_paises_2025_2026.json",
                     "bureau_conectividad.json", "bureau_calendario.json",
                     "bureau_owid.json", "bureau_sit.json",
                     "bureau_consumo.json",
-                    "bureau_pronostico.json", "informe_llm.json")
+                    "bureau_pronostico.json", "bureau_frescura.json", "informe_llm.json")
 _IDS_PROPIOS = ("marca-llm", "bureau-paises", "prensa-medios",
                   "bureau-oferta", "bureau-seguridad", "bureau-clima",
                   "bureau-conectividad", "bureau-calendario",
                   "bureau-owid", "bureau-sit", "bureau-consumo", "bureau-pronostico",
-                  "informe-llm")
+                  "bureau-frescura", "informe-llm")
 
 
 def _es_pieza_propia(entrada):
@@ -346,6 +346,17 @@ def pronostico():
     print("pronostico ok", len(src.get("series") or []))
 
 
+def frescura():
+    try:
+        src = bajar("frescura_dashboard.json")
+    except Exception as exc:
+        ERRORES.append("frescura: " + "".join(traceback.format_exception_only(type(exc), exc)).strip())
+        print("falla frescura, se conserva el anterior")
+        return
+    guardar("bureau_frescura.json", src)
+    print("frescura ok", src.get("estado"), str(src.get("resumen")))
+
+
 def informe_llm():
     """Baja informe_llm.json del export remoto si existe; si 404, conserva el local."""
     local = OUT / "informe_llm.json"
@@ -386,6 +397,7 @@ def manifiesto():
         ("bureau_sit.json", "bureau-sit", "serie"),
         ("bureau_consumo.json", "bureau-consumo", "serie"),
         ("bureau_pronostico.json", "bureau-pronostico", "series"),
+        ("bureau_frescura.json", "bureau-frescura", "fuentes"),
         ("informe_llm.json", "informe-llm", "secciones"),
     ):
         path = OUT / nombre
@@ -419,5 +431,6 @@ if __name__ == "__main__":
     sit()
     consumo()
     pronostico()
+    frescura()
     informe_llm()
     manifiesto()
