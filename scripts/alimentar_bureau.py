@@ -16,6 +16,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data" / "open"
 OUT.mkdir(parents=True, exist_ok=True)
+# La funcion /api/datos (vercel.json) lee de api/_data, no de data/open:
+# sin este espejo Vercel sirve datos congelados aunque data/open este al dia.
+API_OUT = ROOT / "api" / "_data" / "open"
+API_OUT.mkdir(parents=True, exist_ok=True)
 
 BASE = "https://raw.githubusercontent.com/julian8811/bureau-inteligencia-turistica/main/etl-bureau/export/tableros_bureau"
 UA = {"User-Agent": "TablerosBureau/1.0"}
@@ -418,6 +422,18 @@ def manifiesto():
     print("manifiesto", [(x["id"], x["n"]) for x in piezas if str(x["id"]).startswith("marca") or str(x["id"]).startswith("bureau") or str(x["id"]).startswith("informe")])
 
 
+def duplicar_api_data():
+    """Espeja data/open en api/_data/open (lo que la funcion Vercel empaqueta)."""
+    n = 0
+    for p in sorted(OUT.glob("*.json")):
+        try:
+            (API_OUT / p.name).write_bytes(p.read_bytes())
+            n += 1
+        except Exception as exc:
+            ERRORES.append(f"api_data {p.name}: {exc}")
+    print("api_data espejados", n)
+
+
 if __name__ == "__main__":
     marca_llm()
     paises()
@@ -434,3 +450,4 @@ if __name__ == "__main__":
     frescura()
     informe_llm()
     manifiesto()
+    duplicar_api_data()
