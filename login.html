@@ -146,8 +146,14 @@
       listo();
     }
   });
+  function conTimeout(ms) {
+    var c = new AbortController();
+    var t = setTimeout(function () { c.abort(); }, ms || 20000);
+    return { signal: c.signal, listo: function () { clearTimeout(t); } };
+  }
   function csrf() {
-    return fetch(API + "/auth/csrf").then(function (r) { return r.json(); }).then(function (c) { return c.csrf_token; });
+    var to = conTimeout(20000);
+    return fetch(API + "/auth/csrf", { signal: to.signal }).then(function (r) { to.listo(); return r.json(); }).then(function (c) { return c.csrf_token; });
   }
   function armar(btn, base) {
     btn.disabled = true;
@@ -160,12 +166,18 @@
     };
   }
   function post(path, fd) {
-    return fetch(API + path, { method: "POST", body: fd }).then(function (r) {
+    var to = conTimeout(25000);
+    return fetch(API + path, { method: "POST", body: fd, signal: to.signal }).then(function (r) {
+      to.listo();
       if (r.status === 403) throw new Error("Pendiente de aprobación o sin acceso.");
       if (r.status === 429) throw new Error("Bloqueado temporalmente, probá más tarde.");
       if (r.status === 400) throw new Error("Revisá los datos ingresados.");
       if (!r.ok) throw new Error("Credenciales inválidas.");
       return r.json();
+    }).catch(function (e) {
+      to.listo();
+      if (e && e.name === "AbortError") throw new Error("El servidor está despertando. Esperá 30 segundos y reintentá con un código nuevo de tu app.");
+      throw e;
     });
   }
   var f = document.getElementById("f");
