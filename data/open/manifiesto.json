@@ -5,7 +5,7 @@
    "archivo": "data/open/bureau_marca_llm.json",
    "id": "marca-llm",
    "estado": "ok",
-   "n": 6
+   "n": 0
   },
   {
    "archivo": "data/open/bureau_paises_2025_2026.json",
@@ -35,7 +35,7 @@
    "archivo": "data/open/bureau_clima.json",
    "id": "bureau-clima",
    "estado": "ok",
-   "n": 1
+   "n": 0
   },
   {
    "archivo": "data/open/bureau_conectividad.json",
@@ -71,7 +71,7 @@
    "archivo": "data/open/bureau_pronostico.json",
    "id": "bureau-pronostico",
    "estado": "ok",
-   "n": 12
+   "n": 13
   },
   {
    "archivo": "data/open/bureau_frescura.json",
@@ -83,7 +83,7 @@
    "archivo": "data/open/informe_llm.json",
    "id": "informe-llm",
    "estado": "ok",
-   "n": 9
+   "n": 6
   }
  ],
  "errores": []
