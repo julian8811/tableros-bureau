@@ -74,6 +74,12 @@
    "n": 6
   },
   {
+   "archivo": "data/open/bureau_frescura.json",
+   "id": "bureau-frescura",
+   "estado": "ok",
+   "n": 21
+  },
+  {
    "archivo": "data/open/informe_llm.json",
    "id": "informe-llm",
    "estado": "ok",
