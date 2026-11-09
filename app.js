@@ -1880,6 +1880,17 @@
       '<button class="btn mt" type="button" data-action="cerrar">Cerrar</button></div></div>';
   }
 
+  function leyendaFrescura() {
+    var f = DATA.bureauFrescura;
+    if (!f || !f.resumen) return "";
+    var r = f.resumen;
+    var pendientes = (r.atrasadas || []).concat(r.faltantes || []);
+    var texto = "Estado de datos " + r.ok + "/" + r.total + " al " + (f.generado || "—");
+    if (pendientes.length) texto += ": " + pendientes.length + " por actualizar";
+    var detalle = pendientes.length ? "Pendientes: " + pendientes.join(", ") : "Todo actualizado";
+    return " <span class='corte corte-frescura' title=\"" + esc(detalle) + "\">" + esc(texto) + "</span>";
+  }
+
   function render() {
     Charts.setFoco(state.pais === "Todos" ? "" : state.pais);
     var preguntas = {
@@ -1918,7 +1929,7 @@
       opcionesPais().map(function (row) {
         var marca = row.priorizado ? " · lista Bureau" : "";
         return '<option value="' + esc(row.pais) + '"' + (row.pais === state.pais ? " selected" : "") + ">" + esc(etiquetaPais(row.pais) + marca) + "</option>";
-      }).join("") + "</select></label><span class='corte'>Agregados del " + esc((DATA.manifiesto && DATA.manifiesto.generado) || "—") + "</span></div></div>" +
+      }).join("") + "</select></label><span class='corte'>Agregados del " + esc((DATA.manifiesto && DATA.manifiesto.generado) || "—") + "</span>" + leyendaFrescura() + "</div></div>" +
       '<p class="qbox"><strong>' + esc(pregunta[0]) + "</strong><span>" + esc(pregunta[1]) + "</span></p>" +
       '<div id="panel" role="tabpanel" aria-labelledby="tab-' + state.tab + '">' + vista + "</div>" + modal();
     var estado = document.getElementById("estado");
@@ -2160,7 +2171,8 @@
     cargar("gdelt.json"),
     cargar("migracion_entradas.json"),
     cargar("trm_banrep.json"),
-    cargar("bureau_consumo.json")
+    cargar("bureau_consumo.json"),
+    cargar("bureau_frescura.json")
   ]).then(function (piezas) {
     DATA.conectividad = piezas[0];
     DATA.bureauPrensa = piezas[1];
@@ -2186,6 +2198,7 @@
     DATA.migracion = piezas[21];
     DATA.trm = piezas[22];
     DATA.bureauConsumo = piezas[23];
+    DATA.bureauFrescura = piezas[24];
     leerUrl();
     if (!DATA.conectividad || !DATA.ema || !DATA.icca) {
       document.getElementById("app").innerHTML = hueco("Faltan agregados", "Abra esta carpeta con un servidor local después de correr scripts/preparar_fuentes.py.");
