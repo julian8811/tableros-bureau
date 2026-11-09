@@ -1,11 +1,11 @@
 {
- "generado": "2026-11-08",
+ "generado": "2026-11-09",
  "piezas": [
   {
    "archivo": "data/open/bureau_marca_llm.json",
    "id": "marca-llm",
    "estado": "ok",
-   "n": 0
+   "n": 6
   },
   {
    "archivo": "data/open/bureau_paises_2025_2026.json",
@@ -41,7 +41,7 @@
    "archivo": "data/open/bureau_conectividad.json",
    "id": "bureau-conectividad",
    "estado": "ok",
-   "n": 31
+   "n": 19
   },
   {
    "archivo": "data/open/bureau_calendario.json",
@@ -77,7 +77,7 @@
    "archivo": "data/open/informe_llm.json",
    "id": "informe-llm",
    "estado": "ok",
-   "n": 6
+   "n": 9
   }
  ],
  "errores": []
