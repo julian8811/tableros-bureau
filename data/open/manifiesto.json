@@ -1,5 +1,5 @@
 {
- "generado": "2026-11-09",
+ "generado": "2026-11-10",
  "piezas": [
   {
    "archivo": "data/open/bureau_marca_llm.json",
@@ -35,7 +35,7 @@
    "archivo": "data/open/bureau_clima.json",
    "id": "bureau-clima",
    "estado": "ok",
-   "n": 0
+   "n": 1
   },
   {
    "archivo": "data/open/bureau_conectividad.json",
