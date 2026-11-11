@@ -348,14 +348,14 @@
    "pais": "BOSNIA Y HERZEGOVINA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 94
   },
   {
    "anio": 2025,
    "pais": "BOSNIA Y HERZEGOVINA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 94
+   "salidas": 0
   },
   {
    "anio": 2025,
@@ -684,14 +684,14 @@
    "pais": "ESTADO DE PALESTINA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 15
+   "salidas": 0
   },
   {
    "anio": 2025,
    "pais": "ESTADO DE PALESTINA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 15
   },
   {
    "anio": 2025,
@@ -1041,14 +1041,14 @@
    "pais": "IRÁN (REPÚBLICA ISLÁMICA DEL)",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 13
+   "salidas": 0
   },
   {
    "anio": 2025,
    "pais": "IRÁN (REPÚBLICA ISLÁMICA DEL)",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 13
   },
   {
    "anio": 2025,
@@ -1076,14 +1076,14 @@
    "pais": "ISLA DE MAN",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 1
   },
   {
    "anio": 2025,
    "pais": "ISLA DE MAN",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 1
+   "salidas": 0
   },
   {
    "anio": 2025,
@@ -1094,21 +1094,7 @@
   },
   {
    "anio": 2025,
-   "pais": "ISLA JOHNSTON",
-   "mercado": "Europa",
-   "llegadas": 0,
-   "salidas": 0
-  },
-  {
-   "anio": 2025,
    "pais": "ISLA NORFOLK",
-   "mercado": "Europa",
-   "llegadas": 0,
-   "salidas": 0
-  },
-  {
-   "anio": 2025,
-   "pais": "ISLA WAKE",
    "mercado": "Europa",
    "llegadas": 0,
    "salidas": 0
@@ -1161,13 +1147,6 @@
    "mercado": "Europa",
    "llegadas": 0,
    "salidas": 1
-  },
-  {
-   "anio": 2025,
-   "pais": "ISLAS DEL CANAL",
-   "mercado": "Europa",
-   "llegadas": 0,
-   "salidas": 0
   },
   {
    "anio": 2025,
@@ -1300,14 +1279,14 @@
    "pais": "ISLAS WALLIS Y FUTUNA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 1
   },
   {
    "anio": 2025,
    "pais": "ISLAS WALLIS Y FUTUNA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 1
+   "salidas": 0
   },
   {
    "anio": 2025,
@@ -1615,14 +1594,14 @@
    "pais": "MICRONESIA (ESTADOS FEDERADOS DE)",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 1
+   "salidas": 0
   },
   {
    "anio": 2025,
    "pais": "MICRONESIA (ESTADOS FEDERADOS DE)",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 1
   },
   {
    "anio": 2025,
@@ -1948,13 +1927,6 @@
   },
   {
    "anio": 2025,
-   "pais": "REFUGIADO",
-   "mercado": "Europa",
-   "llegadas": 0,
-   "salidas": 0
-  },
-  {
-   "anio": 2025,
    "pais": "REINO UNIDO",
    "mercado": "Europa",
    "llegadas": 12052,
@@ -2007,14 +1979,14 @@
    "pais": "REPÚBLICA DE COREA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 757
   },
   {
    "anio": 2025,
    "pais": "REPÚBLICA DE COREA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 757
+   "salidas": 0
   },
   {
    "anio": 2025,
@@ -2035,14 +2007,14 @@
    "pais": "REPÚBLICA DE MOLDOVA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 63
+   "salidas": 0
   },
   {
    "anio": 2025,
    "pais": "REPÚBLICA DE MOLDOVA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 63
   },
   {
    "anio": 2025,
@@ -2091,14 +2063,14 @@
    "pais": "REPÚBLICA UNIDA DE TANZANÍA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 50
   },
   {
    "anio": 2025,
    "pais": "REPÚBLICA UNIDA DE TANZANÍA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 50
+   "salidas": 0
   },
   {
    "anio": 2025,
@@ -2168,14 +2140,14 @@
    "pais": "SAINT KITTS Y NEVIS",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 46
+   "salidas": 0
   },
   {
    "anio": 2025,
    "pais": "SAINT KITTS Y NEVIS",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 46
   },
   {
    "anio": 2025,
@@ -2308,14 +2280,14 @@
    "pais": "SANTO TOMÉ Y PRÍNCIPE",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 5
   },
   {
    "anio": 2025,
    "pais": "SANTO TOMÉ Y PRÍNCIPE",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 5
+   "salidas": 0
   },
   {
    "anio": 2025,
@@ -2504,14 +2476,14 @@
    "pais": "TAIWÁN (PROVINCIA DE CHINA)",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 59
   },
   {
    "anio": 2025,
    "pais": "TAIWÁN (PROVINCIA DE CHINA)",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 59
+   "salidas": 0
   },
   {
    "anio": 2025,
@@ -2539,14 +2511,14 @@
    "pais": "TERRITORIO BRITÁNICO DEL OCÉANO ÍNDICO",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 1
+   "salidas": 0
   },
   {
    "anio": 2025,
    "pais": "TERRITORIO BRITÁNICO DEL OCÉANO ÍNDICO",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 1
   },
   {
    "anio": 2025,
@@ -2602,14 +2574,14 @@
    "pais": "TRINIDAD Y TOBAGO",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 644
+   "salidas": 0
   },
   {
    "anio": 2025,
    "pais": "TRINIDAD Y TOBAGO",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 644
   },
   {
    "anio": 2025,
@@ -2645,13 +2617,6 @@
    "mercado": "Europa",
    "llegadas": 0,
    "salidas": 1
-  },
-  {
-   "anio": 2025,
-   "pais": "TÍBET/REGIÓN AUTÓNOMA DE CHINA",
-   "mercado": "Europa",
-   "llegadas": 0,
-   "salidas": 0
   },
   {
    "anio": 2025,
@@ -3106,14 +3071,14 @@
    "pais": "BOSNIA Y HERZEGOVINA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 37
   },
   {
    "anio": 2026,
    "pais": "BOSNIA Y HERZEGOVINA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 37
+   "salidas": 0
   },
   {
    "anio": 2026,
@@ -3442,14 +3407,14 @@
    "pais": "ESTADO DE PALESTINA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 1
   },
   {
    "anio": 2026,
    "pais": "ESTADO DE PALESTINA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 1
+   "salidas": 0
   },
   {
    "anio": 2026,
@@ -3799,14 +3764,14 @@
    "pais": "IRÁN (REPÚBLICA ISLÁMICA DEL)",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 1
   },
   {
    "anio": 2026,
    "pais": "IRÁN (REPÚBLICA ISLÁMICA DEL)",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 1
+   "salidas": 0
   },
   {
    "anio": 2026,
@@ -3834,14 +3799,14 @@
    "pais": "ISLA DE MAN",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 1
   },
   {
    "anio": 2026,
    "pais": "ISLA DE MAN",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 1
+   "salidas": 0
   },
   {
    "anio": 2026,
@@ -3852,21 +3817,7 @@
   },
   {
    "anio": 2026,
-   "pais": "ISLA JOHNSTON",
-   "mercado": "Europa",
-   "llegadas": 0,
-   "salidas": 0
-  },
-  {
-   "anio": 2026,
    "pais": "ISLA NORFOLK",
-   "mercado": "Europa",
-   "llegadas": 0,
-   "salidas": 0
-  },
-  {
-   "anio": 2026,
-   "pais": "ISLA WAKE",
    "mercado": "Europa",
    "llegadas": 0,
    "salidas": 0
@@ -3916,13 +3867,6 @@
   {
    "anio": 2026,
    "pais": "ISLAS COOK",
-   "mercado": "Europa",
-   "llegadas": 0,
-   "salidas": 0
-  },
-  {
-   "anio": 2026,
-   "pais": "ISLAS DEL CANAL",
    "mercado": "Europa",
    "llegadas": 0,
    "salidas": 0
@@ -4009,14 +3953,14 @@
    "pais": "ISLAS TURCAS Y CAICOS",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 119
   },
   {
    "anio": 2026,
    "pais": "ISLAS TURCAS Y CAICOS",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 119
+   "salidas": 0
   },
   {
    "anio": 2026,
@@ -4706,13 +4650,6 @@
   },
   {
    "anio": 2026,
-   "pais": "REFUGIADO",
-   "mercado": "Europa",
-   "llegadas": 0,
-   "salidas": 0
-  },
-  {
-   "anio": 2026,
    "pais": "REINO UNIDO",
    "mercado": "Europa",
    "llegadas": 6689,
@@ -4765,14 +4702,14 @@
    "pais": "REPÚBLICA DE COREA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 376
   },
   {
    "anio": 2026,
    "pais": "REPÚBLICA DE COREA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 376
+   "salidas": 0
   },
   {
    "anio": 2026,
@@ -4793,14 +4730,14 @@
    "pais": "REPÚBLICA DE MOLDOVA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 94
   },
   {
    "anio": 2026,
    "pais": "REPÚBLICA DE MOLDOVA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 94
+   "salidas": 0
   },
   {
    "anio": 2026,
@@ -4849,14 +4786,14 @@
    "pais": "REPÚBLICA UNIDA DE TANZANÍA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 31
   },
   {
    "anio": 2026,
    "pais": "REPÚBLICA UNIDA DE TANZANÍA",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 31
+   "salidas": 0
   },
   {
    "anio": 2026,
@@ -4926,14 +4863,14 @@
    "pais": "SAINT KITTS Y NEVIS",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 5
   },
   {
    "anio": 2026,
    "pais": "SAINT KITTS Y NEVIS",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 5
+   "salidas": 0
   },
   {
    "anio": 2026,
@@ -5066,14 +5003,14 @@
    "pais": "SANTO TOMÉ Y PRÍNCIPE",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 1
   },
   {
    "anio": 2026,
    "pais": "SANTO TOMÉ Y PRÍNCIPE",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 1
+   "salidas": 0
   },
   {
    "anio": 2026,
@@ -5262,14 +5199,14 @@
    "pais": "TAIWÁN (PROVINCIA DE CHINA)",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 35
+   "salidas": 0
   },
   {
    "anio": 2026,
    "pais": "TAIWÁN (PROVINCIA DE CHINA)",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 35
   },
   {
    "anio": 2026,
@@ -5360,14 +5297,14 @@
    "pais": "TRINIDAD Y TOBAGO",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 227
+   "salidas": 0
   },
   {
    "anio": 2026,
    "pais": "TRINIDAD Y TOBAGO",
    "mercado": "Europa",
    "llegadas": 0,
-   "salidas": 0
+   "salidas": 227
   },
   {
    "anio": 2026,
@@ -5403,13 +5340,6 @@
    "mercado": "Europa",
    "llegadas": 0,
    "salidas": 1
-  },
-  {
-   "anio": 2026,
-   "pais": "TÍBET/REGIÓN AUTÓNOMA DE CHINA",
-   "mercado": "Europa",
-   "llegadas": 0,
-   "salidas": 0
   },
   {
    "anio": 2026,
