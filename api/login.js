@@ -11,8 +11,10 @@ function conTimeout(ms) {
   return { signal: ctrl.signal, listo: () => clearTimeout(t) };
 }
 
-async function csrf() {
-  const to = conTimeout(15000);
+// Render (free) duerme la API: el primer request puede tardar >15s. Reintentamos
+// una vez con margen amplio antes de rendirnos.
+async function csrfUnaVez(ms) {
+  const to = conTimeout(ms);
   try {
     const r = await fetch(API + "/auth/csrf", { signal: to.signal });
     if (!r.ok) return "";
@@ -23,6 +25,12 @@ async function csrf() {
   } finally {
     to.listo();
   }
+}
+
+async function csrf() {
+  const primero = await csrfUnaVez(25000);
+  if (primero) return primero;
+  return await csrfUnaVez(25000);
 }
 
 module.exports = async function handler(req, res) {
@@ -42,7 +50,9 @@ module.exports = async function handler(req, res) {
 
   const token = await csrf();
   if (!token) {
-    res.status(503).json({ error: "No se pudo preparar el acceso. Reintentá en unos segundos." });
+    res.status(503).json({
+      error: "El servidor de acceso está despertando. Esperá 30 segundos y reintentá."
+    });
     return;
   }
 
