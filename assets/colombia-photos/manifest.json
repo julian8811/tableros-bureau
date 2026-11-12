@@ -165,6 +165,14 @@
       "source": "commons",
       "bytes": 288799,
       "note": "copia local de extra_cafe hasta reintento Commons"
+    },
+    "login": {
+      "file": "assets/colombia-photos/tendencias.jpg",
+      "query": "Valle del Cocora Colombia",
+      "title": "File:Valle del Cocora, Colombia.jpg",
+      "artist": "McKay Savage",
+      "license": "CC BY 2.0",
+      "commons": "https://commons.wikimedia.org/wiki/File:Valle_del_Cocora,_Colombia.jpg"
     }
   }
 }

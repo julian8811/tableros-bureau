@@ -39,9 +39,16 @@
   .login-ok.ver{display:block}
   .login-alt{margin-top:14px;text-align:center;font-size:.9rem}
   @media (prefers-reduced-motion:reduce){.login-btn,.login-field input,.login-tabs button{transition:none}}
+  .fondo-login{position:fixed;inset:0;z-index:-2}
+  .fondo-login img{width:100%;height:100%;object-fit:cover}
+  .velo-login{position:fixed;inset:0;z-index:-1;background:rgba(23,33,57,.62)}
+  main#app{position:relative;z-index:0}
 </style>
 </head>
 <body>
+<!-- Fondo: Valle de Cocora, Quindío, Colombia — McKay Savage, CC BY 2.0, vía Wikimedia Commons (ver assets/colombia-photos/manifest.json, slot "login"). -->
+<div class="fondo-login" aria-hidden="true"><img src="assets/colombia-photos/tendencias.jpg" alt=""></div>
+<div class="velo-login" aria-hidden="true"></div>
 <a class="skip" href="#app">Saltar al acceso</a>
 <header class="site">
   <div class="inner">
@@ -50,7 +57,6 @@
       <h1>Tableros estadísticos del Bureau</h1>
       <p>Unidad de inteligencia · Colmayor y Greater Medellín Convention &amp; Visitors Bureau</p>
     </div>
-    <div class="corte-pill" aria-hidden="true"><span class="live"></span>Acceso restringido</div>
   </div>
 </header>
 <main id="app" tabindex="-1">
