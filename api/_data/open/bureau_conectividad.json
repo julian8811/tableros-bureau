@@ -134,12 +134,168 @@
  ],
  "trm_serie": [
   {
-   "date": "2026-11-08",
-   "cop_per_usd": 3240.66341607
+   "date": "2026-09-15",
+   "cop_per_usd": 3109.3
   },
   {
-   "date": "Mon, 09 Nov 2026",
-   "cop_per_usd": 3243.549
+   "date": "2026-09-16",
+   "cop_per_usd": 3100.45
+  },
+  {
+   "date": "2026-09-17",
+   "cop_per_usd": 3128.46
+  },
+  {
+   "date": "2026-09-18",
+   "cop_per_usd": 3151.73
+  },
+  {
+   "date": "2026-09-19",
+   "cop_per_usd": 3192.92
+  },
+  {
+   "date": "2026-09-22",
+   "cop_per_usd": 3192.53
+  },
+  {
+   "date": "2026-09-23",
+   "cop_per_usd": 3208.66
+  },
+  {
+   "date": "2026-09-24",
+   "cop_per_usd": 3264.39
+  },
+  {
+   "date": "2026-09-25",
+   "cop_per_usd": 3329.61
+  },
+  {
+   "date": "2026-09-26",
+   "cop_per_usd": 3306.86
+  },
+  {
+   "date": "2026-09-29",
+   "cop_per_usd": 3349.63
+  },
+  {
+   "date": "2026-09-30",
+   "cop_per_usd": 3341.23
+  },
+  {
+   "date": "2026-10-01",
+   "cop_per_usd": 3312.84
+  },
+  {
+   "date": "2026-10-02",
+   "cop_per_usd": 3307.73
+  },
+  {
+   "date": "2026-10-03",
+   "cop_per_usd": 3273.49
+  },
+  {
+   "date": "2026-10-06",
+   "cop_per_usd": 3209.78
+  },
+  {
+   "date": "2026-10-07",
+   "cop_per_usd": 3216.01
+  },
+  {
+   "date": "2026-10-08",
+   "cop_per_usd": 3238.88
+  },
+  {
+   "date": "2026-10-09",
+   "cop_per_usd": 3218.75
+  },
+  {
+   "date": "2026-10-10",
+   "cop_per_usd": 3194.44
+  },
+  {
+   "date": "2026-10-14",
+   "cop_per_usd": 3181.74
+  },
+  {
+   "date": "2026-10-15",
+   "cop_per_usd": 3197.65
+  },
+  {
+   "date": "2026-10-16",
+   "cop_per_usd": 3170.46
+  },
+  {
+   "date": "2026-10-17",
+   "cop_per_usd": 3174.67
+  },
+  {
+   "date": "2026-10-20",
+   "cop_per_usd": 3156.32
+  },
+  {
+   "date": "2026-10-21",
+   "cop_per_usd": 3163.76
+  },
+  {
+   "date": "2026-10-22",
+   "cop_per_usd": 3191.47
+  },
+  {
+   "date": "2026-10-23",
+   "cop_per_usd": 3185.01
+  },
+  {
+   "date": "2026-10-24",
+   "cop_per_usd": 3158.43
+  },
+  {
+   "date": "2026-10-27",
+   "cop_per_usd": 3157.94
+  },
+  {
+   "date": "2026-10-28",
+   "cop_per_usd": 3148.02
+  },
+  {
+   "date": "2026-10-29",
+   "cop_per_usd": 3162.35
+  },
+  {
+   "date": "2026-10-30",
+   "cop_per_usd": 3166.91
+  },
+  {
+   "date": "2026-10-31",
+   "cop_per_usd": 3182.99
+  },
+  {
+   "date": "2026-11-04",
+   "cop_per_usd": 3235.59
+  },
+  {
+   "date": "2026-11-05",
+   "cop_per_usd": 3221.19
+  },
+  {
+   "date": "2026-11-06",
+   "cop_per_usd": 3228.26
+  },
+  {
+   "date": "2026-11-07",
+   "cop_per_usd": 3237.83
+  },
+  {
+   "date": "2026-11-10",
+   "cop_per_usd": 3269.88
+  },
+  {
+   "date": "2026-11-11",
+   "cop_per_usd": 3297.07
+  },
+  {
+   "date": "2026-11-11",
+   "cop_per_usd": 3302.4645191
   }
  ],
  "bts_colombia": [],
@@ -38975,16 +39131,16 @@
  "wikimedia_serie": [
   {
    "periodo": "2026-10",
-   "views": 18819
+   "views": 16023
   },
   {
    "periodo": "2026-11",
-   "views": 5770
+   "views": 8887
   }
  ],
  "cortes": {
   "operaciones": "2026-07",
-  "trm": "2026-11-09",
+  "trm": "2026-11-11",
   "benchmark_eu": 2024,
   "wikimedia": "2026-11"
  },
@@ -38999,7 +39155,7 @@
  ],
  "skips": [
   "gastronomia_osm_med.csv: sin filas de datos (vacia)",
-  "emisores_contexto.csv: ausente o vacio (solo header)",
+  "emisores_contexto.csv: sin filas de datos (solo header)",
   "migrantes_co.csv: ausente o vacio (fuente muerta)"
  ]
 }
