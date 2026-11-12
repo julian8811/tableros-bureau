@@ -1,15 +1,10 @@
 (function () {
   "use strict";
 
-  function bureauToken() {
-    var m = document.cookie.match(/(?:^|; )bureau_token=([^;]*)/);
-    return m ? decodeURIComponent(m[1]) : "";
-  }
+  // La sesión vive en una cookie HttpOnly del dominio del sitio: el navegador
+  // la envía sola en cada llamada a /api/* y el JS nunca ve el token.
   function authHeaders(h) {
-    h = h || {};
-    var t = bureauToken();
-    if (t) h.Authorization = "Bearer " + t;
-    return h;
+    return h || {};
   }
   function si401(resp) {
     if (resp && resp.status === 401) window.location.href = "/login.html";

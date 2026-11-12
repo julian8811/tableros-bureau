@@ -195,16 +195,25 @@
     if (!f.reportValidity()) return;
     err.classList.remove("ver");
     var listo = armar(btn, baseBtn);
-    csrf().then(function (tok) {
-      var fd = new URLSearchParams(new FormData(f));
-      fd.set("csrf_token", tok);
-      return post("/auth/login", fd);
-    }).then(function (body) {
-      document.cookie = "bureau_token=" + encodeURIComponent(body.token) + "; Max-Age=604800; Path=/; Secure; SameSite=Lax";
-      window.location.href = "/";
-    }).catch(function (ex) {
+    var fd = new FormData(f);
+    fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        email: fd.get("email") || "",
+        password: fd.get("password") || "",
+        totp: fd.get("totp") || ""
+      })
+    }).then(function (r) {
+      return r.json().then(function (b) { return { estado: r.status, body: b || {} }; });
+    }).then(function (x) {
+      if (x.estado === 200 && x.body.ok) { window.location.href = "/"; return; }
       listo();
-      err.textContent = (ex && ex.message) || "Error de red.";
+      err.textContent = x.body.error || "No se pudo iniciar sesión.";
+      err.classList.add("ver");
+    }).catch(function () {
+      listo();
+      err.textContent = "Error de red. Reintentá en unos segundos.";
       err.classList.add("ver");
     });
   });
