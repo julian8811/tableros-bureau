@@ -1,17 +1,17 @@
 {
- "generado": "2026-11-11",
+ "generado": "2026-11-12",
  "piezas": [
   {
    "archivo": "data/open/bureau_marca_llm.json",
    "id": "marca-llm",
    "estado": "ok",
-   "n": 0
+   "n": 6
   },
   {
    "archivo": "data/open/bureau_paises_2025_2026.json",
    "id": "bureau-paises",
    "estado": "ok",
-   "n": 734
+   "n": 788
   },
   {
    "archivo": "data/open/bureau_prensa.json",
@@ -41,7 +41,7 @@
    "archivo": "data/open/bureau_conectividad.json",
    "id": "bureau-conectividad",
    "estado": "ok",
-   "n": 0
+   "n": 31
   },
   {
    "archivo": "data/open/bureau_calendario.json",
@@ -71,19 +71,19 @@
    "archivo": "data/open/bureau_pronostico.json",
    "id": "bureau-pronostico",
    "estado": "ok",
-   "n": 13
+   "n": 12
   },
   {
    "archivo": "data/open/bureau_frescura.json",
    "id": "bureau-frescura",
    "estado": "ok",
-   "n": 21
+   "n": 22
   },
   {
    "archivo": "data/open/informe_llm.json",
    "id": "informe-llm",
    "estado": "ok",
-   "n": 6
+   "n": 9
   }
  ],
  "errores": []
