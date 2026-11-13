@@ -134,10 +134,6 @@
  ],
  "trm_serie": [
   {
-   "date": "2026-09-15",
-   "cop_per_usd": 3109.3
-  },
-  {
    "date": "2026-09-16",
    "cop_per_usd": 3100.45
   },
@@ -294,8 +290,12 @@
    "cop_per_usd": 3297.07
   },
   {
-   "date": "2026-11-11",
-   "cop_per_usd": 3302.4645191
+   "date": "2026-11-13",
+   "cop_per_usd": 3301.91
+  },
+  {
+   "date": "2026-11-13",
+   "cop_per_usd": 3312.37053738
   }
  ],
  "bts_colombia": [],
@@ -39131,16 +39131,16 @@
  "wikimedia_serie": [
   {
    "periodo": "2026-10",
-   "views": 16023
+   "views": 15150
   },
   {
    "periodo": "2026-11",
-   "views": 8887
+   "views": 9798
   }
  ],
  "cortes": {
   "operaciones": "2026-07",
-  "trm": "2026-11-11",
+  "trm": "2026-11-13",
   "benchmark_eu": 2024,
   "wikimedia": "2026-11"
  },
@@ -39155,7 +39155,7 @@
  ],
  "skips": [
   "gastronomia_osm_med.csv: sin filas de datos (vacia)",
-  "emisores_contexto.csv: sin filas de datos (solo header)",
+  "emisores_contexto.csv: ausente o vacio (solo header)",
   "migrantes_co.csv: ausente o vacio (fuente muerta)"
  ]
 }

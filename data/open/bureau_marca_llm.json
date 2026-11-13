@@ -11,48 +11,48 @@
  "universo": "Titulares de la ventana corriente clasificados en MICE/vacacional/marca/seguridad/clima/infraestructura/otro.",
  "serie": [
   {
-   "categoria": "vacacional",
-   "n": 180,
-   "share": 0.4276,
-   "sent_net": 0.572,
-   "top_topico": "Feria Flores programación"
-  },
-  {
    "categoria": "otro",
-   "n": 71,
-   "share": 0.1686,
-   "sent_net": 0.211,
-   "top_topico": "Ritvales cartel"
-  },
-  {
-   "categoria": "marca",
-   "n": 46,
-   "share": 0.1093,
-   "sent_net": 0.913,
-   "top_topico": "premio turismo"
+   "n": 60,
+   "share": 0.253165,
+   "sent_net": 0.183333,
+   "top_topico": "ritvales 2025"
   },
   {
    "categoria": "mice",
-   "n": 46,
-   "share": 0.1093,
-   "sent_net": 0.804,
-   "top_topico": "Semana del Turismo"
+   "n": 55,
+   "share": 0.232068,
+   "sent_net": 0.636364,
+   "top_topico": "congreso icca"
   },
   {
-   "categoria": "seguridad",
-   "n": 40,
-   "share": 0.095,
-   "sent_net": -0.75,
-   "top_topico": "accidente bus"
+   "categoria": "vacacional",
+   "n": 54,
+   "share": 0.227848,
+   "sent_net": 0.592593,
+   "top_topico": "feria flores programación"
+  },
+  {
+   "categoria": "marca",
+   "n": 37,
+   "share": 0.156118,
+   "sent_net": 0.945946,
+   "top_topico": "premio turismo"
   },
   {
    "categoria": "infraestructura",
-   "n": 38,
-   "share": 0.0903,
-   "sent_net": 0.211,
-   "top_topico": "Feria cierres viales"
+   "n": 22,
+   "share": 0.092827,
+   "sent_net": 0.045455,
+   "top_topico": "cierres viales"
+  },
+  {
+   "categoria": "seguridad",
+   "n": 9,
+   "share": 0.037975,
+   "sent_net": -0.111111,
+   "top_topico": "seguridad infraestructura"
   }
  ],
- "top_topico_global": "Feria Flores programación",
- "n_total": 421
+ "top_topico_global": "ritvales 2025",
+ "n_total": 237
 }
