@@ -5,16 +5,12 @@
  "url": "https://raw.githubusercontent.com/julian8811/bureau-inteligencia-turistica/main/etl-bureau/export/tableros_bureau/prensa_medios.json",
  "licencia": "Agregados propios del ETL; titulares de sus medios originales.",
  "universo": "Titulares recientes y conteo semanal de menciones. Reemplaza a Wikipedia/GDELT como señal digital.",
- "descarga": "2026-11-13",
+ "descarga": "2026-11-14",
  "ventana_serie": [
-  "2026-W19",
+  "2026-W20",
   "2026-W46"
  ],
  "serie": [
-  {
-   "semana": "2026-W19",
-   "n": 1
-  },
   {
    "semana": "2026-W20",
    "n": 1
@@ -29,7 +25,7 @@
   },
   {
    "semana": "2026-W23",
-   "n": 5
+   "n": 6
   },
   {
    "semana": "2026-W24",
@@ -57,7 +53,7 @@
   },
   {
    "semana": "2026-W31",
-   "n": 19
+   "n": 18
   },
   {
    "semana": "2026-W32",
@@ -69,11 +65,11 @@
   },
   {
    "semana": "2026-W34",
-   "n": 2
+   "n": 1
   },
   {
    "semana": "2026-W35",
-   "n": 1
+   "n": 2
   },
   {
    "semana": "2026-W36",
@@ -81,7 +77,7 @@
   },
   {
    "semana": "2026-W37",
-   "n": 4
+   "n": 2
   },
   {
    "semana": "2026-W38",
@@ -97,7 +93,7 @@
   },
   {
    "semana": "2026-W41",
-   "n": 5
+   "n": 4
   },
   {
    "semana": "2026-W42",
@@ -112,17 +108,15 @@
    "n": 5
   },
   {
+   "semana": "2026-W45",
+   "n": 1
+  },
+  {
    "semana": "2026-W46",
-   "n": 11
+   "n": 16
   }
  ],
  "titulares": [
-  {
-   "fecha": "Fri, 13 Nov 2026 02:21:35 GMT",
-   "titulo": "JetSMART suma su cuarta ruta internacional desde Medellín, esta vez con Buenos Aires - ABC Economía",
-   "medio": "Medellín turismo",
-   "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE93Q0toeHFmeFM0LW51RWhHWVc1ajRuQU9YNnZDbEd6OHVkVXluMnIzTC03MDRwWEMxWFFBZGNsVThEVElOM01qRWtGVk91WVVudHpMNHQ0enZZOERUQU95bHRiTjZnZEdfM1BKbGtQc2pOejVqWW1VVDVn?oc=5"
-  },
   {
    "fecha": "Thu, 03 Sep 2026 07:00:00 GMT",
    "titulo": "¿Qué está pasando con el turismo en Medellín? Las cifras que deja el primer semestre de 2026 - Alcaldía de Medellín",
@@ -130,16 +124,40 @@
    "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQNXNnb094aXNNRkZ0ZEpQVEhHV2FPT2ZmS2VwaHl2VExTMm40UUdEbE93YmxpbkxFVG0xYm9LV3duczNTZmpLbDNxN21KRHFmQ25HS2o4alBoZlZ5SUxVemU4LVR3QmFIYS0xT21USkpySHdrc2JNeWRXOUNPWUdpUThReDlQOG43NG9iVFl2Z2N6bGEtWmFscjBtQ0RtTFRwVDNyTEFFZ1d1QUdGdnRNTTA0MU9fM3dBRnN1YnFpWGpRU0wwUDc0Vy01Vy14T0JQYlNsMVZ6NVRXMFV1aWo4?oc=5"
   },
   {
-   "fecha": "Tue, 10 Nov 2026 08:00:00 GMT",
-   "titulo": "A dos horas de Medellín: el pueblo que rinde homenaje a los arrieros con sus fiestas tradicionales - Revista Semana",
+   "fecha": "Fri, 13 Nov 2026 22:11:38 GMT",
+   "titulo": "Autoridades han suspendido 90 viviendas turísticas en Medellín por incumplir requisitos para operar - Blu Radio",
    "medio": "Medellín turismo",
-   "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPOERyUGtMM2FHaWR4R1BtMElmSFVSSXBndzBSQmF1QjhoVW96UmRxX0ZrVDRHVV94Z1dXSmZXbTZocjJvaFM2V2Z4SEMxWldkZW44SFZBdXhkVTlzSWo1eWEwSGpCdk1BLTR1UjVWVmdPVVlWREQ5WURqc0Q5RG10b1RLckFuYjNWc1I2elI1endLcWNLdzBPcWs5SVNRdEVvcXdQRFN3R3cyTG1VbXVsMnhDeTl0bWl2SU05Nl9MY0ttRXlpdnFKLXhsbi1SWWFBMUt1QkkwSjRXdTlzQXc?oc=5"
+   "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQN3NvU1VjNTl0Qk1URHFmdE1TajkyMHEtTG9mMjhnY2x4NkNxVzc5UU03VXBjYmtmQ1JKZUo5RnQySEk3bmJIdUF5a21tYlZUZXJFcWNSTF9sdVpYTXBQRFRONlFPN2E0QTdPRXVGTmdSSkM2YjBhNllVQkZWUzN3NVFxdHdzS3ZpWWlpWFNzOUJjdXd4UHFpSl9UOVVPLVpMTkhBZnhPTGlGMmRETk5mODVxNlY3eGU2QVN1SDQ0TC0yZk16d0xCVEo5al9EbHh1TlZfTUNyT1VnWHNwTnc0MGxR0gHvAUFVX3lxTE9zVGRLUmNVZm1NVmlBQ25hTVZyWWNHbDhoSlpmSV9CTlVxelB3RUxGdC10OUdZMXV2NUl0WUxGYXBCQzZRTHRjZkg4NG5lV2MzbGJ0bTdNMFpUTkw3WlVyQnlSWDkyWWNiZ3N0SGlJYlhsZ3RTc2hQaHNJeFZtMll2WnpSNkRvSGhHWFdjSVEzR00tZmI1T1BEOWFQWlgycWRuNktyUUpvMnZOTENyQ05XQ1RMNE9ZajBDaHVLbHp1LVFsOWV0dVhPNWNfQUtGQXFQN2dNUkY2enRyemY4Z0xJWVZoOUlLZjBIaU0yeUE4?oc=5"
   },
   {
    "fecha": "Mon, 19 Oct 2026 07:00:00 GMT",
    "titulo": "Turismo en Medellín: caen gasto foráneo y ocupación - ABC Economía",
    "medio": "Medellín turismo",
    "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPczl6ZXJNcVhfWVR4UDZqM3dTbERqRW1rNTdnekJkRll6cnNUSDVlRDNLMV9aTTBqaGpiZlBlZEJjRU1QWGVkVTFkOFJyQ2w3WnNUdXpsR3VuX1B2YUhwS2tqNVVNNkdVc1pqdVg1eWRiUXVvLW9FbFIySkx4akJHZ2pXZWZYWXVZ?oc=5"
+  },
+  {
+   "fecha": "Wed, 11 Nov 2026 20:28:45 GMT",
+   "titulo": "A dos horas de Medellín está el pueblo más colorido de Antioquia: cinco planes gratuitos para conocerlo en un día - Revista Semana",
+   "medio": "Medellín turismo",
+   "link": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxQMXZnTDRIdDdtNUpDaEZkcVZtV25KSVpISWQ5U0ZQWjgtNXdNVmZvS2hhTjdtbkZzdGhUbWo5V0dmZGt1QW5JbHRvYzA4bnBxQWthNzZlRFd4UGRjdlUzU2VuRlE5LUtzWVZMUWc1N2dkV0dvY2pPcFdaT0ZDcF9WQkowblhieG92TjV4VnByX0psOEN3YnNBTUVZbjdoZFlmRE9wUjdWaHJWVEFmTFl4WlZKR2FhNGVHVkZWNG1wZGxzNVQzNGM5S2wyRWtwWFVSMF9qRnpUaTBmRE9MTHNKai1YZ2xvWF9SQ0FFcVNzZDQ0Zw?oc=5"
+  },
+  {
+   "fecha": "Wed, 11 Nov 2026 22:10:00 GMT",
+   "titulo": "Medellín y Miami fortalecen sus vínculos con las flores, la cultura y el turismo - Diario Las Américas",
+   "medio": "Medellín turismo",
+   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPdF9uR3RiSTB6dUpYQkNGWEF6czBpM2l4RnNCV0F3aHowbmwxQ3lCTi02MS1OX1VaOUxvNFBSN1FUYXU4Yy1NU0UzOHpMUjJ2eFlKUHFKWnp6MjVsOWFNQUZiSkNGNGp4ODhJZlpMYjVSXzJ3ZUU2RDJTUG10SkhJUVRMMWRLOVQtLVJ6QWNrb2VYdEhKZ1NCUWF6bVZETGxZbTNvcUxRUEpmdk93Z0djRWtqaFYtWlJtdmfSAb8BQVVfeXFMTUltNjJ2UWwxUTJwVVd6VE9RMlcyQnFQZU1BaGV3bzFKdUVEY2hmVHh2Q0NHYzExU29KRF8xbURmTlZ0QVI2U2VwMkZnMmVSVWRIOUNxZVJyYU9NMXFGSGdtdFdDU0MyYjQxYTNqTmh2c1ZrLUlYSGo3U3FvQWYxU05qQ1AteVR3NVZTUmFsYVF6RWVyZHZVamtUYnZGR2UxZk4zaEhZcHVlc0VpWllGZWNaZlRxWkh1SDQ2LVBRWGs?oc=5"
+  },
+  {
+   "fecha": "Sun, 08 Nov 2026 12:05:41 GMT",
+   "titulo": "Nuevo POT en Medellín: estos son los únicos barrios donde se permitirán las viviendas dedicadas al turismo - Newsroom RCN Radio",
+   "medio": "Medellín turismo",
+   "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQT2RFQTZZZGlBUDRoU1NTei1IbjBDU1B6T056ME5aVXhtMTFFdEdka2VRSmdUdkoyUWxBVnc3XzVVZDRZd3JUdjBsNGhIVy0xN3JCcjBqVnhfWVRiUl9jZFBlNVlGM21UUjZkcXIwZnRUZFNzcnlROFRNbmRsM2doYWV2UnQ0V1R4WTA1ZE1kVGxkYWZiSjhnNlRaQlh4TGprR19KcWZqQ0VhZFhhU25rdUM5dnVFLU1xM3hXMkJIS3ZSZ3ZDMlJHSnpsaVRKdnFWWmVBQXRMSy1ZREl0?oc=5"
+  },
+  {
+   "fecha": "Fri, 13 Nov 2026 02:21:35 GMT",
+   "titulo": "JetSMART inaugura ruta Medellín-Buenos Aires: 5 vuelos - ABC Economía",
+   "medio": "Medellín turismo",
+   "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE93Q0toeHFmeFM0LW51RWhHWVc1ajRuQU9YNnZDbEd6OHVkVXluMnIzTC03MDRwWEMxWFFBZGNsVThEVElOM01qRWtGVk91WVVudHpMNHQ0enZZOERUQU95bHRiTjZnZEdfM1BKbGtQc2pOejVqWW1VVDVn?oc=5"
   },
   {
    "fecha": "Mon, 26 Oct 2026 07:00:00 GMT",
@@ -172,42 +190,24 @@
    "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNTm4ybUMxX0lDWkpiTm1jNkpXblo0LUtiVl83eG92ZDlZeDZUVTlBRjhQRkU3YThnMUxVbTdzdEtVaWJ6T0FxZDRwejBPV2JDaGNTOHo0X1pjV3FBWFdINHVhVFVjR0xEWkR4NXFzZzRsWmxLQ2lrWmRzMEk1NlY0S1p6dzgzZFZ6S25XV1g2NVhMWWUxbzNuTWI5OU1HWUxpN3R0SnhaRGVJOE0?oc=5"
   },
   {
-   "fecha": "Wed, 14 Oct 2026 07:00:00 GMT",
-   "titulo": "El sector turismo impulsa el recaudo del ICA en el Distrito de Medellín con un crecimiento del 10 % entre el 2024 y 2025. - Alcaldía de Medellín",
-   "medio": "Medellín turismo",
-   "link": "https://news.google.com/rss/articles/CBMihAJBVV95cUxOWkhGenhhbVJPMDhhU0NJamZKcERWd3NEZE1ScHpGcWJwQ0xkWUdjZGxQYkZxZUROSDJUN19RVWlrXzZjUE9nc3Y5S19SZW11Wi1IR0h2M1hlelRMdFlzU0VzVWM4ZkRyZFprejVaeTFISEZQRVduVzRYbHJJZFdHNVdfNXZHUTRYVllkQ3EtSkVpZ2NDZWxDd01NQi1OWVhWNzh4MmdHdEVxWjUzbl9aM2JMeVlOSkh6NEt3Znk0Wm4wS3dhaGFaQy12NDgyNFpjcG1lVjR2dkt4RE5YWlEwTXlGM1A4MldWZ3EzT0NhWVBFeFgwRkoxRVZpNGE1N0s3cFJwXw?oc=5"
-  },
-  {
    "fecha": "Wed, 19 Aug 2026 07:00:00 GMT",
    "titulo": "La ruta de la innovación pública: Así se construye la Política Pública de Turismo de Medellín - Alcaldía de Medellín",
    "medio": "Medellín turismo",
    "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxNMDdqYnUxLTdsZVZkVlpDVEU3LUNaWkpTT3A2MHdRNjRESWxSX05HN0JfVGVJRk1PbFYtSFUybzlreDFuRkdWQmlRRS1NR0Z5UXVUV1BQWnloR2NPa2phcnViTXd3Rm5tX1huMmdPOHRBRVc3OVNzNGpYLUxER3pUcjI5a3BvRU1KeEFPQkR5YmVvcG1Yam1kbE01MVl2ME1maW82YTMyaXVhSHo1ZmNLUjBLZm9JcHk4U1VWXzNsTDN2M1l4b1FVbHlZWnJiWE9iMGR1Z2lyQy1SU2c0NVNISEFR?oc=5"
   },
   {
+   "fecha": "Wed, 14 Oct 2026 07:00:00 GMT",
+   "titulo": "El sector turismo impulsa el recaudo del ICA en el Distrito de Medellín con un crecimiento del 10 % entre el 2024 y 2025. - Alcaldía de Medellín",
+   "medio": "Medellín turismo",
+   "link": "https://news.google.com/rss/articles/CBMihAJBVV95cUxOWkhGenhhbVJPMDhhU0NJamZKcERWd3NEZE1ScHpGcWJwQ0xkWUdjZGxQYkZxZUROSDJUN19RVWlrXzZjUE9nc3Y5S19SZW11Wi1IR0h2M1hlelRMdFlzU0VzVWM4ZkRyZFprejVaeTFISEZQRVduVzRYbHJJZFdHNVdfNXZHUTRYVllkQ3EtSkVpZ2NDZWxDd01NQi1OWVhWNzh4MmdHdEVxWjUzbl9aM2JMeVlOSkh6NEt3Znk0Wm4wS3dhaGFaQy12NDgyNFpjcG1lVjR2dkt4RE5YWlEwTXlGM1A4MldWZ3EzT0NhWVBFeFgwRkoxRVZpNGE1N0s3cFJwXw?oc=5"
+  },
+  {
    "fecha": "Mon, 21 Sep 2026 07:00:00 GMT",
    "titulo": "Entre sabores y saberes, Medellín fortalece su turismo gastronómico - Alcaldía de Medellín",
    "medio": "Medellín turismo",
    "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPUEJyNUhuc0FISmJ3QXl4M0lHYnlaMzZfaExCSmk2dnIzMWJkZzZIQjFZdzNyZF91RHZsc2t6Z202d19PaUdwNE96MkR0Uzd2cVJFM1M3UEw1dkNRWExpdVlLTU0yZDU3WG03eU5Oc1l2bDY2Y1F3SGFkVkZDMmQzUWdPcUZhSUFWM2t0ZE1oZHVTUzU1ZlQxMFczYWl0QVNsVFo4LW1iVWJ5MFhJVTJGc1VpVVBzWWVvQmN2QW1XYw?oc=5"
-  },
-  {
-   "fecha": "Tue, 12 May 2026 07:00:00 GMT",
-   "titulo": "Turismo comunitario: la esencia de Medellín que transforma territorios - Alcaldía de Medellín",
-   "medio": "Medellín turismo",
-   "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNZUZGbDJSX3FuRmpjbl9pTWY0eGd4NUFjT0R1WEFFemdObzN6TW5nVWlMSGZGbnlpRlF6TGFmcEJ1Y293d05vWkd6WTRhV01qOV9PRDRwWm9OaDBRYW5Za0I3cTB3U0hzUEV5S3I5QmdaNE5XaERXVEQ2QUUydjVoTFJieGM4MHR1MzlKTkpTOHg2ZFZkeURkbGFXOEhsVWJ2YzM0Z01GS2hxSl95UGtId0VCLUl3MDJUb0oxcVduaDl6OEk?oc=5"
-  },
-  {
-   "fecha": "Fri, 25 Sep 2026 07:00:00 GMT",
-   "titulo": "Medellín le apuesta a formalizar la vivienda turística y a fortalecer un turismo responsable y competitivo - Alcaldía de Medellín",
-   "medio": "Medellín turismo",
-   "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPWV9TR1VKSUJmVmM1WmZtdDlnaWsyck9zVmM1Z25tXzVSbXJZZXFuOF9iZHZUSWFwc29oWkozSUlsdlQwcWVkQXNKSnE1ZWVaT1lZcExYc3Bwa3UxcDdPRnl1SnRJeXdFT0VZZEZFbmxROWNseUYtMXQ4M0xsanViTzMzblBHdzR1X0tkalhCU1lzTEVuTG9iQ0hUa2hCa3pXX1B5N2dQcU93enFmb3hUeVZDdGlraWVmSnE5Sm1pOGJLUkQ2WkhsLTl2Z0RuYWpMMHhXN0F3cC1sOFV2c0c0UnJ0UlpRRnRtWnRDSmFWV0xXcXhK?oc=5"
-  },
-  {
-   "fecha": "Tue, 29 Sep 2026 07:00:00 GMT",
-   "titulo": "En Medellín sí hay turismo todo el año. - Alcaldía de Medellín",
-   "medio": "Medellín turismo",
-   "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPYlVRdnctU0hRZTI2VnpESmliWjIxUHNpNE1qSlN2TUUtd3YzRDdsVkJmQS1HVXdrRDZ4VXZNN3l2ZW5SUlAzRFFzUTVWYlVtdndlcWdZVkQ5MGRTWi1rdTRPME5tTnFSck5UMGhkNXl5ZGpLUTNOMGFTNXFSVXlQVGxDcVYtMVdLdGYtRy1ERUFHTWx0SDRDQTZB?oc=5"
   }
  ],
- "sentimiento_neto": 0.036,
- "n_total_menciones": 110
+ "sentimiento_neto": 0.043,
+ "n_total_menciones": 112
 }
