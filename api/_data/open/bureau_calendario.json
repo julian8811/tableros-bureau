@@ -159,29 +159,29 @@
  "festivos_emisores": [],
  "avisos_viaje": [],
  "estaciones": {
-  "total": 352,
+  "total": 413,
   "por_estado": {
-   "Activa": 274,
-   "Suspendida": 78
+   "Activa": 297,
+   "Suspendida": 116
   },
   "por_categoria": {
-   "Pluviométrica": 220,
-   "Meteorológica Especial": 50,
-   "Pluviográfica": 26,
-   "Limnimétrica": 20,
-   "Climatológica Ordinaria": 14,
-   "Limnigráfica": 10,
-   "Climatológica Principal": 6,
-   "Sinóptica Principal": 4,
-   "Ambiental": 2
+   "Pluviométrica": 239,
+   "Meteorológica Especial": 51,
+   "Pluviográfica": 39,
+   "Limnimétrica": 30,
+   "Climatológica Ordinaria": 21,
+   "Limnigráfica": 15,
+   "Climatológica Principal": 9,
+   "Sinóptica Principal": 6,
+   "Ambiental": 3
   },
   "top_municipios": [
    {
     "municipio": "Medellín",
-    "n": 352
+    "n": 413
    }
   ],
-  "con_coordenadas": 352
+  "con_coordenadas": 413
  },
  "corte": "2026-12-25"
 }

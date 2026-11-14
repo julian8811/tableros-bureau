@@ -10,13 +10,13 @@
   "n": 12,
   "por_modelo": {
    "estacional": 0,
-   "holt_winters": 3,
-   "sarima": 5,
+   "holt_winters": 4,
+   "sarima": 4,
    "gradiente": 4,
    "lightgbm": 0
   },
   "superan_estacional": 12,
-  "frase": "Sobre las 12 series mensuales, el ensayo de 6 meses publica «Holt-Winters» en 3 series, «SARIMA» en 5 series, «gradiente con rezagos» en 4 series. Todas mejoran al repetir el mismo mes del año anterior."
+  "frase": "Sobre las 12 series mensuales, el ensayo de 6 meses publica «Holt-Winters» en 4 series, «SARIMA» en 4 series, «gradiente con rezagos» en 4 series. Todas mejoran al repetir el mismo mes del año anterior."
  },
  "fuera": "No se publican Prophet, Chronos, un ensamble ni la TRM como causa de otra serie. Tampoco las series cortas o de otro grano: operaciones aéreas, BTS, IPC, OWID, SISAIRE y EVI. La TRM pronosticada es el promedio mensual, no la tasa del día.",
  "descartados": [
@@ -1213,9 +1213,9 @@
    "modelo_etiqueta": "gradiente con rezagos",
    "corte": "2026-11",
    "holdout_meses": 6,
-   "mae": 454.59,
+   "mae": 453.32,
    "mape": 14.1,
-   "mae_estacional": 709.07,
+   "mae_estacional": 707.8,
    "supera_estacional": true,
    "empate_simple": false,
    "modelo_mas_fino": "gradiente",
@@ -1224,31 +1224,31 @@
     {
      "modelo": "estacional",
      "etiqueta": "repetir el mismo mes del año anterior",
-     "mae": 709.07,
-     "mape": 21.9
+     "mae": 707.8,
+     "mape": 21.8
     },
     {
      "modelo": "holt_winters",
      "etiqueta": "Holt-Winters",
-     "mae": 525.74,
+     "mae": 524.48,
      "mape": 16.3
     },
     {
      "modelo": "sarima",
      "etiqueta": "SARIMA",
-     "mae": 600.33,
+     "mae": 599.06,
      "mape": 18.6
     },
     {
      "modelo": "gradiente",
      "etiqueta": "gradiente con rezagos",
-     "mae": 454.59,
+     "mae": 453.32,
      "mape": 14.1
     },
     {
      "modelo": "lightgbm",
      "etiqueta": "LightGBM",
-     "mae": 480.01,
+     "mae": 478.75,
      "mape": 14.9
     }
    ],
@@ -1347,45 +1347,45 @@
     },
     {
      "periodo": "2026-11",
-     "valor": 3255.96
+     "valor": 3263.55
     }
    ],
    "pronostico": [
     {
      "periodo": "2026-12",
-     "valor": 3209.85,
-     "bajo": 2705.51,
-     "alto": 3714.19
+     "valor": 3199.56,
+     "bajo": 2695.22,
+     "alto": 3703.9
     },
     {
      "periodo": "2027-01",
-     "valor": 3247.69,
-     "bajo": 2743.35,
-     "alto": 3752.03
+     "valor": 3265.93,
+     "bajo": 2761.59,
+     "alto": 3770.27
     },
     {
      "periodo": "2027-02",
-     "valor": 3266.31,
-     "bajo": 2761.97,
-     "alto": 3770.65
+     "valor": 3275.81,
+     "bajo": 2771.47,
+     "alto": 3780.15
     },
     {
      "periodo": "2027-03",
-     "valor": 3266.31,
-     "bajo": 2761.97,
-     "alto": 3770.65
+     "valor": 3275.81,
+     "bajo": 2771.47,
+     "alto": 3780.15
     },
     {
      "periodo": "2027-04",
-     "valor": 3256.25,
-     "bajo": 2751.91,
-     "alto": 3760.59
+     "valor": 3269.99,
+     "bajo": 2765.65,
+     "alto": 3774.33
     },
     {
      "periodo": "2027-05",
-     "valor": 3273.52,
-     "bajo": 2769.18,
-     "alto": 3777.86
+     "valor": 3277.26,
+     "bajo": 2772.92,
+     "alto": 3781.6
     }
    ],
    "reparados": [],
@@ -1403,54 +1403,50 @@
    "nombre": "Ocupación hotelera de Antioquia",
    "unidad": "%",
    "decimales": 2,
-   "modelo": "gradiente",
-   "modelo_etiqueta": "gradiente con rezagos",
-   "corte": "2026-08",
+   "modelo": "holt_winters",
+   "modelo_etiqueta": "Holt-Winters",
+   "corte": "2026-09",
    "holdout_meses": 6,
-   "mae": 2.24,
-   "mape": 4.8,
-   "mae_estacional": 3.51,
+   "mae": 1.49,
+   "mape": 3.3,
+   "mae_estacional": 3.55,
    "supera_estacional": true,
    "empate_simple": false,
-   "modelo_mas_fino": "gradiente",
-   "banda": 3.24,
+   "modelo_mas_fino": "holt_winters",
+   "banda": 2.78,
    "comparacion": [
     {
      "modelo": "estacional",
      "etiqueta": "repetir el mismo mes del año anterior",
-     "mae": 3.51,
-     "mape": 7.5
+     "mae": 3.55,
+     "mape": 7.6
     },
     {
      "modelo": "holt_winters",
      "etiqueta": "Holt-Winters",
-     "mae": 2.46,
-     "mape": 5.3
+     "mae": 1.49,
+     "mape": 3.3
     },
     {
      "modelo": "sarima",
      "etiqueta": "SARIMA",
-     "mae": 3.06,
-     "mape": 6.6
+     "mae": 2.73,
+     "mape": 5.8
     },
     {
      "modelo": "gradiente",
      "etiqueta": "gradiente con rezagos",
-     "mae": 2.24,
-     "mape": 4.8
+     "mae": 2.84,
+     "mape": 6.1
     },
     {
      "modelo": "lightgbm",
      "etiqueta": "LightGBM",
-     "mae": 12.26,
-     "mape": 26.4
+     "mae": 14.91,
+     "mape": 31.4
     }
    ],
    "historico": [
-    {
-     "periodo": "2024-09",
-     "valor": 49.87
-    },
     {
      "periodo": "2024-10",
      "valor": 50.18
@@ -1541,53 +1537,57 @@
     },
     {
      "periodo": "2026-08",
-     "valor": 51.45
+     "valor": 51.42
+    },
+    {
+     "periodo": "2026-09",
+     "valor": 48.55
     }
    ],
    "pronostico": [
     {
-     "periodo": "2026-09",
-     "valor": 51.23,
-     "bajo": 47.99,
-     "alto": 54.47
-    },
-    {
      "periodo": "2026-10",
-     "valor": 51.63,
-     "bajo": 48.39,
-     "alto": 54.87
+     "valor": 49.14,
+     "bajo": 46.36,
+     "alto": 51.92
     },
     {
      "periodo": "2026-11",
-     "valor": 54.84,
-     "bajo": 51.6,
-     "alto": 58.08
+     "valor": 53.96,
+     "bajo": 51.18,
+     "alto": 56.74
     },
     {
      "periodo": "2026-12",
-     "valor": 53.07,
-     "bajo": 49.83,
-     "alto": 56.31
+     "valor": 53.6,
+     "bajo": 50.82,
+     "alto": 56.38
     },
     {
      "periodo": "2027-01",
-     "valor": 51.71,
-     "bajo": 48.47,
-     "alto": 54.95
+     "valor": 50.26,
+     "bajo": 47.48,
+     "alto": 53.04
     },
     {
      "periodo": "2027-02",
-     "valor": 49.59,
-     "bajo": 46.35,
-     "alto": 52.83
+     "valor": 49.31,
+     "bajo": 46.53,
+     "alto": 52.09
+    },
+    {
+     "periodo": "2027-03",
+     "valor": 46.6,
+     "bajo": 43.82,
+     "alto": 49.38
     }
    ],
    "reparados": [],
-   "n_observado": 92,
+   "n_observado": 93,
    "notas": [
     "Ocupación de la región Antioquia en la EMA. No es la ciudad de Medellín ni un hotel.",
-    "En la prueba de 12 meses, de septiembre de 2025 a agosto de 2026 y con la misma regla, se publicaría el mes anterior (MAE 2.66). Lo que se publica aquí sigue siendo el ensayo de 6 meses.",
-    "Se publica «gradiente con rezagos»: tuvo el menor error absoluto en los últimos 6 meses.",
+    "En la prueba de 12 meses, de septiembre de 2025 a agosto de 2026 y con la misma regla, se publicaría «Holt-Winters» (MAE 2.31); el mes anterior queda en 2.78. Lo que se publica aquí sigue siendo el ensayo de 6 meses.",
+    "Se publica «Holt-Winters»: tuvo el menor error absoluto en los últimos 6 meses.",
     "La banda es el percentil 80 del error absoluto en los últimos 6 meses observados. No es un intervalo de confianza.",
     "No mide causas, reservas ni el CRM. Solo prolonga la serie mensual observada."
    ]
@@ -1598,54 +1598,50 @@
    "nombre": "Ocupación hotelera nacional",
    "unidad": "%",
    "decimales": 2,
-   "modelo": "sarima",
-   "modelo_etiqueta": "SARIMA",
-   "corte": "2026-08",
+   "modelo": "gradiente",
+   "modelo_etiqueta": "gradiente con rezagos",
+   "corte": "2026-09",
    "holdout_meses": 6,
-   "mae": 1.59,
-   "mape": 3.4,
-   "mae_estacional": 1.95,
+   "mae": 1.1,
+   "mape": 2.3,
+   "mae_estacional": 2.05,
    "supera_estacional": true,
    "empate_simple": false,
-   "modelo_mas_fino": "sarima",
-   "banda": 3.16,
+   "modelo_mas_fino": "gradiente",
+   "banda": 1.85,
    "comparacion": [
     {
      "modelo": "estacional",
      "etiqueta": "repetir el mismo mes del año anterior",
-     "mae": 1.95,
-     "mape": 4.1
+     "mae": 2.05,
+     "mape": 4.4
     },
     {
      "modelo": "holt_winters",
      "etiqueta": "Holt-Winters",
-     "mae": 2.77,
-     "mape": 5.9
+     "mae": 1.69,
+     "mape": 3.6
     },
     {
      "modelo": "sarima",
      "etiqueta": "SARIMA",
-     "mae": 1.59,
-     "mape": 3.4
+     "mae": 1.98,
+     "mape": 4.2
     },
     {
      "modelo": "gradiente",
      "etiqueta": "gradiente con rezagos",
-     "mae": 1.83,
-     "mape": 3.8
+     "mae": 1.1,
+     "mape": 2.3
     },
     {
      "modelo": "lightgbm",
      "etiqueta": "LightGBM",
-     "mae": 13.88,
-     "mape": 29.1
+     "mae": 6.7,
+     "mape": 14.4
     }
    ],
    "historico": [
-    {
-     "periodo": "2024-09",
-     "valor": 51.03
-    },
     {
      "periodo": "2024-10",
      "valor": 52.42
@@ -1712,7 +1708,7 @@
     },
     {
      "periodo": "2026-02",
-     "valor": 49.31
+     "valor": 49.34
     },
     {
      "periodo": "2026-03",
@@ -1732,57 +1728,61 @@
     },
     {
      "periodo": "2026-07",
-     "valor": 50.6
+     "valor": 50.61
     },
     {
      "periodo": "2026-08",
-     "valor": 49.21
+     "valor": 49.24
+    },
+    {
+     "periodo": "2026-09",
+     "valor": 48.37
     }
    ],
    "pronostico": [
     {
-     "periodo": "2026-09",
-     "valor": 47.73,
-     "bajo": 44.57,
-     "alto": 50.89
-    },
-    {
      "periodo": "2026-10",
-     "valor": 50.33,
-     "bajo": 47.17,
-     "alto": 53.49
+     "valor": 52.03,
+     "bajo": 50.18,
+     "alto": 53.88
     },
     {
      "periodo": "2026-11",
-     "valor": 53.61,
-     "bajo": 50.45,
-     "alto": 56.77
+     "valor": 53.42,
+     "bajo": 51.57,
+     "alto": 55.27
     },
     {
      "periodo": "2026-12",
-     "valor": 49.06,
-     "bajo": 45.9,
-     "alto": 52.22
+     "valor": 51.52,
+     "bajo": 49.67,
+     "alto": 53.37
     },
     {
      "periodo": "2027-01",
-     "valor": 48.76,
-     "bajo": 45.6,
-     "alto": 51.92
+     "valor": 51.0,
+     "bajo": 49.15,
+     "alto": 52.85
     },
     {
      "periodo": "2027-02",
-     "valor": 48.93,
-     "bajo": 45.77,
-     "alto": 52.09
+     "valor": 48.63,
+     "bajo": 46.78,
+     "alto": 50.48
+    },
+    {
+     "periodo": "2027-03",
+     "valor": 47.57,
+     "bajo": 45.72,
+     "alto": 49.42
     }
    ],
    "reparados": [],
-   "n_observado": 92,
+   "n_observado": 93,
    "notas": [
     "Ocupación nacional de la EMA. No es Antioquia ni un hotel de Medellín.",
-    "En la prueba de 12 meses, de septiembre de 2025 a agosto de 2026 y con la misma regla, se publicaría «gradiente con rezagos» (MAE 1.49); el mes anterior queda en 1.52. Lo que se publica aquí sigue siendo el ensayo de 6 meses.",
-    "Se publica «SARIMA»: tuvo el menor error absoluto en los últimos 6 meses.",
+    "En la prueba de 12 meses, de septiembre de 2025 a agosto de 2026 y con la misma regla, se publicaría el mes anterior (MAE 1.55). Lo que se publica aquí sigue siendo el ensayo de 6 meses.",
+    "Se publica «gradiente con rezagos»: tuvo el menor error absoluto en los últimos 6 meses.",
     "La banda es el percentil 80 del error absoluto en los últimos 6 meses observados. No es un intervalo de confianza.",
     "No mide causas, reservas ni el CRM. Solo prolonga la serie mensual observada."
    ]
@@ -1795,52 +1795,48 @@
    "decimales": 2,
    "modelo": "holt_winters",
    "modelo_etiqueta": "Holt-Winters",
-   "corte": "2026-08",
+   "corte": "2026-09",
    "holdout_meses": 6,
-   "mae": 3.52,
-   "mape": 4.1,
-   "mae_estacional": 8.06,
+   "mae": 4.44,
+   "mape": 5.3,
+   "mae_estacional": 8.68,
    "supera_estacional": true,
    "empate_simple": false,
    "modelo_mas_fino": "holt_winters",
-   "banda": 4.51,
+   "banda": 6.56,
    "comparacion": [
     {
      "modelo": "estacional",
      "etiqueta": "repetir el mismo mes del año anterior",
-     "mae": 8.06,
-     "mape": 9.3
+     "mae": 8.68,
+     "mape": 10.2
     },
     {
      "modelo": "holt_winters",
      "etiqueta": "Holt-Winters",
-     "mae": 3.52,
-     "mape": 4.1
+     "mae": 4.44,
+     "mape": 5.3
     },
     {
      "modelo": "sarima",
      "etiqueta": "SARIMA",
-     "mae": 5.58,
-     "mape": 6.5
+     "mae": 6.67,
+     "mape": 7.8
     },
     {
      "modelo": "gradiente",
      "etiqueta": "gradiente con rezagos",
-     "mae": 7.01,
-     "mape": 8.2
+     "mae": 10.8,
+     "mape": 12.7
     },
     {
      "modelo": "lightgbm",
      "etiqueta": "LightGBM",
-     "mae": 40.02,
-     "mape": 46.0
+     "mae": 14.73,
+     "mape": 17.4
     }
    ],
    "historico": [
-    {
-     "periodo": "2024-09",
-     "valor": 97.2
-    },
     {
      "periodo": "2024-10",
      "valor": 103.73
@@ -1927,56 +1923,60 @@
     },
     {
      "periodo": "2026-07",
-     "valor": 92.91
+     "valor": 92.94
     },
     {
      "periodo": "2026-08",
-     "valor": 89.08
+     "valor": 89.12
+    },
+    {
+     "periodo": "2026-09",
+     "valor": 83.24
     }
    ],
    "pronostico": [
     {
-     "periodo": "2026-09",
-     "valor": 86.2,
-     "bajo": 81.69,
-     "alto": 90.71
-    },
-    {
      "periodo": "2026-10",
-     "valor": 92.7,
-     "bajo": 88.19,
-     "alto": 97.21
+     "valor": 89.75,
+     "bajo": 83.19,
+     "alto": 96.31
     },
     {
      "periodo": "2026-11",
-     "valor": 97.75,
-     "bajo": 93.24,
-     "alto": 102.26
+     "valor": 94.8,
+     "bajo": 88.24,
+     "alto": 101.36
     },
     {
      "periodo": "2026-12",
-     "valor": 102.36,
-     "bajo": 97.85,
-     "alto": 106.87
+     "valor": 99.41,
+     "bajo": 92.85,
+     "alto": 105.97
     },
     {
      "periodo": "2027-01",
-     "valor": 94.48,
-     "bajo": 89.97,
-     "alto": 98.99
+     "valor": 91.53,
+     "bajo": 84.97,
+     "alto": 98.09
     },
     {
      "periodo": "2027-02",
-     "valor": 85.23,
-     "bajo": 80.72,
-     "alto": 89.74
+     "valor": 82.28,
+     "bajo": 75.72,
+     "alto": 88.84
+    },
+    {
+     "periodo": "2027-03",
+     "valor": 85.95,
+     "bajo": 79.39,
+     "alto": 92.51
     }
    ],
    "reparados": [],
-   "n_observado": 140,
+   "n_observado": 141,
    "notas": [
     "Índice nacional de ingresos reales de alojamiento, base 2019=100. No es la tarifa de Antioquia ni el IPC.",
-    "En la prueba de 12 meses, de septiembre de 2025 a agosto de 2026 y con la misma regla, se publicaría el mes anterior (MAE 6.23). Lo que se publica aquí sigue siendo el ensayo de 6 meses.",
+    "En la prueba de 12 meses, de septiembre de 2025 a agosto de 2026 y con la misma regla, se publicaría «Holt-Winters» (MAE 3.5); el mes anterior queda en 6.57. Lo que se publica aquí sigue siendo el ensayo de 6 meses.",
     "Se publica «Holt-Winters»: tuvo el menor error absoluto en los últimos 6 meses.",
     "La banda es el percentil 80 del error absoluto en los últimos 6 meses observados. No es un intervalo de confianza.",
     "No mide causas, reservas ni el CRM. Solo prolonga la serie mensual observada."

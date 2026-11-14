@@ -11,48 +11,48 @@
  "universo": "Titulares de la ventana corriente clasificados en MICE/vacacional/marca/seguridad/clima/infraestructura/otro.",
  "serie": [
   {
-   "categoria": "otro",
-   "n": 60,
-   "share": 0.253165,
-   "sent_net": 0.183333,
-   "top_topico": "ritvales 2025"
+   "categoria": "vacacional",
+   "n": 79,
+   "share": 0.288321,
+   "sent_net": 0.43038,
+   "top_topico": "turismo salud"
   },
   {
    "categoria": "mice",
-   "n": 55,
-   "share": 0.232068,
-   "sent_net": 0.636364,
-   "top_topico": "congreso icca"
+   "n": 60,
+   "share": 0.218978,
+   "sent_net": 0.9,
+   "top_topico": "ritvales raíz"
   },
   {
-   "categoria": "vacacional",
-   "n": 54,
-   "share": 0.227848,
-   "sent_net": 0.592593,
-   "top_topico": "feria flores programación"
+   "categoria": "otro",
+   "n": 50,
+   "share": 0.182482,
+   "sent_net": 0.32,
+   "top_topico": "política pública"
   },
   {
    "categoria": "marca",
-   "n": 37,
-   "share": 0.156118,
-   "sent_net": 0.945946,
-   "top_topico": "premio turismo"
+   "n": 41,
+   "share": 0.149635,
+   "sent_net": 0.829268,
+   "top_topico": "semana turismo"
   },
   {
    "categoria": "infraestructura",
-   "n": 22,
-   "share": 0.092827,
-   "sent_net": 0.045455,
-   "top_topico": "cierres viales"
+   "n": 30,
+   "share": 0.109489,
+   "sent_net": 0.266667,
+   "top_topico": "horarios metro"
   },
   {
    "categoria": "seguridad",
-   "n": 9,
-   "share": 0.037975,
-   "sent_net": -0.111111,
-   "top_topico": "seguridad infraestructura"
+   "n": 14,
+   "share": 0.051095,
+   "sent_net": 0.0,
+   "top_topico": "turismo seguro"
   }
  ],
- "top_topico_global": "ritvales 2025",
- "n_total": 237
+ "top_topico_global": "turismo salud",
+ "n_total": 274
 }
